@@ -52,6 +52,10 @@ distance to the goal.
 
 In order to guarantee solution optimality, \astar expands all nodes with
 $f(n) \leq f^*$, where $f^*$ is the cost of the optimal solution.
+All nodes with $f(n) = k$ are expanded before any node with $f(n) > k$ are expanded.
+Thus, after all nodes with $f(n) < f^*$ have been expanded, 
+\astar expands \emph{some} of the nodes with $f(n) = f^*$.
+\astar never expands a node with $f(n) > f^*$.
 Thus, the \emph{effective search space of \astar} is the set of nodes with 
 $f(n) \leq f^*$, and
 much of the work in the search and planning literature has focused
