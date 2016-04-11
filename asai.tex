@@ -1,13 +1,12 @@
 % Created 2013-10-07 月 18:04
-\documentclass[10pt,letterpaper]{article}
+% \documentclass[10pt,letterpaper]{article}
 % ecai
 % \documentclass{ecai}
 % \usepackage{times}
 % jair
-% \documentclass[twoside,11pt]{article}
-% \usepackage{jair, theapa, rawfonts}
+\documentclass[jair,11pt]{article}
+\usepackage{theapa}
 \usepackage{xparse}
-\usepackage{aaai}
 \usepackage{times}
 \usepackage{helvet}
 \usepackage{courier}
@@ -21,7 +20,6 @@
 \usepackage{multirow}
 \usepackage[normalem]{ulem}
 \usepackage{xr}
-\externaldocument{supplemental}
 
 \frenchspacing
 \setlength{\pdfpagewidth}{8.5in}
@@ -63,33 +61,30 @@
     \protect{%
       \rotatebox[origin=c]{-90}{done \it #2}}}}
 \makeatother
-\setlength{\columnsep}{0.5em}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\setcounter{secnumdepth}{2}
-\setlength{\floatsep}{1mm}
-\setlength{\textfloatsep}{1mm}
-\setlength{\abovecaptionskip}{1mm}
-\setlength{\belowcaptionskip}{1mm}
-\setlength{\abovedisplayskip}{1mm}
-\setlength{\belowdisplayskip}{1mm}
-\setlength{\arraycolsep}{1mm}
-
-\setlength{\tabcolsep}{0.02em}
+% \setlength{\floatsep}{1mm}
+% \setlength{\textfloatsep}{1mm}
+% \setlength{\abovecaptionskip}{1mm}
+% \setlength{\belowcaptionskip}{1mm}
+% \setlength{\abovedisplayskip}{1mm}
+% \setlength{\belowdisplayskip}{1mm}
+% \setlength{\arraycolsep}{1mm}
+% 
+% \setlength{\tabcolsep}{0.02em}
 
 % \author{Masataro Asai, Alex Fukunaga \\ Graduate School of Arts and Sciences \\ University of Tokyo}
 \author{Submision XXX}
 \title{Tiebreaking Strategies for Classical Planning Using $A^*$ Search}
 \begin{document}
-\nocopyright % XXXTODO: camera verision needs copyright -- this is to save some space in the submission.
 \maketitle
 
 \input{main.tex}
-\fontsize{9.5pt}{10.5pt}
-\selectfont
  
 \bibliography{global,local}
-\bibliographystyle{aaai}
+% \bibliographystyle{aaai}
 % ijcai
 % \bibliographystyle{named}
 % jsai
@@ -97,6 +92,6 @@
 % ecai
 % \bibliographystyle{ecai}
 % jair
-% \bibliographystyle{theapa}
+\bibliographystyle{theapa}
 
 \end{document}
