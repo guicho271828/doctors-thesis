@@ -1,23 +1,36 @@
 
-.SECONDEXPANSION:
-
-.PRECIOUS: %.png
+BB=$(shell find . -name "*.svg" | sed -e "s/svg/bb/g")
+SBB=$(shell find . -name "*.svg" | sed -e "s/svg/sbb/g")
+MBB=$(shell find . -name "*.svg" | sed -e "s/svg/mbb/g")
+XBB=$(shell find . -name "*.svg" | sed -e "s/svg/xbb/g")
+PNG=$(shell find . -name "*.svg" | sed -e "s/svg/png/g")
+CPNG=$(shell find . -name "*.svg" | sed -e "s/\.svg/-color.png/g")
 
 .PHONY:	clean all
 
-all: $(shell find -name "*.svg" -o -name "*.png" -o -name "*.jpg" | sed -e "s/\(png\|jpg\|svg\)/xbb/g")
+all: $(PNG) $(SBB)
+# all: $(PNG) $(CPNG) $(SBB)
 
-%.xbb : %.jpg
-	ebb -x $<
+%.png : %.svg Makefile
+	inkscape -z -f $< -e $@ -d 300
 
-%.xbb : %.png
-	ebb -x $<
+# %-color.png : %.svg
+# 	inkscape -z -f $< -e $@ -d 300
+# 
+# %.png : %-color.png
+# 	convert $< -colorspace gray $@
+%.mbb : %.png  Makefile
+	ebb -O -m $< > $*.bb
+	cp -f $*.bb $@
 
-%.png : %.svg
-	inkscape -f $< -e $*.png -d 150
-#	convert $< $*.png
-#	if you want to use imagemagick, comment out 'inkscape...' and use 'convert...'
+%.sbb : %.png  Makefile
+	ebb -O $< > $*.bb
+	cp -f $*.bb $@
+
+%.xbb : %.png Makefile
+	ebb -O -x $< > $*.bb
+	cp -f $*.bb $@
 
 clean:
-	-find -name "*.xbb" -delete
-	-rm *.png
+	rm -f *.png *bb
+
