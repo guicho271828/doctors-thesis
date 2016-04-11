@@ -1,0 +1,15 @@
+
+% dangerous, should carefully consider the case of inconsistent
+% heuristics which may cause reopening.
+
+
+All nodes with $f(n) = k$ are expanded before any node with $f(n) > k$ are expanded.
+
+Thus, after all nodes with $f(n) < f^*$ have been expanded, 
+
+\astar expands \emph{some} of the nodes with $f(n) = f^*$.
+
+\astar never expands a node with $f(n) > f^*$.
+
+
+

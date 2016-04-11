@@ -30,21 +30,7 @@ search algorithms that are not investigated in this paper such as
 Weighted A*.
 
 This paper is a significantly extended version of the AAAI-16 paper by
- the same authors.
-%both existing planning benchmark domains and newly generated domains with zero-cost actions. %XXX this can be misinterpreted to mean that there is a significant improvement on all kinds of domains, not restricted to domains with 0-cost edges.
-%%  % 
-%% We investigate various existing myth on tiebreaking
-%% strategies and propose simple yet effective methods for improving the
-%% search performance within plateau.
-%%  % 
-%%  % 
-%%  They do not depend on any particular heuristic, nor
-%%  on multi-heuristic portfolio.
-%%  They work even if the heuristic
-%%  function no longer provides useful information.
-%%  % Moreover, they do not even try to obtain any further information from
-%%  % the domain.
-%%  We empirically evaluate our strategies against state-of-the-art admissible planner.
+the same authors.
 \end{abstract}
 
 \section{Introduction}
@@ -53,35 +39,31 @@ This paper is a significantly extended version of the AAAI-16 paper by
 This paper investigates tiebreaking strategies for both optimal and
 satisficing search algorithms.
 
-We start with \astar,
-the standard search algorithm for finding an optimal-cost path 
-from an initial state $s$ to some goal state $g \in G$ in a search space represented as a graph \cite{hart1968formal}.
-In each iteration, \astar selects and expands a node $n$ from the OPEN priority queue.
-$n$ is the node which has the lowest $f$-cost in OPEN, where for node $n$, $f(n)$ is the sum of  $g(n)$, the cost of the current path from the initial state to $n$, and $h(n)$, a heuristic estimate of the cost from $n$ to a goal state.
-\astar returns an optimal solution when $h$ is admissible, i.e., when $h \leq h^*$, where $h^*$ is the optimal distance to the goal.
+We start with \astar, the standard search algorithm for finding an
+optimal-cost path from an initial state $s$ to some goal state $g \in G$
+in a search space represented as a graph \cite{hart1968formal}.  In each
+iteration, \astar selects and expands a node $n$ from the OPEN priority
+queue.  $n$ is the node which has the lowest $f$-cost in OPEN, where for
+node $n$, $f(n)$ is the sum of $g(n)$, the cost of the current path from
+the initial state to $n$, and $h(n)$, a heuristic estimate of the cost
+from $n$ to a goal state.  \astar returns an optimal solution when $h$
+is admissible, i.e., when $h \leq h^*$, where $h^*$ is the optimal
+distance to the goal.
 
-
-%In order to guarantee solution optimality,
-% \astar expands all
-%nodes with $f(n) \leq f^*$, where $f^*$ is the cost of the optimal solution 
-%All nodes with $f(n) = k$ are expanded before any node with $f(n) > k$ are expanded.
-%Thus, after all nodes with $f(n) < f^*$ have been expanded, 
-%\astar expands \emph{some} of the nodes with $f(n) = f^*$, and 
-%\astar never expands a node with $f(n) > f^*$.
-%Thus, the \emph{effective search space of \astar} is the set of nodes with 
-If $f^*$ is the cost of the optimal solution, the \emph{effective search space of \astar} is the set of nodes with 
+In order to guarantee solution optimality, \astar expands all nodes with
+$f(n) \leq f^*$, where $f^*$ is the cost of the optimal solution.
+Thus, the \emph{effective search space of \astar} is the set of nodes with 
 $f(n) \leq f^*$, and
-much of the work in the search and planning literature  has focused
+much of the work in the search and planning literature has focused
 on reducing its size by
 developing more accurate, admissible heuristic functions.
 
-In many problems, the size of the %\emph{final frontier}, the set of nodes with $f(n)=f^*$, accounts for a significant fraction of the effective search space of \astar.
-% the ``last layer'' below is maintained because it is the normal sense of ``last''.
+In many problems, the size of the
 last layer of search (which explores the set of nodes with $f(n)=f^*$) accounts for a significant fraction of the effective search space of \astar.
 \refig{fig:plateau-noh} plots the number of states with $f(n) = f^*$ (y-axis)
 vs. the \# of states with $f(n) \leq f^*$
 for 1104 problem instances from the International Planning Competition (IPC1998-2011).
-For many instances,  a large fraction of the nodes in the effective search space have %with $f(n) \leq f^*$ have 
+For many instances,  a large fraction of the nodes in the effective search space have
 $f(n)=f^*$.
 For example, in the \pddl{Openstacks} domain, almost all states with
 $f(n) \leq f^*$ have cost $f^*$ due to the large number of actions with cost 0.
