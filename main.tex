@@ -73,12 +73,9 @@ For example, in the \pddl{Openstacks} domain, almost all states with
 $f(n) \leq f^*$ have cost $f^*$ due to the large number of actions with cost 0.
 In such domains, the tiebreaking policy which decides which nodes to expand in the final frontier can have a significant impact on the performance of \astar.
 
-\begin{figure*}[htb]
- \newcommand{\minilength}{0.34\textwidth}
- \newcommand{\minisep}{0.02\textwidth}
- \begin{minipage}[t]{\minilength}
+\begin{figure}[htb]
   \centering
-  \includegraphics{tables/aaai16-frontier/aaai16prelim3/lmcut_frontier_noh-front-mono.pdf}
+  \includegraphics{tables/aaai16-frontier/aaai16prelim3/lmcut_frontier_noh-front.pdf}
  \caption{
  The \# of nodes with $f=f^*$ (y-axis) compared to the
  total \# of nodes in the search space (x-axis) with $f\leq f^*$ on 1104 IPC benchmark problems,
@@ -86,30 +83,7 @@ In such domains, the tiebreaking policy which decides which nodes to expand in t
   generates all nodes with cost $f^*$.
   }
  \label{fig:plateau-noh}
- \end{minipage}
- \hfill
- \begin{minipage}[t]{\minilength}
-  \centering
-  \includegraphics{tables/aaai16-frontier/aaai16prelim3/lmcut_frontier-front-mono.pdf}
-  \caption{
-  Similar to \refig{fig:plateau-noh}; $y$-axis shows
-  \# nodes with $f=f^*, h=0$, which forms the final
-  plateau when $h$-based tiebreaking is enabled.
-  Note that many \pddl{Openstacks} and \pddl{Cybersec} instances are near the $y=x$ line.
-  }
-  \label{fig:plateau}
- \end{minipage} 
- \hfill
- \begin{minipage}[t]{0.26\textwidth}
-  \centering
-  \includegraphics{tables/aaai16-frontier/zerocost/lmcut_frontier-front-mono.pdf}
-  \caption{Similar to \refig{fig:plateau}, but for 620 instances from our 
-  \emph{zerocost domains} (\refsec{sec:zerocost-domains}),
-  where zero-cost actions induce very large plateaus.
- }
- \label{fig:plateau-zerocost}
- \end{minipage}
-\end{figure*}
+\end{figure}
 
 
 In \refsec{sec:astar-background} to \refsec{sec:depth}, we investigate the \emph{tiebreaking} strategy used by
@@ -281,6 +255,32 @@ We used 1104 instances from 35 standard benchmark domains.
 
 
 We first compared two commonly used tiebreaking strategies, $[h,\fifo]$, $[h,\lifo]$, which
+\begin{figure*}[htb]
+ \newcommand{\minilength}{0.34\textwidth}
+ \newcommand{\minisep}{0.02\textwidth}
+ \begin{minipage}[t]{\minilength}
+  \centering
+  \includegraphics{tables/aaai16-frontier/aaai16prelim3/lmcut_frontier-front.pdf}
+  \caption{
+  Similar to \refig{fig:plateau-noh}; $y$-axis shows
+  \# nodes with $f=f^*, h=0$, which forms the final
+  plateau when $h$-based tiebreaking is enabled.
+  Note that many \pddl{Openstacks} and \pddl{Cybersec} instances are near the $y=x$ line.
+  }
+  \label{fig:plateau}
+ \end{minipage} 
+ \hfill
+ \begin{minipage}[t]{0.26\textwidth}
+  \centering
+  \includegraphics{tables/aaai16-frontier/zerocost/lmcut_frontier-front.pdf}
+  \caption{Similar to \refig{fig:plateau}, but for 620 instances from our 
+  \emph{zerocost domains} (\refsec{sec:zerocost-domains}),
+  where zero-cost actions induce very large plateaus.
+ }
+ \label{fig:plateau-zerocost}
+ \end{minipage}
+\end{figure*}
+
 first break ties according to $h$, and then apply \fifo or \lifo
 second-level tiebreaking, respectively.
 % The following will be necessary in a future version, if we use LOP:
