@@ -6,7 +6,43 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
+Since the beginning of AI research, the study on one of its core
+component, graph search, has long focused on how to guide it using the
+heuristic estimate and how to improve the estimates.  One thing that has
+been out of focus is the study on tiebreaking, or how to \emph{directly}
+improve the search performance on a plateau without changing the
+heuristics nor search algorithms.  Such techniques should be done
+without help of additional information from the heuristics because
+theoretically there is some point that the heuristics cannot be improved
+any more while the plateau is still exponentially large.
 
+In this paper, we investigate and improve tiebreaking strategies for
+ optimising search using A* and satisficing search using GBFS.
+For A*, we first experimentally analyze the performance of common tiebreaking strategies that break ties according to the heuristic value of the nodes.
+We find that tiebreaking has a significant impact on search algorithm performance when there are zero-cost operators that induce large plateau regions in the search space.
+Next we develop a new framework for tiebreaking based on a depth metric which
+ measures the distance from the entrance to the plateau, and propose a new, diversifying strategy which significantly outperforms standard strategies on domains with zero-cost actions. 
+
+We also apply the same strategy to GBFS for satisficing search, where
+ currently no obvious tiebreaking rules are proposed. Our depth
+ diviersification resulted in an improvement orthogonal to the other
+ search enhancements such as Lazy Evaluation, Preferred Operators,
+ Multi-heuristic search, and recently proposed Type-Based
+ diversification tequeniques.
+%both existing planning benchmark domains and newly generated domains with zero-cost actions. %XXX this can be misinterpreted to mean that there is a significant improvement on all kinds of domains, not restricted to domains with 0-cost edges.
+%%  % 
+%% We investigate various existing myth on tiebreaking
+%% strategies and propose simple yet effective methods for improving the
+%% search performance within plateau.
+%%  % 
+%%  % 
+%%  They do not depend on any particular heuristic, nor
+%%  on multi-heuristic portfolio.
+%%  They work even if the heuristic
+%%  function no longer provides useful information.
+%%  % Moreover, they do not even try to obtain any further information from
+%%  % the domain.
+%%  We empirically evaluate our strategies against state-of-the-art admissible planner.
 \end{abstract}
 
 \section{Introduction}
