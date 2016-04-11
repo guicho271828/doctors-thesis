@@ -1,0 +1,32 @@
+Since \astar expands all nodes with $f$-cost less than $f^*$
+before expanding any nodes with cost $f^*$, the tiebreaking policy only
+affects performance when considering the final frontier (nodes with cost
+$f^*$).
+
+Although there has not been much previous \emph{in-depth} work
+on tiebreaking policies for admissible search algorithms, 
+
+% dangerous
+Through these experiments, we points out a bias in the current set of
+benchmark domains and the importance of tiebreaking in
+the more practical cost-minimization problems.
+
+% this is not necessary now because we use a deterministic version of
+% the depth.
+Depth-based tiebreaking is robust, in the sense that it does not rely on 
+a particular action ordering in the domain definition.
+
+% this is not necessary either
+Although depth is a component of a multi-level tiebreaking strategy, the
+depth is the principal factor in determining performance.
+
+
+
+% XXX It's doubtful that anybody would believe that machine-level efficiency of LIFO (compared to FIFO) is important in domain-independent planning.
+%At the same time, we show that 
+%the performance of above \lifo tiebreaking can be explained by its
+%depth-first strategy, and the other characteristics of \lifo such as
+%machine-level efficiency have little effect on the performance.
+
+%% Above describes the enough detail of the paper structure?
+
