@@ -4,7 +4,7 @@ reference  = local.bib global.bib
 emacs 	   = emacs
 latexmk    = latexmk/latexmk.pl
 styles     = abbrev.sty aaai_my.sty
-sources    = main.tex
+sources    = main.tex 1-intro.tex 2-preliminary.tex
 max_pages   = 50
 
 upload     = ~/Dropbox/FukunagaLabShare/OngoingWorks/Asai/

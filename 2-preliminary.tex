@@ -1,0 +1,58 @@
+\section{Preliminaries and Definitions}
+
+We first define some notation and the terminology used throughout the
+rest of the paper.
+$h(s)$ denotes the heuristic estimate from the current state $s$ to some
+goal state.
+$g(s)$ is the current shortest path cost from the initial state to the
+current state.
+$f(s)=g(s)+h(s)$ is the estimate of the resulting cost of the path
+containing the current state.
+We omit the argument $(s)$ unless necessary.
+
+A \emph{sorting strategy} of a best first search algorithm is a strategy
+which tries to select a single node from the OPEN list.
+Each sorting strategy is denoted as a vector of several sorting
+criteria, such as
+[$\text{criterion}_1$, $\text{criterion}_2$, $\ldots$,
+$\text{criterion}_k$], which means: From the OPEN list, first, select a
+set of nodes using $\text{criterion}_1$.  If there are still multiple
+nodes remaining in the set, then break ties using $\text{criterion}_2$
+and so on, until a single node is selected.  The \emph{first-level
+sorting policy} of a strategy is $\text{criterion}_1$, the
+\emph{second-level sorting policy} is $\text{criterion}_2$, and so on.
+%% the word frontier is no longer used in the later text.
+% \emph{final frontier} is the set of open nodes with $f^*$.
+Note that this corresponds to the command line option format of Fast
+Downward \cite{Helmert2006}.
+
+Using this notation, \astar without any tiebreaking strategy can be
+denoted as a Best-First Search (BFS) with $[f]$, and \astar which breaks ties according to $h$
+value is denoted as $[f,h]$. Similarly, GBFS is denoted as 
+$[h]$.  Unless stated otherwise, we assume the nodes are sorted in the
+increasing order of the key value, and a BFS always selects the smallest
+key value.
+
+The sorting strategy may fail to select a single node because some nodes
+may share the same sorting keys. In such cases, a search algorithm must
+decide which node to expand by a \emph{last-resort} tiebreaking
+strategy, which is one of FIFO (First-In-First-Out), LIFO
+(Last-In-First-Out) or RO (random ordering).  Trivially, these
+strategies are able to select a single node from the set of
+nodes. Although these last-resort strategies may not be a ``sorting''
+criteria, we also include those strategies in the vector notation. For
+example, an \astar using \fifo tiebreaking is denoted as $[f,h,\fifo]$.
+
+
+A \emph{plateau} is a set of nodes in OPEN, the element of which are
+indistinguishable according to the sorting strategy. In case of \astar
+using tiebreaking with $h$ ($[f,h]$), this is the set of nodes with the
+same $f$ cost and the same $h$ cost.
+A plateau whose nodes have $f=f_p$ and $h=h_p$ is denoted as $\plateau{f_p,h_p}$.
+
+An \emph{entrance} to a $\plateau{f_p,h_p}$ is a node $n \in
+\plateau{f_p,h_p}$, whose current parent is not a member of
+$\plateau{f_p,h_p}$.  The \emph{final plateau}, is the plateau
+containing the solution found by the search algorithm.  In \astar using
+admissible heuristics, the final plateau is $\plateau{f^*}$ (without
+tiebreaking), or $\plateau{f^*,0}$ (with $h$-based tiebreaking).
