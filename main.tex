@@ -45,38 +45,61 @@ From \refsec{sec:astar-background} to \refsec{sec:depth}, we investigate
 the tiebreaking strategy used by \astar, the standard search algorithm
 for finding an optimal-cost path from an initial state $s$ to some goal
 state $g \in G$ in a search space represented as a graph
-\cite{hart1968formal}.  In each iteration, \astar selects and expands a
-node $n$ from the OPEN priority queue.  $n$ is the node which has the
-lowest $f$-cost in OPEN, where for node $n$, $f(n)$ is the sum of
-$g(n)$, the cost of the current path from the initial state to $n$, and
-$h(n)$, a heuristic estimate of the cost from $n$ to a goal state.
-\astar returns an optimal solution when $h$ is admissible, i.e., when
-$h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
-the nearest goal.
+\cite{hart1968formal}. 
 
-In order to guarantee solution optimality, \astar expands all nodes with
-$f(n) \leq f^*$, where $f^*$ is the cost of the optimal solution.
-All nodes with $f(n) = k$ are expanded before any node with $f(n) > k$ are expanded.
-Thus, after all nodes with $f(n) < f^*$ have been expanded, 
-\astar expands \emph{some} of the nodes with $f(n) = f^*$.
-\astar never expands a node with $f(n) > f^*$.
-Thus, the \emph{effective search space of \astar} is the set of nodes with 
-$f(n) \leq f^*$, and
-much of the work in the search and planning literature has focused
-on reducing its size by
-developing more accurate, admissible heuristic functions.
+% In each iteration, \astar selects and expands a
+% node $n$ from the OPEN priority queue.  $n$ is the node which has the
+% lowest $f$-cost in OPEN, where for node $n$, $f(n)$ is the sum of
+% $g(n)$, the cost of the current path from the initial state to $n$, and
+% $h(n)$, a heuristic estimate of the cost from $n$ to a goal state.
+% \astar returns an optimal solution when $h$ is admissible, i.e., when
+% $h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
+% the nearest goal.
+% 
+% In order to guarantee solution optimality, \astar expands the search
+% nodes with a best-first order of $f$, until it finds a solution which
+% have $f=f^*$, the cost of the optimal solution.
+% Due to the best-first order, any nodes with $f(n) = k$ are expanded after all nodes with $f(n) < k$ are expanded.
+% Thus, the \emph{effective search space of \astar} is the set of nodes with 
+% $f(n) \leq f^*$: \astar expands all nodes with $f(n) < f^*$, then
+% expands \emph{some} of the nodes with $f(n) = f^*$, and
+% \astar never expands a node with $f(n) > f^*$.
 
-In many problems, the size of the last layer of search (which explores
-the set of nodes with $f(n)=f^*$) accounts for a significant fraction of
+Much of the work in the search and planning literature has focused on
+reducing the size of this effective search space by developing the more
+informative, admissible heuristic functions. However, there is a
+theoretical limitation in this approach: It is known that the search space grows
+exponentially \cite{helmert2008good} even under the optimistic
+assumption that we have an \emph{almost-perfect} heuristics $h^*-c$, a heuristic
+function which always returns the true distance to a goal subtracted by
+a small constant $c$.
+
+In many problems, the size of the last layer of search, called
+\emph{final plateau}, accounts for a significant fraction of
 the effective search space of \astar.  \refig{fig:plateau-noh}
 (\refpage{fig:plateau-noh}) plots the
 number of states with $f(n) = f^*$ (y-axis) vs. the number of states with
 $f(n) \leq f^*$ for 1104 problem instances from the International
 Planning Competition (IPC1998-2011).  For many instances, a large
 fraction of the nodes in the effective search space have $f(n)=f^*$.
-For example, in the \pddl{Openstacks} domain, almost all states with
-$f(n) \leq f^*$ have cost $f^*$ due to the large number of actions with
-cost 0.
+In many domains, the points are located very close to the diagonal $x=y$
+line, indicating almost all states with $f(n) \leq f^*$ have cost $f^*$.
+% For example, in the \pddl{Openstacks} domain, almost all states with
+% $f(n) \leq f^*$ have cost $f^*$ due to the large number of actions with
+% cost 0.
+
+
+% In many problems, the size of the last layer of search (which explores
+% the set of nodes with $f(n)=f^*$) accounts for a significant fraction of
+% the effective search space of \astar.  \refig{fig:plateau-noh}
+% (\refpage{fig:plateau-noh}) plots the
+% number of states with $f(n) = f^*$ (y-axis) vs. the number of states with
+% $f(n) \leq f^*$ for 1104 problem instances from the International
+% Planning Competition (IPC1998-2011).  For many instances, a large
+% fraction of the nodes in the effective search space have $f(n)=f^*$.
+% For example, in the \pddl{Openstacks} domain, almost all states with
+% $f(n) \leq f^*$ have cost $f^*$ due to the large number of actions with
+% cost 0.
 
 \begin{figure}[htbp]
   \centering
@@ -99,8 +122,8 @@ It is widely believed that among nodes with the same $f$-cost,
 ties should be broken according to $h(n)$, i.e.,
 nodes with smaller $h$-values should be expanded first.  While this is a
 useful rule of thumb in many domains, it turns out that tiebreaking
-requires more careful consideration, particularly for problems with
-large \emph{plateaus} -- regions of the search space with the same $f$ and $h$ values.
+requires more careful consideration, particularly for problems where
+this tiebreaking does not reduce the size of the plateau.
 
 We first empirically evaluate the existing, commonly used, standard
 tiebreaking strategies for \astar.
@@ -126,9 +149,11 @@ the plateau.  We empirically show that:
  \item Depth-based diversification strategy significantly outperforms
        other tiebreaking strategies using the same heuristic function.
  \item Artificial gradient introduced by $\epsilon$-cost conversion or
-       PLUS\-ONE cost types enforeces the unnecessary best-first expansion order
-       within plateau, which essentially makes the task computationally
-       harder, while depth-based diversification does not.
+       PLUS\-ONE cost types does not achieve the performance better than
+       our strategy.enforeces the unnecessary best-first expansion order
+ \item $\epsilon$-cost and PLUS\-ONE cost types essentially makes the
+       task computationally harder in the context of cost-optimal
+       planning, while depth-based diversification does not.
 \end{enumerate}
 
 Note that all tiebreaking strategies in this section maintain the
@@ -149,7 +174,7 @@ planning problem.
 
 Despite the ubiquitous use of GBFS for satisficing search,
 various research have suggested that GBFS can be
-easily trapped by the undetected dead ends and a huge search plateau.
+easily trapped by undetected dead ends and a huge search plateau.
 On infinite graphs, GBFS is not even complete \cite{Valenzano2016}
 because it can be misdirected by the heuristic guidance forever.
 These pathological behaviors are caused by the fact that 
@@ -526,6 +551,20 @@ One useful notion which can be used to both understand and control the
 search in this situation is the \emph{depth} of a node, which represents
 the number of steps (edges in the search space graph) from the entrance
 of the plateau.
+
+\textbf{XXX From SoCS draft}
+For such situations, they proposed a notion of \emph{depth} within the
+plateau, and an idea of diversifying the search over different depths
+within a plateau. A depth is an integer value which suggests the
+distance from the \emph{entrance} of the plateau (the first state which
+entered the plateau, along the path from the initial state). The depth
+$d(s)$ of a state $s$ is 0 when $s$ and the parent state $t$ has the
+different $(f,h)$ pair (i.e. $f(s) \not = f(t) \lor h(s) \not = h(t)$),
+and $d(s)=d(t)+1$ when they are same (i.e. $f(s) = f(t) \land h(s) =
+h(t)$) and the parent and the child are in the
+same plateau.
+\textbf{XXX From SoCS draft}
+
 
 Given a node $n$,
 if its current parent $\parent{n}$ is from the other plateau, i.e.,
@@ -960,4 +999,544 @@ and the heuristic function provides no useful guidance.
 
 \label{sec:gbfs}
 
+\section{Notations and Backgrounds for \\Diversified Algorithms}
 
+We first define some notation and the terminology used throughout the
+rest of the paper.
+$h(s)$ denotes the heuristic estimate from the current state to the
+goal state.
+$g(s)$ is the current shortest path cost from the initial state to the
+current state.
+$f(s)=g(s)+h(s)$ is the estimate of the resulting cost of the path
+containing the current state.
+We omit the argument $(s)$ unless necessary.
+
+A \emph{sorting strategy} of a best first search algorithm is a strategy
+which tries to select a single node from the OPEN list.
+Sorting strategies are denoted as $[\text{criterion}_1, \text{criterion}_2, ..., \text{criterion}_k]$,
+which means: From the OPEN list, first, select a set of nodes using $\text{criterion}_1$.
+If there are still multiple nodes remaining in the set, then break ties
+using $\text{criterion}_2$ and so on,
+until a single node is selected.
+The \emph{first-level sorting policy} of a strategy is
+$\text{criterion}_1$, the \emph{second-level sorting policy} is
+$\text{criterion}_2$, and so on.
+%% the word frontier is no longer used in the later text.
+% \emph{final frontier} is the set of open nodes with $f^*$.
+Note that this corresponds to the command line option format of Fast
+Downward \cite{Helmert2006}.
+
+Using this notation, \astar without any tiebreaking strategy can be
+denoted as BFS with $[f]$, and \astar which breaks ties according to $h$
+value is denoted as $[f,h]$. Similarly, GBFS is denoted as 
+$[h]$.  Unless stated otherwise, we assume the nodes are sorted in the
+increasing order of the key value, and a BFS always selects the smallest
+key value.
+
+
+
+The sorting strategy may fail to select a single node. In such cases, a
+search algorithm must decide which node to expand by the
+\emph{last-resort} tiebreaking strategy, which is one of FIFO
+(First-In-First-Out), LIFO (Last-In-First-Out) or RAND (random
+ordering).  Trivially, these strategies are able to select a single node
+from the set of nodes.  Throughout the paper, we show the last-resort
+tiebreaking in the subscript such as $[f,h]_{\lifo}$, and we imply LIFO
+when it is omitted.
+
+% A \emph{plateau} is a set of nodes in OPEN with both the same $f$ and same $h$ costs.
+% A plateau whose nodes have $f$-cost $f_p$ and $h$-cost $h_p$ is denoted as
+% $\plateau{f_p,h_p}$.
+% An  \emph{entrance} to a $\plateau{f_p,h_p}$ is a node $n \in \plateau{f_p,h_p}$, whose current parent is not a member of $\plateau{f_p,h_p}$.
+% The \emph{final plateau},  is the plateau containing the solution found by the search algorithm.
+% In \astar using admissible heuristics, the final plateau is  $\plateau{f^*,0}$.
+
+\section{Backgrounds}
+
+\todo{unrelated -- interesting but too ambitious?}
+Heuristic errors consist of two major components called \emph{precision}
+and \emph{accuracy}. Both terms are defined based on the distribution of
+the heuristic estimates compared to the true distance to the goal $h^*$,
+but has a key difference as follows: \emph{accuracy} accounts for the
+difference of means, while \emph{precision} accounts for the deviation
+from the true distance. The notion was proposed in the early days of
+literature for investigating the performance of probabilistic heuristic
+function \cite{pearl1984heuristics}, but is largely forgotten in the
+current search community. \citeauthor{pearl1984heuristics}
+concluded that, for satsificing search, the key characteristics which
+determines the performance of inadmissible heuristics is
+\emph{precision}, rather than \emph{accuracy}. Assume we have an
+inadmissible heuristic function which always overestimates the true
+distance $h^*$ by a constant error $e$ --- the guidance provided by
+function $h^*(s)+e$ is not much different from that of $h^*(s)$
+itself. This is because it changes the accuracy but does not change
+the precision of the heuristics.
+
+KBFS(k) \cite{Korf??} is an early attempt on alleviating the problem of
+GBFS. It expands $k$ nodes at a time in order to prevent the search
+algorithm from getting stuck in the heuristic trap. KBFS provided an
+interesting observation to GBFS --- KBFS(1) is equivalent to GBFS, and
+KBFS($\infty$) is equivalent to Breadth-First Search.
+
+Alternation OPEN List \cite{RogerH10} is a technique to combine multiple
+heuristic functions during the search in order to improve the robustness
+of the search algorithm. Nodes are simultaneously stored and sorted into the
+multiple independent OPEN lists with different sorting strategies, and
+it alternates among the OPEN lists when it expands a new node.
+We denote an alternating OPEN list as $\mit{alt}(X_1,X_2,\ldots)$ where
+each $X_i$ is a sorting strategy.
+
+$\epsilon$-greedy GBFS \cite{valenzano2014comparison} is a variation of GBFS
+which selects a random node in the OPEN list at a certain fixed
+probability $\epsilon <1$ given as a parameter. When the random
+exploration takes place, the entire nodes in OPEN list are treated equally, and
+there is no explicit criteria for characterising the nodes.
+This is conceptually equivalent to the weighted version of the alternation
+open list using $[h]_{\fifo}$ and $[\ ]_{\ro}$ (no sorting criteria) with weights
+$1-\epsilon$ and $\epsilon$. We denote such a weighted alternation open
+list as $\mit{alt}(w_1X_1,w_2X_2,\ldots)$ where each $w_i$ is a weight
+for a sorting strategy $X_i$. Now $\epsilon$-greedy GBFS corresponds to
+$\mit{alt}((1-\epsilon)[h]_{\fifo},\epsilon [\ ]_{\ro})$.
+
+While the exploration phase of $\epsilon$-greedy GBFS does not have any method to detect the bias
+between the nodes,
+Type-GBFS \cite{xie14type} does this by running the 
+classification of the nodes. The nodes are categorized into buckets
+(called ``type bucket''), each associated with a specific vector of key
+values, such as $[g,h]$ for each state. On each explorative
+expansion, the search algorithm selects a random node in a random
+bucket, which avoids the cardinality bias --- the search nodes
+may be more concentrated in a particular bucket, and exploration done by
+$\epsilon$-greedy fails to explore the variety of search space, unlike
+Type-GBFS.
+
+Type-GBFS categorizes the nodes in type buckets, but does not sort the
+buckets with the key vector. Thus, we denote such a random
+selection among buckets as $\brackets{\ldots}$ where $\ldots$ is a
+classification criteria, e.g., $\brackets{g,h}$ denotes the type buckets
+whose keys are the vector $[g,h]$.
+
+In their paper, the method was evaluated under a
+configuration that the explorative expansion and the exploitative
+expansion (standard GBFS) alternates. 
+Thus, we can write this algorithm as $\mit{alt}([h], \brackets{g,h}_{\ro})$.
+% This also corresponds to the case of $\epsilon$-greedy with $\epsilon=0.5$.
+% 
+They empirically show that
+this configuration results in larger coverage and that it
+expands much broader variety of nodes in the explorative
+expansion phase.
+
+\begin{table}[htbp]
+ \centering
+ \setlength{\tabcolsep}{0.2em}
+ % \begin{tabular}{|l|l|}
+ \begin{align*}
+  \mbox{\astar without tiebreaking}         &: [f]   \\
+  \mbox{\astar, break ties for smaller $h$} &: [f,h] \\
+  \mbox{Standard GBFS}                      &: [h]   \\
+  \mbox{GBFS+Alternation (2 heuristics)}    &: \mit{alt}([h_1],[h_2])   \\
+  \mbox{$\epsilon$-greedy GBFS}             &: \mit{alt}((1-\epsilon)[h], \epsilon [\ ]_{\ro}) \\
+  \mbox{Type-GBFS, type = $[g,h]$}          &: \mit{alt}(\quad       [h],\quad \brackets{g,h}_{\ro}) \\
+  \mbox{$\epsilon$-greedy Type-GBFS}        &: \mit{alt}((1-\epsilon)[h], \epsilon\brackets{g,h}_{\ro}) \\
+  \mbox{\astar + $h$ tiebreaking + depth}   &: [f,h]_{\brackets{\mit{\scriptsize depth}}} \\
+  \mbox{GBFS + depth}                       &: [h]_{\brackets{\mit{\scriptsize depth}}} \\
+ \end{align*}
+ % \end{tabular}
+ \caption{Various search algorithms using the notation in this paper}
+\end{table}
+
+%% less priority. remove?
+% DBFS \cite{imai2011novel} is also an algorithm which diversifies the
+% search based on $g$ and $h$ values, but with several key differences from
+% above two algorithms: First, the explorative selection is not uniformly
+% random, but is subject to a particular distribution function defined by
+% $h, g, h_{min}$ and $g_{max}$. Second, it uses a local search with
+% a bounded number of expansions equal to $h(s)$, which dynamically balances the exploration
+% and exploitation --- it does more GBFS when $h$ is large (far
+% from the goal), and less GBFS near the goal ($h$ is small).
+
+
+
+% The diversification based on the depth can be considered as an instance
+% of last-resort tiebreaking, since the depth is used \emph{after} the
+% sorting strategy selects a set of nodes.
+% % 
+% We can also view the depth-based diversification as a classification of
+% the nodes into type-based buckets with depth as a single key value.
+% Thus, we call this framework as \emph{typed-sorting strategy}, a mix of
+% sorting strategy and type-based buckets, denoted as $[\mbox{sorting
+% strategy}]_{\brackets{\mbox{\small type vector}}}$.
+% % 
+% For example, \astar using $h$ as the first tiebreaking criteria and
+% depth as a diversification method can be expressed as
+% $[f,h]_{\brackets{d}}$. 
+% % _{\fifo}
+% % The reason \fifo is present
+% % after $\brackets{d}$ is that when multiple nodes are in the same depth, a
+% % single node is selected in a FIFO order.
+% % Trivially, $[\ ]_{\brackets{X}}$ is equivalent to $\brackets{X}$ and
+% % $[X]_{\brackets{\ }}$ is equivalent to $[X]$.
+
+
+\section{Depth-based Tiebreaking for GBFS}
+
+Compared to \astar, to our knowledge, there are currently no
+well-established tiebreaking policy for GBFS. GBFS does not use $f$ and
+$g$ value during the search process.  The search by GBFS is solely
+guided by the heuristic value $h$: It always expands the node with the
+smallest $h$ value, and hence the analogy from \astar e.g.\ sorting the
+nodes with $f$ and breaking ties according to $h$ is not possible.
+
+As a consequence, except for diversification,
+search enhancement for GBFS have been achieved by
+modifying the heuristic function itself.  This includes not only using the
+different heuristic functions, but also lazy evaluation,
+preferred operators and PLUSONE/ONE cost type.
+ 
+Lazy evaluation is a technique which derives the heuristic value of a
+state from its parent. This sacrifices the informativeness of the
+heuristics against the effort of computing each heuristic function.
+ 
+Preferred operator (helpful action in \cite{Hoffmann01}) marks some
+operators to be promising when it improved the least cost estimate in the
+previous node expansion. Marked nodes are put in a special queue
+which is expanded more often, which is equivalent to temporarily
+increasing the priority of the particular nodes.
+ 
+PLUSONE cost type is a technique which adds a cost of 1 to each edge
+cost, which also affects the heuristic value. Similarly, ONE cost type
+treats all actions to have a unit cost.  ONE cost type is used in
+the first GBFS iteration of LAMA, and PLUSONE cost type is used in the
+second GBFS iteration of LAMA (followed by WA*).
+
+We instead consider the use of the depth-based tiebreaking policy, which
+is able to identify the relative location of the current state in the
+plateau.  In this section, we evaluate the effect of depth-based
+tiebreaking on Eager GBFS, and also compare the effect
+against various search enhancements stated above.
+
+\subsection{Comparison against GBFS}
+
+We compared the performance of 
+($G$) the standard GBFS
+$[h]$,
+($G_d$) GBFS using depth-based diversification
+$[h]_{\relsize{-2}\brackets{d}}$,
+($T$) Type-GBFS
+$alt([h],\brackets{g,h})$,
+($T_d$) Type-GBFS using depth-based diversification
+$alt([h]_{\brackets{d}},\brackets{g,h})$,
+($T^d$) Type-GBFS using depth-based type bucket
+$alt([h],\brackets{g,h,d})$,
+($T_d^d$) Type-GBFS using both depth-based diversification and depth-based type bucket
+$alt([h]_{\brackets{d}},\brackets{g,h,d})$.
+
+Since the effect of depth could be heuristic-dependent, we tested three
+heuristics as $h$:
+FF heuristics\cite{Hoffmann01}, Causal Graph (CG) heuristics \cite{Helmert2006}, Context Enhanced
+Additive (CEA) heuristics\cite{helmert2008unifying}.
+%% not included --- its is a pseudo heuristics anyways
+% , Landmark-Count (LC) heuristics\cite{richter2008landmarks}
+
+
+
+% In order to remove the effect of randomness of the algorithm, we
+% implemented a deterministic version of Type-based queue for Type-GBFS
+% which, instead of selecting a bucket at random, iterates over the
+% buckets in a reverse order that each bucket is introduced.
+% Similarly, the diversification based on the depth is not randomized but
+% is implemented as a loop-based implementation.
+
+Results are shown in \reftbl{eager-results}. Overall, depth offers
+improvements to all of CEA, CG and FF heuristics. Thus, we conjecture
+that the effect of depth-based diversification is heuristic-independent.
+
+We also tested the effect of lazy (deferred) evaluation of the
+heuristic functions. As explained in the previous section, lazy
+evaluation can be considered as a form of modifying the heuristic
+function by sacrificing the accuracy for the node expansion rate.
+As expected, depth-based diversification offers the similar speedup as
+in the case of eager evaluation.
+
+Another dimension we should consider in evaluating the depth
+diversification is the use of PLUSONE which treats all
+action costs as the original value plus 1, or ONE cost type which treats
+all actions as the unit cost.
+
+% \newcommand{\htitle}[1]{\multicolumn{#1}{c|}{CEA} & \multicolumn{#1}{|c|}{CG} & \multicolumn{#1}{|c|}{FF}}
+\newcommand{\etitle}[2]{ \multicolumn{#1}{|c||}{Eager} & \multicolumn{#1}{|c|#2}{Lazy}}
+\newcommand{\htitle}[2]{\multicolumn{#1}{c|}{CEA} & \multicolumn{#1}{|c|}{CG} & \multicolumn{#1}{|c|#2}{FF}}
+\newcommand{\titles}[3]{
+&\etitle{#1}{#3} \\
+\hline
+&\htitle{#2}{|} #3 &\htitle{#2}{}\\
+\hline
+}
+\newcommand{\bi}[1]{\textbf{\Large #1}}
+
+\begin{table*}[htbp]
+ \setlength{\tabcolsep}{0.1em}
+ % \setlength{\tabcolsep}{0.05em}
+ % \relsize{-1}
+\centering
+\begin{tabular}{|l*{2}{*{3}{|cc}|}*{2}{*{3}{|cc}|}}
+\hline
+&\etitle{6}{|} & \etitle{6}{}\\
+\hline
+&\htitle{2}{|} & \htitle{2}{|} &\htitle{2}{|} & \htitle{2}{}\\
+\hline
+ & g & G & g & G & g & G & g & G & g & G & g & G & gt & Gt & gt & Gt & gt & Gt & gt & Gt & gt & Gt & gt & Gt\\
+\hline
+coverage & 189 & \bi{193} & 174 & \bi{183} & 166 & 167 & 139 & \bi{172} & 137 & \bi{144} & 146 & \bi{162} & \bi{203} & 200 & 203 & \bi{210} & \bi{217} & 215 & 157 & \bi{173} & 165 & \bi{179} & 178 & \bi{212}\\
+\hline
+brmn & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
+lvtr & 1 & \bi{3} & 3 & \bi{5} & 0 & 0 & 1 & \bi{4} & 1 & \bi{4} & 0 & 0 & 1 & \bi{3} & 3 & 3 & 0 & 0 & 1 & \bi{3} & 1 & \bi{4} & 0 & 0\\
+flrt & 4 & 4 & 0 & 0 & 7 & 7 & 6 & 6 & 0 & 0 & \bi{8} & 4 & 7 & 7 & 2 & 2 & 9 & 9 & 6 & 7 & 2 & 2 & 8 & 9\\
+nmys & 7 & 7 & 7 & 7 & 6 & \bi{8} & 8 & 8 & 9 & 9 & 5 & \bi{7} & 9 & 9 & \bi{16} & 14 & 16 & 15 & 11 & 11 & 14 & 15 & 15 & 16\\
+pnst & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+prcp & 15 & 15 & 15 & 15 & 5 & 5 & 12 & 12 & 11 & 11 & 0 & 0 & 15 & 15 & 15 & 15 & 7 & 7 & 11 & 11 & 10 & 10 & 6 & 6\\
+prkn & 0 & 1 & 12 & 13 & 15 & 14 & 2 & \bi{4} & 3 & \bi{11} & 14 & \bi{19} & 3 & 2 & 7 & \bi{9} & \bi{12} & 8 & 1 & 0 & 3 & 4 & 15 & 16\\
+pgsl & 19 & 19 & 20 & 20 & 19 & 19 & 19 & 19 & 20 & 19 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 19 & 20 & 20 & 20 & 20\\
+scnl & 17 & 17 & 17 & 17 & 14 & 14 & 17 & 17 & 17 & 17 & 15 & 14 & 17 & 17 & 17 & 17 & 16 & 16 & 17 & 17 & 17 & 17 & 17 & 17\\
+skbn & 12 & 12 & 14 & 14 & 18 & 17 & 10 & 11 & 15 & 15 & 18 & 17 & 15 & 16 & 16 & 17 & 18 & 18 & 16 & 16 & 13 & \bi{16} & 18 & 18\\
+tdyb & 16 & 17 & 14 & \bi{18} & 15 & 14 & 16 & 17 & 14 & \bi{17} & 14 & 13 & 16 & 16 & 19 & 19 & 16 & 16 & 16 & 17 & 20 & 20 & 14 & \bi{16}\\
+trns & 7 & 7 & 9 & \bi{11} & 0 & 0 & 3 & \bi{5} & 7 & 8 & 0 & 0 & 7 & 7 & 11 & 11 & 0 & 0 & 4 & 5 & 9 & 8 & 0 & 0\\
+vstl & 3 & 3 & 3 & 3 & 5 & 5 & 3 & 3 & 3 & 3 & 5 & 4 & 4 & 4 & 4 & 5 & 6 & 5 & 4 & 4 & 5 & 5 & 4 & \bi{6}\\
+wdwr & 10 & 10 & 10 & 10 & 12 & 12 & 2 & 3 & 1 & 1 & 10 & 11 & 12 & 11 & 12 & 13 & 15 & 15 & 3 & 4 & 1 & 1 & 7 & \bi{13}\\
+\hline
+brmn & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 3 & 2 & 0 & 0 & 0 & 0 & 0 & 0\\
+cvdv & 6 & 6 & 7 & 7 & 6 & 6 & 4 & \bi{7} & 7 & 7 & 6 & 6 & 6 & 7 & 7 & 7 & 7 & 7 & 7 & 7 & 8 & 8 & 7 & 7\\
+chld & 2 & 2 & 2 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \bi{2} & 0 & \bi{3} & 0 & 0 & 0 & 2 & 1 & 6 & 5 & 2 & 2\\
+ctyc & 20 & 20 & 0 & \bi{2} & 0 & 0 & 1 & \bi{20} & 0 & 0 & 0 & 0 & 20 & 20 & 1 & 1 & 18 & \bi{20} & 1 & \bi{15} & 0 & 0 & 1 & \bi{10}\\
+flrt & 2 & 2 & 0 & 0 & 2 & 2 & 2 & 2 & 0 & 0 & 3 & 3 & \bi{5} & 3 & 2 & 1 & \bi{5} & 3 & 3 & 2 & 2 & 2 & 3 & 3\\
+gd-s & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+hkng & 17 & 16 & 15 & 14 & 16 & \bi{18} & 17 & 17 & \bi{16} & 13 & 12 & \bi{14} & 16 & 16 & 20 & 20 & 20 & 20 & 16 & 15 & 18 & 19 & 18 & 18\\
+mntn & 16 & 16 & 16 & 16 & 11 & 12 & 0 & 0 & 0 & 0 & 4 & \bi{7} & 16 & 16 & 16 & 16 & 13 & 14 & 7 & 7 & 7 & 7 & 9 & 10\\
+pnst & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+prkn & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 1 & 3 & \bi{11} & 0 & 0 & 0 & 0 & 2 & 2 & 0 & 0 & 0 & 0 & 1 & \bi{8}\\
+ttrs & 3 & 4 & 2 & 2 & 3 & 3 & 1 & \bi{4} & 2 & 2 & 1 & \bi{3} & 2 & 2 & 6 & \bi{12} & 2 & \bi{4} & 1 & 2 & 2 & \bi{9} & 3 & \bi{6}\\
+thgh & 11 & 11 & 4 & 5 & 11 & 10 & 12 & 12 & \bi{6} & 4 & 7 & \bi{9} & 9 & 8 & 5 & 5 & 12 & 13 & 9 & 9 & 5 & 5 & 10 & 11\\
+trns & 1 & 0 & \bi{3} & 1 & 0 & 0 & \bi{3} & 0 & \bi{5} & 2 & 0 & 0 & 1 & 1 & 1 & \bi{3} & 0 & 0 & 1 & 1 & 2 & 2 & 0 & 0\\
+vstl & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+\end{tabular}
+\caption{Results of 5 min, 4Gb experiments, comparing the variants with and without depths:}%
+ % (g): GBFS $[h]$,
+ % (G): GBFS with depth based diversification $[h]_\{d\}$.
+ % Left side shows the result of eager evaluation, and the right side shows
+ % the result of lazy evaluation.
+ % ,
+ % (gt): $alt([h],\brackets{g,h})$,
+ % (gT): $alt([h],\brackets{g,h,d})$,
+ % (Gt): $alt([h]_{\brackets{d}},\brackets{g,h})$,
+ % (GT): $alt([h]_{\brackets{d}},\brackets{g,h,d})$
+ % }
+\end{table*}
+
+\begin{table}[htbp]
+\centering
+\setlength{\tabcolsep}{0.1em}
+\begin{tabular}{lll|ccc|ccc}
+ &  &  & Eager & Eager & Eager & Lazy & Lazy & Lazy\\
+ &  &  & IPC7 & IPC8 & sum & IPC7 & IPC8 & sum\\
+\hline
+ce & g & F & 112 & 70 & 182 & 116 & 54 & 170\\
+ce & G & F & 113 & 70 & 183 & 119 & 48 & 167\\
+ce & gt & F & 120 & 67 & 187 & 125 & 67 & 192\\
+ce & gT & F & 120 & 67 & 187 & 125 & 66 & 191\\
+ce & Gt & F & 120 & \bi{77} & 197 & 128 & 62 & 190\\
+ce & GT & F & 121 & \bi{77} & 198 & 129 & 62 & 191\\
+cg & g & F & 126 & 54 & 180 & 110 & 37 & 147\\
+cg & G & F & 132 & 55 & 187 & 118 & 36 & 154\\
+cg & gt & F & 139 & 63 & 202 & 122 & 49 & 171\\
+cg & gT & F & 138 & 63 & 201 & 121 & 49 & 170\\
+cg & Gt & F & \bi{142} & 63 & \bi{205} & 129 & 56 & 185\\
+cg & GT & F & \bi{142} & 63 & \bi{205} & 128 & 56 & 184\\
+ff & g & F & 110 & 49 & 159 & 110 & 48 & 158\\
+ff & G & F & 110 & 54 & 164 & 117 & 45 & 162\\
+ff & gt & F & 130 & 71 & 201 & \bi{137} & \bi{75} & \bi{212}\\
+ff & gT & F & 129 & 71 & 200 & 136 & \bi{75} & 211\\
+ff & Gt & F & 134 & 68 & 202 & 132 & 59 & 191\\
+ff & GT & F & 135 & 70 & \bi{205} & 133 & 59 & 192\\
+\hline
+ce & g & L & 111 & 78 & 189 & 99 & 40 & 139\\
+ce & G & L & 115 & 78 & 193 & 109 & 63 & 172\\
+ce & gt & L & 126 & 77 & 203 & 110 & 47 & 157\\
+ce & gT & L & 127 & 76 & 203 & 114 & 45 & 159\\
+ce & Gt & L & 127 & 73 & 200 & 114 & 59 & 173\\
+ce & GT & L & 125 & 75 & 200 & 116 & 54 & 170\\
+cg & g & L & 124 & 50 & 174 & 101 & 36 & 137\\
+cg & G & L & 133 & 50 & 183 & 115 & 29 & 144\\
+cg & gt & L & 142 & 61 & 203 & 115 & 50 & 165\\
+cg & gT & L & 141 & 57 & 198 & 119 & 41 & 160\\
+cg & Gt & L & \bi{145} & 65 & 210 & 122 & 57 & 179\\
+cg & GT & L & \bi{145} & 59 & 204 & 122 & 48 & 170\\
+ff & g & L & 116 & 50 & 166 & 110 & 36 & 146\\
+ff & G & L & 115 & 52 & 167 & 109 & 53 & 162\\
+ff & gt & L & 135 & 82 & \bi{217} & 124 & 54 & 178\\
+ff & gT & L & 127 & 79 & 206 & 130 & 46 & 176\\
+ff & Gt & L & 130 & \bi{85} & 215 & 137 & \bi{75} & \bi{212}\\
+ff & GT & L & 133 & 74 & 207 & \bi{140} & 70 & 210\\
+\end{tabular}
+\end{table}
+
+\begin{table*}[htbp]
+ \setlength{\tabcolsep}{0.1em}
+ % \setlength{\tabcolsep}{0.05em}
+ % \relsize{-1}
+\centering
+\begin{tabular}{|l*{2}{*{3}{|cc}|}*{2}{*{3}{|cc}|}}
+\hline
+&\etitle{6}{|} & \etitle{6}{}\\
+\hline
+&\htitle{2}{|} & \htitle{2}{|} &\htitle{2}{|} & \htitle{2}{}\\
+\hline
+ % & e & e & e & e & e & e & l & l & l & l & l & l & e & e & e & e & e & e & l & l & l & l & l & l\\
+ % & ce1 & ce1 & cg1 & cg1 & ff1 & ff1 & ce1 & ce1 & cg1 & cg1 & ff1 & ff1 & ce1 & ce1 & cg1 & cg1 & ff1 & ff1 & ce1 & ce1 & cg1 & cg1 & ff1 & ff1\\
+ & g & G & g & G & g & G & g & G & g & G & g & G & gt & Gt & gt & Gt & gt & Gt & gt & Gt & gt & Gt & gt & Gt\\
+\hline
+IPC7 & 118 & 118 & 140 & \bi{143} & \bi{142} & 139 & 99 & \bi{117} & 113 & \bi{134} & 112 & \bi{143} & 130 & 130 & 153 & 154 & \bi{166} & 157 & 106 & \bi{121} & 124 & \bi{146} & 135 & \bi{156}\\
+\hline
+brmn & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 10 & 10 & 0 & 0 & 0 & 0 & 2 & 2\\
+lvtr & 8 & 8 & 8 & 9 & 10 & 10 & 10 & 10 & 9 & 8 & 8 & \bi{12} & 8 & 8 & 8 & 9 & 10 & 10 & 5 & \bi{8} & 7 & \bi{9} & 4 & \bi{11}\\
+flrt & 3 & 3 & 0 & 0 & 3 & 4 & 3 & 3 & 0 & 0 & 3 & 3 & 5 & 5 & 2 & 2 & 8 & 7 & 5 & 5 & 2 & 2 & 6 & 6\\
+nmys & 7 & 7 & 7 & 7 & 6 & \bi{8} & 8 & 8 & 9 & 9 & 4 & \bi{7} & 9 & 9 & \bi{16} & 14 & 16 & 15 & 11 & 11 & 14 & 15 & 15 & 16\\
+pnst & 13 & 12 & 13 & 13 & 15 & 15 & 0 & \bi{15} & 0 & \bi{14} & 0 & \bi{20} & 11 & 11 & 11 & 11 & 13 & 13 & 0 & \bi{11} & 1 & \bi{12} & 4 & \bi{9}\\
+prcp & 20 & 20 & 20 & 19 & 20 & 20 & 11 & 11 & 11 & 11 & 11 & 11 & 18 & 18 & 18 & 19 & 20 & 20 & 12 & 13 & 11 & 12 & 14 & 14\\
+prkn & 0 & \bi{2} & 12 & 13 & \bi{15} & 11 & 2 & \bi{4} & 3 & \bi{11} & 14 & \bi{19} & 3 & 2 & 7 & \bi{9} & \bi{12} & 8 & 1 & 0 & 3 & 4 & 15 & 16\\
+pgsl & 20 & 20 & 20 & 20 & 19 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20\\
+scnl & 17 & 17 & 17 & 17 & 14 & 14 & 17 & 17 & 17 & 17 & 12 & 13 & 16 & 16 & 17 & 17 & 15 & 15 & 17 & 17 & 17 & 17 & 17 & 17\\
+skbn & 3 & 3 & 13 & 12 & 18 & 17 & 3 & 3 & 15 & 14 & 18 & 17 & 10 & 10 & 17 & 17 & 18 & 17 & 10 & 9 & 15 & \bi{17} & 18 & 18\\
+tdyb & 16 & 17 & 14 & \bi{18} & \bi{15} & 13 & 16 & 17 & 14 & \bi{17} & 14 & 13 & 16 & 16 & 19 & 19 & 16 & 15 & 16 & 17 & 20 & 20 & 14 & \bi{16}\\
+trns & \bi{7} & 5 & 12 & 11 & 0 & 0 & 4 & 5 & \bi{11} & 9 & 0 & 0 & 6 & \bi{8} & 13 & 12 & 0 & 0 & 3 & \bi{5} & 8 & \bi{12} & 0 & 0\\
+vstl & 3 & 3 & 3 & 3 & 5 & 5 & 3 & 3 & 3 & 3 & 5 & 4 & 4 & 4 & 4 & 4 & 6 & 5 & 4 & 4 & 5 & 5 & 4 & \bi{6}\\
+wdwr & 1 & 1 & 1 & 1 & 2 & 2 & 2 & 1 & 1 & 1 & 2 & \bi{4} & 4 & 3 & 1 & 1 & 2 & 2 & 2 & 1 & 1 & 1 & 2 & \bi{5}\\
+\hline
+IPC8 & 62 & 62 & 60 & \bi{64} & 73 & 73 & 36 & \bi{50} & 39 & \bi{48} & 54 & \bi{93} & \bi{57} & 55 & 76 & \bi{79} & 80 & 79 & 44 & \bi{53} & 66 & \bi{74} & 66 & \bi{92}\\
+\hline
+brmn & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \bi{4} & 2 & 0 & 0 & 0 & 0 & 0 & 0\\
+cvdv & 6 & 6 & 7 & 7 & 7 & 7 & 4 & \bi{7} & 7 & 7 & 6 & 7 & 6 & 6 & 7 & 7 & 7 & 7 & 6 & 7 & 7 & 8 & 7 & 7\\
+chld & 2 & 2 & 2 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \bi{2} & 0 & \bi{3} & 0 & 0 & 0 & 2 & 1 & 6 & 5 & 2 & 2\\
+ctyc & 2 & 2 & 0 & 1 & 0 & 0 & 0 & \bi{2} & 0 & 0 & 0 & 0 & 4 & 5 & 1 & 1 & 3 & 3 & 1 & \bi{9} & 0 & 0 & 0 & \bi{7}\\
+flrt & 2 & 2 & 0 & 0 & 2 & 2 & 2 & 2 & 0 & 0 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 1 & 1 & 2 & 2\\
+gd-s & 0 & 0 & 0 & 0 & \bi{19} & 17 & 0 & 0 & 0 & 0 & 20 & 20 & 0 & 0 & 8 & 9 & 16 & 15 & 0 & 0 & 11 & 11 & 15 & \bi{17}\\
+hkng & 17 & 16 & 15 & 14 & 16 & \bi{18} & 17 & 17 & \bi{16} & 13 & 12 & \bi{14} & 16 & 16 & 20 & 20 & 20 & 20 & 16 & 15 & 18 & 19 & 18 & 18\\
+mntn & 16 & 16 & 16 & 16 & 11 & 12 & 0 & 0 & 0 & 0 & 4 & \bi{7} & 16 & 16 & 16 & 16 & 13 & 13 & 7 & 7 & 7 & 7 & 9 & 10\\
+pnst & 0 & 0 & 0 & 0 & 4 & 4 & 0 & \bi{3} & 0 & \bi{3} & 0 & \bi{20} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & \bi{6}\\
+prkn & 0 & 2 & 1 & 1 & 2 & 1 & 0 & 1 & 0 & 1 & 3 & \bi{11} & 0 & 0 & 0 & 0 & 1 & 2 & 0 & 0 & 0 & 0 & 1 & \bi{8}\\
+ttrs & 4 & 3 & 12 & \bi{15} & 1 & 2 & 1 & \bi{5} & 7 & \bi{17} & 0 & \bi{3} & 1 & 1 & 13 & \bi{15} & 2 & 2 & 1 & 3 & 9 & \bi{15} & 2 & \bi{4}\\
+thgh & 12 & 11 & 4 & 5 & 11 & 10 & 12 & 12 & \bi{6} & 4 & 7 & \bi{9} & 9 & 8 & 5 & 5 & 12 & 13 & 9 & 9 & 5 & 5 & 10 & 11\\
+trns & 1 & 2 & 3 & 3 & 0 & 0 & 0 & 1 & 3 & 3 & 0 & 0 & 1 & 1 & 1 & \bi{4} & 0 & 0 & 0 & 0 & 2 & 2 & 0 & 0\\
+vstl & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+\end{tabular}
+\caption{Results obtained by treating each action to have a unit cost
+ during heuristic calculation.
+ 5 min, 4Gb experiments, comparing the variants with
+ and without depths:
+ % (g): GBFS $[h]$,
+ % (G): GBFS with depth based diversification $[h]_\brackets{d}$.
+ Left side shows the result of eager evaluation, and the right side shows
+ the result of lazy evaluation.
+ % ,
+ % (gt): $alt([h],\brackets{g,h})$,
+ % (gT): $alt([h],\brackets{g,h,d})$,
+ % (Gt): $alt([h]_{\brackets{d}},\brackets{g,h})$,
+ % (GT): $alt([h]_{\brackets{d}},\brackets{g,h,d})$
+ }
+\end{table*}
+
+
+% \subsection{Comparison against Lazy Evaluation}
+
+% Although the policy was originally designed for optimising
+% \astar search with admissible heuristics, the core idea of depth would
+% not be much affected by the difference between \astar and GBFS.
+
+\subsection{Comparison against LAMA}
+
+LAMA \cite{richter2010lama} is a \sota planner which is a winner of
+IPC2011. It has numerous search enhancements including Lazy Evaluation,
+Multi-heuristic search, Preferred Operators and PLUSONE cost type.
+
+LAMA runs a GBFS followed by WA* with decreasing weights, and works in
+an anytime fasion. However, this is due to the context of the
+competition setting where the task also includes finding a better plan.
+Since this paper focuses on GBFS, we only consider 
+the coverage within the resource constraint. Thus, in the following
+experiments, we do not run the successive iterations of WA* in LAMA.
+
+The first iteration (GBFS) of LAMA is expressed as
+$alt([\mit{ff}],\pref{[\mit{ff}]},[\mit{lc}],\pref{[\mit{lc}]})$, where $\mit{ff}$
+denotes the FF heuristics, $\mit{lc}$ denotes the Landmark-Count heuristics,
+and $\pref{X}$ denotes the preferred operator queue with sorting
+strategy $X$.
+
+We compare this base LAMA with the type-based version of LAMA and their
+variants using depths.
+We followed the best configuration suggested by \citeauthor{xie14type} (\citeyear{xie14type})
+for Type-GBFS, which uses the type vector $\brackets{g,\mit{ff}}$.
+Due to the multiple enhancements, the configurations are fairly complicated:
+
+\begin{eqnarray}
+  alt([\mit{ff}],\pref{[\mit{ff}]},[\mit{lc}],\pref{[\mit{lc}]},\brackets{g,\mit{ff}}) \\
+  alt([\mit{ff}]_\brackets{d},\pref{[\mit{ff}]_\brackets{d}},[\mit{lc}]_\brackets{d},\pref{[\mit{lc}]_\brackets{d}},\brackets{g,\mit{ff}}) \\
+  alt([\mit{ff}],\pref{[\mit{ff}]},[\mit{lc}],\pref{[\mit{lc}]},\brackets{g,\mit{ff},d}) \\
+  alt([\mit{ff}]_\brackets{d},\pref{[\mit{ff}]_\brackets{d}},[\mit{lc}]_\brackets{d},\pref{[\mit{lc}]_\brackets{d}},\brackets{g,\mit{ff},d}) 
+\end{eqnarray}
+
+% _\brackets{d}
+
+\begin{table}[htbp]
+ \setlength{\tabcolsep}{0.2em}
+\centering
+\begin{tabular}{l|cccc||cccc}
+ & F & F & F & F & L & L & L & L\\
+ & g & G & gt & Gt & g & G & gt & Gt\\
+\hline
+IPC7 & \bi{223} & 220 & 224 & 224 & 210 & \bi{214} & \bi{224} & 219\\
+\hline
+brmn & 15 & 16 & 16 & 16 & 15 & 14 & \bi{16} & 14\\
+lvtr & 14 & \bi{17} & 16 & 17 & 18 & 18 & 16 & \bi{18}\\
+flrt & 3 & 2 & 4 & 4 & 3 & 3 & 4 & 4\\
+nmys & 11 & 10 & 12 & 12 & 6 & \bi{9} & \bi{12} & 8\\
+pnst & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20\\
+prcp & \bi{20} & 18 & 16 & 17 & 14 & 14 & 16 & \bi{18}\\
+prkn & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20\\
+pgsl & 20 & 19 & 20 & 20 & 20 & 20 & 20 & 20\\
+scnl & 17 & 17 & 17 & 17 & 17 & 17 & 17 & 17\\
+skbn & 16 & 15 & 16 & 16 & 15 & 15 & 16 & 17\\
+tdyb & 16 & 15 & \bi{17} & 15 & 13 & 14 & \bi{17} & 13\\
+trns & 11 & 11 & 10 & 10 & 10 & 10 & 10 & 10\\
+vstl & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20\\
+wdwr & 20 & 20 & 20 & 20 & 19 & 20 & 20 & 20\\
+\hline
+IPC8 & 111 & \bi{125} & 112 & \bi{117} & 111 & \bi{121} & 114 & \bi{120}\\
+\hline
+brmn & 8 & \bi{10} & 9 & 8 & \bi{9} & 6 & 9 & 8\\
+cvdv & 7 & 7 & 6 & 7 & 6 & 7 & 6 & 6\\
+chld & 0 & \bi{10} & 2 & \bi{6} & 3 & 3 & 2 & 3\\
+ctyc & 1 & 0 & 5 & 4 & 2 & \bi{4} & 5 & 5\\
+flrt & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2\\
+gd-s & 20 & 20 & 20 & 20 & 20 & 20 & 20 & 20\\
+hkng & 15 & \bi{17} & 15 & 15 & 14 & 15 & 15 & 16\\
+mntn & 1 & 1 & 6 & 6 & 1 & 1 & 6 & 7\\
+pnst & 17 & 17 & 15 & \bi{17} & 16 & \bi{18} & 16 & 15\\
+prkn & 9 & 9 & 6 & 6 & 9 & 10 & 7 & 8\\
+ttrs & 2 & 2 & 2 & 1 & 2 & \bi{4} & 2 & 2\\
+thgh & 14 & 15 & 14 & 15 & 13 & \bi{15} & 14 & \bi{17}\\
+trns & 2 & 2 & 1 & \bi{3} & 2 & 3 & 1 & 1\\
+vstl & 13 & 13 & \bi{9} & 7 & 12 & 13 & 9 & 10\\
+\hline
+\end{tabular}
+\caption{Lama results.}
+\end{table}
+
+
+
+\section{Related Work}
+
+\cite{schulte2014balancing}
+
+\cite{auer2002finite}
