@@ -36,8 +36,11 @@
 % !!!WARN!!! this should be removed in the camera-ready version.
 \def\ref{\todo{Do not use ``ref'' directly!}}
 \renewcommand{\subsubparagraph}[1]{%
+\vspace{3pt}%
 \hrule width \linewidth%
-\marginpar[\hfill\relsize{-1} \protect{\rotatebox[origin=c]{90}{#1}} $\triangleright$]{\relsize{-1} $\triangleleft$ \protect{\rotatebox[origin=c]{-90}{#1}}}}
+\marginpar[\hfill\relsize{-1} \protect{\rotatebox[origin=c]{90}{#1}} $\triangleright$]{\relsize{-1} $\triangleleft$ \protect{\rotatebox[origin=c]{-90}{#1}}}%
+\vspace{3pt}%
+}
 % \usepackage{soul}
 \makeatletter
 \renewcommand{\@todons}[2]{%
