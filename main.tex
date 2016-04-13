@@ -36,8 +36,20 @@ the same authors.
 \section{Introduction}
 \label{sec:introduction}
 
-This paper investigates tiebreaking strategies for both optimal and
-satisficing search algorithms.
+Much of the work in the search and planning literature has focused on
+reducing the size of this effective search space by developing the more
+informative heuristic functions. However, there is a theoretical
+limitation in this approach: It is known that the search space grows
+exponentially \cite{helmert2008good} even under the optimistic
+assumption that we have an \emph{almost-perfect} heuristics, $h^*-c$, a
+theoretical heuristic function which always returns an estimate which is
+slightly underestimates the true distance to a goal by a small constant
+$c$. Due to this, the community recognizes the importance of developping
+a heuristic-agnostic improvement which can overcome this difficulty.
+
+As an instance of such improvement, this paper investigates tiebreaking
+strategies for search algorithms. We empirically and theoretically
+analyse both optimal and satisficing search.
 
 \subsubparagraph{astar}
 
@@ -46,33 +58,6 @@ the tiebreaking strategy used by \astar, the standard search algorithm
 for finding an optimal-cost path from an initial state $s$ to some goal
 state $g \in G$ in a search space represented as a graph
 \cite{hart1968formal}. 
-
-% In each iteration, \astar selects and expands a
-% node $n$ from the OPEN priority queue.  $n$ is the node which has the
-% lowest $f$-cost in OPEN, where for node $n$, $f(n)$ is the sum of
-% $g(n)$, the cost of the current path from the initial state to $n$, and
-% $h(n)$, a heuristic estimate of the cost from $n$ to a goal state.
-% \astar returns an optimal solution when $h$ is admissible, i.e., when
-% $h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
-% the nearest goal.
-% 
-% In order to guarantee solution optimality, \astar expands the search
-% nodes with a best-first order of $f$, until it finds a solution which
-% have $f=f^*$, the cost of the optimal solution.
-% Due to the best-first order, any nodes with $f(n) = k$ are expanded after all nodes with $f(n) < k$ are expanded.
-% Thus, the \emph{effective search space of \astar} is the set of nodes with 
-% $f(n) \leq f^*$: \astar expands all nodes with $f(n) < f^*$, then
-% expands \emph{some} of the nodes with $f(n) = f^*$, and
-% \astar never expands a node with $f(n) > f^*$.
-
-Much of the work in the search and planning literature has focused on
-reducing the size of this effective search space by developing the more
-informative, admissible heuristic functions. However, there is a
-theoretical limitation in this approach: It is known that the search space grows
-exponentially \cite{helmert2008good} even under the optimistic
-assumption that we have an \emph{almost-perfect} heuristics $h^*-c$, a heuristic
-function which always returns the true distance to a goal subtracted by
-a small constant $c$.
 
 In many problems, the size of the last layer of search, called
 \emph{final plateau}, accounts for a significant fraction of
@@ -150,7 +135,7 @@ the plateau.  We empirically show that:
        other tiebreaking strategies using the same heuristic function.
  \item Artificial gradient introduced by $\epsilon$-cost conversion or
        PLUS\-ONE cost types does not achieve the performance better than
-       our strategy.enforeces the unnecessary best-first expansion order
+       our strategy.
  \item $\epsilon$-cost and PLUS\-ONE cost types essentially makes the
        task computationally harder in the context of cost-optimal
        planning, while depth-based diversification does not.
@@ -248,23 +233,61 @@ Multi-queue heuristic search.
 
 \section{Preliminaries and Definitions}
 
-We first define some notation and terminology used throughout the rest of the paper.
-A \emph{tiebreaking strategy} selects from among nodes with the same $f$-value.
-Tiebreaking strategies are denoted as $[\text{criterion}_1, \text{criterion}_2, ..., \text{criterion}_k]$,
-which means: If there are multiple nodes with the same $f$-value, first, break ties using $\text{criterion}_1$. 
-If there are still multiple nodes remaining, then break ties using $\text{criterion}_2$ and so on, until a single node is selected.
-The \emph{first-level tiebreaking policy} of a strategy is
-$\text{criterion}_1$, the \emph{second-level tiebreaking policy} is
-$\text{criterion}_2$, and so on.
+We first define some notation and the terminology used throughout the
+rest of the paper.
+$h(s)$ denotes the heuristic estimate from the current state $s$ to some
+goal state.
+$g(s)$ is the current shortest path cost from the initial state to the
+current state.
+$f(s)=g(s)+h(s)$ is the estimate of the resulting cost of the path
+containing the current state.
+We omit the argument $(s)$ unless necessary.
+
+A \emph{sorting strategy} of a best first search algorithm is a strategy
+which tries to select a single node from the OPEN list.
+Each sorting strategy is denoted as a vector of several sorting
+criteria, such as
+[$\text{criterion}_1$, $\text{criterion}_2$, $\ldots$,
+$\text{criterion}_k$], which means: From the OPEN list, first, select a
+set of nodes using $\text{criterion}_1$.  If there are still multiple
+nodes remaining in the set, then break ties using $\text{criterion}_2$
+and so on, until a single node is selected.  The \emph{first-level
+sorting policy} of a strategy is $\text{criterion}_1$, the
+\emph{second-level sorting policy} is $\text{criterion}_2$, and so on.
 %% the word frontier is no longer used in the later text.
 % \emph{final frontier} is the set of open nodes with $f^*$.
+Note that this corresponds to the command line option format of Fast
+Downward \cite{Helmert2006}.
 
-A \emph{plateau} is a set of nodes in OPEN with both the same $f$ and same $h$ costs.
-A plateau whose nodes have $f$-cost $f_p$ and $h$-cost $h_p$ is denoted as
-$\plateau{f_p,h_p}$.
-An  \emph{entrance} to a $\plateau{f_p,h_p}$ is a node $n \in \plateau{f_p,h_p}$, whose current parent is not a member of $\plateau{f_p,h_p}$.
+Using this notation, \astar without any tiebreaking strategy can be
+denoted as a Best-First Search (BFS) with $[f]$, and \astar which breaks ties according to $h$
+value is denoted as $[f,h]$. Similarly, GBFS is denoted as 
+$[h]$.  Unless stated otherwise, we assume the nodes are sorted in the
+increasing order of the key value, and a BFS always selects the smallest
+key value.
+
+
+
+The sorting strategy may fail to select a single node because some nodes
+may share the same sorting keys. In such cases, a
+search algorithm must decide which node to expand by a
+\emph{last-resort} tiebreaking strategy, which is one of FIFO
+(First-In-First-Out), LIFO (Last-In-First-Out) or RO (random
+ordering).  Trivially, these strategies are able to select a single node
+from the set of nodes.  Throughout the paper, we show the last-resort
+tiebreaking in the subscript such as $[f,h]_{\fifo}$.
+
+
+A \emph{plateau} is a set of nodes in OPEN, the element of which are
+indistinguishable according to the sorting strategy. In case of \astar
+using tiebreaking with $h$ ($[f,h]$), this is the set of nodes with the
+same $f$ cost and the same $h$ cost.
+A plateau whose nodes have $f=f_p$ and $h=h_p$ is denoted as $\plateau{f_p,h_p}$.
+
+An \emph{entrance} to a $\plateau{f_p,h_p}$ is a node $n \in \plateau{f_p,h_p}$, whose current parent is not a member of $\plateau{f_p,h_p}$.
 The \emph{final plateau},  is the plateau containing the solution found by the search algorithm.
-In \astar using admissible heuristics, the final plateau is  $\plateau{f^*,0}$.
+In \astar using admissible heuristics, the final plateau is
+$\plateau{f^*}$ (without tiebreaking), or $\plateau{f^*,0}$ (with $h$-based tiebreaking).
 
 
 
@@ -273,10 +296,20 @@ In \astar using admissible heuristics, the final plateau is  $\plateau{f^*,0}$.
 
 \label{sec:astar-background}
 
+In each iteration, \astar selects and expands a node $n$ from the OPEN
+priority queue.  $n$ is the node which has the lowest $f$-cost in OPEN.
+\astar returns an optimal solution when $h$ is admissible, i.e., when
+$h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
+the nearest goal.
 
-%Aside from the heuristic function, most best-first family of search
-%algorithms, including \astar, IDA* and so on, have a tiebreaking criteria which is used
-%when two nodes have the same $f$ value.
+In order to guarantee solution optimality, \astar expands the search
+nodes with a best-first order of $f$, until it finds a solution which
+have $f=f^*$, the cost of the optimal solution.
+Due to the best-first order, any nodes with $f(n) = k$ are expanded after all nodes with $f(n) < k$ are expanded.
+Thus, the \emph{effective search space of \astar} is the set of nodes with 
+$f(n) \leq f^*$: \astar expands all nodes with $f(n) < f^*$, then
+expands \emph{some} of the nodes with $f(n) = f^*$, and
+\astar never expands a node with $f(n) > f^*$.
 
 If multiple nodes with the same $f$-cost are possible, \astar
 must implement some tiebreaking policy (either
@@ -293,14 +326,14 @@ Pearl's textbook on heuristic search specifies that best-first search should ``b
 To the best of our knowledge, the first explicit mention of a tiebreaking policy that considers node generation order is by Korf in his analysis of IDA*: ``If \astar employs the tiebreaking rule of 'most-recently generated', it must also expand the same nodes [as IDA*]'', i.e., a \lifo ordering.
 
 In recent years, tiebreaking according to $h$-values has become ``folklore'' in the search community.
-\citeauthor{hansen2007anytime} state that ``It is well-known 
+\citeauthor{hansen2007anytime} state that ``[i]t is well-known 
 that \astar achieves best performance when it breaks ties
 in favor of nodes with least h-cost'' \cite{hansen2007anytime}.
 \citeauthor{holte2010common} writes ``\astar breaks ties in favor
 of larger $g$-values, as is most often done'' \cite[note that since $f=g+h$,
 preferring large $g$ is equivalent to preferring smaller $h$]{holte2010common}.
-% \citeauthor{felner2011inconsistent} also assume ``ties are broken in
-% favor of low h-values'' in describing Bidirectional Pathmax for \astar.
+\citeauthor{felner2011inconsistent} also assume ``ties are broken in
+favor of low h-values'' in describing Bidirectional Pathmax for \astar \citeyear{felner2011inconsistent}.
 In their detailed survey/tutorial on efficient \astar implementations,
 \citeauthor{burns2012implementing} \citeyear{burns2012implementing}
 also break ties ``preferring high $g$'' (equivalent to low $h$).
@@ -313,28 +346,22 @@ to our knowledge, an in-depth experimental analysis of tiebreaking strategies fo
 
 Although the standard practice of tiebreaking according to $h$ might be
 sufficient in some domains, further levels of tiebreaking (explicit or
-implicit) are required if multiple nodes can have not only the same $f$,
-but also the same $h$ values.
-%% we do, in Roger, Helmert 
-% We are not aware of any work that explicitly mentions 2nd-level tiebreaking.
-While the survey of efficient \astar implementation techniques in
-\cite{burns2012implementing} did not explicitly mention the 2nd-level
-tiebreaking, their library code\footnote{https://github.com/eaburns/search}
-first breaks ties according to $h$, and then
+implicit) are required if multiple nodes have the same $f$ as well as
+the same $h$ values. To date, the effect of such \emph{last-resort} tiebreaking was not investigated
+in depth.
+For example, the survey of efficient \astar implementation techniques in
+\cite{burns2012implementing} did not explicitly mention the last-resort 
+tiebreaking, while their library code\footnote{https://github.com/eaburns/search}
+uses \lifo last-resort tiebreaking.
+It first breaks ties according to $h$, and then
 breaks remaining ties according to a \lifo policy (most recently
-generated nodes first), i.e., a $[h,\lifo]$ strategy.
+generated nodes first), i.e., $[f,h]_\lifo$.
 Although not documented, their choice of a \lifo 2nd-level tiebreaking policy appears to be a natural consequence of the fact it can be trivially, efficiently implemented in their two-level bucket (vector) implementation of OPEN.
 In contrast, the current implementation of the \sota \astar based planner Fast
-Downward \cite{Helmert2006}, %\footnote{http://www.fast-downward.org}, <-- takes up 2 lines!
-as well as 
-the work by \cite{RogerH10} uses a $[h,\fifo]$ tiebreaking strategy.
+Downward \cite{Helmert2006}, as well as the work by \cite{RogerH10} uses a $[f,h]_\fifo$ tiebreaking strategy.
 Although we could not find an explanation in the publication nor in the website, this choice is most likely due to their use of alternating OPEN lists, in which case the \fifo second-level policy serves to provide a limited form of fairness.
-%We could not find any explanation for this choice either.
-
-
-%\citeauthor{Korf1985depth} uses $h$-based tiebreaking in the context of WA*
-%\cite{korf1993linear}.  
-% ** not sure how/where to put this..
+Such lack of explanation suggests that this topic has been out
+of focus of the heuristic search literature.
 
 \section{Evaluation of Standard Strategies}
 \label{sec:eval-common-strategies}
@@ -364,7 +391,7 @@ second-level tiebreaking, respectively.
 %Although the search behavior of $[f,h,\fifo]$ corresponds to the default behavior of Fast Downward, this implementation differs 
 %from the original, unmodified code because we enabled caching of $h$-values, so that reopened nodes refer to cached $h$-values.\footnote{The current Fast Downward code disables $h$-caching because its current implementation is not compatible with multiple admissible heuristics.}
 %Thus, we also show results for unmodified Fast Downward -- as expected, $[f,h,\fifo]$ dominates unmodified FD.
-Detailed results for the LMcut heuristic \cite{Helmert2009}, as well as summary results for the M\&S heuristic \cite{HelmertHHN14}, are
+Detailed results for LMcut heuristic \cite{Helmert2009} and M\&S heuristic \cite{HelmertHHN14} are
 shown in \reftbl{tbl:depth} (leftmost 2 columns).
 Differences in coverage are observed in several domains, and
 $[h,\lifo]$ outperforms $[h,\fifo]$ in total.
@@ -386,6 +413,69 @@ evaluated can sometimes be larger than a factor of 10 (\pddl{Openstacks}, \pddl{
 \end{figure}
 
 \begin{table*}[htb]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-nofd.tex}
+ \caption{
+ Full version of the upper half of \reftbl{depth} showing 
+ the experiments on the IPC benchmark instances using \lmcut heuritics.
+ Each cell shows the coverage of the domain solved with 5 min, 2GB.
+ As in the original \reftbl{depth}, we highlighted the best results in
+ \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
+ }
+ \label{lmcut-ipc-full}
+ }
+\end{table*}
+
+\begin{table*}[htb]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-nofd.tex}
+ \caption{
+ Full version of the bottom line of \reftbl{depth} showing 
+ the experiments on the IPC benchmark instances using \mands heuritics.
+ Each cell shows the coverage of the domain solved with 5 min, 2GB.
+ As in the original \reftbl{depth}, we highlighted the best results in
+ \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
+ }
+ \label{mands-ipc-full}
+ }
+\end{table*}
+
+
+\begin{table*}[htb]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck/zerocost/1-nofd.tex}
+ \caption{
+ Full version of the lower half of \reftbl{depth} showing 
+ the experiments on the Zerocost instances using \lmcut heuritics.
+ Each cell shows the coverage of the domain solved with 5 min, 2GB.
+ As in the original \reftbl{depth}, we highlighted the best results in
+ \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
+ }
+ \label{lmcut-zerocost-full}
+ }
+\end{table*}
+
+
+\begin{table*}[htb]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck-mands/zerocost/1-nofd.tex}
+ \caption{
+ Full version of the bottom line of \reftbl{depth} showing 
+ the experiments on the IPC benchmark instances using \mands heuritics.
+ Each cell shows the coverage of the domain solved with 5 min, 2GB.
+ As in the original \reftbl{depth}, we highlighted the best results in
+ \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
+ }
+ \label{mands-zerocost-full}
+ }
+\end{table*}
+
+
+\begin{table*}[htbp]
  \centering
  \relsize{-1} \setlength{\tabcolsep}{0.3em}
  \input{tables/aaai16-robustnesscheck/aaai16prelim3_zerocost/1-nofd.tex}
@@ -1180,6 +1270,16 @@ expansion phase.
 
 
 \section{Depth-based Tiebreaking for GBFS}
+
+%\citeauthor{Korf1985depth} uses $h$-based tiebreaking in the context of WA*
+%\cite{korf1993linear} 
+% 
+% (g-based tiebreaking, p69, for GBFS:) With all the weight on h, meaning
+% that g is used only for tie-breaking among nodes with equal h values,
+% 
+% (p73:) to break ties in favor of nodes closest to the initial state.  
+% ** not sure how/where to put this..
+
 
 Compared to \astar, to our knowledge, there are currently no
 well-established tiebreaking policy for GBFS. GBFS does not use $f$ and
