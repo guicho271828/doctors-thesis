@@ -1,366 +1,46 @@
-\include{1-intro}
-\include{2-preliminary}
-
-\section{Background: Tiebreaking Strategies for \astar}
-
-\label{sec:astar-background}
-
-\astar is a standard search algorithm for finding an optimal-cost path
-on a graph.
-Starting from the single initial node, in each iteration, \astar
-selects and expands a node $n$ with the lowest $f$-cost in the OPEN
-priority queue. The successor nodes are inserted back to OPEN, and $n$
-is marked as CLOSED, in order to avoid duplicated evaluations.
-\astar returns an optimal solution when $h$ is admissible, i.e., when
-$h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
-the nearest goal.
-
-The best-first order of the expansion is a key to guarantee solution optimality. 
-The first solution found by the algorithm is guarantee to have the optimal cost $f=f^*$ because 
-any nodes with $f(n) = k$ are expanded after all nodes with $f(n) < k$ are expanded.
-Thus, the \emph{effective search space of \astar} is the set of nodes with 
-$f(n) \leq f^*$: \astar expands all nodes with $f(n) < f^*$, then
-expands \emph{some} of the nodes with $f(n) = f^*$, and
-\astar never expands a node with $f(n) > f^*$.
-
-If multiple nodes with the same $f$-cost are possible, \astar
-must implement some tiebreaking policy (either
-explicitly or implicitly) which selects from among these nodes.
-The early literature on heuristic search seems to have been mostly agnostic regarding tiebreaking.
-The original \astar paper, as well as Nilsson's subsequent textbook 
-states: ``Select the open node $n$ whose value $f$
-is smallest. Resolve ties arbitrarily, but always in favor of any [goal
-node]'' \cite[p.102 Step 2]{hart1968formal}, \cite[p.69]{Nilsson71}.
-% Although it is possible to interpret this to imply $h$-based tiebreaking
-% since goal nodes are the special case where $h=0$,
-% they make no further mention of tiebreaking.
-Pearl's textbook on heuristic search specifies that best-first search should ``break ties arbitrarily'' (\citeyear{pearl1984heuristics}, p.48, Step 3), and does not specifically mention tiebreaking for \astar.
-To the best of our knowledge, the first explicit mention of a tiebreaking policy that considers node generation order is by Korf in his analysis of IDA*: ``If \astar employs the tiebreaking rule of 'most-recently generated', it must also expand the same nodes [as IDA*]'', i.e., a \lifo ordering.
-
-In recent years, tiebreaking according to $h$-values has become ``folklore'' in the search community.
-\citeauthor{hansen2007anytime} state that ``[i]t is well-known 
-that \astar achieves best performance when it breaks ties
-in favor of nodes with least h-cost'' \cite{hansen2007anytime}.
-\citeauthor{holte2010common} writes ``\astar breaks ties in favor
-of larger $g$-values, as is most often done'' \cite[note that since $f=g+h$,
-preferring large $g$ is equivalent to preferring smaller $h$]{holte2010common}.
-\citeauthor{felner2011inconsistent} also assume ``ties are broken in
-favor of low h-values'' in describing Bidirectional Pathmax for \astar \citeyear{felner2011inconsistent}.
-In their detailed survey/tutorial on efficient \astar implementations,
-\citeauthor{burns2012implementing} \citeyear{burns2012implementing}
-also break ties ``preferring high $g$'' (equivalent to low $h$).
-%% this could be moved to later analysis
-% They further write: ``The reasoning is that the goal can be found more
-% quickly in the final $f$ layer of search''.
-Thus, tiebreaking according to $h$-values appears
-to be ubiquitous in practice while,
-to our knowledge, an in-depth experimental analysis of tiebreaking strategies for \astar is lacking in the literature.
-
-Although the standard practice of tiebreaking according to $h$ might be
-sufficient in some domains, further levels of tiebreaking (explicit or
-implicit) are required if multiple nodes have the same $f$ as well as
-the same $h$ values. To date, the effect of such \emph{last-resort}
-tiebreaking was not investigated in depth.
-% 
-For example, the survey of efficient \astar implementation techniques in
-\cite{burns2012implementing} did not explicitly mention the last-resort
-tiebreaking, while their library
-code\footnote{https://github.com/eaburns/search} uses \lifo
-last-resort tiebreaking.
-% 
-It first breaks ties according to $h$, and then
-breaks remaining ties according to a \lifo policy (most recently
-generated nodes first), i.e., $[f,h,\lifo]$.
-% 
-Although not documented, their choice of a \lifo 2nd-level tiebreaking
-policy appears to be a natural consequence of the fact it can be
-trivially, efficiently implemented in their two-level bucket (vector)
-implementation of OPEN.
-% 
-In contrast, the current implementation of the \sota \astar based planner Fast
-Downward \cite{Helmert2006}, as well as the work by \cite{RogerH10} uses
-a $[f,h,\fifo]$ tiebreaking strategy.
-% 
-Although we could not find an explanation in the publication nor in the
-website, this choice is most likely due to their use of alternating OPEN
-lists, in which case the \fifo second-level policy serves to provide a
-limited form of fairness.
-% 
-Such lack of explanation suggests that this topic has been out
-of focus of the heuristic search literature.
-
-\section{Evaluation of Standard Strategies}
-\label{sec:eval-common-strategies}
-
-We evaluated tiebreaking strategies for domain-independent optimal
-classical planning.  In our experiments, the planners are based on Fast
-Downward (revision 6251), and all experiments are run with a 5-minute,
-2GB memory limit for the search binary (FD translation/preprocessing
-times are not included in the 5-minute limit).  All experiments were
-conducted on Xeon E5410@2.33GHz CPUs.  We used 1104 instances from 35
-standard benchmark domains.
-
-\begin{figure}[htbp]
-   \centering
-  \includegraphics{tables/aaai16-frontier/aaai16prelim3/lmcut_frontier-front.pdf}
-  \caption{
-  Similar to \refig{fig:plateau-noh}; $y$-axis shows
-  the number nodes with $f=f^*, h=0$, which forms the final
-  plateau when $h$-based tiebreaking is enabled.
-  Note that many \pddl{Openstacks} and \pddl{Cybersec} instances are near the $y=x$ line.
-  }
-  \label{fig:plateau}
-\end{figure}
-
-We first compared two commonly used tiebreaking strategies, $[h,\fifo]$, $[h,\lifo]$, which
-first break ties according to $h$, and then apply \fifo or \lifo
-second-level tiebreaking, respectively.
-% The following will be necessary in a future version, if we use LOP:
-%Although the search behavior of $[f,h,\fifo]$ corresponds to the default behavior of Fast Downward, this implementation differs 
-%from the original, unmodified code because we enabled caching of $h$-values, so that reopened nodes refer to cached $h$-values.\footnote{The current Fast Downward code disables $h$-caching because its current implementation is not compatible with multiple admissible heuristics.}
-%Thus, we also show results for unmodified Fast Downward -- as expected, $[f,h,\fifo]$ dominates unmodified FD.
-Detailed results for LMcut heuristic \cite{Helmert2009} and M\&S heuristic \cite{HelmertHHN14} are
-shown in \reftbl{tbl:depth} (leftmost 2 columns).
-Differences in coverage are observed in several domains, and
-$[h,\lifo]$ outperforms $[h,\fifo]$ in total.
-\refig{fig:f-h-eval} gives us a
-more fine-grained analysis by comparing the number of node evaluation
-(computations of \lmcut) of the $[h,\lifo]$ and $[h,\fifo]$ strategies.
-It shows that the difference in the number of nodes
-evaluated can sometimes be larger than a factor of 10 (\pddl{Openstacks}, \pddl{Cybersec} domains).
-
-\begin{figure}[tb]
- \centering \relsize{-3}
- \includegraphics{tables/aaai16-30min-5min-cut/aaai16prelim3/evaluated-lmcut_ff-lmcut_lf.pdf}
- \caption{The number of evaluations of standard \fifo vs
- \lifo second-level tiebreaking, with first-level $h$
- tiebreaking. \lifo evaluates  less than $1/10$ of the nodes evaluated
- by \fifo in \pddl{Cybersec} and \pddl{Openstacks}. 
- }
- \label{fig:f-h-eval}
-\end{figure}
-
-\begin{table*}[htb]
- {
- \centering
- \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-nofd.tex}
- \caption{
- Full version of the upper half of \reftbl{depth} showing 
- the experiments on the IPC benchmark instances using \lmcut heuritics.
- Each cell shows the coverage of the domain solved with 5 min, 2GB.
- As in the original \reftbl{depth}, we highlighted the best results in
- \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
- }
- \label{lmcut-ipc-full}
- }
-\end{table*}
-
-
-
-\begin{table*}[htb]
- {
- \centering
- \input{tables/aaai16-robustnesscheck-mands/zerocost/1-nofd.tex}
- \caption{
- Full version of the bottom line of \reftbl{depth} showing 
- the experiments on the IPC benchmark instances using \mands heuritics.
- Each cell shows the coverage of the domain solved with 5 min, 2GB.
- As in the original \reftbl{depth}, we highlighted the best results in
- \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
- }
- \label{mands-zerocost-full}
- }
-\end{table*}
-
-
-\begin{table*}[htbp]
- \centering
- \relsize{-1} \setlength{\tabcolsep}{0.3em}
- \input{tables/aaai16-robustnesscheck/aaai16prelim3_zerocost/1-nofd.tex}
- \caption{Coverage comparison (the number of instances solved in 5min, 2GB), \textbf{bold}=best. Zerocost domains are named as [original name]-[name of nonzero action]. Due to space, we only show the domains whose maximum pairwise coverage difference $\mit{MaxDiff}>2$. (We used the means of 10 runs for the randomized strategies.) Domains with $\mit{MaxDiff}\leq 2$ follows:
- (1) $\mit{MaxDiff} = 0$ (same coverages by all configuration and all runs): \pddls{barman-opt11, floortile-opt11, grid, gripper, hanoi, parking-opt11, pegsol-opt11, psr-small, rovers, sokoban-opt11, tpp, transport-opt11, grid-fuel, gripper-move, parking-movecc, psr-small-open, zenotravel-fuel}.
- (2) $0 < \mit{MaxDiff} \leq 1$: \pddls{depot, driverlog, elevators-opt11, freecell, mystery, parcprinter-opt11, pathways, pipesworld-tankage, storage, tidybot-opt11, visitall-opt11, driverlog-fuel, floortile-ink, hiking-fuel, logistic00-fuel, nomystery-fuel, pathways-fuel, sokoban-pushgoal}.
- (3) $1 < \mit{MaxDiff} \leq 2$: \pddls{blocks, nomystery-opt11, pipesworld-notankage, zenotravel, depot-fuel, rovers-fuel, storage-lift, tidybot-motion}.
- }\label{tbl:depth}
-\end{table*}
-
-\subsubsection{Is $h$-Based Tiebreaking Necessary?}
-\label{sec:h-necessary}
-%Next, we investigated whether $h$-based, first-level tiebreaking is necessary.
-\reftbl{tbl:depth} also shows the results of $[\fifo]$ and $[\lifo]$,
-which rely only on \fifo or \lifo tiebreaking.
-$[\lifo]$, which simply breaks ties among nodes with the same $f$-cost by expanding most recently generated nodes first \cite{korf1985depth}, clearly dominates $[\fifo]$.
-
-Interestingly, the performance of the $[\lifo]$ strategy
-is comparable to $[h,\lifo]$ and $[h,\fifo]$, the standard two-level strategies that first break ties according to $h$.
-This may be surprising, considering the ubiquity of $h$-based tiebreaking in the search and planning communities.
-% 
-However, \lifo behaves somewhat similarly to $h$-based tiebreaking, in the following sense:
-\lifo expands the most recently generated node $n$.
-For any child $n'$, 
-if the heuristic function is admissible and $f(n') = f(n)$, there are only 2 possibilities :
-(1) $g(n') > g(n)$ and $h(n') < h(n)$, or
-(2) $g(n') = g(n)$ and $h(n') = h(n)$,
-because $g(n)+h(n)=g(n')+h(n')$.
-Thus, as \lifo expands nodes in a ``depth-first'' manner,
-the nodes that continue to be expanded by \lifo's depth-first
-exploration have non-increasing $h$-values, much like in $h$-based tiebreaking.
-Although in general, the expansion order of $[\lifo]$ is not the same 
-as that of $h$-based tiebreaking strategies,
-this might explain why their performances are comparable.
-\textbf{An in-depth investigation of the behavior of $[\lifo]$ vs. $h$-based tiebreaking is a direction for future work.}
-
-% Compared to the $h$-based variants which explicitly selects nodes with smaller $h$ and its expanded nodes have non-increasing $h$-values,
-% This has the same  can behave somewhat similarly to actively expanding nodes with low $h$-values, as done by $h$-based tiebreaking.
-
-% \citeauthor{burns2012implementing}
-% (\citeyear{burns2012implementing}) writes ``the goal can be found more
-% quickly in the final $f$ layer of search'' about $h$ tiebreaking.
-
-\subsubsection{Plateaus and Tiebreaking}
-
-In \refig{fig:f-h-eval},
-we observed that large performance differences between
-2-level tiebreaking strategies $[h,\lifo]$ and $[h,\fifo]$ tend
-to occur in problems where there are many nodes with the same $f$ and
-$h$ values, creating large plateau regions where the heuristic does not
-provide any useful guidance -- by definition, these plateau regions 
-require a blind search (because all nodes
-have the same $f,h$) which relies solely on the tiebreaking criterion.
-
-\refig{fig:plateau} plots the size of the final plateau on 1104 IPC
-benchmark instances.
-The $y$-axis
-represents the number of nodes with $f=f^*, h=0$, i.e., the final plateau, and the $x$-axis represents the total
-number of nodes with $f\leq f^*$.
-In some domains such as \pddl{Openstacks} and \pddl{Cybersec}, the planner spends most of the runtime
-searching the final plateau even with $h$ tiebreaking, and
-thus the runtime on these domains varies significantly depending on the second-level tiebreaking strategy.
-
-\section{Domains with Zero-Cost Actions}
-\label{sec:zerocost-domains}
-%% best to put openstacks here, considering the connection to the
-%% previous section
-\pddl{Openstacks}  is a cost
-minimization domain introduced in IPC-2006, where the objective is to 
-minimize the number of stacks used.
-There are many zero-cost actions (i.e., actions that don't increase the number of stacks), and
-they prevent the standard heuristics from producing
-informative guidance.
-
-%% safe to remove these explanation.
-% According to \cite{richter2010lama}, \textbf{??????}
-% %Richter talks about the failures on openstacks starting around p.167
-% \lmcut \cite{Helmert2009} fails to find a good cost
-% partitioning with non-zero values, 
-% % A detailed discussion of Openstacks domain and poor performance of landmarks is in \cite{richter10lama}, p.167-169.
-% and most edges in the abstraction
-% space of M\&S \cite{helmert2007flexible} have zero costs.
-
-
-% XXX I'm commenting out the paragraphs below because:
-% (1) A review of heuristic functions for domain-independent learning is not really
-% necessary for this AAAI submission. 
-% (2) It's better if this paper is not so strongly associated with the ICAPS community only -- this work applies in general to search with A*, and is not strongly tied to almost-perfect heuristics, lmcut, m&s, etc.
-
-Although domains with zero-cost actions are not common in the current set of benchmarks, we argue that such domains are of an important class of models for cost-minimization problems, i.e.,
-assigning zero costs make sense from a practical, modeling perspective.
-For example, consider the \pddl{driverlog} domain, where the task is to move packages between locations using trucks.
-The IPC version of this domain assigns unit costs to all actions. Thus, cost-optimal planning on this domain seeks to minimize the number of steps in the plan.
-However, another natural objective function would be the one which minimizes the amount of fuel spent by driving the trucks,
-assigning cost 0 to all actions except \pddl{drive-truck}.
-
-% While I agree with the point you're trying to make,
-% There is an ugly issue when arguing that current models try to  optimize plan-execution time (i.e., makespan), 
-% which is that if we really cared about makespan optimality, we would consider parallel execution of actions whenever possible.
-% however, sequential classical planners do not handle parallel actions at all  (recall ACP).
-% so arguing this path can only lead to trouble.. Let's try a safer line of argument.
-%% For runtime minimization,
-%% nonzero positive costs are reasonable because
-%% every actions are supposed to consume a fraction of time.
-%% However, such formulation is not suitable for general optimization
-%% problems.  For example, when you try to minimize the energy consumption
-%% by the elevators in \pddl{Elevators} domain, many actions would have zero-cost
-%% --- it does not consume electricity for either boarding or leaving the
-%% passenger, or moving the elevator down.
-%% % 
-%% From the practical point of
-%% view, cost minimization domains would have wider interest compared to
-%% the simple runtime minimization.
-%% Also, as shown previously, such domains pose a
-%% difficulty to the current heuristic planners due to their large plateaus.
-
-Similarly, for many practical applications, a natural 
-objective is to optimize the usage of one key consumable resource, e.g., fuel/energy minimization.
-In fact, two of the IPC domains, \pddl{Openstacks} and \pddl{Cybersec}, which were shown difficult for standard tiebreaking methods in the previous section, both contain many zero-cost actions, and both are based on industrial applications:  \pddl{Openstacks} models production planning \cite{fink1999applications} and \pddl{Cybersec} models Behavioral Adversary Modeling System \cite[minimizing decryption, data transfer, etc.]{boddy2005course}.
-
-Therefore, in this paper, we modified various domains
-into cost minimization domains with many zero-cost actions.
-Specifically, a domain is modified so that all action schemas are assigned
-cost 0 except for a few (usually one) action schema which consumes some key resource.
-The last word in the names of these domains indicate the action which is
-assigned non-zero cost, e.g., \pddl{elevator-up} is a modified elevator
-domain where the \pddl{up} action is assigned non-zero cost (because
-elevators are considered to consume energy only when going \pddl{up}), and all other actions have cost 0.
-Most of the transportation-type domains are modified to optimize 
-energy usage (\pddl{Logistics-fuel}, \pddl{elevator-up} etc.), and  assembly-type domains are modified to minimize resource usage
-%% floortile-ink is not shown, so better not to mention it
-(\pddl{Woodworking-cut} minimizes wood usage, etc.).
-We did not
-include domains with only a single action schema and standard domains which already had many
-zero-cost actions (these are already in the results for standard IPC domains).
-We refer to these 28 new domains as \emph{zerocost domains}.
-
-\refig{fig:plateau-zerocost} plots the size of the final plateau of the
-zerocost domain instances, with $h$-tiebreaking enabled.
-As expected, many of these zerocost domains have large plateaus even
-with the help of $h$-tiebreaking.
-Thus, in these cost-minimization problems, the search strategy within
-plateaus, i.e., tiebreaking,  becomes yet more important.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics{tables/aaai16-frontier/zerocost/lmcut_frontier-front.pdf}
-  \caption{Similar to \refig{fig:plateau}, but for 620 instances from our 
-  \emph{zerocost domains} (\refsec{sec:zerocost-domains}),
-  where zero-cost actions induce very large plateaus.
- }
- \label{fig:plateau-zerocost}
-\end{figure}
+% \include{1-intro}
+% \include{2-preliminary}
+% \include{3-background}
+% \include{4-standard}
+% \include{5-zerocost}
 
 
 \section{Depth-Based Tiebreaking for A*}
 
 \label{sec:depth}
 
-In order to solve zerocost problems, the planner needs to perform an
-efficient knowledge-free search within a large, final plateau.
-One useful notion which can be used to both understand and control the
-search in this situation is the \emph{depth} of a node, which represents
-the number of steps (edges in the search space graph) from the entrance
-of the plateau.
+% One useful notion which can be used to both understand and control the
+% search in this situation is 
+The \emph{depth} of a node represents the number of steps from the
+entrance of the plateau.
 
-\textbf{XXX From SoCS draft}
-For such situations, they proposed a notion of \emph{depth} within the
-plateau, and an idea of diversifying the search over different depths
-within a plateau. A depth is an integer value which suggests the
-distance from the \emph{entrance} of the plateau (the first state which
-entered the plateau, along the path from the initial state). The depth
-$d(s)$ of a state $s$ is 0 when $s$ and the parent state $t$ has the
-different $(f,h)$ pair (i.e. $f(s) \not = f(t) \lor h(s) \not = h(t)$),
-and $d(s)=d(t)+1$ when they are same (i.e. $f(s) = f(t) \land h(s) =
-h(t)$) and the parent and the child are in the
-same plateau.
-\textbf{XXX From SoCS draft}
+A depth is an integer value which suggests the distance from the
+\emph{entrance} of the plateau (the first state which entered the
+plateau, along the path from the initial state). The depth $d(s)$ of a
+state $s$ is 0 when $s$ and the parent state $t$ has the different key
+values for a sorting strategy, and $d(s)=d(t)+1$ when they have the same
+key values: For example, in \astar with $h$-based tiebreaking, the key
+values of a state are represented as a vector $[f,h]$, and they are same
+when the pairwise equivalence holds (i.e. $f(s) = f(t) \land h(s) =
+h(t)$).  Having the same key values means that $s$ and $t$ are in the
+same plateau. \todo{Figure}
+
+% \textbf{XXX From SoCS draft}
+% For such situations, they proposed a notion of \emph{depth} within the
+% plateau, and an idea of diversifying the search over different depths
+% within a plateau. 
+% \textbf{XXX From SoCS draft}
 
 
-Given a node $n$,
-if its current parent $\parent{n}$ is from the other plateau, i.e.,
-$\parent{n}$ has a different $f$-value, or different $h$-value when the
-first tiebreaking is present, then $\depth{n} = 0$. Nodes with
-$\depth{n} = 0$ correspond to the \emph{entrance} of the plateau.  If $n$
-and $\parent{n}$ are in the same plateau i.e.\ share the same $f$ and $h$,
-$\depth{n}$ is defined as $\depth{\parent{n}} + 1$.  Based on this
+% Given a node $n$,
+% if its current parent $\parent{n}$ is from the other plateau, i.e.,
+% $\parent{n}$ has a different $f$-value, or different $h$-value when the
+% first tiebreaking is present, then $\depth{n} = 0$. Nodes with
+% $\depth{n} = 0$ correspond to the \emph{entrance} of the plateau.  If $n$
+% and $\parent{n}$ are in the same plateau i.e.\ share the same $f$ and $h$,
+% $\depth{n}$ is defined as $\depth{\parent{n}} + 1$.  
+
+Based on this
 simple notion of depth, we propose three \emph{depth-based
 tiebreaking} strategies, where the nodes are inserted into buckets associated with
 depths, and upon expansion, the buckets are chosen according to some policy.
@@ -394,7 +74,7 @@ Depth-based tiebreaking has no effect when used as a second-level tirebreaking p
 Since there can be multiple nodes within the same depth bucket,
 a further tiebreaking criterion may be necessary to break ties among them.
 We could, for example, apply \lifo or \fifo policies at this level -- 
-note that $[h,\fd,\fifo]$ and $[h,\ld,\lifo]$ are equivalent to $[h,\fifo]$ and $[h,\lifo]$, respectively.
+note that $[h,\fd,\fifo]$ and $[h,\ld,\lifo]$ are equivalent to $[f,h,\fifo]$ and $[f,h,\lifo]$, respectively.
 
 However we use a Random Order (\ro) policy, which 
 randomly selects an element from the depth bucket selected by the depth-based tiebreaking.
@@ -432,10 +112,13 @@ instances. For randomized strategies, we
 show the coverage (mean $\pm$ sd) on
 10 independent runs.
 
-\begin{table*}[htb]
+
+
+
+\begin{table}[htb]
  {
  \centering
- \input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-nofd.tex}
+ \input{tables/aaai16-robustnesscheck-mands/zerocost/1-nofd.tex}
  \caption{
  Full version of the bottom line of \reftbl{depth} showing 
  the experiments on the IPC benchmark instances using \mands heuritics.
@@ -443,12 +126,11 @@ show the coverage (mean $\pm$ sd) on
  As in the original \reftbl{depth}, we highlighted the best results in
  \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
  }
- \label{mands-ipc-full}
+ \label{mands-zerocost-full}
  }
-\end{table*}
+\end{table}
 
-
-\begin{table*}[htb]
+\begin{table}[htb]
  {
  \centering
  \input{tables/aaai16-robustnesscheck/zerocost/1-nofd.tex}
@@ -461,26 +143,26 @@ show the coverage (mean $\pm$ sd) on
  }
  \label{lmcut-zerocost-full}
  }
-\end{table*}
+\end{table}
 
 
 % This comparison below may be useful in a future version of the paper, but not necessary in this version.
 %% First, we compared $[h,\ld,\lifo]$ and $[h,\fd,\fifo]$
-%% with $[h,\lifo]$ and $[h,\fifo]$, respectively, in order to see
+%% with $[f,h,\lifo]$ and $[f,h,\fifo]$, respectively, in order to see
 %% the extra cost of managing the depth-based buckets.
 %% The node evaluation order of $[h,\fd,\fifo]$ and $[h,\ld,\lifo]$
-%% are exactly the same as $[h,\fifo]$ and $[h,\lifo]$.
+%% are exactly the same as $[f,h,\fifo]$ and $[f,h,\lifo]$.
 %% This is because:
-%% (1) $[h,\lifo]$ expands the most recently evaluated/inserted
+%% (1) $[f,h,\lifo]$ expands the most recently evaluated/inserted
 %% states, and (2) the depth increases monotonically within the same $[f,h]$,
-%% thus (3) $[h,\lifo]$ always expands the largest depth. (Similar logic
-%% applies to $[h,\fifo]$.)
+%% thus (3) $[f,h,\lifo]$ always expands the largest depth. (Similar logic
+%% applies to $[f,h,\fifo]$.)
 %% % 
 %% % yet these results are useful in assessing the extra cost of managing the
 %% % depth-based buckets.
 %% As expected, the performances of $[h,\ld,\lifo]$ and
-%% $[h,\fd,\fifo]$ are slightly worse than $[h,\lifo]$ and
-%% $[h,\fifo]$, respectively, due to the cost of managing the depth-based buckets.
+%% $[h,\fd,\fifo]$ are slightly worse than $[f,h,\lifo]$ and
+%% $[f,h,\fifo]$, respectively, due to the cost of managing the depth-based buckets.
 
 We compared 
 $[h,\fd,\ro]$, $[h,\ld,\ro]$, and $[h,\rd,\ro]$. These all use 
@@ -516,37 +198,37 @@ except in \pddl{Scanalyzer-analyze}.
 %% \todo{move this to the final section after reviewing the action ordering}
 %% % removed \fifo
 %% Finally, we answer two following concerns regarding \lifo final-level
-%% tiebreaking criteria which appear in $[h,\lifo]$ and
+%% tiebreaking criteria which appear in $[f,h,\lifo]$ and
 %% $[h,\ld,\lifo]$. The evaluation in the earlier sections contains
 %% two open questions: (1) Do the action orderings affect the performance of \lifo? 
 %% (2) Doesn't \lifo benefit from its efficient low-level memory access pattern (high
 %% probability of hitting the cache), not by the search efficiency?
 %% They are both rejected because the
-%% coverage of $[h,\ld,\lifo]=[h,\lifo]$ is not significantly
+%% coverage of $[h,\ld,\lifo]=[f,h,\lifo]$ is not significantly
 %% different from $[h,\ld,\ro]$, i.e.,
 %% $859,857 \in [863.5-8.9,863.5+8.9]$,
 %% despite the difference in the third-level tiebreaking (\lifo vs \ro).
 %% % 
 %% It means that the
-%% performance of $[h,\lifo]$($=[h,\ld,\lifo]$) was not caused by the final-level
+%% performance of $[f,h,\lifo]$($=[h,\ld,\lifo]$) was not caused by the final-level
 %% \lifo, but instead by the implicit second-level tiebreaking LastDepth.
 %% %% remove
 %% % Besides, this problem is not important now that RandomDepth
 %% % is outperforming LastDepth-based tiebreaking strategy.
 %% % 
 %% With the similar logic, we can claim that the bad performance of
-%% $[h,\fd,\fifo]$ and $[h,\fifo]$ can be attributed to its the
+%% $[h,\fd,\fifo]$ and $[f,h,\fifo]$ can be attributed to its the
 %% inherent second-level FirstDepth, and not to the third-level \fifo.
 %% %% Unfortunately, 829,828 is not \in 816.7 +- 2.2.
 %% %% this can be changed if we rerun _random with O(1) random deletion.
 
 \subsubsection{Depth-Based Tiebreaking Without Considering $h$}
 
-In \refsec{sec:h-necessary}, we showed that $[\lifo]$ tiebreaking (without considering $h$) is
-sufficient for the standard IPC benchmarks -- the performance of $[\lifo]$, $[h,\lifo]$, and $[h,\fifo]$ are comparable.
-\reftbl{tbl:depth} shows that $[\rd,\ro]$, which randomly selects an element from a randomly selected depth-bucket, dominates $[h,\fifo]$,
-and performs comparably to $[h,\lifo]$.
-Although $[\rd,\ro]$ behaves in a less greedy/depth-first manner than $[\lifo]$, 
+In \refsec{sec:h-necessary}, we showed that $[f,\lifo]$ tiebreaking (without considering $h$) is
+sufficient for the standard IPC benchmarks -- the performance of $[f,\lifo]$, $[f,h,\lifo]$, and $[f,h,\fifo]$ are comparable.
+\reftbl{tbl:depth} shows that $[\rd,\ro]$, which randomly selects an element from a randomly selected depth-bucket, dominates $[f,h,\fifo]$,
+and performs comparably to $[f,h,\lifo]$.
+Although $[\rd,\ro]$ behaves in a less greedy/depth-first manner than $[f,\lifo]$, 
 it explores nodes with high depth sufficiently often so that even if \lifo behavior (seeking nodes that are far from the plateau entrance) is required, $[\rd,\ro]$ will eventually find the solution.
 Moreover, there are some domains (\pddl{pipesworld-pushend} and \pddl{woodworking-opt11}) where a the more randomized behavior of $[\rd,\ro]$ is advantageous.
 Thus, overall, $[\rd,\ro]$ performs moderately well, and 
@@ -581,12 +263,12 @@ By randomly selecting a depth bucket, $[h,\rd,\ro]$ explicitly eliminates this b
 To understand the behavior of depth-based policies, we plotted the histogram of
 the depths of search nodes opened by
 the most successful depth-based strategy, $[h,\rd,\ro]$, as well as 
-the standard $[h,\fifo]$, $[h,\lifo]$ strategies
+the standard $[f,h,\fifo]$, $[f,h,\lifo]$ strategies
 in the final plateau, plateau($f^*,0$) until the solution is found.
 % 
-Although $[h,\fifo]$ and $[h,\lifo]$ do not operate with an explicit notion of ``depth'', 
+Although $[f,h,\fifo]$ and $[f,h,\lifo]$ do not operate with an explicit notion of ``depth'', 
 they are equivalent to $[h,\fd,\fifo]$ and $[h,\ld,\lifo]$, respectively,
-%so we recorded the depths according to these depth-based equivalents of $[h,\fifo]$ and $[h,\lifo]$.
+%so we recorded the depths according to these depth-based equivalents of $[f,h,\fifo]$ and $[f,h,\lifo]$.
 so we recorded and plotted the depths according to  $[h,\fd,\fifo]$ and $[h,\ld,\lifo]$.
 
 
@@ -597,9 +279,9 @@ on
  % and \pddl{psr-small-open} p48 (right)
 In both instances, 
 % \pddl{openstacks} and \pddl{Woodworking-cut}, 
-we observed that the depth-first behavior of $[h,\lifo]$ results in 
+we observed that the depth-first behavior of $[f,h,\lifo]$ results in 
 deeper search, missing the key branch at intermediate depths.
-On the other hand, the breadth-first behavior of $[h,\fifo]$ often gets stuck spending an excessive amount of time searching around the plateau entrance.
+On the other hand, the breadth-first behavior of $[f,h,\fifo]$ often gets stuck spending an excessive amount of time searching around the plateau entrance.
 $[h,\rd,\ro]$ is balancing the search at various depths, which results in successfully solving more problems within the time limit (\reftbl{tbl:depth}). %to avoid confusion, avoiding word ``coverage'' here because coverage could refer to search algorithm ``covering'' the search space.
 
 % The figure also illustrates the behavior of RandomDepth: Although it
@@ -639,14 +321,14 @@ $[h,\rd,\ro]$ is balancing the search at various depths, which results in succes
  \centering
  \begin{tabular}{|c|c|c||c|c|}
   \hline
-  Domain & $[h,\fifo]/\varepsilon$ &  $[h,\lifo]/\varepsilon$ &  $[h,\fd,\ro]$ &  $[h,\rd,\ro]$ \\
+  Domain & $[f,h,\fifo]/\varepsilon$ &  $[f,h,\lifo]/\varepsilon$ &  $[h,\fd,\ro]$ &  $[h,\rd,\ro]$ \\
   \hline
   \lmcut Zerocost & 261 & 259 & 257.4\spm{}2.0  &  \textbf{294.2\spm{}2.3} \\
   \hline
   \mands Zerocost & 282 & 282 & 274.0\spm{}0.9  &  \textbf{310.2\spm{}2.1} \\
   \hline
  \end{tabular}
- \caption{Comparison of  depth-based tiebreaking methods vs. standard $[h,\fifo]$ and $[h,lifo]$ methods applied to $\varepsilon$-cost-transformed versions of the problem instances}
+ \caption{Comparison of  depth-based tiebreaking methods vs. standard $[f,h,\fifo]$ and $[h,lifo]$ methods applied to $\varepsilon$-cost-transformed versions of the problem instances}
  \label{tbl:epsilon}
 \end{table}
 
@@ -655,9 +337,9 @@ to eliminate plateaus by introducing artificial gradients in the search space.
 For example, the cost of all zero-cost actions can be replaced by a small $\varepsilon\ll 1$, where 
 $\varepsilon$ is chosen such that the optimal cost for the result of  this \emph{$\varepsilon$-cost transformation} (``$\varepsilon$-transformation'') is the same as the cost of the optimal solution to the original domain with zero costs when the $\varepsilon$-transformed costs are mapped back to 0.
 
-We evaluated the $[h,\fifo]/\varepsilon$ and $[h,\lifo]/\varepsilon$ strategies, which are the standard $[h,\fifo]$ and $[h,\lifo]$ tiebreaking strategies applied to  the $\varepsilon$-transformed version of the problems.
+We evaluated the $[f,h,\fifo]/\varepsilon$ and $[f,h,\lifo]/\varepsilon$ strategies, which are the standard $[f,h,\fifo]$ and $[f,h,\lifo]$ tiebreaking strategies applied to  the $\varepsilon$-transformed version of the problems.
 Since Fast Downward  only supports integer costs, we implemented/simulated the transformation by multiplying the non-zero costs by $10^6$, and assigning cost 1 to zero-cost actions -- in effect,  $\varepsilon=10^{-6}$.
-\reftbl{tbl:epsilon} shows that $[h,\fifo]$ and $[h,\lifo]$ with $\varepsilon$-transformation
+\reftbl{tbl:epsilon} shows that $[f,h,\fifo]$ and $[f,h,\lifo]$ with $\varepsilon$-transformation
  perform comparably to $[h,\fd,\ro]$, but are outperformed by $[h,\rd,\ro]$.
 % 
 The similarity in performance between $\varepsilon$-transformation and $[h,\fd,\ro]$ can be explained by the fact that  OPEN is sorted according to  $f(n)+k(n)\varepsilon$,
@@ -1103,9 +785,8 @@ all actions as the unit cost.
 &\htitle{#2}{|} #3 &\htitle{#2}{}\\
 \hline
 }
-\newcommand{\bi}[1]{\textbf{\Large #1}}
 
-\begin{table*}[htbp]
+\begin{table}[htbp]
  \setlength{\tabcolsep}{0.1em}
  % \setlength{\tabcolsep}{0.05em}
  % \relsize{-1}
@@ -1162,7 +843,7 @@ vstl & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
  % (Gt): $alt([h]_{\brackets{d}},\brackets{g,h})$,
  % (GT): $alt([h]_{\brackets{d}},\brackets{g,h,d})$
  % }
-\end{table*}
+\end{table}
 
 \begin{table}[htbp]
 \centering
@@ -1211,7 +892,7 @@ ff & GT & L & 133 & 74 & 207 & \bi{140} & 70 & 210\\
 \end{tabular}
 \end{table}
 
-\begin{table*}[htbp]
+\begin{table}[htbp]
  \setlength{\tabcolsep}{0.1em}
  % \setlength{\tabcolsep}{0.05em}
  % \relsize{-1}
@@ -1275,7 +956,7 @@ vstl & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
  % (Gt): $alt([h]_{\brackets{d}},\brackets{g,h})$,
  % (GT): $alt([h]_{\brackets{d}},\brackets{g,h,d})$
  }
-\end{table*}
+\end{table}
 
 
 % \subsection{Comparison against Lazy Evaluation}

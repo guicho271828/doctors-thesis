@@ -1,0 +1,13 @@
+
+
+\begin{table}[htbp]
+ \centering
+ \relsize{-1} \setlength{\tabcolsep}{0.3em}
+ \input{tables/aaai16-robustnesscheck/aaai16prelim3_zerocost/1-nofd.tex}
+ \caption{Coverage comparison (the number of instances solved in 5min, 2GB), \textbf{bold}=best. Zerocost domains are named as [original name]-[name of nonzero action]. Due to space, we only show the domains whose maximum pairwise coverage difference $\mit{MaxDiff}>2$. (We used the means of 10 runs for the randomized strategies.) Domains with $\mit{MaxDiff}\leq 2$ follows:
+ (1) $\mit{MaxDiff} = 0$ (same coverages by all configuration and all runs): \pddls{barman-opt11, floortile-opt11, grid, gripper, hanoi, parking-opt11, pegsol-opt11, psr-small, rovers, sokoban-opt11, tpp, transport-opt11, grid-fuel, gripper-move, parking-movecc, psr-small-open, zenotravel-fuel}.
+ (2) $0 < \mit{MaxDiff} \leq 1$: \pddls{depot, driverlog, elevators-opt11, freecell, mystery, parcprinter-opt11, pathways, pipesworld-tankage, storage, tidybot-opt11, visitall-opt11, driverlog-fuel, floortile-ink, hiking-fuel, logistic00-fuel, nomystery-fuel, pathways-fuel, sokoban-pushgoal}.
+ (3) $1 < \mit{MaxDiff} \leq 2$: \pddls{blocks, nomystery-opt11, pipesworld-notankage, zenotravel, depot-fuel, rovers-fuel, storage-lift, tidybot-motion}.
+ }\label{tbl:depth}
+\end{table}
+

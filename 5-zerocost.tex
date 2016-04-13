@@ -1,0 +1,111 @@
+\section{Domains with Zero-Cost Actions}
+\label{sec:zerocost-domains}
+%% best to put openstacks here, considering the connection to the
+%% previous section
+\pddl{Openstacks}  is a cost
+minimization domain introduced in IPC-2006, where the objective is to 
+minimize the number of stacks used.
+There are many zero-cost actions (i.e., actions that don't increase the number of stacks), and
+they prevent the standard heuristics from producing
+informative guidance.
+
+%% safe to remove these explanation.
+% According to \cite{richter2010lama}, \textbf{??????}
+% %Richter talks about the failures on openstacks starting around p.167
+% \lmcut \cite{Helmert2009} fails to find a good cost
+% partitioning with non-zero values, 
+% % A detailed discussion of Openstacks domain and poor performance of landmarks is in \cite{richter10lama}, p.167-169.
+% and most edges in the abstraction
+% space of M\&S \cite{helmert2007flexible} have zero costs.
+
+
+% XXX I'm commenting out the paragraphs below because:
+% (1) A review of heuristic functions for domain-independent learning is not really
+% necessary for this AAAI submission. 
+% (2) It's better if this paper is not so strongly associated with the ICAPS community only -- this work applies in general to search with A*, and is not strongly tied to almost-perfect heuristics, lmcut, m&s, etc.
+
+Although domains with zero-cost actions are not common in the current set of benchmarks, we argue that such domains are of an important class of models for cost-minimization problems, i.e.,
+assigning zero costs make sense from a practical, modeling perspective.
+For example, consider the \pddl{driverlog} domain, where the task is to move packages between locations using trucks.
+The IPC version of this domain assigns unit costs to all actions. Thus, cost-optimal planning on this domain seeks to minimize the number of steps in the plan.
+However, another natural objective function would be the one which minimizes the amount of fuel spent by driving the trucks,
+assigning cost 0 to all actions except \pddl{drive-truck}.
+
+% While I agree with the point you're trying to make,
+% There is an ugly issue when arguing that current models try to  optimize plan-execution time (i.e., makespan), 
+% which is that if we really cared about makespan optimality, we would consider parallel execution of actions whenever possible.
+% however, sequential classical planners do not handle parallel actions at all  (recall ACP).
+% so arguing this path can only lead to trouble.. Let's try a safer line of argument.
+%% For runtime minimization,
+%% nonzero positive costs are reasonable because
+%% every actions are supposed to consume a fraction of time.
+%% However, such formulation is not suitable for general optimization
+%% problems.  For example, when you try to minimize the energy consumption
+%% by the elevators in \pddl{Elevators} domain, many actions would have zero-cost
+%% --- it does not consume electricity for either boarding or leaving the
+%% passenger, or moving the elevator down.
+%% % 
+%% From the practical point of
+%% view, cost minimization domains would have wider interest compared to
+%% the simple runtime minimization.
+%% Also, as shown previously, such domains pose a
+%% difficulty to the current heuristic planners due to their large plateaus.
+
+Similarly, for many practical applications, a natural objective is to
+optimize the usage of one key consumable resource, e.g., fuel/energy
+minimization.  In fact, two of the IPC domains, \pddl{Openstacks} and
+\pddl{Cybersec}, which were shown difficult for standard tiebreaking
+methods in the previous section, both contain many zero-cost actions,
+and \textbf{both are based on industrial applications}: \pddl{Openstacks} models
+production planning \cite{fink1999applications} and \pddl{Cybersec}
+models Behavioral Adversary Modeling System \cite[minimizing decryption,
+data transfer, etc.]{boddy2005course}.
+
+Therefore, in this paper, we modified various domains
+into cost minimization domains with many zero-cost actions.
+Specifically, a domain is modified so that all action schemas are assigned
+cost 0 except for a few (usually one) action schema which consumes some key resource.
+The last word in the names of these domains indicate the action which is
+assigned non-zero cost, e.g., \pddl{elevator-up} is a modified elevator
+domain where the \pddl{up} action is assigned non-zero cost (because
+elevators are considered to consume energy only when going \pddl{up}), and all other actions have cost 0.
+Most of the transportation-type domains are modified to optimize 
+energy usage (\pddl{Logistics-fuel}, \pddl{elevator-up} etc.), and  assembly-type domains are modified to minimize resource usage
+%% floortile-ink is not shown, so better not to mention it
+(\pddl{Woodworking-cut} minimizes wood usage, etc.).
+We did not
+include domains with only a single action schema and standard domains which already had many
+zero-cost actions (these are already in the results for standard IPC domains).
+We refer to these 28 new domains as \emph{zerocost domains}.
+
+\refig{fig:plateau-zerocost} plots the size of the final plateau of the
+zerocost domain instances, with $h$-tiebreaking enabled.  As expected,
+many of these zerocost domains have large plateaus even with the help of
+$h$-tiebreaking.  Thus, in these cost-minimization problems, the search
+strategy within plateaus, i.e., tiebreaking, becomes a yet more critical
+factor which determines the search performance.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{tables/aaai16-frontier/zerocost/lmcut_frontier-front.pdf}
+  \caption{Similar to \refig{fig:plateau}, but for 620 instances from our 
+  \emph{zerocost domains} (\refsec{sec:zerocost-domains}),
+  where zero-cost actions induce very large plateaus.
+ }
+ \label{fig:plateau-zerocost}
+\end{figure}
+
+Note that the difficulty posed by these domains sometimes \emph{cannot}
+be tackled by improving the heuristic estimates, or reducing the
+underestimation by an admissible heuristic function.  Due to the
+existence of 0-cost edges, some non-goal nodes around a goal node can
+legitimately have a distance to the goal equal to 0. For those nodes,
+there are no means to improve the heuristic estimate to any positive
+value without making the heuristics inadmissible, because it is
+an overestimation.
+
+Thus, in order to solve zerocost problems more efficiently, the planner
+needs to perform an efficient \emph{knowledge-free} search within a
+large, final plateau. It turns out that a notion of \emph{depth} can
+have a significant impact on the performacne of knowledge-free search,
+as well as a good understanding ot the existing tiebreaking strategies.

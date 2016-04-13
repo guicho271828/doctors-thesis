@@ -1,0 +1,87 @@
+\section{Background: Tiebreaking Strategies for \astar}
+
+\label{sec:astar-background}
+
+\astar is a standard search algorithm for finding an optimal-cost path
+on a graph.
+Starting from the single initial node, in each iteration, \astar
+selects and expands a node $n$ with the lowest $f$-cost in the OPEN
+priority queue. The successor nodes are inserted back to OPEN, and $n$
+is marked as CLOSED, in order to avoid duplicated evaluations.
+\astar returns an optimal solution when $h$ is admissible, i.e., when
+$h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
+the nearest goal.
+
+The best-first order of the expansion is a key to guarantee solution optimality. 
+The first solution found by the algorithm is guarantee to have the optimal cost $f=f^*$ because 
+any nodes with $f(n) = k$ are expanded after all nodes with $f(n) < k$ are expanded.
+Thus, the \emph{effective search space of \astar} is the set of nodes with 
+$f(n) \leq f^*$: \astar expands all nodes with $f(n) < f^*$, then
+expands \emph{some} of the nodes with $f(n) = f^*$, and
+\astar never expands a node with $f(n) > f^*$.
+
+If multiple nodes with the same $f$-cost are possible, \astar
+must implement some tiebreaking policy (either
+explicitly or implicitly) which selects from among these nodes.
+The early literature on heuristic search seems to have been mostly agnostic regarding tiebreaking.
+The original \astar paper, as well as Nilsson's subsequent textbook 
+states: ``Select the open node $n$ whose value $f$
+is smallest. Resolve ties arbitrarily, but always in favor of any [goal
+node]'' \cite[p.102 Step 2]{hart1968formal}, \cite[p.69]{Nilsson71}.
+% Although it is possible to interpret this to imply $h$-based tiebreaking
+% since goal nodes are the special case where $h=0$,
+% they make no further mention of tiebreaking.
+Pearl's textbook on heuristic search specifies that best-first search should ``break ties arbitrarily'' (\citeyear{pearl1984heuristics}, p.48, Step 3), and does not specifically mention tiebreaking for \astar.
+To the best of our knowledge, the first explicit mention of a tiebreaking policy that considers node generation order is by Korf in his analysis of IDA*: ``If \astar employs the tiebreaking rule of 'most-recently generated', it must also expand the same nodes [as IDA*]'', i.e., a \lifo ordering.
+
+In recent years, tiebreaking according to $h$-values has become ``folklore'' in the search community.
+\citeauthor{hansen2007anytime} state that ``[i]t is well-known 
+that \astar achieves best performance when it breaks ties
+in favor of nodes with least h-cost'' \cite{hansen2007anytime}.
+\citeauthor{holte2010common} writes ``\astar breaks ties in favor
+of larger $g$-values, as is most often done'' \cite[note that since $f=g+h$,
+preferring large $g$ is equivalent to preferring smaller $h$]{holte2010common}.
+\citeauthor{felner2011inconsistent} also assume ``ties are broken in
+favor of low h-values'' in describing Bidirectional Pathmax for \astar \citeyear{felner2011inconsistent}.
+In their detailed survey/tutorial on efficient \astar implementations,
+\citeauthor{burns2012implementing} \citeyear{burns2012implementing}
+also break ties ``preferring high $g$'' (equivalent to low $h$).
+%% this could be moved to later analysis
+% They further write: ``The reasoning is that the goal can be found more
+% quickly in the final $f$ layer of search''.
+Thus, tiebreaking according to $h$-values appears
+to be ubiquitous in practice while,
+to our knowledge, an in-depth experimental analysis of tiebreaking strategies for \astar is lacking in the literature.
+
+Although the standard practice of tiebreaking according to $h$ might be
+sufficient in some domains, further levels of tiebreaking (explicit or
+implicit) are required if multiple nodes have the same $f$ as well as
+the same $h$ values. To date, the effect of such \emph{last-resort}
+tiebreaking was not investigated in depth.
+% 
+For example, the survey of efficient \astar implementation techniques in
+\cite{burns2012implementing} did not explicitly mention the last-resort
+tiebreaking, while their library
+code\footnote{https://github.com/eaburns/search} uses \lifo
+last-resort tiebreaking.
+% 
+It first breaks ties according to $h$, and then
+breaks remaining ties according to a \lifo policy (most recently
+generated nodes first), i.e., $[f,h,\lifo]$.
+% 
+Although not documented, their choice of a \lifo 2nd-level tiebreaking
+policy appears to be a natural consequence of the fact it can be
+trivially, efficiently implemented in their two-level bucket (vector)
+implementation of OPEN.
+% 
+In contrast, the current implementation of the \sota \astar based planner Fast
+Downward \cite{Helmert2006}, as well as the work by \cite{RogerH10} uses
+a $[f,h,\fifo]$ tiebreaking strategy.
+% 
+Although we could not find an explanation in the publication nor in the
+website, this choice is most likely due to their use of alternating OPEN
+lists, in which case the \fifo second-level policy serves to provide a
+limited form of fairness.
+% 
+Such lack of explanation suggests that this topic has been out
+of focus of the heuristic search literature.
