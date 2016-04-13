@@ -5,16 +5,19 @@
 
 \label{sec:astar-background}
 
-In each iteration, \astar selects and expands a node $n$ from the OPEN
-priority queue.  $n$ is the node which has the lowest $f$-cost in OPEN.
+\astar is a standard search algorithm for finding an optimal-cost path
+on a graph.
+Starting from the single initial node, in each iteration, \astar
+selects and expands a node $n$ with the lowest $f$-cost in the OPEN
+priority queue. The successor nodes are inserted back to OPEN, and $n$
+is marked as CLOSED, in order to avoid duplicated evaluations.
 \astar returns an optimal solution when $h$ is admissible, i.e., when
 $h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
 the nearest goal.
 
-In order to guarantee solution optimality, \astar expands the search
-nodes with a best-first order of $f$, until it finds a solution which
-have $f=f^*$, the cost of the optimal solution.
-Due to the best-first order, any nodes with $f(n) = k$ are expanded after all nodes with $f(n) < k$ are expanded.
+The best-first order of the expansion is a key to guarantee solution optimality. 
+The first solution found by the algorithm is guarantee to have the optimal cost $f=f^*$ because 
+any nodes with $f(n) = k$ are expanded after all nodes with $f(n) < k$ are expanded.
 Thus, the \emph{effective search space of \astar} is the set of nodes with 
 $f(n) \leq f^*$: \astar expands all nodes with $f(n) < f^*$, then
 expands \emph{some} of the nodes with $f(n) = f^*$, and
@@ -56,30 +59,46 @@ to our knowledge, an in-depth experimental analysis of tiebreaking strategies fo
 Although the standard practice of tiebreaking according to $h$ might be
 sufficient in some domains, further levels of tiebreaking (explicit or
 implicit) are required if multiple nodes have the same $f$ as well as
-the same $h$ values. To date, the effect of such \emph{last-resort} tiebreaking was not investigated
-in depth.
+the same $h$ values. To date, the effect of such \emph{last-resort}
+tiebreaking was not investigated in depth.
+% 
 For example, the survey of efficient \astar implementation techniques in
-\cite{burns2012implementing} did not explicitly mention the last-resort 
-tiebreaking, while their library code\footnote{https://github.com/eaburns/search}
-uses \lifo last-resort tiebreaking.
+\cite{burns2012implementing} did not explicitly mention the last-resort
+tiebreaking, while their library
+code\footnote{https://github.com/eaburns/search} uses \lifo
+last-resort tiebreaking.
+% 
 It first breaks ties according to $h$, and then
 breaks remaining ties according to a \lifo policy (most recently
-generated nodes first), i.e., $[f,h]_\lifo$.
-Although not documented, their choice of a \lifo 2nd-level tiebreaking policy appears to be a natural consequence of the fact it can be trivially, efficiently implemented in their two-level bucket (vector) implementation of OPEN.
+generated nodes first), i.e., $[f,h,\lifo]$.
+% 
+Although not documented, their choice of a \lifo 2nd-level tiebreaking
+policy appears to be a natural consequence of the fact it can be
+trivially, efficiently implemented in their two-level bucket (vector)
+implementation of OPEN.
+% 
 In contrast, the current implementation of the \sota \astar based planner Fast
-Downward \cite{Helmert2006}, as well as the work by \cite{RogerH10} uses a $[f,h]_\fifo$ tiebreaking strategy.
-Although we could not find an explanation in the publication nor in the website, this choice is most likely due to their use of alternating OPEN lists, in which case the \fifo second-level policy serves to provide a limited form of fairness.
+Downward \cite{Helmert2006}, as well as the work by \cite{RogerH10} uses
+a $[f,h,\fifo]$ tiebreaking strategy.
+% 
+Although we could not find an explanation in the publication nor in the
+website, this choice is most likely due to their use of alternating OPEN
+lists, in which case the \fifo second-level policy serves to provide a
+limited form of fairness.
+% 
 Such lack of explanation suggests that this topic has been out
 of focus of the heuristic search literature.
 
 \section{Evaluation of Standard Strategies}
 \label{sec:eval-common-strategies}
-We evaluated tiebreaking strategies for domain-independent optimal classical planning.
-In our experiments, the planners are based on Fast Downward (revision 6251), and all
-experiments are run with a 5-minute, 2GB memory limit for the search binary (FD translation/preprocessing times are not included in the 5-minute limit).
-All experiments were conducted on Xeon E5410@2.33GHz CPUs.
-We used 1104 instances from 35 standard benchmark domains.
-%and 620 problems from 28 \emph{zero-cost-action} domains (\refsec{sec:zerocost-domains}).
+
+We evaluated tiebreaking strategies for domain-independent optimal
+classical planning.  In our experiments, the planners are based on Fast
+Downward (revision 6251), and all experiments are run with a 5-minute,
+2GB memory limit for the search binary (FD translation/preprocessing
+times are not included in the 5-minute limit).  All experiments were
+conducted on Xeon E5410@2.33GHz CPUs.  We used 1104 instances from 35
+standard benchmark domains.
 
 \begin{figure}[htbp]
    \centering
