@@ -130,7 +130,8 @@ except in \pddl{Scanalyzer-analyze}.
 %% %% Unfortunately, 829,828 is not \in 816.7 +- 2.2.
 %% %% this can be changed if we rerun _random with O(1) random deletion.
 
-\subsubsection{Depth-Based Tiebreaking Without Considering $h$}
+
+\subsection{Depth-Based Tiebreaking Without Considering $h$}
 
 In \refsec{sec:h-necessary}, we showed that $[f,\lifo]$ tiebreaking (without considering $h$) is
 sufficient for the standard IPC benchmarks -- the performance of $[f,\lifo]$, $[f,h,\lifo]$, and $[f,h,\fifo]$ are comparable.
@@ -147,7 +148,7 @@ tiebreaking strategies}.
 
 %% moved to Table 2
 
-\subsubsection{Is Depth-Based Tiebreaking Necessary?}
+\subsection{Is Depth-Based Tiebreaking Necessary?}
 % is this the right location -- maybe this should in a discussion section?
 
 We have shown that $[h,\rd,\ro]$ performs well overall, but
@@ -166,7 +167,7 @@ By randomly selecting a depth bucket, $[h,\rd,\ro]$ explicitly eliminates this b
 % Thus, multiple levels of randomness alone do not account for the success of $[h,\rd,\ro]$, and the notion of depth buckets seems necessary.
 
 
-\subsubsection{Search Behavior Within a Plateau}
+\subsection{Search Behavior Within a Plateau}
 
 To understand the behavior of depth-based policies, we plotted the histogram of
 the depths of search nodes opened by
@@ -223,7 +224,7 @@ $[h,\rd,\ro]$ is balancing the search at various depths, which results in succes
  \label{fig:depth-histogram}
 \end{figure}
 
-\subsubsection{Comparison With $\varepsilon$-Cost Transformation}
+\subsection{Comparison With $\varepsilon$-Cost Transformation}
 
 \begin{table}[tb]
  \centering
@@ -264,7 +265,7 @@ On the other hand, there are two issues with the $\varepsilon$-transformation:
 % or it forces
 % In contrast, depth can be directly implemented with just another level of nested arrays.
 
-\subsubsection{Comparison to Multi-Heuristic Tiebreaking with PLUSONE Cost Type}
+\subsection{Comparison to Multi-Heuristic Tiebreaking with PLUSONE Cost Type}
 
 
 
