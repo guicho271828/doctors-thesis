@@ -9,49 +9,14 @@
 
 \section{Evaluating Depth-Based Tiebreaking}
 \label{sec:depth-based-evaluation}
-We evaluated three 3-level tiebreaking strategies.
-%% may not be necessary, since they are straw-mans
-% and four 2-level tiebreaking strategies in all.
-%REDUNDANT? , i.e., $[f,h,depthStrategy,LFR]$, where the first-level tiebreaking is according to $h$ (break ties in favor of small $h$), the second-level strategy is based on depth and $depthStrategy \in \{\fd, \ld, \rd\}$, and the third level tiebreaking strategy $LFR \in \{\lifo, \fifo, \ro\}$.
-% 
+We evaluated our depth-based diversifying tiebreaking strategies against standard
+tiebreaking strategies.
 In addition to the 35 IPC benchmark domains with 1104 instances used in
 the previous set of experiments, we used 28 zerocost domains with 620
-instances. For randomized strategies, we
-show the coverage (mean $\pm$ sd) on
-10 independent runs.
-
-
-
-
-\begin{table}[htb]
- {
- \centering
- \input{tables/aaai16-robustnesscheck-mands/zerocost/1-nofd.tex}
- \caption{
- Full version of the bottom line of \reftbl{depth} showing 
- the experiments on the IPC benchmark instances using \mands heuritics.
- Each cell shows the coverage of the domain solved with 5 min, 2GB.
- As in the original \reftbl{depth}, we highlighted the best results in
- \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
- }
- \label{mands-zerocost-full}
- }
-\end{table}
-
-\begin{table}[htb]
- {
- \centering
- \input{tables/aaai16-robustnesscheck/zerocost/1-nofd.tex}
- \caption{
- Full version of the lower half of \reftbl{depth} showing 
- the experiments on the Zerocost instances using \lmcut heuritics.
- Each cell shows the coverage of the domain solved with 5 min, 2GB.
- As in the original \reftbl{depth}, we highlighted the best results in
- \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
- }
- \label{lmcut-zerocost-full}
- }
-\end{table}
+instances.
+%  For randomized strategies, we
+% show the coverage (mean $\pm$ sd) on
+% 10 independent runs.
 
 
 % This comparison below may be useful in a future version of the paper, but not necessary in this version.
@@ -129,6 +94,65 @@ except in \pddl{Scanalyzer-analyze}.
 %% inherent second-level FirstDepth, and not to the third-level \fifo.
 %% %% Unfortunately, 829,828 is not \in 816.7 +- 2.2.
 %% %% this can be changed if we rerun _random with O(1) random deletion.
+
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
+ heuristics) between
+ the standard baseline tiebreaking and depth-based tiebreaking. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-ipc-full}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, M\&S heuristics) between
+ the standard baseline tiebreaking and depth-based tiebreaking. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:mands-ipc-full}
+ }
+\end{table}
+
+
+% \begin{table}[htb]
+%  {
+%  \centering
+%  \input{tables/aaai16-robustnesscheck-mands/zerocost/1-depth.tex}
+%  \caption{
+%  Full version of the bottom line of \reftbl{depth} showing 
+%  the experiments on the IPC benchmark instances using \mands heuritics.
+%  Each cell shows the coverage of the domain solved with 5 min, 2GB.
+%  As in the original \reftbl{depth}, we highlighted the best results in
+%  \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
+%  }
+%  \label{mands-zerocost-full}
+%  }
+% \end{table}
+% 
+% \begin{table}[htb]
+%  {
+%  \centering
+%  \input{tables/aaai16-robustnesscheck/zerocost/1-depth.tex}
+%  \caption{
+%  Full version of the lower half of \reftbl{depth} showing 
+%  the experiments on the Zerocost instances using \lmcut heuritics.
+%  Each cell shows the coverage of the domain solved with 5 min, 2GB.
+%  As in the original \reftbl{depth}, we highlighted the best results in
+%  \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
+%  }
+%  \label{lmcut-zerocost-full}
+%  }
+% \end{table}
 
 
 \subsection{Depth-Based Tiebreaking Without Considering $h$}
