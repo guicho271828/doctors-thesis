@@ -4,7 +4,8 @@ reference  = local.bib global.bib
 emacs 	   = emacs
 latexmk    = latexmk/latexmk.pl
 styles     = abbrev.sty aaai_my.sty
-sources    = main.tex 1-intro.tex 2-preliminary.tex
+sources    = main.tex $(wildcard [0-9]-*.tex)
+$(info $(sources))
 max_pages   = 50
 
 upload     = ~/Dropbox/FukunagaLabShare/OngoingWorks/Asai/
@@ -15,20 +16,18 @@ ncpu       = $(shell grep "processor" /proc/cpuinfo | wc -l)
 .SECONDARY: compile-csv-org.elc compile-main-org.elc __tmp1 __tmp2
 .PHONY: all en ja open imgs clean allclean check_pages check_overflow en_pdf ja_pdf automake submission archive clean-submission
 
-all: en GTAGS
+all: check_pages check_overflow GTAGS
 
 GTAGS: $(name).tex imgs $(sources) $(styles) $(reference)
 	gtags
 
-check_pages:
+check_pages: en
 	./check_pages.sh $(max_pages) $(name)
 
-check_overflow: $(name).log
+check_overflow: en $(name).log
 	./check_overflow.sh $(name).log
 
-en:	en_pdf check_pages check_overflow
-
-en_pdf: $(name).pdf supplemental.pdf
+en:	$(name).pdf supplemental.pdf
 
 %.pdf: %.tex $(name).tex supplemental.tex imgs $(sources) $(styles) $(reference)
 	$(latexmk) -pdf \
