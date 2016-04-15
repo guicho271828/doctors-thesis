@@ -7,11 +7,14 @@
 The \emph{depth} of a node is an integer value representing the distance
 (number of steps) from the \emph{entrance} of the plateau on which the node is.
 An \emph{entrance} of the plateau is the first state which entered the
-plateau, along the path from the initial state. These notion is depicted
-in \refig{fig:plateau-depiction}
+plateau, along the path from the initial state. These notions are depicted
+in \refig{fig:plateau-depiction}.
 
 \begin{figure}[htbp]
- 
+ \includegraphics{img/astar/final-plateau4.png}
+ \caption{The nodes in a platau are divided into several layers,
+ and each layor have the corresponding depth.}
+ \label{fig:plateau-depiction}
 \end{figure}
 
 The depth $d(s)$ of a
@@ -19,7 +22,7 @@ state $s$ is 0 when $s$ and the parent state $t$ has the different key
 values for a sorting strategy, and $d(s)=d(t)+1$ when they have the same
 key values: For example, in \astar with $h$-based tiebreaking, the key
 values of a state are represented as a vector $[f,h]$, and they are same
-when the pairwise equivalence holds (i.e. $f(s) = f(t) \land h(s) =
+when they are pairwise equivalent (i.e. $f(s) = f(t) \land h(s) =
 h(t)$).  Having the same key values means that $s$ and $t$ are in the
 same plateau. \todo{Figure}
 
@@ -42,13 +45,19 @@ tiebreaking} strategies, where the nodes are inserted into buckets
 associated with depths, and upon expansion, search effort is distributed
 among various depths. Notice that it does not ``sort'' the nodes
 according to the depth, and instead ``diversify'' the node expansion
-within the plateau.
+within the plateau. We mark such a diversification family of
+tiebreaking strategies by enclosing it in brackets such as $[f,h,\brackets{d}]$.
 
 In order to diversify the expansion among depths, we propose simply
-iterating over the depth buckets (iterating depth, \id). It is possible to adopt a
+iterating over the depth buckets. There is a counter $d_c$ initialized
+to 0, which stores the depth which was selected in the last expansion.
+In each expansion, it decrements the counter ($d_c\leftarrow d_c-1$) and
+expands from the depth. When the counter reaches below 0, then the
+counter is reset to the current largest depth in the plateau.
+It is possible to adopt a
 nondeterministic, randomized selection, as we have done in a conference
-version of this paper, however we eliminate the possibility that the
-experimental results are affected by random seeds.
+version of this paper, however we eliminate the possibility of the
+results being affected by random seeds.
 %  the buckets are chosen according to some policy.
 % ``First depth'' (\fd), ``last depth'' (\ld), and ``random depth'' (\rd) 
 % choose a bucket with the smallest depth,
@@ -56,22 +65,48 @@ experimental results are affected by random seeds.
 
 The traditional \lifo and \fifo tiebreaking strategy can be
 considered as a ``sorting'' version of this depth-based tiebreaking.
-\lifo strategy, which always select the most recently 
-within $\plateau{f,h}$, results in always selecting the largest depth
-buckets because depth is non-decreaseing. Thus, the behavior in the
-plateau is equivalent to depth-first search. Similarly, \fifo strategy
-always select the nodes with depth 0. Thus, the behavior in the plateau
-is equivalent to breadth-first search.
+\lifo strategy always select the most recently generated node
+within $\plateau{f,h}$, and the behavior in the plateau is equivalent to depth-first search.
+Thus, it results in always selecting the largest depth
+buckets as depicted in \refig{fig:plateau-depiction-lifo}.
+Similarly, the behavior of \fifo strategy 
+in a plateau is equivalent to breadth-first search. Thus \fifo strategy
+always selects the nodes with least depth (\refig{fig:plateau-depiction-fifo}).
+Note that therefore $[f,h,\lifo]$ is equivalent to $[f,h,-d,\lifo]$ and
+$[f,h,\fifo]$ is equivalent to $[f,h,d,\fifo]$.
+
+\begin{figure}[htbp]
+ \includegraphics{img/astar/final-plateau6.png}
+ \caption{\lifo tiebreaking strategy implies a depth-first behavior in a
+ plateau, which could miss the solution concentrated near the entrance.}
+ \label{fig:plateau-depiction-lifo}
+\end{figure}
+
+\begin{figure}[htbp]
+ \includegraphics{img/astar/final-plateau5.png}
+ \caption{\fifo tiebreaking strategy implies a breadth-first behavior in a
+ plateau, which could fail to reach a solution in the deeper region
+ within the time limit.}
+ \label{fig:plateau-depiction-fifo}
+\end{figure}
+
 
 The problem in these traditional strategies is that we have no knowledge
 on whether the goals are located near or far from the entrance. Remind
 that when $f=f^*, h=h^*=0$, the goals in this plateau are optimal
 regardless of the depth: Goals in the shallower region and the deeper
-region both yield a optimal solution. However, until we find a solution,
-we do not know how the goals are distributed among the depths. In some
-problem instance the goals can be concentrated around the entrance,
-i.e., in the shallower region, and in other problem instance the goals
-can be concentrated in some large depth $k$.
+region both yield an optimal solution. However, until we find a
+solution, we do not know how the goals are distributed among the
+depths. In some problem instance the goals can be concentrated around
+the entrance, and in another problem instance the goals can be
+concentrated in some large depth $k$.
+
+% \begin{figure}[htbp]
+%  \includegraphics{img/astar/final-plateau4-2.png}
+%  \label{fig:plateau-depiction-all-optimal}
+% \end{figure}
+
+
 
 The best-first search (\fifo), which naturally focus the search around
 the entrance favoring the smaller depths, should perform better in the
@@ -83,11 +118,22 @@ Inversely, the depth-first search (\lifo), which greedily explores the
 plateau region, may find a solution in the deeper region quickly but
 could also miss the solution in the shallower region.
 
-By an adversary argument, our \id, which diversify the search among
-various depths, have no depth bias and eventually find a solution.
-We later show that \fifo and \lifo strategies are incomplete when the
-size of the plateau region is inifinite, while our \id is
-probabilistically complete.
+By an adversary argument, our depth-based \emph{diversification}
+tiebreaking strategy, which diversify the search among various depths,
+have no depth bias and eventually find a solution. It can be considered
+similar to the random restarting strategy in tree search algorithms.
+
+\begin{figure}[htbp]
+ \includegraphics{img/astar/final-plateau7.png}
+ \caption{Depth-based diversification allows to search the problem space
+ sparsely, avoiding the concentration to particular depths.}
+ \label{fig:plateau-depiction-all-optimal}
+\end{figure}
+
+
+We later show that
+\fifo and \lifo strategies are incomplete when the size of the plateau
+region is inifinite, while our \id is probabilistically complete.
 
 Depth-based tiebreaking has no effect when the target problem contains
 positive costs only and the search algorithm uses $h$-based first-level
