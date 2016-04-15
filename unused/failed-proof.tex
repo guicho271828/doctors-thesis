@@ -1,0 +1,233 @@
+\subsection{Theoretical Characteristics of the Depth Distribution}
+
+We give further insight into how the depth is distributed among the
+plateau region.
+
+\begin{theo}[Uniformness of Iteration-based Implementation]
+ In an implementation of depth-based diversification based on iteration
+ from the largest depth to 0, the chance of expanding each node is
+ unaffected by the depth of the node, after enough number of iterations.
+\end{theo}
+
+We first show that the number of expansion of each depth decreases
+linearly.  Assume that each depth buckets never exhausts as a result of
+expansion.  If the expansion of a node in the largest depth $D\geq 0$ resulted
+in more nodes in the same plateau, then the newly generated nodes have
+depth $D+1$.  Also, as we explained in the previous section, the
+expansion is diversified by a sequence of iterations from the current
+largest depth to 0.  It indicates that when the current maximum depth of
+the plateau is $D\geq 0$, the number of iteration happened so far is also $D$.
+Therefore, at the end of the $D$'th iteration, each depth $d$ has
+ been expanded exactly $D-d$ times, meaning that the chance of
+expanding each depth is decreasing as the depth increase.
+
+However, it does not mean that this strategy favors the nodes in the
+shallower region.
+% This is because the number of nodes in each depth is
+% exponential to $d$, which is common in practice (we verify this in the
+% later experiments).
+ Assume that the plateau region form a tree of width
+$w\geq 2$, rather than a graph with indefinite number of successor
+nodes.  Under this assumption, each expansion of depth $d$ results in
+$w$ new nodes in depth $d+1$. In this assumption, if there are at least
+$D$ nodes in depth 0, each depth bucket never exhausts until the end of $D$'th
+iteration (when depth 0 becomes empty).
+
+% $D-d$th expansion in the $D$th iteration expands the depth $d$.
+At the end of $D$th iteration,
+each depth $d$ is expanded $D-d$ times in the preceeding $D$ iterations.
+Therefore, the total number of nodes that have been in depth $d+1$, including those
+that have been expanded, is $w(D-d)$.
+Since depth $d+1$ is expanded $D-(d+1)$ times so far,
+each node that has ever been in this depth is given the chance of expansion
+$w(D-d)/(D-(d+1))=1-\frac{w}{D-d-1}$, whose second term is
+negligeble as $D$ increases.
+Therefore, after enough number of iterations, the
+chance of expanding each node converges to 1, and is unaffected by the depth of the node.
+
+%% it does not actually mean it converges to 1. if d=D, 1-\frac{w}{D-d-1}=1-\frac{w}{-1}=1+w
+
+
+\begin{theo}[Ignoring Depth causes Biased Expansion]
+ An expansion order which expands all nodes in the plateau, then 
+ If we use a simple randomized last-resort strategy
+ without depth diversification (e.g.\ $[f,h,\ro]$), the chance of expanding each
+ node in depth $d$ decreases exponentially to $d$.
+\end{theo}
+
+Assume the same setting as in the previous theorem: Initially we have
+$D$ nodes in depth 0 and the plateau has the fixed tree width $w\geq 2$.
+Let $n_k(d)$ denote the number of nodes in depth $d$ after $k$th
+expansion in the plateau, and
+$m_k(d)$ be the number of nodes that have been in a depth $d$, including
+those expanded and removed from the bucket.
+Also, let $M_k$ and $N_k$ denote the total number of nodes in the platau
+including and not including those expanded so far after $k$th
+expansion in the plateau, i.e. $M_k=\sum_{d=0}^{D}m_k(d)=D+kw$, $N_k=\sum_{d=0}^{D}n_k(d)=D+k(w-1)$.
+Since the node is
+selected uniformly random at each expansion, each depth $d$ has a
+probability $p_k(d) = n_k(d)/N_k$ of being expanded.
+
+
+\begin{theo}[Randomization without Depth is NOT Uniform]
+ If we use a simple randomized last-resort strategy
+ without depth diversification (e.g.\ $[f,h,\ro]$), the chance of expanding each
+ node in depth $d$ decreases exponentially to $d$.
+\end{theo}
+
+Assume the same setting as in the previous theorem: Initially we have
+$D$ nodes in depth 0 and the plateau has the fixed tree width $w\geq 2$.
+Let $n_k(d)$ denote the number of nodes in depth $d$ after $k$th
+expansion in the plateau, and
+$m_k(d)$ be the number of nodes that have been in a depth $d$, including
+those expanded and removed from the bucket.
+Also, let $M_k$ and $N_k$ denote the total number of nodes in the platau
+including and not including those expanded so far after $k$th
+expansion in the plateau, i.e. $M_k=\sum_{d=0}^{D}m_k(d)=D+kw$, $N_k=\sum_{d=0}^{D}n_k(d)=D+k(w-1)$.
+Since the node is
+selected uniformly random at each expansion, each depth $d$ has a
+probability $p_k(d) = n_k(d)/N_k$ of being expanded.
+
+
+
+The expected value of $n_k(0)$ is therefore represented as
+
+\[
+\begin{array}{rll}
+ m_k(0) &= D\\
+ n_0(0) &= D\\
+ n_k(0) &= n_{k-1} -p_{k-1}(0)             \\
+        &= n_{k-1}(0) (1-1/N_{k-1})        \\ 
+        % &= n_{k-1}(0) (1-1/(D+(k-1)(w-1))) \\
+        &= D\cdot \prod_{l=0}^k(1-1/N_l) 
+\end{array}
+\]
+
+For $d\geq 1$,
+
+\[
+\begin{array}{rll}
+ m_0(d) &=  n_0(d) = 0                         \\
+ n_k(d) &= n_{k-1}(d)+wp_{k-1}(d-1)-p_{k-1}(d) \\
+        &= n_{k-1}(d) (1-1/N_{k-1}) + n_{k-1}(d-1) \cdot w/N_{k-1}\\
+ n_k(d) -  n_{k-1}(d) (1-1/N_{k-1}) &= n_{k-1}(d-1) \cdot w/N_{k-1}\\
+ N_{k-1}/w \cdot n_k(d) + (N_{k-1}/w)(1/N_{k-1}-1) n_{k-1}(d) &= n_{k-1}(d-1) \cdot \\
+ N_{k-1}/w \cdot n_k(d) + (1-N_{k-1})/w\cdot n_{k-1}(d) &= n_{k-1}(d-1) \cdot \\
+ N_{k-1} \cdot n_k(d) + (1-N_{k-1})\cdot n_{k-1}(d) &= wn_{k-1}(d-1) \cdot \\
+ % m_k(d) &= m_{k-1}(d)+ wp_{k-1}(d-1) \\
+ %        &= m_0    (d)\quad + w \sum_{l=0}^{k-1} p_l(d-1)\\
+ %        &= 0        \qquad \quad   + w \sum_{l=0}^{k-1} n_l(d-1)/N_l\\
+\end{array}
+\]
+
+
+% the number of expansion happened in depth $d$ is
+% 
+% \[
+% \begin{array}{rll}
+%  x_k(d) = m_k(d+1)/w &= \sum_{l=0}^{k-1} n_l(d)/N_l \\
+%  x_k(0) = m_k(0+1)/w &= \sum_{l=0}^{k-1} n_l(0)/N_l \\
+% \end{array}
+% \]
+% 
+% now the chance of each node in depth $d$ to be expanded is
+% 
+% \[
+% \begin{array}{rll}
+%  c_k(d) = x_k(d)/m_k(d) &= \frac{
+%                            \sum_{l=0}^{k-1} n_l(d)/N_l
+%                            }{w \sum_{l=0}^{k-1} n_l(d-1)/N_l} \\ 
+%  c_k(d-1) = x_k(d-1)/m_k(d-1) &= \frac{
+%                            \sum_{l=0}^{k-1} n_l(d-1)/N_l
+%                            }{w \sum_{l=0}^{k-1} n_l(d-2)/N_l} \\
+% \end{array}
+% \]
+
+
+
+
+
+
+
+% and each node in 
+% 
+% Given $N_k=D+k(w-1)$, the case of $d=0$ is
+% 
+% \[
+% \begin{array}{rl}
+%  n_k(0) &= n_{k-1}(0) (1-1/(D+(k-1)(w-1)))                                       \\
+%         &= D\cdot \prod_{l=0}^k(1-1/(D+(l-1)(w-1))) 
+% \end{array}
+% \]
+% 
+% and this can be shown to be a logarithm. Substitute $k=2^i$:
+% 
+% \[
+% \begin{array}{rll}
+%  n_{2^i}(0) &= D\cdot &\prod_{l=0}^{2^i}(1-1/(D+l-1)) \\
+%             &= D\cdot &\prod_{0}^{2^{i-1}}(1-1/(D+l-1)) \cdot \\
+%             &         &\prod_{2^{i-1}+1}^{2^i}(1-1/(D+l-1)) \\
+%             &= n_{2^{i-1}}(0) &\prod_{2^{i-1}+1}^{2^i}(1-1/(D+l-1)) \\
+%             &\geq n_{2^{i-1}}(0) &(1-1/(1+2^{i-1}))^{2^{i-1}} \\
+%             &\geq n_{2^{i-1}}(0) & 1/e \\
+%             &\geq n_{2^0}(0) & 1/e^{i} = n_1(0) / e^i = (D-1)/e^{i}\\
+%  % l           &\geq 2^{i-1}+1           &\\
+%  % D+l-1       &\geq D+2^{i-1}       &\geq 1+2^{i-1} \\
+%  % 1/(D+l-1)   &\leq 1/(D+2^{i-1})   &\leq 1/(1+2^{i-1})\\
+%  % 1-1/(D+l-1) &\leq 1-1/(D+2^{i-1}) &\leq 1-1/(1+2^{i-1}) 
+% \end{array}
+% \]
+% 
+% Thus
+% 
+% \[
+% \begin{array}{rll}
+%  n_{k}(0) &\geq (D-1) /e^{\log_{2} k} \\
+%           &= (D-1) \ln 2 / k  \\
+%  % l           &\geq 2^{i-1}+1           &\\
+%  % D+l-1       &\geq D+2^{i-1}       &\geq 1+2^{i-1} \\
+%  % 1/(D+l-1)   &\leq 1/(D+2^{i-1})   &\leq 1/(1+2^{i-1})\\
+%  % 1-1/(D+l-1) &\leq 1-1/(D+2^{i-1}) &\leq 1-1/(1+2^{i-1}) 
+% \end{array}
+% \]
+% 
+% 
+% When $d>1$,
+% 
+% % \[
+% % \begin{array}{lll}
+% %  n_k(d)   &= n_{k-1}(d) (1-1/(D+k-1))   &+ n_{k-1}(d-1) \cdot w/(D+k-1) &(d>1) \\
+% %  n_k(d-1) &= n_{k-1}(d-1) (1-1/(D+k-1)) &+ n_{k-1}(d-2) \cdot w/(D+k-1) &(d>1) \\
+% % \end{array}
+% % \]
+% 
+% Thus we can describe the behavior as 
+% 
+% % \begin{align*}
+% %  \left(
+% %  \begin{array}{c}
+% %   n(d) \\ n(d-1)
+% %  \end{array}
+% %   \right) \leftarrow
+% %  \left(
+% %  \begin{array}{cc}
+% %   (1-1/N) & w/N \\
+% %   (1-1/N) & w/N 
+% %  \end{array}
+% %   \right)
+% %  \left(
+% %  \begin{array}{c}
+% %   n(d) \\ n(d-1)
+% %  \end{array}
+% %   \right)
+% % \end{align*}
+% 
+% 
+% The behavior can be described as a markov decision process.
+% 
+% % Assume that initially we have
+% % $D$ nodes in depth 0 and the plateau forms a tree of fixed width 1
+% % (indicating star-like topology).
+% 
+% 
+% When we have already expanded $k-1$ nodes in the plateau 
