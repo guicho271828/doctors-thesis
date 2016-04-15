@@ -143,6 +143,102 @@ equivalent to the case of traditional last-resort tiebreaking strategies.
 
 % (with consistent heuristics, \emph{all} actions update $h$ and no nodes have depth $\geq 1$)
 
+
+\subsection{Theoretical Characteristics of the Depth Distribution}
+
+We give further insight into how the depth is distributed among the
+plateau region.
+
+\begin{theo}[Uniformness of Iteration-based Implementation]
+ In an implementation of depth-based diversification based on iteration
+ from the largest depth to 0, the chance of expanding each node is
+ unaffected by the depth of the node, after enough number of iterations.
+\end{theo}
+
+We first show that the number of expansion of each depth decreases
+linearly.  Assume that each depth buckets never exhausts as a result of
+expansion.  If the expansion of a node in the largest depth $D$ resulted
+in more nodes in the same plateau, then the newly generated nodes have
+depth $D+1$.  Also, as we explained in the previous section, the
+expansion is diversified by a sequence of iterations from the current
+largest depth to 0.  It indicates that when the current maximum depth of
+the plateau is $D$, the number of iteration happened so far is also $D$.
+Therefore, in the beginning of the $D$'th iteration, each depth $d$ has
+ been expanded exactly $D-d$ times, meaning that the chance of
+expanding each depth is decreasing as the depth increase.
+
+However, it does not mean that this strategy favors the nodes in the
+shallower region.
+% This is because the number of nodes in each depth is
+% exponential to $d$, which is common in practice (we verify this in the
+% later experiments).
+ Assume that the plateau region form a tree of width
+$w\geq 2$, rather than a graph with indefinite number of successor
+nodes.  Under this assumption, each expansion of depth $d$ results in
+$w$ new nodes in depth $d+1$. In this assumption, if there are at least
+$D$ nodes in depth 0, each depth bucket never exhausts until $D$'th
+iteration.
+
+Now, since each depth $d$ is expanded $D-d$ times, the total
+number of nodes in depth $d+1$ is $w(D-d)$. Since depth $d+1$ is
+expanded $D-d-1$ times, the chance of expansion given to each node in
+depth $d+1$ is $w(D-d)/(D-d-1)=1+\frac{w}{D-d-1}$. Since the second term is
+negligeble as $D$ increases, after enough number of iterations, the
+chance of expanding each node converges to 1, and is unaffected by the depth of the node.
+
+
+\begin{theo}[Randomization without Depth is NOT Uniform]
+ If we use a simple randomized last-resort strategy $[\ldots,\ro]$, the chance of expanding each
+ node in depth $d$ decrease exponentially to $d$.
+\end{theo}
+
+Assume the same setting as in the previous theorem: Initially we have
+$D$ nodes in depth 0 and the plateau has the fixed tree width $w$.
+Let $n(d)$ denote the number of nodes in depth $d$, and
+$N=\sum_{d=0}^{D}n(d)$, the total number of nodes in the plateau.
+Since the node is
+selected uniformly random at each expansion, each depth $d$ has a
+probability $p(d) = n(d)/N$ of being expanded.
+The expected value of $n(d)$ after the expansion is therefore
+
+\begin{align*}
+ % p(d-1)(n(d)+w)+p(d)(n(d)-1)+(1-p(d-1)-p(d))n(d) &=
+ n(d)+wp(d-1)-p(d) &= n(d) (1-1/N) + n(d-1) w/N &(d>1) \\
+ n(d)        -p(d) &= n(d) (1-1/N)              &(d=0) 
+\end{align*}
+
+Thus we can describe the behavior as 
+
+% \begin{align*}
+%  \left(
+%  \begin{array}{c}
+%   n(d) \\ n(d-1)
+%  \end{array}
+%   \right) \leftarrow
+%  \left(
+%  \begin{array}{cc}
+%   (1-1/N) & w/N \\
+%   (1-1/N) & w/N 
+%  \end{array}
+%   \right)
+%  \left(
+%  \begin{array}{c}
+%   n(d) \\ n(d-1)
+%  \end{array}
+%   \right)
+% \end{align*}
+
+
+The behavior can be described as a markov decision process.
+
+% Assume that initially we have
+% $D$ nodes in depth 0 and the plateau forms a tree of fixed width 1
+% (indicating star-like topology).
+
+
+When we have already expanded $k-1$ nodes in the plateau 
+
+
 \subsection{Tiebreaking within Depth Buckets}
 
 
