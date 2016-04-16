@@ -171,17 +171,49 @@ tiebreaking methods in both \lmcut and \mands heuristics
 
 \subsection{Depth-Based Tiebreaking Without Considering $h$}
 
-In \refsec{sec:h-necessary}, we showed that $[f,\lifo]$ tiebreaking (without considering $h$) is
-sufficient for the standard IPC benchmarks -- the performance of $[f,\lifo]$, $[f,h,\lifo]$, and $[f,h,\fifo]$ are comparable.
-\reftbl{tbl:depth} shows that $[\rd,\ro]$, which randomly selects an element from a randomly selected depth-bucket, dominates $[f,h,\fifo]$,
-and performs comparably to $[f,h,\lifo]$.
-Although $[\rd,\ro]$ behaves in a less greedy/depth-first manner than $[f,\lifo]$, 
-it explores nodes with high depth sufficiently often so that even if \lifo behavior (seeking nodes that are far from the plateau entrance) is required, $[\rd,\ro]$ will eventually find the solution.
-Moreover, there are some domains (\pddl{pipesworld-pushend} and \pddl{woodworking-opt11}) where a the more randomized behavior of $[\rd,\ro]$ is advantageous.
-Thus, overall, $[\rd,\ro]$ performs moderately well, and 
-\emph{neither $h$ nor \lifo-behavior is necessary in order to obtain performance that is competitive with the standard
-tiebreaking strategies}.
+In \refsec{sec:h-necessary}, we showed that $[f,\lifo]$ tiebreaking
+(without considering $h$) is sufficient for the standard IPC benchmarks
+-- the performance of $[f,\lifo]$, $[f,h,\lifo]$, and $[f,h,\fifo]$ are
+comparable.  In order to see if it also holds for depth-based
+tiebreaking, we evaluated the performance of $[f,\brackets{d},\fifo]$
+and $[f,\brackets{d},\lifo]$.
 
+\reftbl{tbl:lmcut-zerocost-noh} and \reftbl{tbl:mands-zerocost-noh}
+ shows that
+ $[f,h,\brackets{d},\fifo]$ and  $[f,h,\brackets{d},\lifo]$
+ perform comparably to $[f,h,\fifo]$ and $[f,h,\lifo]$.
+
+% Although $[\rd,\ro]$ behaves in a less greedy/depth-first manner than $[f,\lifo]$, 
+% it explores nodes with high depth sufficiently often so that even if \lifo behavior (seeking nodes that are far from the plateau entrance) is required, $[\rd,\ro]$ will eventually find the solution.
+% Moreover, there are some domains (\pddl{pipesworld-pushend} and \pddl{woodworking-opt11}) where a the more randomized behavior of $[\rd,\ro]$ is advantageous.
+% Thus, overall, $[\rd,\ro]$ performs moderately well, and 
+% \emph{neither $h$ nor \lifo-behavior is necessary in order to obtain performance that is competitive with the standard
+% tiebreaking strategies}.
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-ipc-noh}
+ }
+\end{table}
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:mands-ipc-noh}
+ }
+\end{table}
 
 
 %% moved to Table 2
