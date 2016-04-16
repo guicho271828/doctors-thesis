@@ -1,15 +1,23 @@
 \begin{longtable}{|*{5}{c|}}
 \caption{
- Coverage comparison (the number of instances solved in 5min, 2GB, \mands
- heuristics) between
- the standard baseline tiebreaking and depth-based tiebreaking. We highlight the
- best results when the difference between the maximum and the mininum coverage exceeds 2.
+ Similarly, this is a coverage comparison using \mands heuristics.
+ Experimental settings are the same with \reftbl{tbl:lmcut-ipc-full}:
+ The number of \textbf{standard IPC benchmark instances} solved in 5min, 2GB.
+ We highlight the best results when the difference between the maximum and the mininum coverage exceeds 2.
+ In this configuration, depth-based tiebreaking negatively affects the performance.
+ As we show in the next experiments, this is because
+ the low-level overhead of depth-based tiebreaking decreases the high
+ expansion speed of \mands. If we compare the number of evaluations on
+ problems solved by both, depth-based tiebreaking significantly
+ outperforms the standard tiebreaking strategies. Moreover, in the
+ \textbf{zerocost} domain experiments, depth-based tiebreaking
+ ourperforms the standard tiebreaking overall. Besides, the coverages by
+ \mands is less than that of \lmcut.
  }
 \\[0pt]
 \hline
-           % & \multicolumn{4}{|c|}{\lmcut Coverages (Number of problems solved)}\\ \hline                                    
- Domain    &  $[f,h,\fifo]$ &  $[f,h,\lifo]$ &  $[f,h,\brackets{d},\fifo]$ &  $[f,h,\brackets{d},\lifo]$ \\ \hline                                    
- sum(1104) &558             &565             &\textbf{570.6\spm{}1.5}      &560.0\spm{}0.9               \\ \hline                                    
+ Domain    &  $[f,h,\fifo]$ &  $[f,h,\lifo]$ &  $[f,h,\brackets{d},\fifo]$ &  $[f,h,\brackets{d},\lifo]$ \\ \hline
+ sum(1104) &479             &\textbf{488}    &484.0\spm{}0.0               &481.4\spm{}1.4               \\ \hline
 \endfirsthead
  
  \multicolumn{5}{l}{Continued...}\\ \hline
@@ -31,10 +39,6 @@
 \label{tbl:mands-ipc-full}
 \endlastfoot
 \hline
- & \multicolumn{4}{|c|}{\mands Coverages (\# problems solved)}\\
-\hline                                    
- Domain                                 &  $[f,h,\fifo]$ &  $[f,h,\lifo]$ &  $[f,h,\brackets{d},\fifo]$ &  $[f,h,\brackets{d},\lifo]$ \\ \hline                                    
- sum(1104)                              &479             &\textbf{488}    &484.0\spm{}0.0               &481.4\spm{}1.4               \\ \hline
  {\relsize{-1}airport(50)}              &9               &9               &9.0\spm{}0.0                 &9.0\spm{}0.0                 \\
  {\relsize{-1}barman-opt11(20)}         &4               &4               &4.0\spm{}0.0                 &4.0\spm{}0.0                 \\
  {\relsize{-1}blocks(35)}               &22              &21              &21.6\spm{}0.5                &21.8\spm{}0.4                \\
@@ -69,5 +73,5 @@
  {\relsize{-1}transport-opt11(20)}      &6               &6               &6.0\spm{}0.0                 &6.0\spm{}0.0                 \\
  {\relsize{-1}visitall-opt11(20)}       &9               &9               &9.0\spm{}0.0                 &9.0\spm{}0.0                 \\
  {\relsize{-1}woodworking-opt11(20)}    &7               &7               &7.0\spm{}0.0                 &7.0\spm{}0.0                 \\
- {\relsize{-1}zenotravel(20)}           &10              &10              &10.0\spm{}0.0                &10.0\spm{}0.0                \\\hline
+ {\relsize{-1}zenotravel(20)}           &10              &10              &10.0\spm{}0.0                &10.0\spm{}0.0
 \end{longtable}
