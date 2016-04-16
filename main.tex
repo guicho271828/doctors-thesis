@@ -99,34 +99,34 @@ tiebreaking strategies}.
 \subsection{Is Depth-Based Tiebreaking Necessary?}
 % is this the right location -- maybe this should in a discussion section?
 
-We have shown that $[h,\rd,\ro]$ performs well overall, but
+We have shown that $[f,h,\rd,\ro]$ performs well overall, but
 one might wonder whether the power of this strategy really comes from depth-based tiebreaking, or from randomness.
-\reftbl{tbl:depth} shows that $[h,\ro]$ performs poorly, so clearly, random tiebreaking combined with $h$-based tiebreaking is not sufficient.
-The reason that $[h,\ro]$ performs so poorly is that if we select uniformly from the bucket of all open nodes in the plateau, there is a very strong bias for selecting a node with low depth, simply because at any given point during the search in the plateau region, more nodes closer to the plateau entrance (i.e., lower depth) will have been generated.
-By randomly selecting a depth bucket, $[h,\rd,\ro]$ explicitly eliminates this bias for selecting nodes for low depth.
+\reftbl{tbl:depth} shows that $[f,h,\ro]$ performs poorly, so clearly, random tiebreaking combined with $h$-based tiebreaking is not sufficient.
+The reason that $[f,h,\ro]$ performs so poorly is that if we select uniformly from the bucket of all open nodes in the plateau, there is a very strong bias for selecting a node with low depth, simply because at any given point during the search in the plateau region, more nodes closer to the plateau entrance (i.e., lower depth) will have been generated.
+By randomly selecting a depth bucket, $[f,h,\rd,\ro]$ explicitly eliminates this bias for selecting nodes for low depth.
 
 % COMMENTED OUT: random-h is too weak, because if we have an admissible heuristic, the adversary can't fool h.
-% One might also wonder whether the power of $[h,\rd,\ro]$ comes from having multiple levels of randomness, and not from the notion of depth.
-% This is not the case -- multiple levels of randomness would not suffice to capture the power of $[h,\rd,\ro]$ due to the following reason:
+% One might also wonder whether the power of $[f,h,\rd,\ro]$ comes from having multiple levels of randomness, and not from the notion of depth.
+% This is not the case -- multiple levels of randomness would not suffice to capture the power of $[f,h,\rd,\ro]$ due to the following reason:
 % Consider another possible randomized strategy, $[random-h,\ro]$, which first picks a random $h$-bucket, 
 % and then picks a random element from that bucket.
 % When the final plateau of [f,h] is small, tiebreaking strategies do not significantly affect performance.
-% However, when the final plateau of [f,h] is large, then $[random-h,\ro]$ will behave similarly to $[h,\ro]$, because almost all nodes in the search space have the same h-value, and we have shown that $[h,\ro]$ performs poorly on domains with large plateaus, i.e., domains with zero-cost-actions., compared to $[h,\rd,\ro]$.
-% Thus, multiple levels of randomness alone do not account for the success of $[h,\rd,\ro]$, and the notion of depth buckets seems necessary.
+% However, when the final plateau of [f,h] is large, then $[random-h,\ro]$ will behave similarly to $[f,h,\ro]$, because almost all nodes in the search space have the same h-value, and we have shown that $[f,h,\ro]$ performs poorly on domains with large plateaus, i.e., domains with zero-cost-actions., compared to $[f,h,\rd,\ro]$.
+% Thus, multiple levels of randomness alone do not account for the success of $[f,h,\rd,\ro]$, and the notion of depth buckets seems necessary.
 
 
 \subsection{Search Behavior Within a Plateau}
 
 To understand the behavior of depth-based policies, we plotted the histogram of
 the depths of search nodes opened by
-the most successful depth-based strategy, $[h,\rd,\ro]$, as well as 
+the most successful depth-based strategy, $[f,h,\rd,\ro]$, as well as 
 the standard $[f,h,\fifo]$, $[f,h,\lifo]$ strategies
 in the final plateau, plateau($f^*,0$) until the solution is found.
 % 
 Although $[f,h,\fifo]$ and $[f,h,\lifo]$ do not operate with an explicit notion of ``depth'', 
-they are equivalent to $[h,\fd,\fifo]$ and $[h,\ld,\lifo]$, respectively,
+they are equivalent to $[f,h,\fd,\fifo]$ and $[f,h,\ld,\lifo]$, respectively,
 %so we recorded the depths according to these depth-based equivalents of $[f,h,\fifo]$ and $[f,h,\lifo]$.
-so we recorded and plotted the depths according to  $[h,\fd,\fifo]$ and $[h,\ld,\lifo]$.
+so we recorded and plotted the depths according to  $[f,h,\fd,\fifo]$ and $[f,h,\ld,\lifo]$.
 
 
 \refig{fig:depth-histogram} shows the result
@@ -139,7 +139,7 @@ In both instances,
 we observed that the depth-first behavior of $[f,h,\lifo]$ results in 
 deeper search, missing the key branch at intermediate depths.
 On the other hand, the breadth-first behavior of $[f,h,\fifo]$ often gets stuck spending an excessive amount of time searching around the plateau entrance.
-$[h,\rd,\ro]$ is balancing the search at various depths, which results in successfully solving more problems within the time limit (\reftbl{tbl:depth}). %to avoid confusion, avoiding word ``coverage'' here because coverage could refer to search algorithm ``covering'' the search space.
+$[f,h,\rd,\ro]$ is balancing the search at various depths, which results in successfully solving more problems within the time limit (\reftbl{tbl:depth}). %to avoid confusion, avoiding word ``coverage'' here because coverage could refer to search algorithm ``covering'' the search space.
 
 % The figure also illustrates the behavior of RandomDepth: Although it
 % randomly selects from the buckets,
@@ -178,14 +178,14 @@ $[h,\rd,\ro]$ is balancing the search at various depths, which results in succes
  \centering
  \begin{tabular}{|c|c|c||c|c|}
   \hline
-  Domain & $[f,h,\fifo]/\varepsilon$ &  $[f,h,\lifo]/\varepsilon$ &  $[h,\fd,\ro]$ &  $[h,\rd,\ro]$ \\
+  Domain & $[f,h,\fifo]/\varepsilon$ &  $[f,h,\lifo]/\varepsilon$ &  $[f,h,\fd,\ro]$ &  $[f,h,\rd,\ro]$ \\
   \hline
   \lmcut Zerocost & 261 & 259 & 257.4\spm{}2.0  &  \textbf{294.2\spm{}2.3} \\
   \hline
   \mands Zerocost & 282 & 282 & 274.0\spm{}0.9  &  \textbf{310.2\spm{}2.1} \\
   \hline
  \end{tabular}
- \caption{Comparison of  depth-based tiebreaking methods vs. standard $[f,h,\fifo]$ and $[h,lifo]$ methods applied to $\varepsilon$-cost-transformed versions of the problem instances}
+ \caption{Comparison of  depth-based tiebreaking methods vs. standard $[f,h,\fifo]$ and $[f,h,lifo]$ methods applied to $\varepsilon$-cost-transformed versions of the problem instances}
  \label{tbl:epsilon}
 \end{table}
 
@@ -197,9 +197,9 @@ $\varepsilon$ is chosen such that the optimal cost for the result of  this \emph
 We evaluated the $[f,h,\fifo]/\varepsilon$ and $[f,h,\lifo]/\varepsilon$ strategies, which are the standard $[f,h,\fifo]$ and $[f,h,\lifo]$ tiebreaking strategies applied to  the $\varepsilon$-transformed version of the problems.
 Since Fast Downward  only supports integer costs, we implemented/simulated the transformation by multiplying the non-zero costs by $10^6$, and assigning cost 1 to zero-cost actions -- in effect,  $\varepsilon=10^{-6}$.
 \reftbl{tbl:epsilon} shows that $[f,h,\fifo]$ and $[f,h,\lifo]$ with $\varepsilon$-transformation
- perform comparably to $[h,\fd,\ro]$, but are outperformed by $[h,\rd,\ro]$.
+ perform comparably to $[f,h,\fd,\ro]$, but are outperformed by $[f,h,\rd,\ro]$.
 % 
-The similarity in performance between $\varepsilon$-transformation and $[h,\fd,\ro]$ can be explained by the fact that  OPEN is sorted according to  $f(n)+k(n)\varepsilon$,
+The similarity in performance between $\varepsilon$-transformation and $[f,h,\fd,\ro]$ can be explained by the fact that  OPEN is sorted according to  $f(n)+k(n)\varepsilon$,
 where $k(n)$ is a number of zero-cost actions in the path to node $n$,
 while expansion order of FirstDepth is equivalent to $f(n)+\depth{n}\varepsilon$.
 ($\depth{n}\leq k(n)$ because $k(n)$ accounts zero-cost actions also in non-final plateaus).
@@ -259,7 +259,7 @@ is the final plateau ($f=f^*$, $h=0$) and a solution is found. %it directly find
 The PLUSONE %\footnote{This term is used on the Fast Downward website.} XXfootnote takes too much space
 cost-type (or distance-to-go) is a non-admissible search technique in the Fast Downward/LAMA planner
 \cite{richter2010lama} which increases all action costs by 1.
-% By eliminating zero-cost actions, this behaves similar to our $[h,\fd,\ro]$ tiebreaking.
+% By eliminating zero-cost actions, this behaves similar to our $[f,h,\fd,\ro]$ tiebreaking.
 %Using PLUSONE, three successive
 %applications of zero-cost operators have cost 3, and two
 %applications have cost 2, and smaller cost is preferred, just as
@@ -274,9 +274,9 @@ Unlike PLUSONE, depth-based tiebreaking is admissible.
 Also, unlike PLUSONE, depth-based tiebreaking does not necessarily favor smaller depth over larger depth.
 LAMA prefers smaller cost (including the increased cost),
 which biases the search toward nodes with fewer zero-cost actions on their path.
-This bias is similar to the $[h,\fd,\ro]$ policy,
+This bias is similar to the $[f,h,\fd,\ro]$ policy,
 the worst performer among all depth-variants in our experiments (\reftbl{depth}).
-The best depth-based methods are  $[h,\ld,\ro]$ and $[h,\rd,\ro]$,
+The best depth-based methods are  $[f,h,\ld,\ro]$ and $[f,h,\rd,\ro]$,
 which do not prefer smaller depth.
 
 % It's not clear what these techniques have in common, except that they are all orthogonal to heuristics,
@@ -326,11 +326,11 @@ In this paper, we evaluated standard tiebreaking
 strategies for \astar.
 We showed that contrary to conventional wisdom, tiebreaking based on the heuristic value is not necessary to achieve good performance, and proposed
 a new framework for defining tiebreaking policies based on \emph{depth}.
-We showed that a depth-based, randomized strategy $[h,\rd,\ro]$, which uses the heuristic value, but explicitly avoids depth and ordering biases present in previous methods,
+We showed that a depth-based, randomized strategy $[f,h,\rd,\ro]$, which uses the heuristic value, but explicitly avoids depth and ordering biases present in previous methods,
 significantly outperforms previous strategies on domains with zero-cost actions, 
 including practical application domains with resource optimization objectives in the IPC benchmarks.
 % and slightly outperforms previous strategies on benchmark problems without zero-cost actions.
-%We have shown that our $[h,\rd,\ro]$ strategy is successful because the randomized depth bucket selection explicitly avoids the depth bias that was present in previous methods
+%We have shown that our $[f,h,\rd,\ro]$ strategy is successful because the randomized depth bucket selection explicitly avoids the depth bias that was present in previous methods
 The proposed approach is highly effective on domains where zero-cost actions create large plateau regions where all nodes have the same $f$ and $h$ costs
 and the heuristic function provides no useful guidance.
 % We argued that such domains arise naturally when considering resource optimization problems.
