@@ -143,10 +143,8 @@ equivalent to the case of traditional last-resort tiebreaking strategies.
 
 \subsection{Tiebreaking within Depth Buckets}
 
-
-% changing from ``third-level'' because we'll also consider that sue depth as the 1st-level policy, e.g., [rd,random] (noh).
 Since there can be multiple nodes within the same depth bucket,
-a further tiebreaking criterion may be necessary to break ties among them.
+a last-resort tiebreaking is still necessary to break ties among them.
 We could, for example, apply \lifo, \fifo or \ro policies at this level.
 
 \todo{compare id,fifo and id,lifo}
@@ -160,8 +158,6 @@ We could, for example, apply \lifo, \fifo or \ro policies at this level.
 % Thus, we avoid bias at this level of tiebreaking by using \ro and assess its expected/average
 % performance.
 
-
-
 % Among \fifo, \lifo and \ro, the natural policy is Random Order.
 % This is because the effectiveness of the third-level tiebreaking behavior
 % is affected by the accidental bias in action ordering in the PDDL domain
@@ -172,3 +168,4 @@ We could, for example, apply \lifo, \fifo or \ro policies at this level.
 % Thus, focusing on \ro and assess its expected/average
 % performance is the most reasonable practice to understand the behavior of second-level,
 % depth-based tiebreaking.
+
