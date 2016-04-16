@@ -14,86 +14,10 @@ tiebreaking strategies.
 In addition to the 35 IPC benchmark domains with 1104 instances used in
 the previous set of experiments, we used 28 zerocost domains with 620
 instances.
-%  For randomized strategies, we
-% show the coverage (mean $\pm$ sd) on
-% 10 independent runs.
 
-
-% This comparison below may be useful in a future version of the paper, but not necessary in this version.
-%% First, we compared $[h,\ld,\lifo]$ and $[h,\fd,\fifo]$
-%% with $[f,h,\lifo]$ and $[f,h,\fifo]$, respectively, in order to see
-%% the extra cost of managing the depth-based buckets.
-%% The node evaluation order of $[h,\fd,\fifo]$ and $[h,\ld,\lifo]$
-%% are exactly the same as $[f,h,\fifo]$ and $[f,h,\lifo]$.
-%% This is because:
-%% (1) $[f,h,\lifo]$ expands the most recently evaluated/inserted
-%% states, and (2) the depth increases monotonically within the same $[f,h]$,
-%% thus (3) $[f,h,\lifo]$ always expands the largest depth. (Similar logic
-%% applies to $[f,h,\fifo]$.)
-%% % 
-%% % yet these results are useful in assessing the extra cost of managing the
-%% % depth-based buckets.
-%% As expected, the performances of $[h,\ld,\lifo]$ and
-%% $[h,\fd,\fifo]$ are slightly worse than $[f,h,\lifo]$ and
-%% $[f,h,\fifo]$, respectively, due to the cost of managing the depth-based buckets.
-
-We compared 
-$[h,\fd,\ro]$, $[h,\ld,\ro]$, and $[h,\rd,\ro]$. These all use 
-$h$ as the first-level tiebreaking criterion, one of \fd, \ld, \rd as
-the depth-based 2nd-level tiebreaking criterion, and finally,
-\ro as the 3rd-level criterion.
-Since these configurations are randomized, we run each configuration with 10 different random seeds.
-To see whether differences among the mean coverages were statistically significant,
-% of $[h,\ld,\ro]$, $[h,\rd,\ro]$,
-we applied the non-parametric Wilcoxon's signed-rank test.
-% ``non-parametric'' means ``normal distribution not assumed
-%Wilcoxon test,
-%a non-parametric significance testing method applicable to
-%the populations in which normal distribution cannot be assumed.
-
-\reftbl{tbl:depth} shows the coverage (mean $\pm$ sd),
-along with the rightmost columns showing the 
-Wilcoxon test $p$ values  for  $[h,\rd,\ro]$ vs. 3 other strategies.
-%The results depend on the domains, but in many domains, 
-In many domains,
-the performance was significantly affected by 2nd-level tiebreaking, and
-$[h,\rd,\ro]$ dominated the others. 
-Although $[h, \ld, \ro]$ and $[h,\rd,\ro]$ performed similarly on most domains, 
-the performance of $[h,\rd,\ro]$ in some
-domains are notable (e.g., \pddl{Cybersec}, \pddl{Woodworking-cut}). 
-The standard deviation of $[h,\rd,\ro]$ coverage tends to be smaller
-than that of $[h,\ld,\ro]$, indicating that $[h,\rd,\ro]$ is robust with respect to random seeds.
-$[h,\fd,\ro]$ is mostly dominated by $[h,\rd,\ro]$ and $[h,\ld,\ro]$,
-except in \pddl{Scanalyzer-analyze}.
-% 2015/9/13 -- let's try not including the following analysis in this submission -- due to space, and also too complicated, without sufficient payoff.
-% We no longer need the ``depth as explanation of LIFO/FIFO'' story, because  the ``random is good'' depth-based methods [h,rd,ro]  story is simpler.
-
-%% \todo{move this to the final section after reviewing the action ordering}
-%% % removed \fifo
-%% Finally, we answer two following concerns regarding \lifo final-level
-%% tiebreaking criteria which appear in $[f,h,\lifo]$ and
-%% $[h,\ld,\lifo]$. The evaluation in the earlier sections contains
-%% two open questions: (1) Do the action orderings affect the performance of \lifo? 
-%% (2) Doesn't \lifo benefit from its efficient low-level memory access pattern (high
-%% probability of hitting the cache), not by the search efficiency?
-%% They are both rejected because the
-%% coverage of $[h,\ld,\lifo]=[f,h,\lifo]$ is not significantly
-%% different from $[h,\ld,\ro]$, i.e.,
-%% $859,857 \in [863.5-8.9,863.5+8.9]$,
-%% despite the difference in the third-level tiebreaking (\lifo vs \ro).
-%% % 
-%% It means that the
-%% performance of $[f,h,\lifo]$($=[h,\ld,\lifo]$) was not caused by the final-level
-%% \lifo, but instead by the implicit second-level tiebreaking LastDepth.
-%% %% remove
-%% % Besides, this problem is not important now that RandomDepth
-%% % is outperforming LastDepth-based tiebreaking strategy.
-%% % 
-%% With the similar logic, we can claim that the bad performance of
-%% $[h,\fd,\fifo]$ and $[f,h,\fifo]$ can be attributed to its the
-%% inherent second-level FirstDepth, and not to the third-level \fifo.
-%% %% Unfortunately, 829,828 is not \in 816.7 +- 2.2.
-%% %% this can be changed if we rerun _random with O(1) random deletion.
+We compared $[f,h,\fifo]$, $[f,h,\lifo]$, $[f,h,\brackets{d},\fifo]$ and
+$[f,h,\brackets{d},\lifo]$.  These all use $h$ as the first-level
+tiebreaking and either \fifo or \lifo as the last-resort tiebreaking.
 
 
 \begin{table}[htbp]

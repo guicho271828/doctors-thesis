@@ -1,0 +1,30 @@
+%  For randomized strategies, we
+% show the coverage (mean $\pm$ sd) on
+% 10 independent runs.
+
+% Since these configurations are randomized, we run each configuration
+% with 10 different random seeds.  To see whether differences among the
+% mean coverages were statistically significant,
+% % of $[f,h,\ld,\ro]$, $[f,h,\rd,\ro]$,
+% we applied the non-parametric Wilcoxon's signed-rank test.
+% ``non-parametric'' means ``normal distribution not assumed
+%Wilcoxon test,
+%a non-parametric significance testing method applicable to
+%the populations in which normal distribution cannot be assumed.
+
+% \reftbl{tbl:depth} shows the coverage (mean $\pm$ sd),
+% along with the rightmost columns showing the 
+% Wilcoxon test $p$ values  for  $[f,h,\rd,\ro]$ vs. 3 other strategies.
+% %The results depend on the domains, but in many domains, 
+% In many domains,
+% the performance was significantly affected by 2nd-level tiebreaking, and
+% $[f,h,\rd,\ro]$ dominated the others. 
+% Although $[f,h, \ld, \ro]$ and $[f,h,\rd,\ro]$ performed similarly on most domains, 
+% the performance of $[f,h,\rd,\ro]$ in some
+% domains are notable (e.g., \pddl{Cybersec}, \pddl{Woodworking-cut}). 
+% The standard deviation of $[f,h,\rd,\ro]$ coverage tends to be smaller
+% than that of $[f,h,\ld,\ro]$, indicating that $[f,h,\rd,\ro]$ is robust with respect to random seeds.
+% $[f,h,\fd,\ro]$ is mostly dominated by $[f,h,\rd,\ro]$ and $[f,h,\ld,\ro]$,
+% except in \pddl{Scanalyzer-analyze}.
+% 2015/9/13 -- let's try not including the following analysis in this submission -- due to space, and also too complicated, without sufficient payoff.
+% We no longer need the ``depth as explanation of LIFO/FIFO'' story, because  the ``random is good'' depth-based methods [f,h,rd,ro]  story is simpler.

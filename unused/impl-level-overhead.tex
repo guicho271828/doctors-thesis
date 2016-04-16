@@ -1,0 +1,46 @@
+% This comparison below may be useful in a future version of the paper, but not necessary in this version.
+%% First, we compared $[h,\ld,\lifo]$ and $[h,\fd,\fifo]$
+%% with $[f,h,\lifo]$ and $[f,h,\fifo]$, respectively, in order to see
+%% the extra cost of managing the depth-based buckets.
+%% The node evaluation order of $[h,\fd,\fifo]$ and $[h,\ld,\lifo]$
+%% are exactly the same as $[f,h,\fifo]$ and $[f,h,\lifo]$.
+%% This is because:
+%% (1) $[f,h,\lifo]$ expands the most recently evaluated/inserted
+%% states, and (2) the depth increases monotonically within the same $[f,h]$,
+%% thus (3) $[f,h,\lifo]$ always expands the largest depth. (Similar logic
+%% applies to $[f,h,\fifo]$.)
+%% % 
+%% % yet these results are useful in assessing the extra cost of managing the
+%% % depth-based buckets.
+%% As expected, the performances of $[h,\ld,\lifo]$ and
+%% $[h,\fd,\fifo]$ are slightly worse than $[f,h,\lifo]$ and
+%% $[f,h,\fifo]$, respectively, due to the cost of managing the depth-based buckets.
+
+
+
+%% \todo{move this to the final section after reviewing the action ordering}
+%% % removed \fifo
+%% Finally, we answer two following concerns regarding \lifo final-level
+%% tiebreaking criteria which appear in $[f,h,\lifo]$ and
+%% $[f,h,\ld,\lifo]$. The evaluation in the earlier sections contains
+%% two open questions: (1) Do the action orderings affect the performance of \lifo? 
+%% (2) Doesn't \lifo benefit from its efficient low-level memory access pattern (high
+%% probability of hitting the cache), not by the search efficiency?
+%% They are both rejected because the
+%% coverage of $[f,h,\ld,\lifo]=[f,h,\lifo]$ is not significantly
+%% different from $[f,h,\ld,\ro]$, i.e.,
+%% $859,857 \in [863.5-8.9,863.5+8.9]$,
+%% despite the difference in the third-level tiebreaking (\lifo vs \ro).
+%% % 
+%% It means that the
+%% performance of $[f,h,\lifo]$($=[f,h,\ld,\lifo]$) was not caused by the final-level
+%% \lifo, but instead by the implicit second-level tiebreaking LastDepth.
+%% %% remove
+%% % Besides, this problem is not important now that RandomDepth
+%% % is outperforming LastDepth-based tiebreaking strategy.
+%% % 
+%% With the similar logic, we can claim that the bad performance of
+%% $[f,h,\fd,\fifo]$ and $[f,h,\fifo]$ can be attributed to its the
+%% inherent second-level FirstDepth, and not to the third-level \fifo.
+%% %% Unfortunately, 829,828 is not \in 816.7 +- 2.2.
+%% %% this can be changed if we rerun _random with O(1) random deletion.
