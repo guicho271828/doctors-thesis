@@ -47,8 +47,7 @@ losing performance in other domains.
  \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
  \caption{
  Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
- heuristics) between
- the standard baseline tiebreaking and depth-based tiebreaking. We highlight the
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
  \label{tbl:lmcut-ipc-full}
@@ -77,8 +76,8 @@ overall. Besides, the coverages by \mands is less than that of \lmcut.
  \centering
  \input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-depth.tex}
  \caption{
- Coverage comparison (the number of instances solved in 5min, 2GB, M\&S heuristics) between
- the standard baseline tiebreaking and depth-based tiebreaking. We highlight the
+ Coverage comparison (the number of instances solved in 5min, 2GB, M\&S
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
  \label{tbl:mands-ipc-full}
@@ -114,37 +113,35 @@ overall. Besides, the coverages by \mands is less than that of \lmcut.
 \end{figure}
 
 In zerocost domains, our proposed method outperforms the traditional
-tiebreaking methods (\reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full}).
+tiebreaking methods in both \lmcut and \mands heuristics
+(\reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full}).
 
-% \begin{table}[htb]
-%  {
-%  \centering
-%  \input{tables/aaai16-robustnesscheck-mands/zerocost/1-depth.tex}
-%  \caption{
-%  Full version of the bottom line of \reftbl{depth} showing 
-%  the experiments on the IPC benchmark instances using \mands heuritics.
-%  Each cell shows the coverage of the domain solved with 5 min, 2GB.
-%  As in the original \reftbl{depth}, we highlighted the best results in
-%  \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
-%  }
-%  \label{mands-zerocost-full}
-%  }
-% \end{table}
-% 
-% \begin{table}[htb]
-%  {
-%  \centering
-%  \input{tables/aaai16-robustnesscheck/zerocost/1-depth.tex}
-%  \caption{
-%  Full version of the lower half of \reftbl{depth} showing 
-%  the experiments on the Zerocost instances using \lmcut heuritics.
-%  Each cell shows the coverage of the domain solved with 5 min, 2GB.
-%  As in the original \reftbl{depth}, we highlighted the best results in
-%  \textbf{boldface} only when the maximum pairwise coverage difference $\mit{MaxDiff}>2$.
-%  }
-%  \label{lmcut-zerocost-full}
-%  }
-% \end{table}
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck/zerocost/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, \lmcut heuristics) 
+ on \textbf{620 zerocost instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{lmcut-zerocost-full}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck-mands/zerocost/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, \mands heuristics)
+ on \textbf{620 zerocost instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{mands-zerocost-full}
+ }
+\end{table}
+
 
 
 \subsection{Depth-Based Tiebreaking Without Considering $h$}
