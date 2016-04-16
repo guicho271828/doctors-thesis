@@ -287,41 +287,6 @@ $[f,h,\rd,\ro]$ is balancing the search at various depths, which results in succ
 
 
 
-
-\section{Conclusion}
-
-In this paper, we evaluated standard tiebreaking
-strategies for \astar.
-We showed that contrary to conventional wisdom, tiebreaking based on the heuristic value is not necessary to achieve good performance, and proposed
-a new framework for defining tiebreaking policies based on \emph{depth}.
-We showed that a depth-based, randomized strategy $[f,h,\rd,\ro]$, which uses the heuristic value, but explicitly avoids depth and ordering biases present in previous methods,
-significantly outperforms previous strategies on domains with zero-cost actions, 
-including practical application domains with resource optimization objectives in the IPC benchmarks.
-% and slightly outperforms previous strategies on benchmark problems without zero-cost actions.
-%We have shown that our $[f,h,\rd,\ro]$ strategy is successful because the randomized depth bucket selection explicitly avoids the depth bias that was present in previous methods
-The proposed approach is highly effective on domains where zero-cost actions create large plateau regions where all nodes have the same $f$ and $h$ costs
-and the heuristic function provides no useful guidance.
-% We argued that such domains arise naturally when considering resource optimization problems.
-%It also avoids the effect of action ordering in the domain definition,
-%providing a robust behavior.
- % when the distribution of optimal solutions is not uniform within the open list.
-% We also showed that this nonuniform distribution still appears when we have almost-perfect % heuristics.
-%% Our method differs from the pruning techniques because we do not prune
-%% any states, nor from the other general improvements to the heuristic
-%% accuracy because we just change the evaluation order within the same
-%% $f$, yet it address the fundamental problems in the heuristic forward
-%% search. 
-%% % 
-
-
-%While we focused on randomized policies because plateaus, by definition do not provide useful heuristic information, 
-%a direction for future work is development of deterministic variants.
-
-%% not much details of the idea were presented in this paper. Also, I
-%% don't want it to be copied by someone;;
-% on-line adaptation methods that exploit search space neighborhood structure
-% in order to adjust the tiebreaking policies.
-
 \section{Background: Tiebreaking Strategy for GBFS}
 
 \label{sec:gbfs}
