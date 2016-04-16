@@ -15,37 +15,28 @@ In addition to the 35 IPC benchmark domains with 1104 instances used in
 the previous set of experiments, we used 28 zerocost domains with 620
 instances.
 
-We compared $[f,h,\fifo]$, $[f,h,\lifo]$, $[f,h,\brackets{d},\fifo]$ and
+\subsection{Evaluating Depth-Based Tiebreaking with $h$-tiebreaking}
+
+We compared the performance of standard tiebreaking methods $[f,h,\fifo]$,
+$[f,h,\lifo]$ to $[f,h,\brackets{d},\fifo]$ and
 $[f,h,\brackets{d},\lifo]$.  These all use $h$ as the first-level
 tiebreaking and either \fifo or \lifo as the last-resort tiebreaking.
 
+In \textbf{standard IPC benchmark instances}
+(\reftbl{tbl:lmcut-ipc-full} and \reftbl{tbl:mands-ipc-full}), we can
+observe drastic performance improvements by depth-based tiebreaking in
+Openstacks and Cybersec domains. This is because these domains contain
+many instances of zero-cost edges.  Most other instances are unaffected
+by depth-based tiebreaking. Thus, our method offers a better performance
+in the domains of interest, without losing performance in other domains.
 
-\begin{table}[htbp]
- {
- \centering
- \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
- \caption{
- Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
- heuristics) between
- the standard baseline tiebreaking and depth-based tiebreaking. We highlight the
- best results when the difference between the maximum and the mininum coverage exceeds 2.
- }
- \label{tbl:lmcut-ipc-full}
- }
-\end{table}
+\input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth-l.tex}
 
-\begin{table}[htbp]
- {
- \centering
- \input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-depth.tex}
- \caption{
- Coverage comparison (the number of instances solved in 5min, 2GB, M\&S heuristics) between
- the standard baseline tiebreaking and depth-based tiebreaking. We highlight the
- best results when the difference between the maximum and the mininum coverage exceeds 2.
- }
- \label{tbl:mands-ipc-full}
- }
-\end{table}
+\input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-depth-l.tex}
+
+In zerocost domains, our proposed method outperforms the traditional
+tiebreaking methods (\reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full}).
+
 
 
 % \begin{table}[htb]
