@@ -22,13 +22,24 @@ $[f,h,\lifo]$ to $[f,h,\brackets{d},\fifo]$ and
 $[f,h,\brackets{d},\lifo]$.  These all use $h$ as the first-level
 tiebreaking and either \fifo or \lifo as the last-resort tiebreaking.
 
-In \textbf{standard IPC benchmark instances}
-(\reftbl{tbl:lmcut-ipc-full} and \reftbl{tbl:mands-ipc-full}), we can
-observe drastic performance improvements by depth-based tiebreaking in
-Openstacks and Cybersec domains. This is because these domains contain
-many instances of zero-cost edges.  Most other instances are unaffected
-by depth-based tiebreaking. Thus, our method offers a better performance
-in the domains of interest, without losing performance in other domains.
+First two experiments are conducted on \textbf{1104 standard IPC
+benchmark instances}, and the latter two experiments are conducted on
+\textbf{620 zerocost instances}.  Each experiment uses either \lmcut
+heuristics or \mands heuristics.  For \mands heuristics, we used the
+settings recommended by Fast Downward website (bisimulation-based shrink
+strategy, DFP merge strategy and exact label reduction).
+
+\reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard
+IPC benchmark instances} solved by \lmcut heuristics with various
+tiebreaking strategies, under 5min, 2GB experiments. We highlight the
+best results when the difference between the maximum and the mininum
+coverage exceeds 2.  Depth-based tiebreaking ($\brackets{d}$) shows
+impressive results on Openstacks and Cybersec domains because these
+domains contain many instances of zero-cost edges and the final plateau
+$\plateau{f,h}$ is huge (See \refig{fig:plateau}).  Most other instances
+are unaffected by depth-based tiebreaking.  Thus, our method offers a
+better performance in the domains of interest for free, i.e. without
+losing performance in other domains.
 
 \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth-l.tex}
 
