@@ -29,6 +29,31 @@ heuristics or \mands heuristics.  For \mands heuristics, we used the
 settings recommended by Fast Downward website (bisimulation-based shrink
 strategy, DFP merge strategy and exact label reduction).
 
+We first show the summary results of these experiments.
+Overall, depth-based tiebreaking tends to show larger coverages than the
+standard tiebreaking strategies. In the following, we describe the
+details of each experiments.
+
+\begin{table}[htb]
+ {
+ \centering
+\begin{tabular}{|*{5}{c|}}
+\hline
+ & \multicolumn{4}{|c|}{\lmcut Coverages (\# problems solved)}\\
+\hline                                    
+ Domain               &  $[f,h,\fifo]$ &  $[f,h,\lifo]$ &  $[f,h,\brackets{d},\fifo]$ &  $[f,h,\brackets{d},\lifo]$ \\ \hline
+ IPC,\lmcut(1104)     &558             &565             &\textbf{570.6\spm{}1.5}      &560.0\spm{}0.9               \\ 
+ IPC,\mands(1104)     &479             &\textbf{488}    &484.0\spm{}0.0               &481.4\spm{}1.4               \\ \hline
+ Zerocost,\lmcut(620) &256             &279             &\textbf{287.2\spm{}2.4}      &280.2\spm{}4.2               \\ 
+ Zerocost,\mands(620) &276             &290             &\textbf{310.2\spm{}2.1}      &303.2\spm{}1.7               \\ \hline
+\end{tabular}
+ \caption{
+ Summary Results: Coverage comparison (the number of instances solved in 5min, 2GB, \lmcut/\mands
+ heuristics) between standard tiebreaking and depth-based tiebreaking ($\brackets{d}$). }
+ \label{tbl:lmcut-ipc-full}
+ }
+\end{table}
+
 \reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard
 IPC benchmark instances} solved by \lmcut heuristics with various
 tiebreaking strategies, under 5min, 2GB experiments. We highlight the
