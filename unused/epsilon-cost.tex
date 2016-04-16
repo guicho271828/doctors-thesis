@@ -1,0 +1,40 @@
+\subsection{Comparison With $\varepsilon$-Cost Transformation}
+
+\begin{table}[tb]
+ \centering
+ \begin{tabular}{|c|c|c||c|c|}
+  \hline
+  Domain & $[f,h,\fifo]/\varepsilon$ &  $[f,h,\lifo]/\varepsilon$ &  $[f,h,\fd,\ro]$ &  $[f,h,\rd,\ro]$ \\
+  \hline
+  \lmcut Zerocost & 261 & 259 & 257.4\spm{}2.0  &  \textbf{294.2\spm{}2.3} \\
+  \hline
+  \mands Zerocost & 282 & 282 & 274.0\spm{}0.9  &  \textbf{310.2\spm{}2.1} \\
+  \hline
+ \end{tabular}
+ \caption{Comparison of  depth-based tiebreaking methods vs. standard $[f,h,\fifo]$ and $[f,h,lifo]$ methods applied to $\varepsilon$-cost-transformed versions of the problem instances}
+ \label{tbl:epsilon}
+\end{table}
+
+An alternative approach to addressing the large plateaus in zero-cost domains is
+to eliminate plateaus by introducing artificial gradients in the search space.
+For example, the cost of all zero-cost actions can be replaced by a small $\varepsilon\ll 1$, where 
+$\varepsilon$ is chosen such that the optimal cost for the result of  this \emph{$\varepsilon$-cost transformation} (``$\varepsilon$-transformation'') is the same as the cost of the optimal solution to the original domain with zero costs when the $\varepsilon$-transformed costs are mapped back to 0.
+
+We evaluated the $[f,h,\fifo]/\varepsilon$ and $[f,h,\lifo]/\varepsilon$ strategies, which are the standard $[f,h,\fifo]$ and $[f,h,\lifo]$ tiebreaking strategies applied to  the $\varepsilon$-transformed version of the problems.
+Since Fast Downward  only supports integer costs, we implemented/simulated the transformation by multiplying the non-zero costs by $10^6$, and assigning cost 1 to zero-cost actions -- in effect,  $\varepsilon=10^{-6}$.
+\reftbl{tbl:epsilon} shows that $[f,h,\fifo]$ and $[f,h,\lifo]$ with $\varepsilon$-transformation
+ perform comparably to $[f,h,\fd,\ro]$, but are outperformed by $[f,h,\rd,\ro]$.
+% 
+The similarity in performance between $\varepsilon$-transformation and $[f,h,\fd,\ro]$ can be explained by the fact that  OPEN is sorted according to  $f(n)+k(n)\varepsilon$,
+where $k(n)$ is a number of zero-cost actions in the path to node $n$,
+while expansion order of FirstDepth is equivalent to $f(n)+\depth{n}\varepsilon$.
+($\depth{n}\leq k(n)$ because $k(n)$ accounts zero-cost actions also in non-final plateaus).
+% 
+One advantage of the $\varepsilon$-transformation is that it can be implemented by transforming the input problem and does not require implementation of depth-based buckets in the search algorithm.
+On the other hand, there are two issues with the $\varepsilon$-transformation:
+(1) $\varepsilon$ must be chosen carefully -- admissibility is lost  when $k(n)\varepsilon\approx 1$, and
+(2) the number of possible $g$ and $f$ values becomes very large, making it difficult to use efficient $O(1)$ array-based implementation of the OPEN list and requiring the use of a heap-based $O(\log n)$ OPEN list.
+% it makes array-based $O(1)$ OPEN-list consume too much memory
+% because the queue contains too many different key values, 
+% or it forces
+% In contrast, depth can be directly implemented with just another level of nested arrays.
