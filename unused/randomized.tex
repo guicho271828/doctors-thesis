@@ -28,3 +28,23 @@
 % except in \pddl{Scanalyzer-analyze}.
 % 2015/9/13 -- let's try not including the following analysis in this submission -- due to space, and also too complicated, without sufficient payoff.
 % We no longer need the ``depth as explanation of LIFO/FIFO'' story, because  the ``random is good'' depth-based methods [f,h,rd,ro]  story is simpler.
+
+
+%% no need, since we no longer use randomization
+\subsection{Is Depth-Based Tiebreaking Necessary?}
+% is this the right location -- maybe this should in a discussion section?
+
+We have shown that $[f,h,\rd,\ro]$ performs well overall, but
+one might wonder whether the power of this strategy really comes from depth-based tiebreaking, or from randomness.
+\reftbl{tbl:depth} shows that $[f,h,\ro]$ performs poorly, so clearly, random tiebreaking combined with $h$-based tiebreaking is not sufficient.
+The reason that $[f,h,\ro]$ performs so poorly is that if we select uniformly from the bucket of all open nodes in the plateau, there is a very strong bias for selecting a node with low depth, simply because at any given point during the search in the plateau region, more nodes closer to the plateau entrance (i.e., lower depth) will have been generated.
+By randomly selecting a depth bucket, $[f,h,\rd,\ro]$ explicitly eliminates this bias for selecting nodes for low depth.
+
+% COMMENTED OUT: random-h is too weak, because if we have an admissible heuristic, the adversary can't fool h.
+% One might also wonder whether the power of $[f,h,\rd,\ro]$ comes from having multiple levels of randomness, and not from the notion of depth.
+% This is not the case -- multiple levels of randomness would not suffice to capture the power of $[f,h,\rd,\ro]$ due to the following reason:
+% Consider another possible randomized strategy, $[random-h,\ro]$, which first picks a random $h$-bucket, 
+% and then picks a random element from that bucket.
+% When the final plateau of [f,h] is small, tiebreaking strategies do not significantly affect performance.
+% However, when the final plateau of [f,h] is large, then $[random-h,\ro]$ will behave similarly to $[f,h,\ro]$, because almost all nodes in the search space have the same h-value, and we have shown that $[f,h,\ro]$ performs poorly on domains with large plateaus, i.e., domains with zero-cost-actions., compared to $[f,h,\rd,\ro]$.
+% Thus, multiple levels of randomness alone do not account for the success of $[f,h,\rd,\ro]$, and the notion of depth buckets seems necessary.
