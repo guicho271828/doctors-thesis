@@ -152,13 +152,6 @@ expansion order among the nodes with the same $f$-cost.
 After \refsec{sec:gbfs}, we apply the same depth-based diversifying tiebreaking
 method to Greedy Best First Search (GBFS) for satisficing planning.
 
-Satisficing search algorithms sacrifices the solution quality for speed,
-and GBFS is one extreme of such variants which completely sacrifices the
-bounded quality guarantee like those in \astar.  GBFS is heavily used by
-various planning solvers in the Satisficing Track of the International
-Planning Competition in order to obtain the first solution of a
-planning problem.
-
 Despite the ubiquitous use of GBFS for satisficing search,
 various research have suggested that GBFS can be
 easily trapped by undetected dead ends and a huge search plateau.

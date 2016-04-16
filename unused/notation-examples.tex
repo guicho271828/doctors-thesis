@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+ \centering
+ \setlength{\tabcolsep}{0.2em}
+ % \begin{tabular}{|l|l|}
+ \begin{align*}
+  \mbox{\astar without tiebreaking}         &: [f]   \\
+  \mbox{\astar, break ties for smaller $h$} &: [f,h] \\
+  \mbox{Standard GBFS}                      &: [h]   \\
+  \mbox{GBFS+Alternation (2 heuristics)}    &: \mit{alt}([h_1],[h_2])   \\
+  \mbox{$\epsilon$-greedy GBFS}             &: \mit{alt}((1-\epsilon)[h], \epsilon [\ ]_{\ro}) \\
+  \mbox{Type-GBFS, type = $[g,h]$}          &: \mit{alt}(\quad       [h],\quad \brackets{g,h}_{\ro}) \\
+  \mbox{$\epsilon$-greedy Type-GBFS}        &: \mit{alt}((1-\epsilon)[h], \epsilon\brackets{g,h}_{\ro}) \\
+  \mbox{\astar + $h$ tiebreaking + depth}   &: [f,h]_{\brackets{\mit{\scriptsize depth}}} \\
+  \mbox{GBFS + depth}                       &: [h]_{\brackets{\mit{\scriptsize depth}}} \\
+ \end{align*}
+ % \end{tabular}
+ \caption{Various search algorithms using the notation in this paper}
+\end{table}

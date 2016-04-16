@@ -1,0 +1,20 @@
+
+% The diversification based on the depth can be considered as an instance
+% of last-resort tiebreaking, since the depth is used \emph{after} the
+% sorting strategy selects a set of nodes.
+% % 
+% We can also view the depth-based diversification as a classification of
+% the nodes into type-based buckets with depth as a single key value.
+% Thus, we call this framework as \emph{typed-sorting strategy}, a mix of
+% sorting strategy and type-based buckets, denoted as $[\mbox{sorting
+% strategy}]_{\brackets{\mbox{\small type vector}}}$.
+% % 
+% For example, \astar using $h$ as the first tiebreaking criteria and
+% depth as a diversification method can be expressed as
+% $[f,h]_{\brackets{d}}$. 
+% % _{\fifo}
+% % The reason \fifo is present
+% % after $\brackets{d}$ is that when multiple nodes are in the same depth, a
+% % single node is selected in a FIFO order.
+% % Trivially, $[\ ]_{\brackets{X}}$ is equivalent to $\brackets{X}$ and
+% % $[X]_{\brackets{\ }}$ is equivalent to $[X]$.

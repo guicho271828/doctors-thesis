@@ -12,25 +12,38 @@
 
 \label{sec:gbfs}
 
-\todo{unrelated -- interesting but too ambitious?}
+From this section, we discuss and evaluate the tiebreaking strategy of
+GBFS for satisficing search.
+Satisficing search algorithms sacrifice the solution quality for speed,
+and GBFS is one extreme of such variants which completely sacrifices the
+bounded quality guarantee like those in \astar.
+GBFS is heavily used by
+various planning solvers in the Satisficing Track of the International
+Planning Competition in order to obtain the first solution of a
+planning problem.
 
-Heuristic errors consist of two major components called \emph{precision}
-and \emph{accuracy}. Both terms are defined based on the distribution of
-the heuristic estimates compared to the true distance to the goal $h^*$,
-but has a key difference as follows: \emph{accuracy} accounts for the
-difference of means, while \emph{precision} accounts for the deviation
-from the true distance. The notion was proposed in the early days of
-literature for investigating the performance of probabilistic heuristic
-function \cite{pearl1984heuristics}, but is largely forgotten in the
-current search community. \citeauthor{pearl1984heuristics}
-concluded that, for satsificing search, the key characteristics which
-determines the performance of inadmissible heuristics is
-\emph{precision}, rather than \emph{accuracy}. Assume we have an
-inadmissible heuristic function which always overestimates the true
-distance $h^*$ by a constant error $e$ --- the guidance provided by
-function $h^*(s)+e$ is not much different from that of $h^*(s)$
-itself. This is because it changes the accuracy but does not change
-the precision of the heuristics.
+
+
+
+% \todo{unrelated -- interesting but too ambitious?}
+% 
+% Heuristic errors consist of two major components called \emph{precision}
+% and \emph{accuracy}. Both terms are defined based on the distribution of
+% the heuristic estimates compared to the true distance to the goal $h^*$,
+% but has a key difference as follows: \emph{accuracy} accounts for the
+% difference of means, while \emph{precision} accounts for the deviation
+% from the true distance. The notion was proposed in the early
+% literature for investigating the performance of probabilistic heuristic
+% function \cite{pearl1984heuristics}, but is largely forgotten in the
+% current search community. \citeauthor{pearl1984heuristics}
+% concluded that, for satsificing search, the key characteristics which
+% determines the performance of inadmissible heuristics is
+% \emph{precision}, rather than \emph{accuracy}. Assume we have an
+% inadmissible heuristic function which always overestimates the true
+% distance $h^*$ by a constant error $e$ --- the guidance provided by
+% function $h^*(s)+e$ is not much different from that of $h^*(s)$
+% itself. This is because it changes the accuracy but does not change
+% the precision of the heuristics.
 
 KBFS(k) \cite{Korf??} is an early attempt on alleviating the problem of
 GBFS. It expands $k$ nodes at a time in order to prevent the search
@@ -56,88 +69,44 @@ open list using $[h]_{\fifo}$ and $[\ ]_{\ro}$ (no sorting criteria) with weight
 $1-\epsilon$ and $\epsilon$. We denote such a weighted alternation open
 list as $\mit{alt}(w_1X_1,w_2X_2,\ldots)$ where each $w_i$ is a weight
 for a sorting strategy $X_i$. Now $\epsilon$-greedy GBFS corresponds to
-$\mit{alt}((1-\epsilon)[h]_{\fifo},\epsilon [\ ]_{\ro})$.
+$\mit{alt}((1-\epsilon)[h,\fifo],\epsilon [\ro])$.
 
-While the exploration phase of $\epsilon$-greedy GBFS does not have any method to detect the bias
-between the nodes,
-Type-GBFS \cite{xie14type} does this by running the 
-classification of the nodes. The nodes are categorized into buckets
-(called ``type bucket''), each associated with a specific vector of key
-values, such as $[g,h]$ for each state. On each explorative
-expansion, the search algorithm selects a random node in a random
-bucket, which avoids the cardinality bias --- the search nodes
-may be more concentrated in a particular bucket, and exploration done by
-$\epsilon$-greedy fails to explore the variety of search space, unlike
-Type-GBFS.
+While the exploration phase of $\epsilon$-greedy GBFS simply randomizes
+the node expansion, Type-GBFS \cite{xie14type} explicitly tries to
+detect and avoid the bias in the OPEN list.  Consider, for example, if
+there are millions of nodes with $h=2$ in the open list while there are
+only handful of the nodes with $h=5$. Then the effect of
+$\epsilon$-greedy diversification will be very limited because a
+randomized selection almost always select a node with $h=2$, resulting
+in the same behavior as the standard GBFS.
 
-Type-GBFS categorizes the nodes in type buckets, but does not sort the
-buckets with the key vector. Thus, we denote such a random
+Type-GBFS tries to avoid this bias by categorizing the nodes into
+several buckets (called ``type bucket''), each associated with a
+specific vector of key values, such as $[g,h]$ for each state.  On each
+explorative expansion, the search algorithm selects a random node in a
+random bucket, which avoids the cardinality bias --- the concentration
+of the nodes into a particular bucket is no longer a problem.
+
+Type-GBFS categorizes the nodes in type buckets, but does not need to
+sort the buckets in any particular order. Thus, we denote such a random
 selection among buckets as $\brackets{\ldots}$ where $\ldots$ is a
 classification criteria, e.g., $\brackets{g,h}$ denotes the type buckets
-whose keys are the vector $[g,h]$.
+whose keys are the vector $[g,h]$. This notation is intentionally same
+as those we have used for depth-based diversification.
 
 In their paper, the method was evaluated under a
 configuration that the explorative expansion and the exploitative
-expansion (standard GBFS) alternates. 
-Thus, we can write this algorithm as $\mit{alt}([h], \brackets{g,h}_{\ro})$.
+expansion (standard GBFS) alternates. The last-resort tiebreaking 
+is specified for the explorative expansion (random order), but is
+not specified for the exploitative expansion.
+Assuming that they are using the standard Fast
+Downward code base (with FIFO last-resort tiebreaking),
+we can write this algorithm as $\mit{alt}([h,\fifo], [\brackets{g,h},\ro])$.
 % This also corresponds to the case of $\epsilon$-greedy with $\epsilon=0.5$.
 % 
-They empirically show that
-this configuration results in larger coverage and that it
-expands much broader variety of nodes in the explorative
+They empirically show that this configuration results in larger coverage
+and that it expands much broader variety of nodes in the explorative
 expansion phase.
-
-\begin{table}[htbp]
- \centering
- \setlength{\tabcolsep}{0.2em}
- % \begin{tabular}{|l|l|}
- \begin{align*}
-  \mbox{\astar without tiebreaking}         &: [f]   \\
-  \mbox{\astar, break ties for smaller $h$} &: [f,h] \\
-  \mbox{Standard GBFS}                      &: [h]   \\
-  \mbox{GBFS+Alternation (2 heuristics)}    &: \mit{alt}([h_1],[h_2])   \\
-  \mbox{$\epsilon$-greedy GBFS}             &: \mit{alt}((1-\epsilon)[h], \epsilon [\ ]_{\ro}) \\
-  \mbox{Type-GBFS, type = $[g,h]$}          &: \mit{alt}(\quad       [h],\quad \brackets{g,h}_{\ro}) \\
-  \mbox{$\epsilon$-greedy Type-GBFS}        &: \mit{alt}((1-\epsilon)[h], \epsilon\brackets{g,h}_{\ro}) \\
-  \mbox{\astar + $h$ tiebreaking + depth}   &: [f,h]_{\brackets{\mit{\scriptsize depth}}} \\
-  \mbox{GBFS + depth}                       &: [h]_{\brackets{\mit{\scriptsize depth}}} \\
- \end{align*}
- % \end{tabular}
- \caption{Various search algorithms using the notation in this paper}
-\end{table}
-
-%% less priority. remove?
-% DBFS \cite{imai2011novel} is also an algorithm which diversifies the
-% search based on $g$ and $h$ values, but with several key differences from
-% above two algorithms: First, the explorative selection is not uniformly
-% random, but is subject to a particular distribution function defined by
-% $h, g, h_{min}$ and $g_{max}$. Second, it uses a local search with
-% a bounded number of expansions equal to $h(s)$, which dynamically balances the exploration
-% and exploitation --- it does more GBFS when $h$ is large (far
-% from the goal), and less GBFS near the goal ($h$ is small).
-
-
-
-% The diversification based on the depth can be considered as an instance
-% of last-resort tiebreaking, since the depth is used \emph{after} the
-% sorting strategy selects a set of nodes.
-% % 
-% We can also view the depth-based diversification as a classification of
-% the nodes into type-based buckets with depth as a single key value.
-% Thus, we call this framework as \emph{typed-sorting strategy}, a mix of
-% sorting strategy and type-based buckets, denoted as $[\mbox{sorting
-% strategy}]_{\brackets{\mbox{\small type vector}}}$.
-% % 
-% For example, \astar using $h$ as the first tiebreaking criteria and
-% depth as a diversification method can be expressed as
-% $[f,h]_{\brackets{d}}$. 
-% % _{\fifo}
-% % The reason \fifo is present
-% % after $\brackets{d}$ is that when multiple nodes are in the same depth, a
-% % single node is selected in a FIFO order.
-% % Trivially, $[\ ]_{\brackets{X}}$ is equivalent to $\brackets{X}$ and
-% % $[X]_{\brackets{\ }}$ is equivalent to $[X]$.
-
 
 \section{Depth-based Tiebreaking for GBFS}
 
@@ -160,9 +129,10 @@ nodes with $f$ and breaking ties according to $h$ is not possible.
 
 As a consequence, except for diversification,
 search enhancement for GBFS have been achieved by
-modifying the heuristic function itself.  This includes not only using the
-different heuristic functions, but also lazy evaluation,
-preferred operators and PLUSONE/ONE cost type.
+modifying the heuristic function itself.  This not only includes the use
+of multi-heuristics search, but also, in a much broader term, lazy evaluation,
+preferred operators and PLUSONE/ONE cost type can be considered as a
+modification to the heuristic function.
  
 Lazy evaluation is a technique which derives the heuristic value of a
 state from its parent. This sacrifices the informativeness of the
@@ -172,44 +142,42 @@ Preferred operator (helpful action in \cite{Hoffmann01}) marks some
 operators to be promising when it improved the least cost estimate in the
 previous node expansion. Marked nodes are put in a special queue
 which is expanded more often, which is equivalent to temporarily
-increasing the priority of the particular nodes.
+increasing the priority of the particular nodes based on the past search
+knowledge.
  
 PLUSONE cost type is a technique which adds a cost of 1 to each edge
 cost, which also affects the heuristic value. Similarly, ONE cost type
 treats all actions to have a unit cost.  ONE cost type is used in
 the first GBFS iteration of LAMA, and PLUSONE cost type is used in the
-second GBFS iteration of LAMA (followed by WA*).
+second GBFS iteration of LAMA.
 
 We instead consider the use of the depth-based tiebreaking policy, which
 is able to identify the relative location of the current state in the
 plateau.  In this section, we evaluate the effect of depth-based
-tiebreaking on Eager GBFS, and also compare the effect
-against various search enhancements stated above.
+tiebreaking on Eager GBFS, and also compare the effect against various
+search enhancements stated above.
 
 \subsection{Comparison against GBFS}
 
 We compared the performance of 
-($G$) the standard GBFS
+($g$) the standard GBFS
 $[h]$,
-($G_d$) GBFS using depth-based diversification
-$[h]_{\relsize{-2}\brackets{d}}$,
-($T$) Type-GBFS
+($G$) GBFS using depth-based diversification
+$[h,\brackets{d}]$,
+($t$) Type-GBFS
 $alt([h],\brackets{g,h})$,
-($T_d$) Type-GBFS using depth-based diversification
-$alt([h]_{\brackets{d}},\brackets{g,h})$,
-($T^d$) Type-GBFS using depth-based type bucket
+($T$) Type-GBFS using depth-based diversification
+$alt([h,\brackets{d}],\brackets{g,h})$,
+($td$) Type-GBFS using depth-based type bucket
 $alt([h],\brackets{g,h,d})$,
-($T_d^d$) Type-GBFS using both depth-based diversification and depth-based type bucket
-$alt([h]_{\brackets{d}},\brackets{g,h,d})$.
+($Td$) Type-GBFS using both depth-based diversification and depth-based type bucket
+$alt([h,\brackets{d}],\brackets{g,h,d})$.
 
-Since the effect of depth could be heuristic-dependent, we tested three
-heuristics as $h$:
+Since the effect of depth could be heuristic-dependent, we tested three heuristics as $h$:
 FF heuristics\cite{Hoffmann01}, Causal Graph (CG) heuristics \cite{Helmert2006}, Context Enhanced
 Additive (CEA) heuristics\cite{helmert2008unifying}.
 %% not included --- its is a pseudo heuristics anyways
 % , Landmark-Count (LC) heuristics\cite{richter2008landmarks}
-
-
 
 % In order to remove the effect of randomness of the algorithm, we
 % implemented a deterministic version of Type-based queue for Type-GBFS
@@ -509,3 +477,6 @@ vstl & 13 & 13 & \bi{9} & 7 & 12 & 13 & 9 & 10\\
 \cite{schulte2014balancing}
 
 \cite{auer2002finite}
+
+\section{Conclusion}
+
