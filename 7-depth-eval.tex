@@ -1,0 +1,279 @@
+
+\section{Evaluating Depth-Based Tiebreaking}
+\label{sec:depth-based-evaluation}
+We evaluated our depth-based diversifying tiebreaking strategies against standard
+tiebreaking strategies.
+In addition to the 35 IPC benchmark domains with 1104 instances used in
+the previous set of experiments, we used 28 zerocost domains with 620
+instances.
+
+\subsection{Evaluating Depth-Based Tiebreaking with $h$-tiebreaking}
+
+We compared the performance of standard tiebreaking methods $[f,h,\fifo]$,
+$[f,h,\lifo]$ to $[f,h,\brackets{d},\fifo]$ and
+$[f,h,\brackets{d},\lifo]$.  These all use $h$ as the first-level
+tiebreaking and either \fifo or \lifo as the last-resort tiebreaking.
+
+First two experiments are conducted on \textbf{1104 standard IPC
+benchmark instances}, and the latter two experiments are conducted on
+\textbf{620 zerocost instances}.  Each experiment uses either \lmcut
+heuristics or \mands heuristics.  For \mands heuristics, we used the
+settings recommended by Fast Downward website (bisimulation-based shrink
+strategy, DFP merge strategy and exact label reduction).
+
+We first show the summary results of these experiments.
+Overall, depth-based tiebreaking tends to show larger coverages than the
+standard tiebreaking strategies. In the following, we describe the
+details of each experiments.
+
+\begin{table}[htb]
+ {
+ \centering
+\begin{tabular}{|*{5}{c|}}
+\hline
+ & \multicolumn{4}{|c|}{\lmcut Coverages (\# problems solved)}\\
+\hline                                    
+ Domain               &  $[f,h,\fifo]$ &  $[f,h,\lifo]$ &  $[f,h,\brackets{d},\fifo]$ &  $[f,h,\brackets{d},\lifo]$ \\ \hline
+ IPC,\lmcut(1104)     &558             &565             &\textbf{570.6\spm{}1.5}      &560.0\spm{}0.9               \\ 
+ IPC,\mands(1104)     &479             &\textbf{488}    &484.0\spm{}0.0               &481.4\spm{}1.4               \\ \hline
+ Zerocost,\lmcut(620) &256             &279             &\textbf{287.2\spm{}2.4}      &280.2\spm{}4.2               \\ 
+ Zerocost,\mands(620) &276             &290             &\textbf{310.2\spm{}2.1}      &303.2\spm{}1.7               \\ \hline
+\end{tabular}
+ \caption{
+ Summary Results: Coverage comparison (the number of instances solved in 5min, 2GB, \lmcut/\mands
+ heuristics) between standard tiebreaking and depth-based tiebreaking ($\brackets{d}$). }
+ \label{tbl:lmcut-ipc-full}
+ }
+\end{table}
+
+\reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard
+IPC benchmark instances} solved by \lmcut heuristics with various
+tiebreaking strategies, under 5min, 2GB experiments. We highlight the
+best results when the difference between the maximum and the mininum
+coverage exceeds 2.  Depth-based tiebreaking ($\brackets{d}$) shows
+impressive results on Openstacks and Cybersec domains because these
+domains contain many instances of zero-cost edges and the final plateau
+$\plateau{f,h}$ is huge (See \refig{fig:plateau}).  Most other instances
+are unaffected by depth-based tiebreaking.  Thus, our method offers a
+better performance in the domains of interest for free, i.e. without
+losing performance in other domains.
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-ipc-full}
+ }
+\end{table}
+
+
+\reftbl{tbl:mands-ipc-full} shows the results by \mands heuristics.
+In this configuration, depth-based tiebreaking negatively affects the performance.
+As we show in \reftbl{tbl:expansion-ratio}, this is because
+the low-level overhead of depth-based tiebreaking decreases the high
+node processing speed of \mands. Evaluation of \mands heuristics is
+very efficiently implemented as a table lookup, and it is able to
+evaluate an order of magnutude larger number of nodes
+compared to \lmcut heuristics.
+
+\reftbl{tbl:mands-evaluations} shows that if we instead compare the
+number of evaluations on problems solved by both, depth-based
+tiebreaking significantly outperforms the standard tiebreaking
+strategies. Moreover, in the next \textbf{zerocost} domain experiments,
+depth-based tiebreaking ourperforms the standard tiebreaking
+overall. Besides, the coverages by \mands is less than that of \lmcut.
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, M\&S
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:mands-ipc-full}
+ }
+\end{table}
+
+\begin{table}[htb]
+ \centering
+ \begin{tabular}{cccc}
+  nodes/sec                  & LMcut      & M\&S       & M\&S slowdown\\
+  \hline
+  $[f,h,\lifo]$              & 8.86$\times 10^3$ & 1.37$\times 10^5$ & 100\%\\
+  $[f,h,\brackets{d},\lifo]$ & 9.37$\times 10^3$ & 1.13$\times 10^5$ & 82\%\\
+  \hline
+  $[f,h,\fifo]$              & 9.65$\times 10^3$ & 1.41$\times 10^5$ & 100\%\\
+  $[f,h,\brackets{d},\fifo]$ & 9.62$\times 10^3$ & 1.24$\times 10^5$ & 87\%\\
+  \hline
+ \end{tabular}
+ \caption{Comparison of the average node expansion ratio (node/sec) between
+ standard tiebreaking and depth-based tiebreaking on \lmcut and \mands
+ heuristics. Numbers are averaged over the problem instances solved by
+ all 4 configurations. Since the node evaluation of \mands is an order of
+ magnitude faster than \lmcut, the overhead of managing depth-based
+ tiebreaking queue is non-negligeble on \mands.}
+ \label{tbl:expansion-ratio}
+\end{table}
+
+\begin{figure}[htb]
+ \centering
+ \caption{Comparison of the total number of nodes generated by \mands
+ heuristics, with vs without depth-based tiebreaking.}
+ \label{tbl:mands-evaluations}
+\end{figure}
+
+In zerocost domains, our proposed method outperforms the traditional
+tiebreaking methods in both \lmcut and \mands heuristics
+(\reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full}).
+Significant improvements were observed in X domains when using \lmcut,
+and in X domains when using \mands.
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck/zerocost/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, \lmcut heuristics) 
+ on \textbf{620 zerocost instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{lmcut-zerocost-full}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck-mands/zerocost/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, \mands heuristics)
+ on \textbf{620 zerocost instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{mands-zerocost-full}
+ }
+\end{table}
+
+
+
+\subsection{Depth-Based Tiebreaking Without Considering $h$}
+
+In \refsec{sec:h-necessary}, we showed that $[f,\lifo]$ tiebreaking
+(without considering $h$) is sufficient for the standard IPC benchmarks
+-- the performance of $[f,\lifo]$, $[f,h,\lifo]$, and $[f,h,\fifo]$ are
+comparable.  In order to see if it also holds for depth-based
+tiebreaking, we evaluated the performance of $[f,\brackets{d},\fifo]$
+and $[f,\brackets{d},\lifo]$.
+
+\reftbl{tbl:lmcut-zerocost-noh} and \reftbl{tbl:mands-zerocost-noh}
+ shows that
+ $[f,h,\brackets{d},\fifo]$ and  $[f,h,\brackets{d},\lifo]$
+ perform comparably to $[f,h,\fifo]$ and $[f,h,\lifo]$.
+
+% Although $[\rd,\ro]$ behaves in a less greedy/depth-first manner than $[f,\lifo]$, 
+% it explores nodes with high depth sufficiently often so that even if \lifo behavior (seeking nodes that are far from the plateau entrance) is required, $[\rd,\ro]$ will eventually find the solution.
+% Moreover, there are some domains (\pddl{pipesworld-pushend} and \pddl{woodworking-opt11}) where a the more randomized behavior of $[\rd,\ro]$ is advantageous.
+% Thus, overall, $[\rd,\ro]$ performs moderately well, and 
+% \emph{neither $h$ nor \lifo-behavior is necessary in order to obtain performance that is competitive with the standard
+% tiebreaking strategies}.
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-ipc-noh}
+ }
+\end{table}
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:mands-ipc-noh}
+ }
+\end{table}
+
+
+%% moved to Table 2
+
+
+
+\subsection{Search Behavior Within a Plateau}
+
+To understand the behavior of depth-based policies, we plotted the histogram of
+the depths of search nodes opened by
+the most successful depth-based strategy, $[f,h,\rd,\ro]$, as well as 
+the standard $[f,h,\fifo]$, $[f,h,\lifo]$ strategies
+in the final plateau, plateau($f^*,0$) until the solution is found.
+% 
+Although $[f,h,\fifo]$ and $[f,h,\lifo]$ do not operate with an explicit notion of ``depth'', 
+they are equivalent to $[f,h,\fd,\fifo]$ and $[f,h,\ld,\lifo]$, respectively,
+%so we recorded the depths according to these depth-based equivalents of $[f,h,\fifo]$ and $[f,h,\lifo]$.
+so we recorded and plotted the depths according to  $[f,h,\fd,\fifo]$ and $[f,h,\ld,\lifo]$.
+
+
+\refig{fig:depth-histogram} shows the result
+on
+ \pddl{Openstacks-opt11} p10 (left) and
+ \pddl{Woodworking-cut} p04 (right).
+ % and \pddl{psr-small-open} p48 (right)
+In both instances, 
+% \pddl{openstacks} and \pddl{Woodworking-cut}, 
+we observed that the depth-first behavior of $[f,h,\lifo]$ results in 
+deeper search, missing the key branch at intermediate depths.
+On the other hand, the breadth-first behavior of $[f,h,\fifo]$ often gets stuck spending an excessive amount of time searching around the plateau entrance.
+$[f,h,\rd,\ro]$ is balancing the search at various depths, which results in successfully solving more problems within the time limit (\reftbl{tbl:depth}). %to avoid confusion, avoiding word ``coverage'' here because coverage could refer to search algorithm ``covering'' the search space.
+
+% The figure also illustrates the behavior of RandomDepth: Although it
+% randomly selects from the buckets,
+% a new depth is found only when the largest-depth bucket is selected,
+% resulting in a decreasing curves.
+% Finding the optimal balance is an interesting avenue of
+% future work.
+
+\begin{figure}[tb]
+ \centering \relsize{-3}
+ \hfill
+ \includegraphics{tables/aaai16-log-rd/aaai16prelim3/depth-histogram-openstacks-opt11-strips-p10.pdf}
+ \hfill
+ \includegraphics{tables/aaai16-log-rd/2zerocost/depth-histogram-woodworking-cut-p04.pdf}
+ \hfill
+ % \includegraphics{tables/aaai16-log-rd/2zerocost/depth-histogram-psr-small-open-p48.pdf}
+ \caption{Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
+ the final plateau for 
+ % (in left-to-right order)
+ \pddl{Openstacks} p10 
+ (left)
+ and
+ \pddl{Woodworking-cut} p04
+ (right)
+ %  and
+ % \pddl{psr-small-open} p48
+ with different tiebreakings. Both axes are in logarithmic scale.
+ % Axes are logarithmic.
+ }
+ \label{fig:depth-histogram}
+\end{figure}
+
+
+\subsection{Comparison to Distance-to-Go Estimates}
+
+
+\subsection{Comparison to Multi-Heuristic Tiebreaking}
+
