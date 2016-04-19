@@ -135,11 +135,24 @@ We later show that
 \fifo and \lifo strategies are incomplete when the size of the plateau
 region is inifinite, while our \id is probabilistically complete.
 
-Depth-based tiebreaking has no effect when the target problem contains
-positive costs only and the search algorithm uses $h$-based first-level
-tiebreaking.  This is because all actions result in an updated
-$h$-value, so all nodes have depth 0. In this case, the search is
-equivalent to the case of traditional last-resort tiebreaking strategies.
+Depth-based tiebreaking has no effect when the key values for measuring
+the depth are always updated and thus all nodes have depth 0. A key
+value is a single $f$ when $h$-based tiebreaking is not present, and a
+pair of $f$ and $h$ when $h$-based tiebreaking is present.  In such
+cases, the search is equivalent to the case of traditional last-resort
+tiebreaking strategies.
+
+This most often happens when the target problem contains
+positive costs\footnote{not to be confused with non-negative cost} only.
+In such a positive-cost problem,
+\begin{itemize}
+ \item If $f$-value is unchanged after operator application, $g$ value
+       should have been increased and thus $h$ value should have been
+       decreased if the evaluated node is new. Exceptional cases are
+       when the evaluated nodes are already visited from another parent
+       with smaller $g$ cost, and does not increase the $g$ value.
+ \item If $h$-value is unchanged and $g$ is increased, then $f$ is also increased.
+\end{itemize}
 
 \subsection{Tiebreaking within Depth Buckets}
 
