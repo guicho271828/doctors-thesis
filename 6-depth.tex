@@ -2,8 +2,6 @@
 
 \label{sec:depth}
 
-% One useful notion which can be used to both understand and control the
-% search in this situation is 
 The \emph{depth} of a node is an integer value representing the distance
 (number of steps) from the \emph{entrance} of the plateau on which the node is.
 An \emph{entrance} of the plateau is the first state which entered the
@@ -26,20 +24,6 @@ when they are pairwise equivalent (i.e. $f(s) = f(t) \land h(s) =
 h(t)$).  Having the same key values means that $s$ and $t$ are in the
 same plateau. \todo{Figure}
 
-% \textbf{XXX From SoCS draft}
-% For such situations, they proposed a notion of \emph{depth} within the
-% plateau, and an idea of diversifying the search over different depths
-% within a plateau. 
-% \textbf{XXX From SoCS draft}
-
-% Given a node $n$,
-% if its current parent $\parent{n}$ is from the other plateau, i.e.,
-% $\parent{n}$ has a different $f$-value, or different $h$-value when the
-% first tiebreaking is present, then $\depth{n} = 0$. Nodes with
-% $\depth{n} = 0$ correspond to the \emph{entrance} of the plateau.  If $n$
-% and $\parent{n}$ are in the same plateau i.e.\ share the same $f$ and $h$,
-% $\depth{n}$ is defined as $\depth{\parent{n}} + 1$.  
-
 Based on this simple notion of depth, we propose \emph{depth-based
 tiebreaking} strategies, where the nodes are inserted into buckets
 associated with depths, and upon expansion, search effort is distributed
@@ -58,10 +42,6 @@ It is possible to adopt a
 nondeterministic, randomized selection, as we have done in a conference
 version of this paper, however we eliminate the possibility of the
 results being affected by random seeds.
-%  the buckets are chosen according to some policy.
-% ``First depth'' (\fd), ``last depth'' (\ld), and ``random depth'' (\rd) 
-% choose a bucket with the smallest depth,
-% the largest depth, and a depth randomly selected at each expansion, respectively.
 
 The traditional \lifo and \fifo tiebreaking strategy can be
 considered as a ``sorting'' version of this depth-based tiebreaking.
@@ -90,7 +70,6 @@ $[f,h,\fifo]$ is equivalent to $[f,h,d,\fifo]$.
  \label{fig:plateau-depiction-fifo}
 \end{figure}
 
-
 The problem in these traditional strategies is that we have no knowledge
 on whether the goals are located near or far from the entrance. Remind
 that when $f=f^*, h=h^*=0$, the goals in this plateau are optimal
@@ -105,8 +84,6 @@ concentrated in some large depth $k$.
 %  \includegraphics{img/astar/final-plateau4-2.png}
 %  \label{fig:plateau-depiction-all-optimal}
 % \end{figure}
-
-
 
 The best-first search (\fifo), which naturally focus the search around
 the entrance favoring the smaller depths, should perform better in the
@@ -129,7 +106,6 @@ similar to the random restarting strategy in tree search algorithms.
  sparsely, avoiding the concentration to particular depths.}
  \label{fig:plateau-depiction-all-optimal}
 \end{figure}
-
 
 We later show that
 \fifo and \lifo strategies are incomplete when the size of the plateau
