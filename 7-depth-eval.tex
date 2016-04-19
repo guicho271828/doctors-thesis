@@ -423,6 +423,45 @@ results in successfully solving more problems.
 
 \subsection{Comparison to Distance-to-Go Estimates}
 
+We next compare our depth diversification to the distance-to-go
+estimates in the plateau.  Distance-to-go estimates are the type of
+heuristics which treat actions as if they have the unit cost. Even under
+the presence of zero-cost actions, those estimates can predict the
+number of operations required to reach a goal.
 
-\subsection{Comparison to Multi-Heuristic Tiebreaking}
+While several papers advocates the benefit of this technique, many of
+these claims took place in the context of satisficing planning.
+\cite{benton2010g} proposes inadmissible technique for temporal planning
+where short actions are hidden behind long actions and do not increase makespan.
+They implemented an inadmissible heuristic function on top of Temporal Fast
+Downward system and evaluated it on \astar.
+As stated, their method is not applicable to the optimising search.
+Similarly, \cite{cushing2010cost,wilt2011cost} showed that (non-admissibly) treating all
+actions as unit cost sometimes finds an optimal plan quickly. Although
+it could find an optimal plan by chance, this does not guarantee the
+optimality of the solution.
+
+Still, there is a number of possibilities to adopt the idea of
+distance-to-go in optimal search. One such example is to use the
+distance-to-go estimates as part of sorting criteria.
+% 
+Let $\hat{h}$ be a variation of original heuristic function
+$h$. $\hat{h}$ computes the distance-to-go estimates by treating all
+actions to be unit cost, while original heuristic function $h$ uses the
+standard action cost to compute the value.
+
+Now, as long as the first sorting criteria is based on $f=g+h$, any
+sorting strategy returns an optimal solution. Thus, it is possible to
+use a multi-heuristic strategy such as $[f,h,\hat{h}]$ or $[f,\hat{h}]$
+which uses inadmissible $\hat{h}$ as part of sorting criteria.
+In fact, it is even possible to use any inadmissible heuristic function to break
+ties. For example, one can use inadmissible FF heuristics to break ties
+among $f$ which uses admissible \lmcut heuristic function -- $[h^{\lmcut}+g,h^{\ff}]$.
+
+There are number of possible combinations here, but the obvious flaw in
+such a strategy is the cost of computing additional heuristic
+estimates. Using different heuristics obviously causes such an
+overhead. Using distance-to-go estimates $\hat{h}$ along with original
+heuristics $h$ could be optimized so that it shares part of the
+computation, but still should incur some overhead.
 
