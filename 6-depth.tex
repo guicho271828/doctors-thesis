@@ -43,7 +43,7 @@ nondeterministic, randomized selection, as we have done in a conference
 version of this paper, however we eliminate the possibility of the
 results being affected by random seeds.
 
-The traditional \lifo and \fifo tiebreaking strategy can be
+In contrast, the traditional \lifo and \fifo tiebreaking strategy can be
 considered as a ``sorting'' version of this depth-based tiebreaking.
 \lifo strategy always select the most recently generated node
 within $\plateau{f,h}$, and the behavior in the plateau is equivalent to depth-first search.
@@ -111,6 +111,8 @@ We later show that
 \fifo and \lifo strategies are incomplete when the size of the plateau
 region is inifinite, while our \id is probabilistically complete.
 
+\subsection{The Scope Captured by Depth-Based Tiebreaking}
+
 Depth-based tiebreaking has no effect when the key values for measuring
 the depth are always updated and thus all nodes have depth 0. A key
 value is a single $f$ when $h$-based tiebreaking is not present, and a
@@ -136,7 +138,18 @@ Since there can be multiple nodes within the same depth bucket,
 a last-resort tiebreaking is still necessary to break ties among them.
 We could, for example, apply \lifo, \fifo or \ro policies at this level.
 
-\todo{compare id,fifo and id,lifo}
+There could be still a room for heuristic-agnostic improvements at
+this level, while this is not in the scope of this paper.
+For example, while depth metric measures and diversify the depth in a plateau,
+other techniques can non-trivially diversify the search among breadths.
+Those instances include pruning techniques such as 
+symmetry breaking \cite{Fox1998,pochter2011exploiting,domshlak2013symmetry}
+or partial order reduction \cite{hall2013faster,wehrle2013relative}.
+While these methods are most often described as ``pruning the redundunt states'',
+it can be rephrased as ``removing the cardinality bias to particular set of nodes
+which shares the same characteristics''.
+
+% \todo{compare id,fifo and id,lifo}
 
 % However we use a Random Order (\ro) policy, which 
 % randomly selects an element from the depth bucket selected by the depth-based tiebreaking.
@@ -157,4 +170,6 @@ We could, for example, apply \lifo, \fifo or \ro policies at this level.
 % Thus, focusing on \ro and assess its expected/average
 % performance is the most reasonable practice to understand the behavior of second-level,
 % depth-based tiebreaking.
+
+
 
