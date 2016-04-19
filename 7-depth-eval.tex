@@ -10,8 +10,8 @@ instances.
 \subsection{Evaluating Depth-Based Tiebreaking with $h$-tiebreaking}
 
 We compared the performance of standard tiebreaking methods $[f,h,\fifo]$,
-$[f,h,\lifo]$ to $[f,h,\brackets{d},\fifo]$ and
-$[f,h,\brackets{d},\lifo]$.  These all use $h$ as the first-level
+$[f,h,\lifo]$ to $[f,h,\depth,\fifo]$ and
+$[f,h,\depth,\lifo]$.  These all use $h$ as the first-level
 tiebreaking and either \fifo or \lifo as the last-resort tiebreaking.
 
 First two experiments are conducted on \textbf{1104 standard IPC
@@ -33,7 +33,7 @@ details of each experiments.
 \hline
  & \multicolumn{4}{|c|}{\lmcut Coverages (\# problems solved)}\\
 \hline                                    
- Domain               &  $[f,h,\fifo]$ &  $[f,h,\lifo]$ &  $[f,h,\brackets{d},\fifo]$ &  $[f,h,\brackets{d},\lifo]$ \\ \hline
+ Domain               &  $[f,h,\fifo]$ &  $[f,h,\lifo]$ &  $[f,h,\depth,\fifo]$ &  $[f,h,\depth,\lifo]$ \\ \hline
  IPC,\lmcut(1104)     &558             &565             &\textbf{570.6\spm{}1.5}      &560.0\spm{}0.9               \\ 
  IPC,\mands(1104)     &479             &\textbf{488}    &484.0\spm{}0.0               &481.4\spm{}1.4               \\ \hline
  Zerocost,\lmcut(620) &256             &279             &\textbf{287.2\spm{}2.4}      &280.2\spm{}4.2               \\ 
@@ -41,7 +41,7 @@ details of each experiments.
 \end{tabular}
  \caption{
  Summary Results: Coverage comparison (the number of instances solved in 5min, 2GB, \lmcut/\mands
- heuristics) between standard tiebreaking and depth-based tiebreaking ($\brackets{d}$). }
+ heuristics) between standard tiebreaking and depth-based tiebreaking ($\depth$). }
  \label{tbl:lmcut-ipc-full}
  }
 \end{table}
@@ -50,7 +50,7 @@ details of each experiments.
 IPC benchmark instances} solved by \lmcut heuristics with various
 tiebreaking strategies, under 5min, 2GB experiments. We highlight the
 best results when the difference between the maximum and the mininum
-coverage exceeds 2.  Depth-based tiebreaking ($\brackets{d}$) shows
+coverage exceeds 2.  Depth-based tiebreaking ($\depth$) shows
 impressive results on Openstacks and Cybersec domains because these
 domains contain many instances of zero-cost edges and the final plateau
 $\plateau{f,h}$ is huge (See \refig{fig:plateau}).  Most other instances
@@ -107,10 +107,10 @@ overall. Besides, the coverages by \mands is less than that of \lmcut.
   nodes/sec                  & LMcut      & M\&S       & M\&S slowdown\\
   \hline
   $[f,h,\lifo]$              & 8.86$\times 10^3$ & 1.37$\times 10^5$ & 100\%\\
-  $[f,h,\brackets{d},\lifo]$ & 9.37$\times 10^3$ & 1.13$\times 10^5$ & 82\%\\
+  $[f,h,\depth,\lifo]$ & 9.37$\times 10^3$ & 1.13$\times 10^5$ & 82\%\\
   \hline
   $[f,h,\fifo]$              & 9.65$\times 10^3$ & 1.41$\times 10^5$ & 100\%\\
-  $[f,h,\brackets{d},\fifo]$ & 9.62$\times 10^3$ & 1.24$\times 10^5$ & 87\%\\
+  $[f,h,\depth,\fifo]$ & 9.62$\times 10^3$ & 1.24$\times 10^5$ & 87\%\\
   \hline
  \end{tabular}
  \caption{Comparison of the average node expansion ratio (node/sec) between
@@ -169,12 +169,12 @@ In \refsec{sec:h-necessary}, we showed that $[f,\lifo]$ tiebreaking
 (without considering $h$) is sufficient for the standard IPC benchmarks
 -- the performance of $[f,\lifo]$, $[f,h,\lifo]$, and $[f,h,\fifo]$ are
 comparable.  In order to see if it also holds for depth-based
-tiebreaking, we evaluated the performance of $[f,\brackets{d},\fifo]$
-and $[f,\brackets{d},\lifo]$.
+tiebreaking, we evaluated the performance of $[f,\depth,\fifo]$
+and $[f,\depth,\lifo]$.
 
 \reftbl{tbl:lmcut-zerocost-noh} and \reftbl{tbl:mands-zerocost-noh}
  shows that
- $[f,h,\brackets{d},\fifo]$ and  $[f,h,\brackets{d},\lifo]$
+ $[f,h,\depth,\fifo]$ and  $[f,h,\depth,\lifo]$
  perform comparably to $[f,h,\fifo]$ and $[f,h,\lifo]$.
 
 % Although $[\rd,\ro]$ behaves in a less greedy/depth-first manner than $[f,\lifo]$, 

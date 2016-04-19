@@ -162,15 +162,15 @@ We compared the performance of
 ($g$) the standard GBFS
 $[h]$,
 ($G$) GBFS using depth-based diversification
-$[h,\brackets{d}]$,
+$[h,\depth]$,
 ($t$) Type-GBFS
 $alt([h],\brackets{g,h})$,
 ($T$) Type-GBFS using depth-based diversification
-$alt([h,\brackets{d}],\brackets{g,h})$,
+$alt([h,\depth],\brackets{g,h})$,
 ($td$) Type-GBFS using depth-based type bucket
 $alt([h],\brackets{g,h,d})$,
 ($Td$) Type-GBFS using both depth-based diversification and depth-based type bucket
-$alt([h,\brackets{d}],\brackets{g,h,d})$.
+$alt([h,\depth],\brackets{g,h,d})$.
 
 Since the effect of depth could be heuristic-dependent, we tested three heuristics as $h$:
 FF heuristics\cite{Hoffmann01}, Causal Graph (CG) heuristics \cite{Helmert2006}, Context Enhanced
@@ -265,8 +265,8 @@ vstl & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
  % ,
  % (gt): $alt([h],\brackets{g,h})$,
  % (gT): $alt([h],\brackets{g,h,d})$,
- % (Gt): $alt([h]_{\brackets{d}},\brackets{g,h})$,
- % (GT): $alt([h]_{\brackets{d}},\brackets{g,h,d})$
+ % (Gt): $alt([h]_{\depth},\brackets{g,h})$,
+ % (GT): $alt([h]_{\depth},\brackets{g,h,d})$
  % }
 \end{table}
 
@@ -372,14 +372,14 @@ vstl & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
  5 min, 4Gb experiments, comparing the variants with
  and without depths:
  % (g): GBFS $[h]$,
- % (G): GBFS with depth based diversification $[h]_\brackets{d}$.
+ % (G): GBFS with depth based diversification $[h]_\depth$.
  Left side shows the result of eager evaluation, and the right side shows
  the result of lazy evaluation.
  % ,
  % (gt): $alt([h],\brackets{g,h})$,
  % (gT): $alt([h],\brackets{g,h,d})$,
- % (Gt): $alt([h]_{\brackets{d}},\brackets{g,h})$,
- % (GT): $alt([h]_{\brackets{d}},\brackets{g,h,d})$
+ % (Gt): $alt([h]_{\depth},\brackets{g,h})$,
+ % (GT): $alt([h]_{\depth},\brackets{g,h,d})$
  }
 \end{table}
 
@@ -417,12 +417,12 @@ Due to the multiple enhancements, the configurations are fairly complicated:
 
 \begin{eqnarray}
   alt([\mit{ff}],\pref{[\mit{ff}]},[\mit{lc}],\pref{[\mit{lc}]},\brackets{g,\mit{ff}}) \\
-  alt([\mit{ff}]_\brackets{d},\pref{[\mit{ff}]_\brackets{d}},[\mit{lc}]_\brackets{d},\pref{[\mit{lc}]_\brackets{d}},\brackets{g,\mit{ff}}) \\
+  alt([\mit{ff}]_\depth,\pref{[\mit{ff}]_\depth},[\mit{lc}]_\depth,\pref{[\mit{lc}]_\depth},\brackets{g,\mit{ff}}) \\
   alt([\mit{ff}],\pref{[\mit{ff}]},[\mit{lc}],\pref{[\mit{lc}]},\brackets{g,\mit{ff},d}) \\
-  alt([\mit{ff}]_\brackets{d},\pref{[\mit{ff}]_\brackets{d}},[\mit{lc}]_\brackets{d},\pref{[\mit{lc}]_\brackets{d}},\brackets{g,\mit{ff},d}) 
+  alt([\mit{ff}]_\depth,\pref{[\mit{ff}]_\depth},[\mit{lc}]_\depth,\pref{[\mit{lc}]_\depth},\brackets{g,\mit{ff},d}) 
 \end{eqnarray}
 
-% _\brackets{d}
+% _\depth
 
 \begin{table}[htbp]
  \setlength{\tabcolsep}{0.2em}
