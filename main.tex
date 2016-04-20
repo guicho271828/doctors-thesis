@@ -44,11 +44,6 @@ planning problem.
 % itself. This is because it changes the accuracy but does not change
 % the precision of the heuristics.
 
-KBFS(k) \cite{Korf??} is an early attempt on alleviating the problem of
-GBFS. It expands $k$ nodes at a time in order to prevent the search
-algorithm from getting stuck in the heuristic trap. KBFS provided an
-interesting observation to GBFS --- KBFS(1) is equivalent to GBFS, and
-KBFS($\infty$) is equivalent to Breadth-First Search.
 
 Alternation OPEN List \cite{RogerH10} is a technique to combine multiple
 heuristic functions during the search in order to improve the robustness
@@ -65,10 +60,12 @@ exploration takes place, the entire nodes in OPEN list are treated equally, and
 there is no explicit criteria for characterising the nodes.
 This is conceptually equivalent to the weighted version of the alternation
 open list using $[h]_{\fifo}$ and $[\ ]_{\ro}$ (no sorting criteria) with weights
-$1-\epsilon$ and $\epsilon$. We denote such a weighted alternation open
-list as $\mit{alt}(w_1X_1,w_2X_2,\ldots)$ where each $w_i$ is a weight
-for a sorting strategy $X_i$. Now $\epsilon$-greedy GBFS corresponds to
-$\mit{alt}((1-\epsilon)[h,\fifo],\epsilon [\ro])$.
+$1-\epsilon$ and $\epsilon$.
+%% this is not used in this paper
+%  We denote such a weighted alternation open
+% list as $\mit{alt}(w_1X_1,w_2X_2,\ldots)$ where each $w_i$ is a weight
+% for a sorting strategy $X_i$. Now $\epsilon$-greedy GBFS corresponds to
+% $\mit{alt}((1-\epsilon)[h,\fifo],\epsilon [\ro])$.
 
 While the exploration phase of $\epsilon$-greedy GBFS simply randomizes
 the node expansion, Type-GBFS \cite{xie14type} explicitly tries to
@@ -93,12 +90,12 @@ classification criteria, e.g., $\brackets{g,h}$ denotes the type buckets
 whose keys are the vector $[g,h]$. This notation is intentionally same
 as those we have used for depth-based diversification.
 
-In their paper, the method was evaluated under a
+In their paper, Type-GBFS was evaluated under a
 configuration that the explorative expansion and the exploitative
 expansion (standard GBFS) alternates. The last-resort tiebreaking 
 is specified for the explorative expansion (random order), but is
 not specified for the exploitative expansion.
-Assuming that they are using the standard Fast
+Assuming that their implementations are based on the standard Fast
 Downward code base (with FIFO last-resort tiebreaking),
 we can write this algorithm as $\mit{alt}([h,\fifo], [\brackets{g,h},\ro])$.
 % This also corresponds to the case of $\epsilon$-greedy with $\epsilon=0.5$.
@@ -476,6 +473,15 @@ vstl & 13 & 13 & \bi{9} & 7 & 12 & 13 & 9 & 10\\
 \cite{schulte2014balancing}
 
 \cite{auer2002finite}
+
+%% where to put this paragraph?
+% KBFS(k) \cite{Korf??} is an early attempt on alleviating the problem of
+% GBFS. It expands $k$ nodes at a time in order to prevent the search
+% algorithm from getting stuck in the heuristic trap. KBFS provided an
+% interesting observation to GBFS --- KBFS(1) is equivalent to GBFS, and
+% KBFS($\infty$) is equivalent to Breadth-First Search.
+
+% DBFS
 
 \section{Conclusion}
 
