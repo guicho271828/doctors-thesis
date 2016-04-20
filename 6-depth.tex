@@ -9,6 +9,7 @@ plateau, along the path from the initial state. These notions are depicted
 in \refig{fig:plateau-depiction}.
 
 \begin{figure}[htbp]
+ \centering
  \includegraphics{img/astar/final-plateau4.png}
  \caption{The nodes in a platau are divided into several layers,
  and each layor have the corresponding depth.}
@@ -56,6 +57,7 @@ Note that therefore $[f,h,\lifo]$ is equivalent to $[f,h,-d,\lifo]$ and
 $[f,h,\fifo]$ is equivalent to $[f,h,d,\fifo]$.
 
 \begin{figure}[htbp]
+ \centering
  \includegraphics{img/astar/final-plateau6.png}
  \caption{\lifo tiebreaking strategy implies a depth-first behavior in a
  plateau, which could miss the solution concentrated near the entrance.}
@@ -63,6 +65,7 @@ $[f,h,\fifo]$ is equivalent to $[f,h,d,\fifo]$.
 \end{figure}
 
 \begin{figure}[htbp]
+ \centering
  \includegraphics{img/astar/final-plateau5.png}
  \caption{\fifo tiebreaking strategy implies a breadth-first behavior in a
  plateau, which could fail to reach a solution in the deeper region
@@ -103,6 +106,7 @@ have no depth bias and eventually find a solution.
 % similar to the random restarting strategy in tree search algorithms.
 
 \begin{figure}[htbp]
+ \centering
  \includegraphics{img/astar/final-plateau7.png}
  \caption{Depth-based diversification allows \astar to search the plateau space
  uniformly and sparsely, avoiding the concentration to particular depths, while
