@@ -7,8 +7,24 @@ classical planning.  In our experiments, all planners are based on Fast
 Downward, and all experiments are run with a 5-minute,
 4GB memory limit for the search binary (FD translation/preprocessing
 times are not included in the 5-minute limit).  All experiments were
-conducted on Xeon E5410@2.33GHz CPUs.  We used 1104 instances from 35
-standard benchmark domains.
+conducted on Xeon E5410@2.33GHz CPUs. 
+
+% following paragraph is added in order to avoid repeating the list of domains not
+% included due to no coverage difference.
+We used 1104 instances from 35 standard benchmark domains. These
+instances are those originally included in the test suite of Fast
+Downward planning system.In detail, they are: airport(50),
+barman-opt11(20), blocks(35), cybersec(19), depot(22), driverlog(20),
+elevators-opt11(20), floortile-opt11(20), freecell(80), grid(5),
+gripper(20), hanoi(30), logistics00(28), miconic(150), mprime(35),
+mystery(30), nomystery-opt11(20), openstacks-opt11(20),
+parcprinter-opt11(20), parking-opt11(20), pathways(30),
+pegsol-opt11(20), pipesworld-notankage(50), pipesworld-tankage(50),
+psr-small(50), rovers(40), scanalyzer-opt11(20), sokoban-opt11(20),
+storage(30), tidybot-opt11(20), tpp(30), transport-opt11(20),
+visitall-opt11(20), woodworking-opt11(20), zenotravel(20).
+
+\subsection{Does Last-Resort Strategies Make a Difference?}
 
 We first compared two commonly used tiebreaking strategies, $[f,h,\fifo]$, $[f,h,\lifo]$, which
 first break ties according to $h$, and then apply \fifo or \lifo
@@ -28,6 +44,8 @@ $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
  heuristics) between
  the standard baseline tiebreaking algorithms. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
+ We did not include the domains which show no coverage differences among
+ 4 tiebreaking strategies.
  }
  \label{tbl:lmcut-ipc-full}
  }
@@ -41,6 +59,8 @@ $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
  Coverage comparison (the number of instances solved in 5min, 2GB, M\&S heuristics) between
  the standard baseline tiebreaking algorithms. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
+ We did not include the domains which show no coverage differences among
+ 4 tiebreaking strategies.
  }
  \label{tbl:mands-ipc-full}
  }
