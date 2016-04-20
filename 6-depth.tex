@@ -104,8 +104,10 @@ have no depth bias and eventually find a solution.
 
 \begin{figure}[htbp]
  \includegraphics{img/astar/final-plateau7.png}
- \caption{Depth-based diversification allows \astar to search the problem space
- sparsely, avoiding the concentration to particular depths.}
+ \caption{Depth-based diversification allows \astar to search the plateau space
+ uniformly and sparsely, avoiding the concentration to particular depths, while
+ suppressing the excessive exploration to the deeper region. This
+ balances the exploration and exploitation.}
  \label{fig:plateau-depiction-all-optimal}
 \end{figure}
 
@@ -183,5 +185,69 @@ aim to prune the redundant nodes.
 % performance is the most reasonable practice to understand the behavior of second-level,
 % depth-based tiebreaking.
 
+\subsection{Theoretical Characteristics of the Depth Distribution}
 
+We give further insight into the search behavior of our implementation
+of depth-based diversification.
+As stated, our implementation iterates from the largest depth to 0.
+
+We are particularly interested in how the expansions happen among the
+various depths in the plateau region.
+We show that the probability of a node in a particular depth
+can be represented by a simple formula.  Although the notion of
+probability does not fit well with deterministic \fifo or \lifo
+last-resort tiebreaking, it is meaningful in the case of \ro (random
+order) last-resort tiebreaking.
+
+%% danger!!
+% \begin{theo}[Uniformness of the search]
+%  Assume the search space forms a tree of fixed width $w\geq 2$.
+%  After enough number of iterations $D$,
+%  the chance of expanding each node is unaffected by the depth of the
+%  node, if the depth $d$ is small relative to $D$.
+% \end{theo}
+
+% I no longer claim the distribution is uniform.
+As a preparation, we first show that the number of expansion happened to each depth decreases
+linearly to the depth.
+% 
+Assume that each depth bucket never exhausts as a result of
+expansion.  If the expansion of a node in the largest depth $D\geq 0$ resulted
+in more nodes in the same plateau, then the newly generated nodes have
+depth $D+1$.  Also, as we explained in the previous section, the
+expansion is diversified by a sequence of iterations from the current
+largest depth to 0.  It means that when the current maximum depth of
+the plateau is $D\geq 0$, the number of iteration happened so far is also $D$.
+Therefore, at the end of the $D$'th iteration, each depth $d$ has
+been expanded exactly $D-d$ times, meaning that the chance of
+expanding each depth is decreasing as the depth increase.
+
+% However, it does not mean that this strategy favors the nodes in the
+% shallower region.
+% This is because the number of nodes in each depth is
+% exponential to $d$, which is common in practice (we verify this in the
+% later experiments).
+Now we show the main theorem.
+We assume that the plateau region form a tree of width
+$w\geq 2$, rather than a graph with indefinite number of successor
+nodes.  Under this assumption, each expansion of depth $d$ results in
+$w$ new nodes in depth $d+1$. Also, if there are initially
+$D$ nodes in depth 0, each depth bucket never exhausts until the end of $D$'th
+iteration (when depth 0 becomes empty).
+
+% $D-d$th expansion in the $D$th iteration expands the depth $d$.
+At the end of $D$th iteration,
+each depth $d-1$ is expanded $D-(d-1)$ times in the preceeding $D$ iterations.
+Therefore, the total number of nodes that have been in depth $d$, including those
+that have been expanded so far, is $w(D-d+1)$.
+Expansion has happened $D(D-1)$ times in total, and depth $d$ is expanded $D-d$ times.
+Thus, the probability of expanding each node in depth $d$ is
+$\frac{D-d}{D(D-1)\cdot w(D-d+1)}=\frac{1}{wD(D-1)}(1-\frac{1}{D-d+1})$.
+
+$\frac{1}{D-d+1}$ is negligeble as $D$ increases.
+Thus, after enough number of iterations (large $D$), the nodes are 
+expanded in an approximately equal probability $\frac{1}{wD(D-1)}$ in the shallower region, and is
+unaffected by the depth of the node.
+However, the nodes near the largest depth has less probability, showing
+some balance in exploration and exploitation. \qed
 
