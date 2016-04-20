@@ -18,7 +18,6 @@ informative guidance.
 % and most edges in the abstraction
 % space of M\&S \cite{helmert2007flexible} have zero costs.
 
-
 % XXX I'm commenting out the paragraphs below because:
 % (1) A review of heuristic functions for domain-independent learning is not really
 % necessary for this AAAI submission. 
@@ -78,34 +77,127 @@ include domains with only a single action schema and standard domains which alre
 zero-cost actions (these are already in the results for standard IPC domains).
 We refer to these 28 new domains as \emph{zerocost domains}.
 
-\refig{fig:plateau-zerocost} plots the size of the final plateau of the
-zerocost domain instances, with $h$-tiebreaking enabled.  As expected,
-many of these zerocost domains have large plateaus even with the help of
+\subsection{Evaluating Standard Strategies on Zerocost Domains}
+
+We first tested if these new domains actually poses a challenge to the
+standard tiebreaking strategies. Results using \lmcut and \mands
+heuristics are shown in \reftbl{tbl:lmcut-zerocost-std} and
+\reftbl{tbl:mands-zerocost-std}, respectively. In each table, the left
+side shows the results in the original domains, and the left hand side
+shows the zerocost versions of the domains modified from the same
+instances in the left hand side. In both heuristics, we observed a
+significant difference between these two domains.  For example, when
+\lmcut is used, the coverage was significantly lower in 10 domains,
+while more instances were solved in 5 domains.
+
+Also, \refig{fig:plateau-zerocost} plots the size of the final plateau of the
+zerocost domain instances, with \lmcut heuristics and $h$-tiebreaking. In this plot,
+each point shows the total number of nodes in $\plateau{f^*,0}$ vs the
+total number of nodes with $f\leq f^*$. Compared to \refig{fig:plateau},
+most zerocost domains have larger plateaus even with the help of
 $h$-tiebreaking.  Thus, in these cost-minimization problems, the search
 strategy within plateaus, i.e., tiebreaking, becomes a yet more critical
 factor which determines the search performance.
 
+\begin{table}[htbp]
+ \centering
+\begin{tabular}{|lc|cr|}
+Domain & \([f,h,\fifo]\) & \([f,h,\fifo]\) & Domain\\
+depot(22) & 6 & 6 & depot-fuel(22)\\
+driverlog(20) & 13 & 8 & driverlog-fuel(20)\\
+elevators-opt11(20) & 15 & 7 & elevators-up(20)\\
+floortile-opt11(20) & 6 & 8 & floortile-ink(20)\\
+grid(5) & 1 & 1 & grid-fuel(5)\\
+gripper(20) & 6 & 7 & gripper-move(20)\\
+logistics00(28) & 20 & 16 & logistics00-fuel(28)\\
+mprime(35) & 21 & 15 & mprime-succumb(35)\\
+nomystery-opt11(20) & 14 & 10 & nomystery-fuel(20)\\
+parking-opt11(20) & 1 & 0 & parking-movecc(20)\\
+pathways(30) & 5 & 5 & pathways-fuel(30)\\
+rovers(40) & 7 & 8 & rovers-fuel(40)\\
+scanalyzer-opt11(20) & 10 & 9 & scanalyzer-analyze(20)\\
+sokoban-opt11(20) & 19 & 18 & sokoban-pushgoal(20)\\
+tidybot-opt11(20) & 12 & 16 & tidybot-motion(20)\\
+tpp(30) & 6 & 8 & tpp-fuel(30)\\
+woodworking-opt11(20) & 10 & 5 & woodworking-cut(20)\\
+zenotravel(20) & 11 & 7 & zenotravel-fuel(20)\\
+\end{tabular}
+ \caption{
+ Coverage comparison (the number of instances solved) 
+ between the original instances and the modified zerocost instances,
+ using the same configuration and experimental setting (5min, 2GB, \lmcut heuristics).
+ This table does not include domains where the total number of instances
+ differ in the zerocost domain and the original domain. The results in
+ those domains are available in the later sections.
+ }
+ \label{tbl:lmcut-zerocost-std}
+\end{table}
+
+\begin{table}[htbp]
+ \centering
+\begin{tabular}{|lc|cr|}
+Domain & \([f,h,\fifo]\) & \([f,h,\fifo]\) & Domain\\
+depot(22) & 5 & 5 & depot-fuel(22)\\
+driverlog(20) & 12 & 9 & driverlog-fuel(20)\\
+elevators-opt11(20) & 12 & 7 & elevators-up(20)\\
+floortile-opt11(20) & 6 & 7 & floortile-ink(20)\\
+grid(5) & 2 & 2 & grid-fuel(5)\\
+gripper(20) & 20 & 20 & gripper-move(20)\\
+logistics00(28) & 20 & 16 & logistics00-fuel(28)\\
+mprime(35) & 23 & 20 & mprime-succumb(35)\\
+nomystery-opt11(20) & 18 & 16 & nomystery-fuel(20)\\
+parking-opt11(20) & 1 & 0 & parking-movecc(20)\\
+pathways(30) & 4 & 4 & pathways-fuel(30)\\
+rovers(40) & 8 & 8 & rovers-fuel(40)\\
+scanalyzer-opt11(20) & 10 & 11 & scanalyzer-analyze(20)\\
+sokoban-opt11(20) & 19 & 17 & sokoban-pushgoal(20)\\
+tidybot-opt11(20) & 0 & 0 & tidybot-motion(20)\\
+tpp(30) & 6 & 9 & tpp-fuel(30)\\
+woodworking-opt11(20) & 7 & 7 & woodworking-cut(20)\\
+zenotravel(20) & 10 & 10 & zenotravel-fuel(20)\\
+\end{tabular}
+ \caption{
+ Coverage comparison (the number of instances solved) 
+ between the original instances and the modified zerocost instances,
+ using the same configuration and experimental setting (5min, 2GB, \mands heuristics).
+ This table does not include domains where the total number of instances
+ differ in the zerocost domain and the original domain. The results in
+ those domains are available in the later sections.
+ }
+ \label{tbl:mands-zerocost-std}
+\end{table}
+
 \begin{figure}[htbp]
   \centering
   \includegraphics{tables/aaai16-frontier/zerocost/lmcut_frontier-front.pdf}
-  \caption{Similar to \refig{fig:plateau}, but for 620 instances from our 
-  \emph{zerocost domains} (\refsec{sec:zerocost-domains}),
-  where zero-cost actions induce very large plateaus.
+  \caption{
+ The number of nodes with $f=f^*, h=0$ (y-axis), which form
+  the final plateau when $h$-based tiebreaking is enabled, compared to
+ the total number of nodes in the search space (x-axis) with
+ $f\leq f^*$ on 620 instances in our \emph{zerocost domains}.
+ The size of final plateaus tends to account for larger portion of the
+ entire search space compared to \label{fig:plateau}.
+ This statistics is obtained by running a modified Fast Downward with
+ \lmcut which continues searching after the solution is found
+ until expanding all nodes with cost $f=f^*$.
  }
  \label{fig:plateau-zerocost}
 \end{figure}
 
+\subsection{Discussion on Zerocost Domains}
+
 Note that the difficulty posed by these domains sometimes \emph{cannot}
 be tackled by improving the heuristic estimates, or reducing the
 underestimation by an admissible heuristic function.  Due to the
-existence of 0-cost edges, some non-goal nodes around a goal node can
-legitimately have a distance to the goal equal to 0. For those nodes,
-there are no means to improve the heuristic estimate to any positive
-value without making the heuristics inadmissible, because it is
-an overestimation.
+existence of 0-cost edges, some non-goal neighbors of a goal node can
+legitimately have $h^*=0$. For those nodes,
+there are no room for improving the heuristic estimate; Any positive
+value causes the heuristics to be inadmissible.
 
 Thus, in order to solve zerocost problems more efficiently, the planner
 needs to perform an efficient \emph{knowledge-free} search within a
-large, final plateau. It turns out that a notion of \emph{depth} can
+large, final plateau. As we see in the next section,
+it turns out that a notion of \emph{depth} can
 have a significant impact on the performacne of knowledge-free search,
-as well as a good understanding ot the existing tiebreaking strategies.
+as well as a good understanding of the existing tiebreaking strategies.
+

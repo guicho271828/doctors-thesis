@@ -1,0 +1,87 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: c:nil creator:nil d:(not "LOGBOOK") date:t e:t email:nil f:t
+#+OPTIONS: inline:t num:t p:nil pri:nil prop:nil stat:t tags:t tasks:t
+#+OPTIONS: tex:t timestamp:t title:t toc:nil todo:t |:t
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 24.3.1 (Org mode 8.3.4)
+
+* 
+
+|-----------------------+---------------+---------------+------------------------|
+| Domain                | $[f,h,\fifo]$ | $[f,h,\fifo]$ | Domain                 |
+|-----------------------+---------------+---------------+------------------------|
+| depot(22)             |             6 |             6 | depot-fuel(22)         |
+| driverlog(20)         |            13 |             8 | driverlog-fuel(20)     |
+| elevators-opt11(20)   |            15 |             7 | elevators-up(20)       |
+| floortile-opt11(20)   |             6 |             8 | floortile-ink(20)      |
+| grid(5)               |             1 |             1 | grid-fuel(5)           |
+| gripper(20)           |             6 |             7 | gripper-move(20)       |
+| logistics00(28)       |            20 |            16 | logistics00-fuel(28)   |
+| mprime(35)            |            21 |            15 | mprime-succumb(35)     |
+| nomystery-opt11(20)   |            14 |            10 | nomystery-fuel(20)     |
+| parking-opt11(20)     |             1 |             0 | parking-movecc(20)     |
+| pathways(30)          |             5 |             5 | pathways-fuel(30)      |
+| rovers(40)            |             7 |             8 | rovers-fuel(40)        |
+| scanalyzer-opt11(20)  |            10 |             9 | scanalyzer-analyze(20) |
+| sokoban-opt11(20)     |            19 |            18 | sokoban-pushgoal(20)   |
+| tidybot-opt11(20)     |            12 |            16 | tidybot-motion(20)     |
+| tpp(30)               |             6 |             8 | tpp-fuel(30)           |
+| woodworking-opt11(20) |            10 |             5 | woodworking-cut(20)    |
+| zenotravel(20)        |            11 |             7 | zenotravel-fuel(20)    |
+|-----------------------+---------------+---------------+------------------------|
+
+
+# |------------------------+---------------+---------------+---------------+---------------+-----------------------|
+# | Domain                 | $[f,h,\fifo]$ | $[f,h,\lifo]$ | $[f,h,\fifo]$ | $[f,h,\lifo]$ | Domain                |
+# |------------------------+---------------+---------------+---------------+---------------+-----------------------|
+# | depot-fuel(22)         |             6 |             6 |             6 |             6 | depot(22)             |
+# | driverlog-fuel(20)     |             8 |             8 |            13 |            13 | driverlog(20)         |
+# | elevators-up(20)       |             7 |            13 |            15 |            15 | elevators-opt11(20)   |
+# | floortile-ink(20)      |             8 |             8 |             6 |             6 | floortile-opt11(20)   |
+# | grid-fuel(5)           |             1 |             1 |             1 |             1 | grid(5)               |
+# | gripper-move(20)       |             7 |             7 |             6 |             6 | gripper(20)           |
+# | logistics00-fuel(28)   |            16 |            16 |            20 |            20 | logistics00(28)       |
+# | mprime-succumb(35)     |            15 |            14 |            21 |            21 | mprime(35)            |
+# | nomystery-fuel(20)     |            10 |            10 |            14 |            14 | nomystery-opt11(20)   |
+# | parking-movecc(20)     |             0 |             0 |             1 |             1 | parking-opt11(20)     |
+# | pathways-fuel(30)      |             5 |             5 |             5 |             5 | pathways(30)          |
+# | rovers-fuel(40)        |             8 |             8 |             7 |             7 | rovers(40)            |
+# | scanalyzer-analyze(20) |             9 |             9 |            10 |            10 | scanalyzer-opt11(20)  |
+# | sokoban-pushgoal(20)   |            18 |            18 |            19 |            19 | sokoban-opt11(20)     |
+# | tidybot-motion(20)     |            16 |            16 |            12 |            12 | tidybot-opt11(20)     |
+# | tpp-fuel(30)           |             8 |            11 |             6 |             6 | tpp(30)               |
+# | woodworking-cut(20)    |             5 |             7 |            10 |            10 | woodworking-opt11(20) |
+# | zenotravel-fuel(20)    |             7 |             7 |            11 |            11 | zenotravel(20)        |
+# |------------------------+---------------+---------------+---------------+---------------+-----------------------|
+
+# | Domain                 | $[f,h,\fifo]$ | $[f,h,\lifo]$ | $[f,h,\fifo]$ | $[f,h,\lifo]$ | Domain                   |
+# | airport-fuel(20)       |          15 |          13 |            27 |            26 | airport(50)              |
+# | blocks-stack(20)       |          17 |          17 |            28 |            28 | blocks(35)               |
+# | depot-fuel(22)         |           6 |           6 |             6 |             6 | depot(22)                |
+# | driverlog-fuel(20)     |           8 |           8 |            13 |            13 | driverlog(20)            |
+# | elevators-up(20)       |           7 |          13 |            15 |            15 | elevators-opt11(20)      |
+# | floortile-ink(20)      |           8 |           8 |             6 |             6 | floortile-opt11(20)      |
+# | freecell-move(20)      |           4 |          19 |             9 |             9 | freecell(80)             |
+# | grid-fuel(5)           |           1 |           1 |             1 |             1 | grid(5)                  |
+# | gripper-move(20)       |           7 |           7 |             6 |             6 | gripper(20)              |
+# | logistics00-fuel(28)   |          16 |          16 |            20 |            20 | logistics00(28)          |
+# | miconic-up(30)         |          16 |          17 |           140 |           140 | miconic(150)             |
+# | mprime-succumb(35)     |          15 |          14 |            21 |            21 | mprime(35)               |
+# | mystery-feast(20)      |           7 |           5 |            15 |            16 | mystery(30)              |
+# | nomystery-fuel(20)     |          10 |          10 |            14 |            14 | nomystery-opt11(20)      |
+# | parking-movecc(20)     |           0 |           0 |             1 |             1 | parking-opt11(20)        |
+# | pathways-fuel(30)      |           5 |           5 |             5 |             5 | pathways(30)             |
+# | pipesnt-pushstart(20)  |           8 |           8 |            15 |            14 | pipesworld-notankage(50) |
+# | pipesworld-pushend(20) |           3 |           4 |             8 |             8 | pipesworld-tankage(50)   |
+# | psr-small-open(20)     |          19 |          19 |            48 |            48 | psr-small(50)            |
+# | rovers-fuel(40)        |           8 |           8 |             7 |             7 | rovers(40)               |
+# | scanalyzer-analyze(20) |           9 |           9 |            10 |            10 | scanalyzer-opt11(20)     |
+# | sokoban-pushgoal(20)   |          18 |          18 |            19 |            19 | sokoban-opt11(20)        |
+# | storage-lift(20)       |           4 |           4 |            14 |            14 | storage(30)              |
+# | tidybot-motion(20)     |          16 |          16 |            12 |            12 | tidybot-opt11(20)        |
+# | tpp-fuel(30)           |           8 |          11 |             6 |             6 | tpp(30)                  |
+# | woodworking-cut(20)    |           5 |           7 |            10 |            10 | woodworking-opt11(20)    |
+# | zenotravel-fuel(20)    |           7 |           7 |            11 |            11 | zenotravel(20)           |
+
