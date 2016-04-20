@@ -1,0 +1,30 @@
+
+\begin{abstract}
+In this paper, we investigate and improve tiebreaking strategies for
+ optimising search using A* and satisficing search using GBFS.  For A*,
+ we first experimentally analyze the performance of common tiebreaking
+ strategies that break ties according to the heuristic value of the
+ nodes.  We find that tiebreaking has a significant impact on search
+ algorithm performance when there are zero-cost operators that induce
+ large plateau regions in the search space. With this in mind, we
+ develop a new kind of tiebreaking based on a depth metric which
+ measures the distance from the entrance to the plateau, and propose a
+ new, diversifying strategy which significantly outperforms standard
+ strategies on domains with zero-cost actions.
+
+We also apply the same strategy to GBFS for satisficing search, where
+ currently no obvious tiebreaking rules are proposed. Our depth
+ diviersification resulted in an orthogonal improvement to the other
+ search enhancements such as Lazy Evaluation, Preferred Operators,
+ Multi-heuristic search, and recently proposed Type-Based
+ diversification tequeniques.
+
+Finally, we provide a theoretical analysis on why the depth-based
+diversification improves the performance of several algorithms. By doing
+this, it ensure the same technique can applied to various best first
+search algorithms that are not investigated in this paper such as
+Weighted A*.
+
+This paper is a significantly extended version of the AAAI-16 paper by
+the same authors.
+\end{abstract}
