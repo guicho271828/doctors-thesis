@@ -456,7 +456,7 @@ use a multi-heuristic strategy such as $[f,h,\hat{h}]$ or $[f,\hat{h}]$
 which uses inadmissible $\hat{h}$ as part of sorting criteria.
 In fact, it is even possible to use any inadmissible heuristic function to break
 ties. For example, one can use inadmissible FF heuristics to break ties
-among $f$ which uses admissible \lmcut heuristic function -- $[h^{\lmcut}+g,h^{\ff}]$.
+among $f$ which uses admissible \lmcut heuristic function -- $[h^{\lmcut}+g,\hat{h}^{\ff}]$.
 
 There are number of possible combinations here, but the obvious flaw in
 such a strategy is the cost of computing additional heuristic
@@ -465,3 +465,14 @@ overhead. Using distance-to-go estimates $\hat{h}$ along with original
 heuristics $h$ could be optimized so that it shares part of the
 computation, but still should incur some overhead.
 
+We tested various combinations of heuristics on zerocost domains where
+tiebreaking strategies have the large impact.
+We tested the following configurations:
+$[h^{\lmcut}+g,h^{\lmcut},\fifo]$, 
+$[h^{\lmcut}+g,h^{\lmcut},\depth,\fifo]$, 
+$[h^{\lmcut}+g,h^{\lmcut},\hat{h}^{\lmcut},\fifo]$, 
+$[h^{\lmcut}+g,\hat{h}^{\lmcut},\fifo]$, 
+$[h^{\lmcut}+g,\hat{h}^{\ff},\fifo]$,
+$[h^{\lmcut}+g,\hat{h}^{\mbox{GC}},\fifo]$.
+
+% $[h^{\lmcut}+g,\hat{h}^{\mbox{LMcount}},\fifo]$,
