@@ -243,7 +243,9 @@ the number of nodes to the shallower depth, global randomization
 $[f,h,\ro]$ showed a distribution similar to $[f,h,\fifo]$.
 $[f,h,\depth,\ro]$ is balancing the search at various depths, which
 results in successfully solving more problems.
-
+Moreover, the results suggest that the distribution almost follows
+$D-d$, a theoretial formula which was made under the simplified
+assumption that the plateau forms a tree of fixed width.
 
 % The figure also illustrates the behavior of RandomDepth: Although it
 % randomly selects from the buckets,
@@ -252,31 +254,46 @@ results in successfully solving more problems.
 % Finding the optimal balance is an interesting avenue of
 % future work.
 
-\begin{figure}[tb]
+\begin{figure}[htbp]
+% \includegraphics{img/depth/ged-opt14-strips/p17.pdf}
 \includegraphics{img/depth/driverlog-fuel/p04.pdf}
 \includegraphics{img/depth/elevators-up/p09.pdf}
 \includegraphics{img/depth/freecell-move/p04.pdf}
-\includegraphics{img/depth/ged-opt14-strips/p17.pdf}
 \includegraphics{img/depth/gripper-move/p07.pdf}
 \includegraphics{img/depth/logistics00-fuel/p016.pdf}
 \includegraphics{img/depth/miconic-up/p79.pdf}
+ \caption{(Page 1/3) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
+ the final plateau with different tiebreakings. Both axes are in logarithmic scale.
+ }
+ \label{fig:depth-histogram}
+\end{figure}
+
+\begin{figure}[htbp]
 \includegraphics{img/depth/openstacks-opt11-strips/p07.pdf}
 \includegraphics{img/depth/pathways-fuel/p03.pdf}
 \includegraphics{img/depth/pipesnt-pushstart/p06.pdf}
 \includegraphics{img/depth/pipesworld-pushend/p06.pdf}
 \includegraphics{img/depth/psr-small-open/p46.pdf}
 \includegraphics{img/depth/rovers-fuel/p07.pdf}
+ \caption{(Page 2/3) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
+ the final plateau with different tiebreakings. Both axes are in logarithmic scale.
+ }
+ \label{fig:depth-histogram2}
+\end{figure}
+
+\begin{figure}[htbp]
 \includegraphics{img/depth/scanalyzer-analyze/p04.pdf}
 \includegraphics{img/depth/storage-lift/p11.pdf}
 \includegraphics{img/depth/tidybot-motion/p16.pdf}
 \includegraphics{img/depth/tpp-fuel/p08.pdf}
 \includegraphics{img/depth/woodworking-cut/p04.pdf}
 \includegraphics{img/depth/zenotravel-fuel/p07.pdf}
- \caption{Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
+ \caption{(Page 3/3) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
  the final plateau with different tiebreakings. Both axes are in logarithmic scale.
  }
- \label{fig:depth-histogram}
+ \label{fig:depth-histogram3}
 \end{figure}
+
 
 % airport-fuel/	 ged-opt14-strips/  nomystery-fuel/	      sokoban-pushgoal/
 % blocks-stack/	 grid-fuel/	    openstacks-opt11-strips/  storage-lift/
