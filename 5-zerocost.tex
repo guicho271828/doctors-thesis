@@ -72,10 +72,29 @@ Most of the transportation-type domains are modified to optimize
 energy usage (\pddl{Logistics-fuel}, \pddl{elevator-up} etc.), and  assembly-type domains are modified to minimize resource usage
 %% floortile-ink is not shown, so better not to mention it
 (\pddl{Woodworking-cut} minimizes wood usage, etc.).
+
 We did not
 include domains with only a single action schema and standard domains which already had many
 zero-cost actions (these are already in the results for standard IPC domains).
 We refer to these 28 new domains as \emph{zerocost domains}.
+In detail, they are:
+airport-fuel (20), blocks-stack (20), depot-fuel (22), driverlog-fuel (20),
+elevators-up (20), floortile-ink (20), freecell-move (20), grid-fuel (5),
+gripper-move (20), hiking-fuel (20), logistics00-fuel (28), miconic-up (30),
+mprime-succumb (35), mystery-feast (20), nomystery-fuel (20),
+parking-movecc (20), pathways-fuel (30), pipesnt-pushstart (20),
+pipesworld-pushend (20), psr-small-open (20), rovers-fuel (40),
+scanalyzer-analyze (20), sokoban-pushgoal (20), storage-lift (20),
+tidybot-motion (20), tpp-fuel (30), woodworking-cut (20),
+zenotravel-fuel (20).
+
+The number of instances may be different between the original domain and
+the zerocost domain. One such example is \pddl{miconic}, which
+originally have 150 instances while our zerocost version have
+30 instances.
+This is in order to reduce the effect of the total number of instances
+to the overall coverage sum.
+
 
 \subsection{Evaluating Standard Strategies on Zerocost Domains}
 
@@ -85,10 +104,12 @@ heuristics are shown in \reftbl{tbl:lmcut-zerocost-std} and
 \reftbl{tbl:mands-zerocost-std}, respectively. In each table, the left
 side shows the results in the original domains, and the left hand side
 shows the zerocost versions of the domains modified from the same
-instances in the left hand side. In both heuristics, we observed a
-significant difference between these two domains.  For example, when
-\lmcut is used, the coverage was significantly lower in 10 domains,
-while more instances were solved in 5 domains.
+instances in the left hand side. We did not included the domains whose
+number of instances differ to each other. In both \lmcut and \mands
+heuristics, we observed a significant difference between these two
+domains.  For example, when \lmcut is used, the coverage was
+significantly lower in 10 domains, while more instances were solved in
+5 domains.
 
 Also, \refig{fig:plateau-zerocost} plots the size of the final plateau of the
 zerocost domain instances, with \lmcut heuristics and $h$-tiebreaking. In this plot,
