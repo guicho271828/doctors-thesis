@@ -14,8 +14,6 @@
 
 \newcommand{\uline}[1]{\underline{#1}}
 
-\newcommand{\msss}{\mbox{{$\mbox{MS}^{3}$}}\xspace}
-
 \newcommand{\rel}[1]{\in \params{#1}}
 
 \newcommand{\sota}{State-of-the-Art\xspace}
@@ -54,7 +52,7 @@
 
 \newcommand{\defun}[1]{%
 \makeatletter
-\expandafter\def\csname the#1\endcsname{\mbox{\it #1}}
+\expandafter\def\csname the#1\endcsname{\text{\it #1}}
 \expandafter\def\csname #1\endcsname ##1{\csname the#1\endcsname\left(##1\right)}%
 \makeatother
 }
@@ -98,12 +96,6 @@
 \defun{plateau}
 
 \newcommand{\depth}{\brackets{d}}
-
-\newcommand{\procs}[1]{\mbox{$\mbox{\it proc}^*$}\left(#1\right)}
-
-\newcommand{\pstep}{$\procs{b,S}$\xspace}
-\newcommand{\psteps}{$\proc{b}$\xspace}
-
 
 \defsetop{filter}{}
 \defsetop{map}{}
@@ -210,15 +202,12 @@
 
 \def\*a*{\verb~*A*~}
 
-\def\lmcut{\mbox{LMcut}\xspace}
-\def\mands{\mbox{M\&S}\xspace}
-\def\ff{\mbox{FF}\xspace}
-\def\cea{\mbox{CEA}\xspace}
+\def\lmcut{\text{LMcut}\xspace}
+\def\mands{\text{M\&S}\xspace}
+\def\ff{\text{FF}\xspace}
+\def\cea{\text{CEA}\xspace}
 
-\def\tree{\mbox{tree}}
-\def\noh{\mbox{[f]}}
-
-\def\mit#1{{\mbox{\textit{#1}}}}
+\def\mit#1{{\text{\textit{#1}}}}
 
 \def\fifo{\mit{fifo}\xspace}
 \def\lifo{\mit{lifo}\xspace}
