@@ -1,0 +1,78 @@
+\subsubparagraph{gbfs}
+
+After \refsec{sec:gbfs}, we apply the same depth-based diversifying tiebreaking
+method to Greedy Best First Search (GBFS) for satisficing planning.
+
+Despite the ubiquitous use of GBFS for satisficing search,
+various research have suggested that GBFS can be
+easily trapped by undetected dead ends and a huge search plateau.
+On infinite graphs, GBFS is not even complete \cite{Valenzano2016}
+because it can be misdirected by the heuristic guidance forever.
+These pathological behaviors are caused by the fact that 
+the search process of GBFS heavily relies upon the
+quality of the heuristic function.
+
+The problem is amplified by the fact that GBFS is usually combined
+with inadmissible heuristic functions, such as FF
+heuristics\cite{Hoffmann01}, Causal Graph heuristics \cite{Helmert2006}, Context Enhanced
+Additive (CEA) heuristics\cite{helmert2008unifying}.
+% , Landmark-count heuristics\cite{richter2008landmarks}
+These functions may overestimate the true distance to the goal,
+which can causes some important nodes to be incorrectly labelled as unpromising
+(very far from the goal). Best-first search algorithms like GBFS thus
+ignores these nodes until after expanding all other nodes with the smaller estimates.
+
+Recently, several approaches
+\cite{imai2011novel,valenzano2014comparison,xie14type} have been
+proposed for alleviating those problems in GBFS. They improve the search
+performance by occasionally ignoring the heuristic guidance, which
+provides a chance to recover from the past wrong decisions made by the
+heuristics, and makes the algorithm more robust against the heuristic
+errors.  These diversified algorithms are probabilistically complete on
+the inifinite graphs \cite{Valenzano2016}: The probability of finding a
+solution approaches to 1 as the runtime approaches to infinity; in other
+words, it eventually finds a solution.
+
+% by relaxing its dependency to the heuristic function.
+
+%% this paragraph is important because diversity, exploration, and
+%% ``removing bias'' might not immediately connect with each other
+One common theme in these algorithms is to remove the \emph{bias} and
+add a \emph{diversity} and \emph{exploration} to the search process.
+Exploration, an opposite word to exploitation, is an act of removing
+the focus or the bias, thus is equivalent to an act of introducing the
+diversity. Hereafter, we use these three key words interchangeably.
+
+In these sections, we show that there is much more room for diversifying
+the behavior of GBFS, and show that the use of our depth-based
+tiebreaking strategy improves the performance of GBFS by
+diversifying the search within the same $h$-plateau.
+ 
+GBFS variants mentioned above all employ the exploration by occasionally
+expanding the nodes with bad heuristic estimates. While this can avoid
+the problem of large bias of the search algorithm to the nodes with the
+least estimates, it cannot detect the bias among the nodes with the
+\emph{same} estimates. Imagine what happens if a heuristic function
+always returns a constant value $c$. Since all nodes expanded by GBFS
+has the same evaluation $c$, above-mentioned GBFS variants fail to
+identify their difference based on the estimates. \footnote{Type-GBFS
+and DBFS2 can also diversify the search based on the $g$ value, the
+current shortest path cost from the initial state.}
+
+To our knowledge, there are currently no well-established tiebreaking
+policy for GBFS.  Compared to \astar, GBFS does not use $f$ and $g$
+value during the search process.  The search by GBFS is solely guided by
+the heuristic value $h$: It always expands the node with the smallest
+$h$ value, and hence the analogy from \astar e.g.\ sorting the nodes
+with $f$ and breaking ties according to $h$ is not possible.
+
+% We propose the use of recently proposed tiebreaking strategy based on
+% the \emph{depth} of each node from the entrance in the plateau, originally
+% designed for \astar, also improves the performance of GBFS by
+% diversifying the search within the same h-plateau.
+Our depth-based tiebreaking can be implemented as an extension to GBFS, and
+can also be incorpolated as a part of type-bucket generation criteria in
+Type-Based GBFS.  We empirically evaluate the performance of the
+proposed approach, comparing numerous search enhancement techniques such
+as Lazy Evaluation, PLUS\-ONE/ONE cost type, Preferred Operators and
+Multi-queue heuristic search.
