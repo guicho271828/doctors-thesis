@@ -30,39 +30,80 @@ distance-to-go estimates in its iterated search framework. The first
 iteration of LAMA uses distance-to-go estimates combined with various
 satisficing search enhancements.
 
-Still, there is a number of possibilities to adopt the idea of
-distance-to-go in optimal search. One such example is to use the
-distance-to-go estimates as part of sorting criteria.
-% 
+Still, there is a number of possibilities to adopt the idea of distance-to-go in optimal search.
+One key idea is that, as long as the first sorting criteria $f$ uses an ordinary
+admissible heuristics, any sorting strategy returns an optimal solution.
+Therefore, it is possible to use the
+distance-to-go estimates in the sorting criteria of optimal search as
+long as it is not the first criteria.
+ 
 Let $\hat{h}$ be a distance-to-go variation of an original heuristic function $h$.
 %% redundunt
 % Upon computing the estimates, $\hat{h}$ treats all
 % actions to have unit costs, while original heuristic function $h$ uses the
 % standard action cost.
 % 
-Now, as long as the first sorting criteria is based on $f=g+h$, any
-sorting strategy returns an optimal solution. Thus, it is possible to
-use a multi-heuristic strategy such as $[f,h,\hat{h}]$ or $[f,\hat{h}]$
-which uses inadmissible $\hat{h}$ as part of sorting criteria.
-Furthermore, it is even possible to use any inadmissible heuristic function to break
+A multi-heuristic strategy such as $[g+h,h,\hat{h}]$ or $[g+h,\hat{h}]$
+returns an optimal solution because the first criteria $f=g+h$ is computed with
+a normal cost function.
+Moreover, it is even possible to use any inadmissible heuristic function to break
 ties. For example, one can use inadmissible FF heuristics to break ties
-among $f$ which uses admissible \lmcut heuristic function: $[h^{\lmcut}+g,\hat{h}^{\ff}]$.
+among $f$ which uses admissible \lmcut heuristics: $[g+h^{\lmcut},\hat{h}^{\ff}]$.
 
-There are number of possible combinations here, but the obvious flaw in
-such a strategy is the cost of computing additional heuristic
-estimates. Using different heuristics obviously causes such an
-overhead. Using distance-to-go estimates $\hat{h}$ along with original
-heuristics $h$ could be optimized so that it shares part of the
-computation, but still should incur some overhead.
+However, an obvious flaw in such a strategy is the cost of computing additional
+heuristic estimates. Using different heuristics obviously causes such an
+overhead. Using distance-to-go estimates $\hat{h}$ along with
+original heuristics $h$ could be optimized so that they share part of
+the computation, but still should incur some overhead.
 
-We tested various combinations of heuristics on zerocost domains where
-tiebreaking strategies have the large impact.
-We tested the following configurations:
-$[h^{\lmcut}+g,h^{\lmcut},\fifo]$, 
-$[h^{\lmcut}+g,h^{\lmcut},\depth,\fifo]$, 
-$[h^{\lmcut}+g,h^{\lmcut},\hat{h}^{\lmcut},\fifo]$, 
-$[h^{\lmcut}+g,\hat{h}^{\lmcut},\fifo]$, 
-$[h^{\lmcut}+g,\hat{h}^{\ff},\fifo]$,
-$[h^{\lmcut}+g,\hat{h}^{\mbox{GC}},\fifo]$.
+We tested various sorting strategies on IPC domains and zerocost domains.
+% on zerocost domains  where tiebreaking strategies have the large impact.
+The configurations are listed in \reftbl{list:distance-configs}. 
+In all configurations, the first sorting criterion is the $f=g+h$ value
+where $h$ is either admissible \lmcut or \mands heuristics.
+As the second or later sorting criteria,
+we tested $\hat{h}$ of original $h$, as well as a distance-to-go variation of FF
+heuristic ($\hat{h}^{\ff}$).
+% , and a distance-to-go variation of
+% GoalCount heuristic ($\hat{h}^{\text{GoalCount}}$) which is added to
+% represent an uninformative but fast inadmissible heuristic function with
+% least additional overhead.
+We also added configurations with the depth metric within
+$\plateau{\hat{h}}$ or $\plateau{\hat{h}^{\text{\ff}}}$.
+
+\begin{table}[htbp]
+ \centering
+ \[
+ \begin{array}{lcll}
+  (1)\, [h+g, & h,                           &L] \\\relax
+  (2)\, [h+g, & h,     \quad   \hat{h},      &L] \\\relax
+  (3)\, [h+g, & \hat{h},                     &L] \\\relax
+  (4)\, [h+g, & \hat{h}^{\ff},               &L] \\\relax
+  (5)\, [h+g, & \hat{h}^{\text{GoalCount}},  &L] \\\relax
+  (6)\, [h+g, & \hat{h}^{\text{FF}}, \depth, &L] \\\relax
+ \end{array}  
+ \]
+ \caption{Configurations which uses the distance-to-go estimates. $h$ is
+ one of $\braces{\lmcut, \mands}$, and $L$ is one of last-resort
+ tiebreaking strategy $\braces{\fifo,\lifo,\ro}$. }
+ \label{list:distance-configs}
+\end{table}
 
 % $[h^{\lmcut}+g,\hat{h}^{\mbox{LMcount}},\fifo]$,
+
+The results are shown in \reftbl{tbl:distance-to-go}. We also show the
+same results as in the previous sections in the same table. From the
+results, we can see that the distance-to-go FF heuristics 
+outperforms the standard tiebreaking strategy $[f,h,L]$, as well as
+other configurations (1-5). Furthermore, a depth metric further enhanced
+the performance of this configuration.
+
+\begin{table}[htbp]
+ \centering
+ \caption{
+ Summary Results: Coverage comparison (the number
+ of instances solved in 5min, 2GB) between several sorting strategies.
+ }
+ \label{tbl:distance-to-go}
+\end{table}
+
