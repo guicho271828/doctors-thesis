@@ -1,0 +1,68 @@
+\subsection{Comparison to Distance-to-Go Estimates}
+
+We next compare our depth diversification to the distance-to-go
+estimates in the plateau.  Distance-to-go estimates are the type of
+heuristics which treat actions as if they have the unit cost. Even under
+the presence of zero-cost actions, those estimates can predict the
+number of operations required to reach a goal.
+While several papers advocates the benefit of this technique, many of
+these claims took place in the context of satisficing planning.
+
+\shortciteauthor{benton2010g} proposed an inadmissible technique for temporal
+planning where short actions are hidden behind long actions and do not
+increase makespan \cite{benton2010g}. Such actions cause so-called
+``g-value plateau'', a similar situation caused by 0-cost actions in
+sequential planning.  They implemented an inadmissible heuristic
+function combined with distance-to-go estimates on top of
+Temporal Fast Downward system.  As stated, their method is not
+applicable to the optimising search.
+ 
+% ,wilt2011cost
+Similarly, in sequencial satisficing planning,
+\shortciteauthor{cushing2010cost} showed that
+(non-admissibly) treating all actions as unit cost sometimes finds an
+optimal plan quickly \cite{cushing2010cost}.
+Although it could find an optimal plan by chance, this does not
+guarantee the optimality of the solution.
+ 
+Also, a \sota satisficing planner FD/LAMA2011 incorpolates
+distance-to-go estimates in its iterated search framework. The first
+iteration of LAMA uses distance-to-go estimates combined with various
+satisficing search enhancements.
+
+Still, there is a number of possibilities to adopt the idea of
+distance-to-go in optimal search. One such example is to use the
+distance-to-go estimates as part of sorting criteria.
+% 
+Let $\hat{h}$ be a distance-to-go variation of an original heuristic function $h$.
+%% redundunt
+% Upon computing the estimates, $\hat{h}$ treats all
+% actions to have unit costs, while original heuristic function $h$ uses the
+% standard action cost.
+% 
+Now, as long as the first sorting criteria is based on $f=g+h$, any
+sorting strategy returns an optimal solution. Thus, it is possible to
+use a multi-heuristic strategy such as $[f,h,\hat{h}]$ or $[f,\hat{h}]$
+which uses inadmissible $\hat{h}$ as part of sorting criteria.
+Furthermore, it is even possible to use any inadmissible heuristic function to break
+ties. For example, one can use inadmissible FF heuristics to break ties
+among $f$ which uses admissible \lmcut heuristic function: $[h^{\lmcut}+g,\hat{h}^{\ff}]$.
+
+There are number of possible combinations here, but the obvious flaw in
+such a strategy is the cost of computing additional heuristic
+estimates. Using different heuristics obviously causes such an
+overhead. Using distance-to-go estimates $\hat{h}$ along with original
+heuristics $h$ could be optimized so that it shares part of the
+computation, but still should incur some overhead.
+
+We tested various combinations of heuristics on zerocost domains where
+tiebreaking strategies have the large impact.
+We tested the following configurations:
+$[h^{\lmcut}+g,h^{\lmcut},\fifo]$, 
+$[h^{\lmcut}+g,h^{\lmcut},\depth,\fifo]$, 
+$[h^{\lmcut}+g,h^{\lmcut},\hat{h}^{\lmcut},\fifo]$, 
+$[h^{\lmcut}+g,\hat{h}^{\lmcut},\fifo]$, 
+$[h^{\lmcut}+g,\hat{h}^{\ff},\fifo]$,
+$[h^{\lmcut}+g,\hat{h}^{\mbox{GC}},\fifo]$.
+
+% $[h^{\lmcut}+g,\hat{h}^{\mbox{LMcount}},\fifo]$,
