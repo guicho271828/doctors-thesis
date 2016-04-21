@@ -151,21 +151,28 @@ In such a positive-cost problem,
 
 \subsection{Tiebreaking within Depth Buckets}
 
-Since there can be multiple nodes within the same depth bucket,
-a last-resort tiebreaking is still necessary to break ties among them.
-We could, for example, apply \lifo, \fifo or \ro policies at this level.
+Since there can be still multiple nodes within the same depth bucket, a
+last-resort tiebreaking is still necessary to break ties among them.
+We can, for example, apply \lifo, \fifo or \ro (random order) policies
+at this level.
 
 There could be still a room for heuristic-agnostic improvements at
 this level, while this is not in the scope of this paper.
-For example, while depth metric measures and diversify the depth in a plateau,
+For example, while depth metric measures and diversifies the depth in a plateau,
 other techniques can non-trivially diversify the search in a breadth direction.
-They include pruning techniques such as 
+Such techniques may include pruning techniques such as 
 symmetry breaking \cite{Fox1998,pochter2011exploiting,domshlak2013symmetry}
 or partial order reduction \cite{hall2013faster,wehrle2013relative}.
+
 While these methods are most often described as ``pruning techniques'',
 it can be rephrased as ``removing the cardinality bias to particular set
-of nodes which shares the same characteristics'' because they both
-aim to prune the redundant nodes.
+of nodes which share the same characteristics'' because they both aim to
+prune the redundant nodes. For example, imagine we have a
+set of nodes $S=\{a_1, a_2, a_3, a_4, b, c, d\}$ where
+$A=\{a_1, a_2, a_3, a_4\}$ are ``redundunt'' in some measure (e.g. by Symmetry,
+Partial-Order). 
+If a search algorithm expands $S$ by a random selection, it favors the
+group $A$ by giving a $\times 4$ larger chance of expansion.
 
 % \todo{compare id,fifo and id,lifo}
 
@@ -248,10 +255,17 @@ Expansion has happened $D(D-1)$ times in total, and depth $d$ is expanded $D-d$ 
 Thus, the probability of expanding each node in depth $d$ is
 $\frac{D-d}{D(D-1)\cdot w(D-d+1)}=\frac{1}{wD(D-1)}(1-\frac{1}{D-d+1})$.
 
-$\frac{1}{D-d+1}$ is negligeble as $D$ increases.
+$\frac{1}{D-d+1}$ is negligeble if $D \gg d$.
 Thus, after enough number of iterations (large $D$), the nodes are 
 expanded in an approximately equal probability $\frac{1}{wD(D-1)}$ in the shallower region, and is
 unaffected by the depth of the node.
 However, the nodes near the largest depth has less probability, showing
 some balance in exploration and exploitation. \qed
 
+The important point of this characteristics is that this
+distribution is maintained at any point of the search until the solution
+is found. In fact, any depth-selection criteria, including the least
+depth selection (\fifo) or the largest depth selection (\lifo), 
+result in the same distribution if all nodes are to be expanded (each
+depth $d$ is expanded $Dw^d$ times), but their
+runtime distributions are not.

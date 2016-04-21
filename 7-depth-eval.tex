@@ -229,30 +229,29 @@ previous experiments for performance comparison which should not incur
 this overhead.
 
 
-\refig{fig:depth-histogram} shows the results on several exampler
-instances in various domains. We do not show some domains when we did
+\refig{fig:depth-histogram} to \refig{fig:depth-histogram3}
+ show the results on several exampler
+instances in various zerocost domains. Also,
+ \refig{fig:depth-histogram4} shows the same results on standard
+ Openstacks and Cybersec domains. We do not show some domains when we did
 not observe any depths more than 3, which means the depth metric has
 negligible effect on the search performance.
 
-In both instances, we observed that the depth-first behavior of
+In many domains, we observed that the depth-first behavior of
 $[f,h,\lifo]$ results in deeper search, missing the key branch at
 intermediate depths.  On the other hand, the breadth-first behavior of
 $[f,h,\fifo]$ often gets stuck spending an excessive amount of time
 searching around the plateau entrance.  Also, due to the large bias in
 the number of nodes to the shallower depth, global randomization
 $[f,h,\ro]$ showed a distribution similar to $[f,h,\fifo]$.
-$[f,h,\depth,\ro]$ is balancing the search at various depths, which
+In contrast, $[f,h,\depth,\ro]$ is balancing the search at various depths, which
 results in successfully solving more problems.
-Moreover, the results suggest that the distribution almost follows
-$D-d$, a theoretial formula which was made under the simplified
-assumption that the plateau forms a tree of fixed width.
 
-% The figure also illustrates the behavior of RandomDepth: Although it
-% randomly selects from the buckets,
-% a new depth is found only when the largest-depth bucket is selected,
-% resulting in a decreasing curves.
-% Finding the optimal balance is an interesting avenue of
-% future work.
+Moreover, the results suggest that in many domains the distribution follows
+$D-d$, a theoretical formula which was made under the simplified
+assumption that the plateau forms a tree of fixed width. In these
+figures, $D$ means the largest depth in the open list, which is equal to
+the number of iterations.
 
 \begin{figure}[htbp]
 % \includegraphics{img/depth/ged-opt14-strips/p17.pdf}
@@ -262,7 +261,7 @@ assumption that the plateau forms a tree of fixed width.
 \includegraphics{img/depth/gripper-move/p07.pdf}
 \includegraphics{img/depth/logistics00-fuel/p016.pdf}
 \includegraphics{img/depth/miconic-up/p79.pdf}
- \caption{(Page 1/3) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
+ \caption{(Page 1/4) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
  the final plateau with different tiebreakings. Both axes are in logarithmic scale.
  }
  \label{fig:depth-histogram}
@@ -275,7 +274,7 @@ assumption that the plateau forms a tree of fixed width.
 \includegraphics{img/depth/pipesworld-pushend/p06.pdf}
 \includegraphics{img/depth/psr-small-open/p46.pdf}
 \includegraphics{img/depth/rovers-fuel/p07.pdf}
- \caption{(Page 2/3) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
+ \caption{(Page 2/4) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
  the final plateau with different tiebreakings. Both axes are in logarithmic scale.
  }
  \label{fig:depth-histogram2}
@@ -288,18 +287,18 @@ assumption that the plateau forms a tree of fixed width.
 \includegraphics{img/depth/tpp-fuel/p08.pdf}
 \includegraphics{img/depth/woodworking-cut/p04.pdf}
 \includegraphics{img/depth/zenotravel-fuel/p07.pdf}
- \caption{(Page 3/3) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
+ \caption{(Page 3/4) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
  the final plateau with different tiebreakings. Both axes are in logarithmic scale.
  }
  \label{fig:depth-histogram3}
 \end{figure}
 
+\begin{figure}[htbp]
+% \includegraphics{img/depth/openstacks-opt11/p04.pdf}
+% \includegraphics{img/depth/cybersec/p11.pdf}
+ \caption{(Page 4/4) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
+ the final plateau with different tiebreakings. Both axes are in logarithmic scale.
+ }
+ \label{fig:depth-histogram4}
+\end{figure}
 
-% airport-fuel/	 ged-opt14-strips/  nomystery-fuel/	      sokoban-pushgoal/
-% blocks-stack/	 grid-fuel/	    openstacks-opt11-strips/  storage-lift/
-% cybersec/	 gripper-move/	    pathways-fuel/	      tidybot-motion/
-% depot-fuel/	 hiking-fuel/	    pipesnt-pushstart/	      tpp-fuel/
-% driverlog-fuel/  logistics00-fuel/  pipesworld-pushend/       woodworking-cut/
-% elevators-up/	 miconic-up/	    psr-small-open/	      zenotravel-fuel/
-% floortile-ink/	 mprime-succumb/    rovers-fuel/
-% freecell-move/	 mystery-feast/     scanalyzer-analyze/
