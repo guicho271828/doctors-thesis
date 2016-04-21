@@ -24,7 +24,7 @@ GTAGS: $(name).tex imgs $(sources) $(styles) $(reference)
 check_pages: en
 	./check_pages.sh $(max_pages) $(name)
 
-check_overflow: en $(name).log
+check_overflow: en
 	./check_overflow.sh $(name).log
 
 en:	$(name).pdf supplemental.pdf
