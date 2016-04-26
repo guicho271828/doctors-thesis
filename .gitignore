@@ -30,3 +30,4 @@ nohup.out
 !tables/*/*/*.pdf
 !img/static/*.png
 !img/static/*.jpg
+/org-mode/

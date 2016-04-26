@@ -4,13 +4,17 @@ reference  = local.bib global.bib
 emacs 	   = emacs
 latexmk    = latexmk/latexmk.pl
 styles     = abbrev.sty aaai_my.sty
-sources    = main.tex $(wildcard [0-9]-*.tex)
+tables     = $(addsuffix .tex,$(wildcard tables/*.org))
+sources    = main.tex $(wildcard [0-9]-*.tex) $(tables)
 $(info $(sources))
+
 max_pages   = 50
 
 upload     = ~/Dropbox/FukunagaLabShare/OngoingWorks/Asai/
 
 ncpu       = $(shell grep "processor" /proc/cpuinfo | wc -l)
+
+get-archive = wget -O- $(1) | tar xz ; mv $(2) $(3)
 
 .SUFFIXES: .tex .org .el .elc .svg
 .SECONDARY: compile-csv-org.elc compile-main-org.elc __tmp1 __tmp2
@@ -69,10 +73,14 @@ img/%.tex: %.gnuplot %.csv
 img/%.svg: %.gnuplot %.csv
 	gnuplot $<
 
-%.org.tex: %.org compile-main-org.elc
+org-mode:
+	$(call get-archive, http://orgmode.org/org-8.2.10.tar.gz, org-8.2.10, $@)
+	$(MAKE) -C $@ compile
+
+%.org.tex: %.org compile-main-org.elc org-mode
 	$(emacs) --batch --quick \
 		 --script compile-main-org.elc \
-		 --eval "(compile-org \"$<\" \"$@\")"
+		 --eval "(compile-org \"$<\" \"$(notdir $@)\")"
 
 %.elc : %.el
 	$(emacs) -Q --batch -f batch-byte-compile $<
