@@ -74,8 +74,7 @@ energy usage (\pddl{Logistics-fuel}, \pddl{elevator-up} etc.), and  assembly-typ
 (\pddl{Woodworking-cut} minimizes wood usage, etc.).
 
 We did not
-include domains with only a single action schema and standard domains which already had many
-zero-cost actions (these are already in the results for standard IPC domains).
+include domains which have only a single action schema, or which already had many zero-cost actions.
 We refer to these 28 new domains as \emph{zerocost domains}.
 In detail, they are:
 airport-fuel (20), blocks-stack (20), depot-fuel (22), driverlog-fuel (20),
@@ -94,22 +93,25 @@ originally have 150 instances while our zerocost version have
 30 instances.
 This is in order to reduce the effect of the total number of instances
 to the overall coverage sum.
+In those cases, we sampled the instances evenly from the original set
+of instances. For example, we picked p05, p10, ... p150 to select 30 instances.
 
+\subsection{Difference in Problem Characteristics between IPC and Zerocost Domains}
 
-\subsection{Evaluating Standard Strategies on Zerocost Domains}
-
-We first tested if these new domains actually poses a challenge to the
+We first tested if these new domains actually poses a new type of challenge to the
 standard tiebreaking strategies. Results using \lmcut and \mands
 heuristics are shown in \reftbl{tbl:lmcut-zerocost-std} and
 \reftbl{tbl:mands-zerocost-std}, respectively. In each table, the left
 side shows the results in the original domains, and the left hand side
 shows the zerocost versions of the domains modified from the same
 instances in the left hand side. We did not included the domains whose
-number of instances differ to each other. In both \lmcut and \mands
-heuristics, we observed a significant difference between these two
-domains.  For example, when \lmcut is used, the coverage was
-significantly lower in 10 domains, while more instances were solved in
-5 domains.
+number of instances differ to each other.
+
+In both \lmcut and \mands heuristics, we observed a significant
+performance difference between two domains. With \lmcut, the coverage
+was lower in 10 domains, while more instances were solved
+in 5 domains. With \mands, the coverage was lower in 7 domains, while
+more instances were solved in 3 domains.
 
 Also, \refig{fig:plateau-zerocost} plots the size of the final plateau of the
 zerocost domain instances, with \lmcut heuristics and $h$-tiebreaking. In this plot,
@@ -215,10 +217,23 @@ legitimately have $h^*=0$. For those nodes,
 there are no room for improving the heuristic estimate; Any positive
 value causes the heuristics to be inadmissible.
 
-Thus, in order to solve zerocost problems more efficiently, the planner
-needs to perform an efficient \emph{knowledge-free} search within a
-large, final plateau. As we see in the next section,
-it turns out that a notion of \emph{depth} can
-have a significant impact on the performacne of knowledge-free search,
-as well as a good understanding of the existing tiebreaking strategies.
+There are two options to improve the search performance in such plateaus
+produced by zerocost problems. The first option is to enhance the search
+by combining multiple heuritstics; It allows the heurstics to be
+inadmissible when it is only used for tiebreaking strategy. The obvious
+drawback of this strategy is the cost of additional heuristic
+computation.
+
+Another option is to perform an efficient
+\emph{knowledge-free} search within plateau; It may reuse the effort
+that are already spent to guide the search, but does not require
+additional effort to compute multiple heuristics.
+% Thus, in order to solve zerocost problems more efficiently, the planner
+% needs to perform an efficient \emph{knowledge-free} search within a
+% large, final plateau. 
+
+We first propose and evaluate an implementation of the second option in
+the next section.  It turns out that a notion of \emph{depth} can have
+a significant impact on the performacne of knowledge-free search, as
+well as a good understanding of the existing tiebreaking strategies.
 
