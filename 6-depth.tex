@@ -2,11 +2,19 @@
 
 \label{sec:depth}
 
-The \emph{depth} of a node is an integer value representing the distance
-(number of steps) from the \emph{entrance} of the plateau on which the node is.
-An \emph{entrance} of the plateau is the first state which entered the
-plateau, along the path from the initial state. These notions are depicted
-in \refig{fig:plateau-depiction}.
+In Zerocost domains, the search space has a lot of zero-cost edges,
+producing a large final plateau $\plateau{f^*,0}$. In a final plateau,
+all nodes have $h=0$ which inhibit the $h$-based tiebreaking to provide
+a useful guidance toward a goal. Without adequate measure, search
+algorithms may fail to keep track of the current search progress.
+
+The \emph{depth} of a node is an instance of such measurement.  It is an
+integer value representing the distance (number of steps) from the
+\emph{entrance} of the plateau.  An \emph{entrance} of the plateau is
+the first state which entered the plateau, along the path from the
+initial state. These notions are depicted in
+\refig{fig:plateau-depiction}. It is equivalent to the $g$-value which is
+restricted to a particular plateau and is assuming the unit cost edges.
 
 \begin{figure}[htbp]
  \centering
@@ -25,27 +33,8 @@ when they are pairwise equivalent (i.e. $f(s) = f(t) \land h(s) =
 h(t)$).  Having the same key values means that $s$ and $t$ are in the
 same plateau. \todo{Figure}
 
-Based on this simple notion of depth, we propose \emph{depth-based
-tiebreaking} strategies, where the nodes are inserted into buckets
-associated with depths, and upon expansion, search effort is distributed
-among various depths. Notice that it does not ``sort'' the nodes
-according to the depth, and instead ``diversify'' the node expansion
-within the plateau. We mark such a diversification family of
-tiebreaking strategies by enclosing it in brackets such as $[f,h,\depth]$.
-
-In order to diversify the expansion among depths, we propose simply
-iterating over the depth buckets. There is a counter $d_c$ initialized
-to 0, which stores the depth which was selected in the last expansion.
-In each expansion, it decrements the counter ($d_c\leftarrow d_c-1$) and
-expands from the depth. When the counter reaches below 0, then the
-counter is reset to the current largest depth in the plateau.
-It is possible to adopt a
-nondeterministic, randomized selection, as we have done in a conference
-version of this paper, however we eliminate the possibility of the
-results being affected by random seeds.
-
-In contrast, the traditional \lifo and \fifo tiebreaking strategy can be
-considered as a ``sorting'' version of this depth-based tiebreaking.
+The traditional \lifo and \fifo tiebreaking strategy are
+searching the plateau region in a decreasing or increasing order of the depth.
 \lifo strategy always select the most recently generated node
 within $\plateau{f,h}$, and the behavior in the plateau is equivalent to depth-first search.
 Thus, it results in always selecting the largest depth
@@ -75,10 +64,10 @@ $[f,h,\fifo]$ is equivalent to $[f,h,d,\fifo]$.
 
 The problem in these traditional strategies is that we have no knowledge
 on whether the goals are located near or far from the entrance. Remind
-that when $f=f^*, h=h^*=0$, the goals in this plateau are optimal
-regardless of the depth: Goals in the shallower region and the deeper
-region both yield an optimal solution. However, until we find a
-solution, we do not know how the goals are distributed among the
+that since $f=f^*, h=h^*=0$, any goals in this plateau are optimal
+regardless of the depth: A goal node in a shallower region or a deeper
+region both yields a cost-optimal solution. However, until we find a
+solution, we do not know how the goals are distributed among various
 depths. In some problem instance the goals can be concentrated around
 the entrance, and in another problem instance the goals can be
 concentrated in some large depth $k$.
@@ -88,28 +77,48 @@ concentrated in some large depth $k$.
 %  \label{fig:plateau-depiction-all-optimal}
 % \end{figure}
 
-The best-first search (\fifo), which naturally focus the search around
+The best-first search (\fifo), which naturally focuses the search around
 the entrance favoring the smaller depths, should perform better in the
 former case, while it also severely degrade the performance when the
 goals are located deep inside the plateau region because it searches the
 shallower region exhaustively and takes too much time to reach the depth
 where the goals exist.
-Exactly the opposite could happend to the depth-first search (\lifo):
+Exactly the opposite could happen to depth-first search (\lifo):
 \lifo greedily explores the
 plateau region and may find a solution in the deeper region quickly but
 could also miss the solution in the shallower region.
+Thus, both \fifo and \lifo tiebreaking have pathological behaviors.
 
-By an adversary argument, our depth-based \emph{diversification}
-tiebreaking strategy, which diversify the search among various depths,
-have no depth bias and eventually find a solution.
-% It can be considered
-% similar to the random restarting strategy in tree search algorithms.
+By an adversary argument, we propose a depth-based \emph{diversification}
+tiebreaking strategy, which diversify the search among various depths.
+It's search behavior is not biased toward any particular direction and
+does not exhibit the pathological behavior.
+
+In this strategy, the nodes are inserted into buckets
+associated with depths, and upon expansion, search effort is distributed
+among various depths. Notice that it does not ``sort'' the nodes
+according to the increasing or decreasing order of depth,
+and instead ``diversify'' the node expansion
+within the plateau. We mark such a diversification family of
+tiebreaking strategies by enclosing it in brackets such as $[f,h,\depth]$.
+
+In order to diversify the expansion among depths, we propose simply
+iterating over the depth buckets. There is a counter $d_c$ initialized
+to 0, which stores the depth which was selected in the last expansion.
+In each expansion, it decrements the counter ($d_c\leftarrow d_c-1$) and
+expands from the depth. When the counter reaches below 0, then the
+counter is reset to the current largest depth in the plateau.
+It is possible to adopt a
+nondeterministic, randomized selection, as we have done in a conference
+version of this paper, however we eliminate the possibility of the
+results being affected by random seeds. It also makes a theoretical
+analysis more convenient in the later section.
 
 \begin{figure}[htbp]
  \centering
  \includegraphics{img/astar/final-plateau7.png}
  \caption{Depth-based diversification allows \astar to search the plateau space
- uniformly and sparsely, avoiding the concentration to particular depths, while
+ uniformly and sparsely, avoiding the concentration to shallower depths, while
  suppressing the excessive exploration to the deeper region. This
  balances the exploration and exploitation.}
  \label{fig:plateau-depiction-all-optimal}
@@ -124,29 +133,27 @@ have no depth bias and eventually find a solution.
 Depth-based tiebreaking has no effect when the key values for measuring
 the depth are always updated and thus all nodes have depth 0. A key
 value is a single $f$ when $h$-based tiebreaking is not present, and a
-pair of $f$ and $h$ when $h$-based tiebreaking is present.  In such
-cases, the search is equivalent to the case of traditional last-resort
-tiebreaking strategies.
+pair of $f$ and $h$ when $h$-based tiebreaking is present. When all
+nodes have depth 0, the search is equivalent to the case where 
+the depth-based strategy is not present.
 % 
 This happens when the target problem contains
 positive costs\footnote{not to be confused with non-negative cost} only.
 In such a positive-cost problem,
 \begin{itemize}
  \item If $f$-value is unchanged after operator application, $g$ value
-       should have been increased and thus $h$ value should have been
+       should have been increased due to a positive
+       cost edge and thus $h$ value should have been
        decreased if the evaluated node is new.
- \item If $h$-value is unchanged and $g$ is increased, then $f$ is also increased.
+ \item If $h$-value is unchanged and $g$ is increased due to a positive
+       cost edge, then $f$ is also increased.
 \end{itemize}
 
-% %% wrong, since it does not update the parent!
-% However, there are still some cases where depth can work even under the
-% positive cost domains. This is as follows:
-% 
-% \begin{itemize}
-%  \item When the evaluated nodes are already visited from another parent
-%        with smaller $g$ cost, and does not increase the $g$ value, then
-%        $h$ value could be same as the parent node.
-% \end{itemize}
+One might wonder what if the evaluated nodes are already visited from
+another parent (old parent) with smaller $g$ value, and the new $g$ value does not change it,
+which may cause the new parent and the child node may have the same $f$ and
+same $h$. It does not result in a positive depth because it does not update the parent. The depth of a
+child remains the old value (using the old parent), which is 0.
 
 
 \subsection{Tiebreaking within Depth Buckets}
@@ -167,12 +174,14 @@ or partial order reduction \cite{hall2013faster,wehrle2013relative}.
 While these methods are most often described as ``pruning techniques'',
 it can be rephrased as ``removing the cardinality bias to particular set
 of nodes which share the same characteristics'' because they both aim to
-prune the redundant nodes. For example, imagine we have a
+prune the redundant nodes. Note that redunduncy cause a biased 
+search effort. For example, imagine we have a
 set of nodes $S=\{a_1, a_2, a_3, a_4, b, c, d\}$ where
 $A=\{a_1, a_2, a_3, a_4\}$ are ``redundunt'' in some measure (e.g. by Symmetry,
 Partial-Order). 
-If a search algorithm expands $S$ by a random selection, it favors the
-group $A$ by giving a $\times 4$ larger chance of expansion.
+If a search algorithm expands $S$ by random selection, it favors the
+group $A$ by giving a $\times 4$ larger chance of expansion than $b$,
+$c$ or $d$.
 
 % \todo{compare id,fifo and id,lifo}
 
@@ -204,7 +213,7 @@ As stated, our implementation iterates from the largest depth to 0.
 
 We are particularly interested in how the expansions happen among the
 various depths in the plateau region.
-We show that the probability of a node in a particular depth
+We show that the probability of expanding a node in a particular depth
 can be represented by a simple formula.  Although the notion of
 probability does not fit well with deterministic \fifo or \lifo
 last-resort tiebreaking, it is meaningful in the case of \ro (random
@@ -238,7 +247,7 @@ expanding each depth is decreasing as the depth increase.
 % This is because the number of nodes in each depth is
 % exponential to $d$, which is common in practice (we verify this in the
 % later experiments).
-Now we show the main theorem.
+Now we show the formula which represents the probability of expanding a node in a particular depth.
 We assume that the plateau region form a tree of width
 $w\geq 2$, rather than a graph with indefinite number of successor
 nodes.  Under this assumption, each expansion of depth $d$ results in
@@ -253,14 +262,14 @@ Therefore, the total number of nodes that have been in depth $d$, including thos
 that have been expanded so far, is $w(D-d+1)$.
 Expansion has happened $D(D-1)$ times in total, and depth $d$ is expanded $D-d$ times.
 Thus, the probability of expanding each node in depth $d$ is
-$\frac{D-d}{D(D-1)\cdot w(D-d+1)}=\frac{1}{wD(D-1)}(1-\frac{1}{D-d+1})$.
+$\frac{D-d}{D(D-1)\cdot w(D-d+1)}=\frac{1}{wD(D-1)}(1-\frac{1}{D-d+1})$.  \qed
 
-$\frac{1}{D-d+1}$ is negligeble if $D \gg d$.
+Notice that $\frac{1}{D-d+1}$ is negligeble if $D \gg d$.
 Thus, after enough number of iterations (large $D$), the nodes are 
 expanded in an approximately equal probability $\frac{1}{wD(D-1)}$ in the shallower region, and is
 unaffected by the depth of the node.
 However, the nodes near the largest depth has less probability, showing
-some balance in exploration and exploitation. \qed
+some balance in exploration and exploitation.
 
 The important point of this characteristics is that this
 distribution is maintained at any point of the search until the solution
