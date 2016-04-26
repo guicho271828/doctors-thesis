@@ -4,7 +4,7 @@ reference  = local.bib global.bib
 emacs 	   = emacs
 latexmk    = latexmk/latexmk.pl
 styles     = abbrev.sty aaai_my.sty
-tables     = $(addsuffix .tex,$(wildcard tables/*.org))
+tables     = $(addsuffix .tex,$(basename $(wildcard tables/*.org)))
 sources    = main.tex $(wildcard [0-9]-*.tex) $(tables)
 $(info $(sources))
 
@@ -20,10 +20,7 @@ get-archive = wget -O- $(1) | tar xz ; mv $(2) $(3)
 .SECONDARY: compile-csv-org.elc compile-main-org.elc __tmp1 __tmp2
 .PHONY: all en ja open imgs clean allclean check_pages check_overflow en_pdf ja_pdf automake submission archive clean-submission
 
-all: check_pages check_overflow GTAGS
-
-GTAGS: $(name).tex imgs $(sources) $(styles) $(reference)
-	gtags
+all: check_pages check_overflow
 
 check_pages: en
 	./check_pages.sh $(max_pages) $(name)
@@ -55,7 +52,7 @@ open: $(name).pdf
 	nohup evince $< &>/dev/null &
 
 auto:
-	./make-periodically.sh
+	+./make-periodically.sh
 
 ci:
 	while : ; do git pull && make ; sleep 60 ; done
@@ -77,7 +74,7 @@ org-mode:
 	$(call get-archive, http://orgmode.org/org-8.2.10.tar.gz, org-8.2.10, $@)
 	$(MAKE) -C $@ compile
 
-%.org.tex: %.org compile-main-org.elc org-mode
+%.tex: %.org compile-main-org.elc
 	$(emacs) --batch --quick \
 		 --script compile-main-org.elc \
 		 --eval "(compile-org \"$<\" \"$(notdir $@)\")"
