@@ -9,17 +9,18 @@ instances.
 
 \subsection{Evaluating Depth-Based Tiebreaking with $h$-tiebreaking}
 
-We compared the performance of standard tiebreaking methods $[f,h,\fifo]$,
-$[f,h,\lifo]$ to $[f,h,\depth,\fifo]$ and
-$[f,h,\depth,\lifo]$.  These all use $h$ as the first-level
-tiebreaking and either \fifo or \lifo as the last-resort tiebreaking.
+We compared the performance of standard tiebreaking methods to
+depth-based tiebreaking methods. These all use $h$ as the first-level
+tiebreaking and either \fifo, \lifo or \ro (random order) as the
+last-resort tiebreaking.
 
-First two experiments are conducted on \textbf{1104 standard IPC
-benchmark instances}, and the latter two experiments are conducted on
-\textbf{620 zerocost instances}.  Each experiment uses either \lmcut
-heuristics or \mands heuristics.  For \mands heuristics, we used the
-settings recommended by Fast Downward website (bisimulation-based shrink
-strategy, DFP merge strategy and exact label reduction).
+Experiments are conducted on \textbf{1104 standard IPC benchmark
+instances} and \textbf{620 zerocost instances}.  Each experiment uses
+either \lmcut heuristics or \mands heuristics.  For \mands heuristics,
+we used the settings recommended by Fast Downward website
+(bisimulation-based shrink strategy, DFP merge strategy and exact label
+reduction). Each experiment is run for 5 minutes excluding SAS
+translation time, with 2GB memory constraints.
 
 We first show the summary results of these experiments.
 Overall, depth-based tiebreaking tends to show larger coverages than the
@@ -29,19 +30,15 @@ details of each experiments.
 \begin{table}[htb]
  {
  \centering
-\begin{tabular}{|*{5}{c|}}
-\hline
- & \multicolumn{4}{|c|}{\lmcut Coverages (\# problems solved)}\\
-\hline                                    
- Domain               &  $[f,h,\fifo]$ &  $[f,h,\lifo]$ &  $[f,h,\depth,\fifo]$ &  $[f,h,\depth,\lifo]$ \\ \hline
- IPC,\lmcut(1104)     &558             &565             &\textbf{570.6\spm{}1.5}      &560.0\spm{}0.9               \\ 
- IPC,\mands(1104)     &479             &\textbf{488}    &484.0\spm{}0.0               &481.4\spm{}1.4               \\ \hline
- Zerocost,\lmcut(620) &256             &279             &\textbf{287.2\spm{}2.4}      &280.2\spm{}4.2               \\ 
- Zerocost,\mands(620) &276             &290             &\textbf{310.2\spm{}2.1}      &303.2\spm{}1.7               \\ \hline
-\end{tabular}
+ \setlength{\tabcolsep}{3pt}
+ \input{tables/7-1-summary.tex}
  \caption{
- Summary Results: Coverage comparison (the number of instances solved in 5min, 2GB, \lmcut/\mands
- heuristics) between standard tiebreaking and depth-based tiebreaking ($\depth$). }
+ Main summary results: Coverage comparison (number of instances solved in 5min, 2GB, \lmcut/\mands
+ heuristics) between standard tiebreaking and depth-based tiebreaking
+ ($\depth$). When \lmcut is used, $\depth$ outperforms standard strategies both in IPC
+ instances (1104 problems total) and Zerocost instances (620 problems
+ total). When \mands is used, $\depth$ outperforms standard strategies
+ in Zerocost instances. \textbf{Bold} shows the best configuration.}
  \label{tbl:lmcut-ipc-full}
  }
 \end{table}
