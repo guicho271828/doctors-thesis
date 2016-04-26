@@ -31,3 +31,4 @@ nohup.out
 !img/static/*.png
 !img/static/*.jpg
 /org-mode/
+tables/.#*
