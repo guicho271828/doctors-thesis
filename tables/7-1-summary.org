@@ -1,0 +1,93 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: c:nil creator:nil d:(not "LOGBOOK") date:t e:t email:nil f:t
+#+OPTIONS: inline:t num:t p:nil pri:nil prop:nil stat:t tags:t tasks:t
+#+OPTIONS: tex:t timestamp:t title:t toc:nil todo:t |:t
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 24.3.1 (Org mode 8.3.4)
+
+
+| benchmark  | cov | 
+| lm__F7947  | 443 | 
+| lm__L23076 | 558 | 
+| lm__R25103 | 449 | 
+| lm__R4668  | 451 | 
+| lm__R6506  | 450 | 
+| lm_iF7947  | 533 | 
+| lm_iL23076 | 549 | 
+| lm_iR25103 | 560 | 
+| lm_iR4668  | 562 | 
+| lm_iR6506  | 563 | 
+| lmh_F7947  | 558 | 
+| lmh_L23076 | 565 | 
+| lmh_R25103 | 561 | 
+| lmh_R4668  | 560 | 
+| lmh_R6506  | 561 | 
+| lmhiF7947  | 571 | 
+| lmhiL23076 | 575 | 
+| lmhiR25103 | 573 | 
+| lmhiR4668  | 571 | 
+| lmhiR6506  | 573 | 
+| mn__F4499  | 460 | 
+| mn__L19052 | 490 | 
+| mn__R18939 | 464 | 
+| mn__R30213 | 462 | 
+| mn__R9559  | 460 | 
+| mn_iF4499  | 483 | 
+| mn_iL19052 | 484 | 
+| mn_iR18939 | 483 | 
+| mn_iR30213 | 484 | 
+| mn_iR9559  | 483 | 
+| mnh_F4499  | 491 | 
+| mnh_L19052 | 496 | 
+| mnh_R18939 | 491 | 
+| mnh_R30213 | 490 | 
+| mnh_R9559  | 489 | 
+| mnhiF4499  | 487 | 
+| mnhiL19052 | 487 | 
+| mnhiR18939 | 487 | 
+| mnhiR30213 | 484 | 
+| mnhiR9559  | 486 | 
+
+| zerocost   | cov | 
+| lm__F1184  | 227 | 
+| lm__L13955 | 296 | 
+| lm__R15177 | 237 | 
+| lm__R15793 | 238 | 
+| lm__R18410 | 240 | 
+| lm_iF1184  | 284 | 
+| lm_iL13955 | 276 | 
+| lm_iR15177 | 298 | 
+| lm_iR15793 | 292 | 
+| lm_iR18410 | 294 | 
+| lmh_F1184  | 271 | 
+| lmh_L13955 | 294 | 
+| lmh_R15177 | 276 | 
+| lmh_R15793 | 278 | 
+| lmh_R18410 | 276 | 
+| lmhiF1184  | 299 | 
+| lmhiL13955 | 279 | 
+| lmhiR15177 | 305 | 
+| lmhiR15793 | 304 | 
+| lmhiR18410 | 302 | 
+| mn__F27958 | 250 | 
+| mn__L28267 | 315 | 
+| mn__R10848 | 269 | 
+| mn__R2894  | 271 | 
+| mn__R7102  | 270 | 
+| mn_iF27958 | 310 | 
+| mn_iL28267 | 289 | 
+| mn_iR10848 | 317 | 
+| mn_iR2894  | 314 | 
+| mn_iR7102  | 317 | 
+| mnh_F27958 | 295 | 
+| mnh_L28267 | 316 | 
+| mnh_R10848 | 304 | 
+| mnh_R2894  | 304 | 
+| mnh_R7102  | 304 | 
+| mnhiF27958 | 317 | 
+| mnhiL28267 | 303 | 
+| mnhiR10848 | 326 | 
+| mnhiR2894  | 322 | 
+| mnhiR7102  | 326 | 
