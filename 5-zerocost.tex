@@ -91,10 +91,11 @@ The number of instances may be different between the original domain and
 the zerocost domain. One such example is \pddl{miconic}, which
 originally have 150 instances while our zerocost version have
 30 instances.
-This is in order to reduce the effect of the total number of instances
-to the overall coverage sum.
+This is in order to reduce the effect of the difference in the
+number of instances in each domain to the overall coverage sum.
 In those cases, we sampled the instances evenly from the original set
-of instances. For example, we picked p05, p10, ... p150 to select 30 instances.
+of instances. For example, we picked p05, p10, ... p150 to select 30
+instances.
 
 \subsection{Difference in Problem Characteristics between IPC and Zerocost Domains}
 
@@ -108,9 +109,10 @@ instances in the left hand side. We did not included the domains whose
 number of instances differ to each other.
 
 In both \lmcut and \mands heuristics, we observed a significant
-performance difference between two domains. With \lmcut, the coverage
+performance difference between the original IPC domains and the zerocost
+domains. With \lmcut, the coverage in zerocost domains
 was lower in 10 domains, while more instances were solved
-in 5 domains. With \mands, the coverage was lower in 7 domains, while
+in 5 domains. With \mands, the coverage in zerocost domains was lower in 7 domains, while
 more instances were solved in 3 domains.
 
 Also, \refig{fig:plateau-zerocost} plots the size of the final plateau of the

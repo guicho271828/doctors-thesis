@@ -1,4 +1,3 @@
-
 \section{Evaluating Depth-Based Tiebreaking}
 \label{sec:depth-based-evaluation}
 We evaluated our depth-based diversifying tiebreaking strategies against standard
@@ -58,6 +57,7 @@ losing performance in other domains.
 \begin{table}[htbp]
  {
  \centering
+ \setlength{\tabcolsep}{0.1em}
  \input{tables/7-ipc-lmcut}
  % \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
  \caption{
@@ -105,6 +105,7 @@ compared to \lmcut heuristics.
 \begin{table}[htbp]
  {
  \centering
+ \setlength{\tabcolsep}{0.1em}
  \input{tables/7-ipc-mands}
  % \input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-depth.tex}
  \caption{
@@ -141,6 +142,7 @@ and in X domains when using \mands.
 \begin{table}[htbp]
  {
  \centering
+ \setlength{\tabcolsep}{0.1em}
  \input{tables/7-zero-lmcut}
  % \input{tables/aaai16-robustnesscheck/zerocost/1-depth.tex}
  \caption{
@@ -155,6 +157,7 @@ and in X domains when using \mands.
 \begin{table}[htbp]
  {
  \centering
+ \setlength{\tabcolsep}{0.1em}
  \input{tables/7-zero-mands}
  % \input{tables/aaai16-robustnesscheck-mands/zerocost/1-depth.tex}
  \caption{
@@ -170,14 +173,15 @@ and in X domains when using \mands.
 
 \subsection{Depth-Based Tiebreaking Without Considering $h$}
 
-In \refsec{sec:h-necessary}, we showed that $[f,\lifo]$ tiebreaking
+\label{sec:depth-noh}
+
+In \refsec{sec:noh}, we showed that $[f,\lifo]$ tiebreaking
 (without considering $h$) is sufficient for the standard IPC benchmarks
 -- the performance of $[f,\lifo]$, $[f,h,\lifo]$, and $[f,h,\fifo]$ are
 comparable.  In order to see if it also holds for depth-based
 tiebreaking, we evaluated the performance of $[f,\depth,\fifo]$
 and $[f,\depth,\lifo]$.
-
-\reftbl{tbl:lmcut-zerocost-noh} and \reftbl{tbl:mands-zerocost-noh}
+\reftbl{tbl:lmcut-zero-noh} and \reftbl{tbl:mands-zero-noh}
  shows that
  $[f,h,\depth,\fifo]$ and  $[f,h,\depth,\lifo]$
  perform comparably to $[f,h,\fifo]$ and $[f,h,\lifo]$.
@@ -192,6 +196,7 @@ and $[f,\depth,\lifo]$.
 \begin{table}[htbp]
  {
  \centering
+ \setlength{\tabcolsep}{0.1em}
  \input{tables/7-ipc-lmcut-noh}
  \caption{
  Coverage comparison \textbf{with \lmcut, without $h$-tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the
@@ -203,6 +208,7 @@ and $[f,\depth,\lifo]$.
 \begin{table}[htbp]
  {
  \centering
+ \setlength{\tabcolsep}{0.1em}
  \input{tables/7-ipc-mands-noh}
  \caption{
  Coverage comparison \textbf{with \mands, without $h$-tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the
@@ -215,23 +221,25 @@ and $[f,\depth,\lifo]$.
 \begin{table}[htbp]
  {
  \centering
+ \setlength{\tabcolsep}{0.1em}
  \input{tables/7-zero-lmcut-noh}
  \caption{
  Coverage comparison \textbf{with \lmcut, without $h$-tiebreaking, on 620 zerocost instances}. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
- \label{tbl:lmcut-ipc-noh}
+ \label{tbl:lmcut-zero-noh}
  }
 \end{table}
 \begin{table}[htbp]
  {
  \centering
+ \setlength{\tabcolsep}{0.1em}
  \input{tables/7-zero-mands-noh}
  \caption{
  Coverage comparison \textbf{with \mands, without $h$-tiebreaking, on 620 zerocost instances}. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
- \label{tbl:mands-ipc-noh}
+ \label{tbl:mands-zero-noh}
  }
 \end{table}
 
