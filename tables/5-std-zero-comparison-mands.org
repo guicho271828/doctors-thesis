@@ -7,6 +7,7 @@
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 24.3.1 (Org mode 8.3.4)
 
+#+ATTR_LATEX: :align |lc|cr|
 | Domain                   | $[f,h,\fifo]$ | $[f,h,\fifo]$ | Domain                 |
 | depot(22)                |             5 |             5 | depot-fuel(22)         |
 | driverlog(20)            |            12 |             9 | driverlog-fuel(20)     |
