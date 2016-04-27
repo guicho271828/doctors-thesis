@@ -1,4 +1,4 @@
-\subsection{Comparison to Distance-to-Go Estimates}
+\section{Evaluating Distance-to-Go Estimates for Optimal Planning}
 
 We next compare our depth diversification to the distance-to-go
 estimates in the plateau.  Distance-to-go estimates are the type of
@@ -79,7 +79,8 @@ $\plateau{\hat{h}}$ or $\plateau{\hat{h}^{\text{\ff}}}$.
   (2)\, [h+g, & h,     \quad   \hat{h},      &L] \\\relax
   (3)\, [h+g, & \hat{h},                     &L] \\\relax
   (4)\, [h+g, & \hat{h}^{\ff},               &L] \\\relax
-  (5)\, [h+g, & \hat{h}^{\text{GoalCount}},  &L] \\\relax
+  % not include it unless the reviewer complained. 
+  % (5)\, [h+g, & \hat{h}^{\text{GoalCount}},  &L] \\\relax
   (6)\, [h+g, & \hat{h}^{\text{FF}}, \depth, &L] \\\relax
  \end{array}  
  \]
@@ -91,7 +92,7 @@ $\plateau{\hat{h}}$ or $\plateau{\hat{h}^{\text{\ff}}}$.
 
 % $[h^{\lmcut}+g,\hat{h}^{\mbox{LMcount}},\fifo]$,
 
-The results are shown in \reftbl{tbl:distance-to-go}. We also show the
+The results are shown in \reftbl{tbl:dtg-summary}. We also show the
 same results as in the previous sections in the same table. From the
 results, we can see that the distance-to-go FF heuristics 
 outperforms the standard tiebreaking strategy $[f,h,L]$, as well as
@@ -100,10 +101,61 @@ the performance of this configuration.
 
 \begin{table}[htbp]
  \centering
+ \input{tables/8-1-summary}
  \caption{
  Summary Results: Coverage comparison (the number
  of instances solved in 5min, 2GB) between several sorting strategies.
  }
- \label{tbl:distance-to-go}
+ \label{tbl:dtg-summary}
 \end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/8-ipc-lmcut}
+ \caption{
+ Coverage comparison \textbf{with \lmcut, without $h$-tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:dtg-lmcut-ipc}
+ }
+\end{table}
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/8-ipc-mands}
+ \caption{
+ Coverage comparison \textbf{with \mands, without $h$-tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:dtg-mands-ipc}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/8-zero-lmcut}
+ \caption{
+ Coverage comparison \textbf{with \lmcut, without $h$-tiebreaking, on 620 zerocost instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:dtg-lmcut-ipc}
+ }
+\end{table}
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/8-zero-mands}
+ \caption{
+ Coverage comparison \textbf{with \mands, without $h$-tiebreaking, on 620 zerocost instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:dtg-mands-ipc}
+ }
+\end{table}
+
+%% moved to Table 2
+
+
 

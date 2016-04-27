@@ -58,7 +58,8 @@ losing performance in other domains.
 \begin{table}[htbp]
  {
  \centering
- \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
+ \input{tables/7-ipc-lmcut}
+ % \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
  \caption{
  Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
  heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
@@ -69,7 +70,8 @@ losing performance in other domains.
 \end{table}
 
 
-\reftbl{tbl:mands-ipc-full} shows the results by \mands heuristics.
+\reftbl{tbl:mands-ipc-full} shows the results by \mands heuristics on \textbf{1104 standard
+IPC benchmark instances}.
 In this configuration, depth-based tiebreaking negatively affects the performance.
 As we show in \reftbl{tbl:expansion-ratio}, this is because
 the low-level overhead of depth-based tiebreaking decreases the high
@@ -78,25 +80,6 @@ very efficiently implemented as a table lookup, and it is able to
 evaluate an order of magnutude larger number of nodes
 compared to \lmcut heuristics.
 
-\reftbl{tbl:mands-evaluations} shows that if we instead compare the
-number of evaluations on problems solved by both, depth-based
-tiebreaking significantly outperforms the standard tiebreaking
-strategies. Moreover, in the next \textbf{zerocost} domain experiments,
-depth-based tiebreaking ourperforms the standard tiebreaking
-overall. Besides, the coverages by \mands is less than that of \lmcut.
-
-\begin{table}[htbp]
- {
- \centering
- \input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-depth.tex}
- \caption{
- Coverage comparison (the number of instances solved in 5min, 2GB, M\&S
- heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
- best results when the difference between the maximum and the mininum coverage exceeds 2.
- }
- \label{tbl:mands-ipc-full}
- }
-\end{table}
 
 \begin{table}[htb]
  \centering
@@ -119,13 +102,35 @@ overall. Besides, the coverages by \mands is less than that of \lmcut.
  \label{tbl:expansion-ratio}
 \end{table}
 
-\begin{figure}[htb]
+\begin{table}[htbp]
+ {
  \centering
+ \input{tables/7-ipc-mands}
+ % \input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-depth.tex}
  \caption{
- Comparison of the total number of nodes generated
- by \mands heuristics, with vs without depth-based tiebreaking.
- } \label{tbl:mands-evaluations}
-\end{figure}
+ Coverage comparison (the number of instances solved in 5min, 2GB, M\&S
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:mands-ipc-full}
+ }
+\end{table}
+
+% \reftbl{tbl:mands-evaluations} shows that if we instead compare the
+% number of evaluations on problems solved by both, depth-based
+% tiebreaking significantly outperforms the standard tiebreaking
+% strategies. Moreover, in the next \textbf{zerocost} domain experiments,
+% depth-based tiebreaking ourperforms the standard tiebreaking
+% overall. Besides, the coverages by \mands is less than that of \lmcut.
+
+% \begin{figure}[htb]
+%  \centering
+%  \caption{
+%  Comparison of the total number of nodes generated
+%  by \mands heuristics until
+%  the goal is found, with vs without depth-based tiebreaking.
+%  } \label{tbl:mands-evaluations}
+% \end{figure}
 
 In zerocost domains, our proposed method outperforms the traditional
 tiebreaking methods in both \lmcut and \mands heuristics
@@ -136,7 +141,8 @@ and in X domains when using \mands.
 \begin{table}[htbp]
  {
  \centering
- \input{tables/aaai16-robustnesscheck/zerocost/1-depth.tex}
+ \input{tables/7-zero-lmcut}
+ % \input{tables/aaai16-robustnesscheck/zerocost/1-depth.tex}
  \caption{
  Coverage comparison (the number of instances solved in 5min, 2GB, \lmcut heuristics) 
  on \textbf{620 zerocost instances}. We highlight the
@@ -149,7 +155,8 @@ and in X domains when using \mands.
 \begin{table}[htbp]
  {
  \centering
- \input{tables/aaai16-robustnesscheck-mands/zerocost/1-depth.tex}
+ \input{tables/7-zero-mands}
+ % \input{tables/aaai16-robustnesscheck-mands/zerocost/1-depth.tex}
  \caption{
  Coverage comparison (the number of instances solved in 5min, 2GB, \mands heuristics)
  on \textbf{620 zerocost instances}. We highlight the
@@ -185,10 +192,9 @@ and $[f,\depth,\lifo]$.
 \begin{table}[htbp]
  {
  \centering
- \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
+ \input{tables/7-ipc-lmcut-noh}
  \caption{
- Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
- heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ Coverage comparison \textbf{with \lmcut, without $h$-tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
  \label{tbl:lmcut-ipc-noh}
@@ -197,16 +203,37 @@ and $[f,\depth,\lifo]$.
 \begin{table}[htbp]
  {
  \centering
- \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
+ \input{tables/7-ipc-mands-noh}
  \caption{
- Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
- heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ Coverage comparison \textbf{with \mands, without $h$-tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
  \label{tbl:mands-ipc-noh}
  }
 \end{table}
 
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/7-zero-lmcut-noh}
+ \caption{
+ Coverage comparison \textbf{with \lmcut, without $h$-tiebreaking, on 620 zerocost instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-ipc-noh}
+ }
+\end{table}
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/7-zero-mands-noh}
+ \caption{
+ Coverage comparison \textbf{with \mands, without $h$-tiebreaking, on 620 zerocost instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:mands-ipc-noh}
+ }
+\end{table}
 
 %% moved to Table 2
 

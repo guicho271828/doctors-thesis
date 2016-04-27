@@ -1,0 +1,31 @@
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+ & Zerocost(620) & Zerocost(620) & IPC (1104) & IPC (1104)\\
+ & $h=\lmcut$ & $h=\mands$ & $h=\lmcut$ & $h=\mands$\\
+\hline
+Non-Depth &  &  &  & \\
+$[f,h,\fifo]$ & 271 & 295 & 558 & 491\\
+$[f,h,\lifo]$ & 294 & 316 & 565 & \textbf{496}\\
+$[f,h,\ro]$ & 276.7 $\pm$ 1.2 & 304 & 560.7 $\pm$ 0.6 & 490 $\pm$ 1\\
+$[f,\hat{h},\fifo]$ & 308 & 323 & 534 & 477\\
+$[f,\hat{h},\lifo]$ & 316 & 320 & 534 & 475\\
+$[f,\hat{h},\ro]$ & 313 $\pm$ 1 & 321.3 $\pm$ 1.5 & 534.7 $\pm$ 1.5 & 471 $\pm$ 1\\
+$[f,h,\hat{h},\fifo]$ & 318 & 322 & 536 & 476\\
+$[f,h,\hat{h},\lifo]$ & 322 & 321 & 535 & 475\\
+$[f,h,\hat{h},\ro]$ & 319.3 $\pm$ 3.2 & 323.3 $\pm$ 1.5 & 534.7 $\pm$ 2.1 & 471.3 $\pm$ 0.6\\
+$[f,\ffo,\fifo]$ & 350 & 351 & 564 & 458\\
+$[f,\ffo,\lifo]$ & 353 & 346 & 562 & 457\\
+$[f,\ffo,\ro]$ & 352 $\pm$ 1 & 351 $\pm$ 1 & 564.3 $\pm$ 1.5 & 456.3 $\pm$ 0.6\\
+ &  &  &  & \\
+Depth-based &  &  &  & \\
+$[f,h,\depth,\fifo]$ & 299 & 317 & 571 & 487\\
+$[f,h,\depth,\lifo]$ & 279 & 303 & \textbf{575} & 487\\
+$[f,h,\depth,\ro]$ & 303.7 $\pm$ 1.5 & 324.7 $\pm$ 2.3 & 572.3 $\pm$ 1.2 & 485.7 $\pm$ 1.5\\
+$[f,\ffo,\depth,\fifo]$ & 353 & 352 & 563 & 457\\
+$[f,\ffo,\depth,\lifo]$ & 355 & 348 & 560 & 457\\
+$[f,\ffo,\depth,\ro]$ & \textbf{356.7 $\pm$ 1.5} & \textbf{352.7 $\pm$ 0.6} & 563.3 $\pm$ 1.5 & 456 $\pm$ 1\\
+\hline
+\end{tabular}
+\end{center}
