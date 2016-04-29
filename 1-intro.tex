@@ -2,18 +2,22 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Much of the work in the search and planning literature has focused on
-reducing the size of this effective search space by developing the more
+Much of the work in the recent search and planning literature has focused on
+reducing the size of the effective search space by developing the more
 informative heuristic functions. However, there is a theoretical
 limitation in this approach: It is known that the search space grows
-exponentially \cite{helmert2008good} even under the optimistic
-assumption that we have an \emph{almost-perfect} heuristics, $h^*-c$, a
+exponentially \cite{helmert2008good} even if we had an optimistic
+heuristic function called \emph{almost-perfect} heuristics,
+$h^*-c$. This is a
 theoretical heuristic function which always returns an estimate which is
 slightly underestimates the true distance to a goal by a small constant
-$c$. In order to overcome this difficulty, therefore, we have to develop
+$c$, and directly computing this value is equivalent to solving the
+problem itself.
+The fact that even almost-perfect heuristics result in exponential blowup 
+means, therefore, we have to develop
 a new kind of heuristic-agnostic improvements.
 
-As an instance of such improvement, this paper investigates tiebreaking
+As an instance of such improvements, this paper investigates tiebreaking
 strategies for search algorithms. We empirically and theoretically
 analyse both optimal and satisficing search.
 
@@ -79,8 +83,9 @@ requires more careful consideration, particularly for problems where
 this tiebreaking does not reduce the size of the plateau.
 
 We first empirically evaluate the existing, commonly used, standard
-tiebreaking strategies for \astar.
-In the experiments, we show that:
+tiebreaking strategies for \astar (\refsec{sec:eval-common-strategies}).
+We empirically show that:
+
 \begin{enumerate}
  \item Last-In-First-Out (\lifo) policy tends to be more efficient
        than a First-In-First-Out (\fifo) policy.
@@ -91,26 +96,43 @@ In the experiments, we show that:
        when domains include zero-cost actions. This is true even when
        both of the \lifo and $h$-based tiebreaking are enabled.
 \end{enumerate}
-While there are relatively few domains with zero-cost actions in the
-IPC benchmark set, we argue that zero-cost actions naturally occur in 
-practical cost-minimization problems.
 
-In order to solve such problems more efficiently, we propose a new
+While there are relatively few domains with zero-cost actions in the IPC
+benchmark set, we argue that zero-cost actions naturally occur in
+practical cost-minimization problems, and defines a new set of
+benchmarks called \emph{zerocost domains}
+(\refsec{sec:zerocost-domains}).  We empirically show that those
+zerocost domains have a different search space structure and their
+problem difficulty is different from those of the original domains.
+
+In order to solve such problems more efficiently, we propose and
+evaluate a new
 tiebreaking method based on a notion of \emph{depth} within the plateau,
-corresponding to the number of steps a node is from the ``entrance'' to
-the plateau.  We empirically show that:
+which corresponds to the number of steps a node is from the ``entrance'' to
+the plateau (\refsec{sec:depth},
+\refsec{sec:depth-based-evaluation}). We also propose and evaluate an
+admissible method which uses the distance-to-go estimate, an estimate which treats every actions
+to have the unit costs (\refsec{sec:distance-to-go}).
+In these sections, we empirically show that:
 \begin{enumerate}
- \item Depth-based diversification strategy significantly outperforms
-       other tiebreaking strategies using the same heuristic function.
- \item Artificial gradient introduced by $\epsilon$-cost conversion or
-       PLUS\-ONE cost types does not achieve the performance better than
-       our strategy.
- \item $\epsilon$-cost and PLUS\-ONE cost types essentially makes the
-       task computationally harder in the context of cost-optimal
-       planning, while depth-based diversification does not.
+ \item Depth-based diversification strategy significantly improves the
+       existing tiebreaking strategies using the same heuristic function.
+ \item Inadmissible distance-to-go variations of \emph{admissible} heuristics
+       (\lmcut, \mands)
+       significantly outperforms the tiebreaking using the original heuristics.
+ \item Distance-to-go variations of \emph{inadmissible} heuristics
+       (\ff) further improves performance by an order of magnitude.
+ \item Distance-to-go variations of \emph{inadmissible} heuristics
+       (\ff) combined with Depth-based diversification strategy further
+       improves the performance.
 \end{enumerate}
 
 Note that all tiebreaking strategies in this section maintain the
 optimality of the search algorithm because they only affect node
 expansion order among the nodes with the same $f$-cost.
 
+
+
+
+This paper is a significantly extended version of the AAAI-16 paper by
+the same authors. 
