@@ -13,12 +13,13 @@ $h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
 the nearest goal.
 
 The best-first order of the expansion is a key to guarantee solution optimality. 
-The first solution found by the algorithm is guarantee to have the optimal cost $f=f^*$ because 
-any nodes with $f(n) = k$ are expanded after all nodes with $f(n) < k$ are expanded.
+The first solution found by the algorithm is guaranteed to have the optimal cost $f=f^*$ because 
+all nodes with $f(n) < k$ are already expanded when it starts expanding
+the nodes with $f(n) = k$.
 Thus, the \emph{effective search space of \astar} is the set of nodes with 
 $f(n) \leq f^*$: \astar expands all nodes with $f(n) < f^*$, then
 expands \emph{some} of the nodes with $f(n) = f^*$, and
-\astar never expands a node with $f(n) > f^*$.
+never expands a node with $f(n) > f^*$.
 
 If multiple nodes with the same $f$-cost are possible, \astar
 must implement some tiebreaking policy (either
@@ -41,10 +42,10 @@ in favor of nodes with least h-cost'' \cite{hansen2007anytime}.
 \citeauthor{holte2010common} writes ``\astar breaks ties in favor
 of larger $g$-values, as is most often done'' \cite[note that since $f=g+h$,
 preferring large $g$ is equivalent to preferring smaller $h$]{holte2010common}.
-\citeauthor{felner2011inconsistent} also assume ``ties are broken in
+\shortciteauthor{felner2011inconsistent} also assume ``ties are broken in
 favor of low h-values'' in describing Bidirectional Pathmax for \astar \citeyear{felner2011inconsistent}.
 In their detailed survey/tutorial on efficient \astar implementations,
-\citeauthor{burns2012implementing} \citeyear{burns2012implementing}
+\shortciteauthor{burns2012implementing} \citeyear{burns2012implementing}
 also break ties ``preferring high $g$'' (equivalent to low $h$).
 %% this could be moved to later analysis
 % They further write: ``The reasoning is that the goal can be found more
@@ -83,5 +84,5 @@ website, this choice is most likely due to their use of alternating OPEN
 lists, in which case the \fifo second-level policy serves to provide a
 limited form of fairness.
 % 
-Such lack of explanation suggests that this topic has been out
+Such lack of explanation suggests that this topic has long been out
 of focus of the heuristic search literature.

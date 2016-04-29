@@ -173,7 +173,7 @@ factor which determines the search performance.
 
 Note that the difficulty posed by these domains sometimes \emph{cannot}
 be tackled by improving the heuristic estimates, or reducing the
-underestimation by an admissible heuristic function.  Due to the
+underestimation of an admissible heuristic function.  Due to the
 existence of 0-cost edges, some non-goal neighbors of a goal node can
 legitimately have $h^*=0$. For those nodes,
 there are no room for improving the heuristic estimate; Any positive
@@ -194,8 +194,8 @@ additional effort to compute multiple heuristics.
 % needs to perform an efficient \emph{knowledge-free} search within a
 % large, final plateau. 
 
-We first propose and evaluate an implementation of the second option in
-the next section.  It turns out that a notion of \emph{depth} can have
+In the next section, we first propose and evaluate an implementation of
+the second option.  It turns out that a notion of \emph{depth} can have
 a significant impact on the performacne of knowledge-free search, as
 well as a good understanding of the existing tiebreaking strategies.
 

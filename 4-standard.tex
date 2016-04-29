@@ -30,7 +30,7 @@ We first compared two commonly used tiebreaking strategies, $[f,h,\fifo]$, $[f,h
 first break ties according to $h$, and then apply \fifo or \lifo
 last-resort tiebreaking, respectively.
 Results for LMcut heuristic \cite{Helmert2009} and M\&S heuristic \cite{HelmertHHN14} are
-shown in \reftbl{tbl:lmcut-ipc-full} and \reftbl{tbl:mands-ipc-full}
+shown in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}
 (leftmost 2 columns), respectively.
 Differences in coverage are observed in several domains, and
 $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
@@ -46,7 +46,7 @@ $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
  the standard baseline tiebreaking algorithms. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
- \label{tbl:lmcut-ipc-full}
+ \label{tbl:lmcut-ipc-std}
  }
 \end{table}
 
@@ -60,7 +60,7 @@ $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
  the standard baseline tiebreaking algorithms. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
- \label{tbl:mands-ipc-full}
+ \label{tbl:mands-ipc-std}
  }
 \end{table}
 
@@ -68,16 +68,14 @@ $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
 
 \label{sec:noh}
 
-In the right half of \reftbl{tbl:lmcut-ipc-full} and
-\reftbl{tbl:mands-ipc-full}, we show the results of $[f, \fifo]$ and
+In the right half of \reftbl{tbl:lmcut-ipc-std} and
+\reftbl{tbl:mands-ipc-std}, we show the results of $[f, \fifo]$ and
 $[f, \lifo]$, the \astar variants which rely on \fifo or \lifo
 last-resort tiebreaking only.  $[f,\lifo]$, which simply breaks ties
 among nodes with the same $f$-cost by expanding the most recently
 generated nodes first \cite{korf1985depth}, clearly dominates
 $[f,\fifo]$.  Interestingly, the performance of the $[f,\lifo]$ strategy
-is comparable to $[f,h,\lifo]$ and $[f,h,\fifo]$, and it even dominates
-$[f,h,\fifo]$ in Openstacks.
-% the standard two-level strategies that first break ties according to $h$.
+is comparable to $[f,h,\lifo]$ and $[f,h,\fifo]$.
 This may be surprising, considering the ubiquity of $h$-based tiebreaking in the search and planning communities.
 
 \lifo behaves somewhat similarly to $h$-based tiebreaking, in the following sense:
@@ -89,7 +87,7 @@ if the heuristic function is admissible and $f(n') = f(n)$, there are only 2 pos
 because $g(n)+h(n)=g(n')+h(n')$.
 Thus, as \lifo expands nodes in a ``depth-first'' manner,
 the nodes that continue to be expanded in the plateau by \lifo have non-increasing $h$-values,
-much like in $h$-based tiebreaking.
+much like in $h$-based tiebreaking which always searches toward the least $h$ cost.
 Although the expansion order of $[f,\lifo]$ is not strictly the same as that of $h$-based tiebreaking strategies,
 this explains their similarity in performances.
 
@@ -128,9 +126,7 @@ the search performance.
 
 % We further investigate the cause of this performance difference in detail.
 
-A natural but false assumption behind this conventional wisdom would be as follows.
-% 
-First, the effect of the last-resort tiebreaking strategies (\lifo or
+The effect of the last-resort tiebreaking strategies (\lifo or
 \fifo) under the presence of $h$-tiebreaking is
 limited to the search plateau $\plateau{f,h}$, the set of nodes which
 share the same $f$ values and $h$ values.
@@ -144,13 +140,14 @@ Furthermore, the nodes with $h>0$ never become the goal nodes when $h$ is admiss
 % 
 Therefore, the effect of last-resort tiebreaking is limited to
 the final plateau $\plateau{f^*,0}$.
-% 
-With all these constraints, the region should sound very small compared to the
+ 
+Conventionally, 
+this final plateau, $\plateau{f^*,0}$, was naively considered to be very small compared to the
 total size of the search space required to be expanded by \astar.
-
 However, counter-intuitively, such a region can be so large enough to
-cause a performance difference, or it can even account for \emph{most} of the
+cause a performance difference, or in fact it can even account for \emph{most} of the
 search effort required by \astar.
+
 \refig{fig:plateau} plots the size of this final plateau on 1104 IPC
 benchmark instances.  The $y$-axis represents the number of nodes with
 $f=f^*, h=0$, the final plateau, and the $x$-axis represents the total
@@ -158,6 +155,10 @@ number of nodes expanded so far. This figure suggests that, in some
 domains such as \pddl{Openstacks} and \pddl{Cybersec}, the planner
 spends most of the runtime searching the final plateau for a solution,
 even with the help of $h$ tiebreaking.
+
+One natural question might be about what makes these two domains,
+\pddl{Openstacks} and \pddl{Cybersec}, different from all other domains
+which have much smaller final plateaus.
 
 \begin{figure}[htbp]
    \centering
@@ -173,7 +174,3 @@ even with the help of $h$ tiebreaking.
  until expanding all nodes with cost $f=f^*$.} \label{fig:plateau}
 \end{figure}
 
-
-A natural question might be that what makes these two domains,
-\pddl{Openstacks} and \pddl{Cybersec}, different from all other domains
-which have much smaller final plateaus.

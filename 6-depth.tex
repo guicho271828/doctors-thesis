@@ -11,8 +11,8 @@ algorithms may fail to keep track of the current search progress.
 The \emph{depth} of a node is an instance of such measurement.  It is an
 integer value representing the distance (number of steps) from the
 \emph{entrance} of the plateau.  An \emph{entrance} of the plateau is
-the first state which entered the plateau, along the path from the
-initial state. These notions are depicted in
+the first node which entered the plateau, along the path from the
+initial node. These notions are depicted in
 \refig{fig:plateau-depiction}. It is equivalent to the $g$-value which is
 restricted to a particular plateau and is assuming the unit cost edges.
 
@@ -24,18 +24,18 @@ restricted to a particular plateau and is assuming the unit cost edges.
  \label{fig:plateau-depiction}
 \end{figure}
 
-The depth $d(s)$ of a
-state $s$ is 0 when $s$ and the parent state $t$ has the different key
-values for a sorting strategy, and $d(s)=d(t)+1$ when they have the same
+The depth $d(n)$ of a
+node $n$ is 0 when $n$ and the parent node $m$ has the different key
+values for a sorting strategy, and $d(n)=d(m)+1$ when they have the same
 key values: For example, in \astar with $h$-based tiebreaking, the key
-values of a state are represented as a vector $[f,h]$, and they are same
-when they are pairwise equivalent (i.e. $f(s) = f(t) \land h(s) =
-h(t)$).  Having the same key values means that $s$ and $t$ are in the
+values of a node are represented as a vector $[f,h]$, and they are same
+when they are pairwise equivalent (i.e. $f(n) = f(m) \land h(n) =
+h(m)$).  Having the same key values means that $n$ and $m$ are in the
 same plateau. \todo{Figure}
 
 The traditional \lifo and \fifo tiebreaking strategy are
 searching the plateau region in a decreasing or increasing order of the depth.
-\lifo strategy always select the most recently generated node
+\lifo strategy always selects the most recently generated node
 within $\plateau{f,h}$, and the behavior in the plateau is equivalent to depth-first search.
 Thus, it results in always selecting the largest depth
 buckets as depicted in \refig{fig:plateau-depiction-lifo}.
@@ -79,8 +79,8 @@ concentrated in some large depth $k$.
 
 The best-first search (\fifo), which naturally focuses the search around
 the entrance favoring the smaller depths, should perform better in the
-former case, while it also severely degrade the performance when the
-goals are located deep inside the plateau region because it searches the
+former case, while it also severely degrade the performance in the
+latter case because it searches the
 shallower region exhaustively and takes too much time to reach the depth
 where the goals exist.
 Exactly the opposite could happen to depth-first search (\lifo):
@@ -91,7 +91,7 @@ Thus, both \fifo and \lifo tiebreaking have pathological behaviors.
 
 By an adversary argument, we propose a depth-based \emph{diversification}
 tiebreaking strategy, which diversify the search among various depths.
-It's search behavior is not biased toward any particular direction and
+Its search behavior is not biased toward any particular direction and
 does not exhibit the pathological behavior.
 
 In this strategy, the nodes are inserted into buckets
@@ -106,8 +106,8 @@ In order to diversify the expansion among depths, we propose simply
 iterating over the depth buckets. There is a counter $d_c$ initialized
 to 0, which stores the depth which was selected in the last expansion.
 In each expansion, it decrements the counter ($d_c\leftarrow d_c-1$) and
-expands from the depth. When the counter reaches below 0, then the
-counter is reset to the current largest depth in the plateau.
+expands from the bucket of $d_c$. When $d_c$ reaches below 0, then $d_c$
+is reset to the current largest depth in the plateau.
 It is possible to adopt a
 nondeterministic, randomized selection, as we have done in a conference
 version of this paper, however we eliminate the possibility of the
@@ -139,14 +139,16 @@ the depth-based strategy is not present.
 % 
 This happens when the target problem contains
 positive costs\footnote{not to be confused with non-negative cost} only.
-In such a positive-cost problem,
+Let a node $n$ is reached from a node $m$. Assume
+ $g(n)>g(m)+c$ where $c$ is a positive edge cost, and the parent of $n$
+ is updated to $m$.
+
 \begin{itemize}
- \item If $f$-value is unchanged after operator application, $g$ value
-       should have been increased due to a positive
-       cost edge and thus $h$ value should have been
-       decreased if the evaluated node is new.
+ \item 
+       If $f(n)=f(m)$, $h(n)<h(m)$ should hold because the new value of
+       $g(n)$ is $g(m)+c>g(m)$. Therefore the depth is 0.
  \item If $h$-value is unchanged and $g$ is increased due to a positive
-       cost edge, then $f$ is also increased.
+       cost edge, then $f$ is also increased, thus the depth is 0.
 \end{itemize}
 
 One might wonder what if the evaluated nodes are already visited from
@@ -168,19 +170,19 @@ this level, while this is not in the scope of this paper.
 For example, while depth metric measures and diversifies the depth in a plateau,
 other techniques can non-trivially diversify the search in a breadth direction.
 Such techniques may include pruning techniques such as 
-symmetry breaking \cite{Fox1998,pochter2011exploiting,domshlak2013symmetry}
-or partial order reduction \cite{hall2013faster,wehrle2013relative}.
+Symmetry Breaking \cite{Fox1998,pochter2011exploiting,domshlak2013symmetry}
+or Partial Order Reduction \cite{hall2013faster,wehrle2013relative}.
 
 While these methods are most often described as ``pruning techniques'',
 it can be rephrased as ``removing the cardinality bias to particular set
 of nodes which share the same characteristics'' because they both aim to
-prune the redundant nodes. Note that redunduncy cause a biased 
+prune the redundant nodes. Note that redunduncy causes a biased 
 search effort. For example, imagine we have a
 set of nodes $S=\{a_1, a_2, a_3, a_4, b, c, d\}$ where
 $A=\{a_1, a_2, a_3, a_4\}$ are ``redundunt'' in some measure (e.g. by Symmetry,
 Partial-Order). 
 If a search algorithm expands $S$ by random selection, it favors the
-group $A$ by giving a $\times 4$ larger chance of expansion than $b$,
+group $A$ by giving a 4 times larger chance of expansion than $b$,
 $c$ or $d$.
 
 % \todo{compare id,fifo and id,lifo}
@@ -277,4 +279,4 @@ is found. In fact, any depth-selection criteria, including the least
 depth selection (\fifo) or the largest depth selection (\lifo), 
 result in the same distribution if all nodes are to be expanded (each
 depth $d$ is expanded $Dw^d$ times), but their
-runtime distributions are not.
+online characteristics are not.
