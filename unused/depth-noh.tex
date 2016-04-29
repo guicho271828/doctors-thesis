@@ -1,0 +1,77 @@
+
+%% does not seem important!
+
+\subsection{Depth-Based Tiebreaking Without Considering $h$}
+
+\label{sec:depth-noh}
+
+In \refsec{sec:noh}, we showed that $[f,\lifo]$ tiebreaking
+(without considering $h$) is sufficient for the standard IPC benchmarks
+-- the performance of $[f,\lifo]$, $[f,h,\lifo]$, and $[f,h,\fifo]$ are
+comparable.  In order to see if it also holds for depth-based
+tiebreaking, we evaluated the performance of $[f,\depth,\fifo]$
+and $[f,\depth,\lifo]$.
+\reftbl{tbl:lmcut-zero-noh} and \reftbl{tbl:mands-zero-noh}
+ shows that
+ $[f,h,\depth,\fifo]$ and  $[f,h,\depth,\lifo]$
+ perform comparably to $[f,h,\fifo]$ and $[f,h,\lifo]$.
+
+% Although $[\rd,\ro]$ behaves in a less greedy/depth-first manner than $[f,\lifo]$, 
+% it explores nodes with high depth sufficiently often so that even if \lifo behavior (seeking nodes that are far from the plateau entrance) is required, $[\rd,\ro]$ will eventually find the solution.
+% Moreover, there are some domains (\pddl{pipesworld-pushend} and \pddl{woodworking-opt11}) where a the more randomized behavior of $[\rd,\ro]$ is advantageous.
+% Thus, overall, $[\rd,\ro]$ performs moderately well, and 
+% \emph{neither $h$ nor \lifo-behavior is necessary in order to obtain performance that is competitive with the standard
+% tiebreaking strategies}.
+
+\begin{table}[htbp]
+ {
+ \centering
+ \setlength{\tabcolsep}{0.1em}
+ \input{tables/7-ipc-lmcut-noh}
+ \caption{
+ Coverage comparison \textbf{with \lmcut, without $h$-tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-ipc-noh}
+ }
+\end{table}
+\begin{table}[htbp]
+ {
+ \centering
+ \setlength{\tabcolsep}{0.1em}
+ \input{tables/7-ipc-mands-noh}
+ \caption{
+ Coverage comparison \textbf{with \mands, without $h$-tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:mands-ipc-noh}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \setlength{\tabcolsep}{0.1em}
+ \input{tables/7-zero-lmcut-noh}
+ \caption{
+ Coverage comparison \textbf{with \lmcut, without $h$-tiebreaking, on 620 zerocost instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-zero-noh}
+ }
+\end{table}
+\begin{table}[htbp]
+ {
+ \centering
+ \setlength{\tabcolsep}{0.1em}
+ \input{tables/7-zero-mands-noh}
+ \caption{
+ Coverage comparison \textbf{with \mands, without $h$-tiebreaking, on 620 zerocost instances}. We highlight the
+ best results when the difference between the maximum and the mininum coverage exceeds 2.
+ }
+ \label{tbl:mands-zero-noh}
+ }
+\end{table}
+
+
+
