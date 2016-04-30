@@ -120,9 +120,6 @@ results are comparable when the main heuristics function $h$ is \mands.
 Yet more surprisingly, using $\ffo$ results in an order of magnitude
 larger coverage in both \lmcut and \mands. Thus, when the depth metric
 is not used, the best configuration is those which uses $\ffo$.
-This also strengthens our claim that $h$-based tiebreaking is not
-necessarily the ``rule of the thumb'' in these domains
-(This was already discussed in \refsec{sec:noh}).
 Finally, depth metric further improves the performance of this best
 non-depth configuration using $\ffo$.
 It happened in both cases of $h=h^\lmcut$ and $h=h^\mands$. 
@@ -139,6 +136,25 @@ zerocost domains in this standard benchmark set (Openstacks and
 Cybersec) has each shown a significant speedup achieved by these distance-to-go estiamtes
  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
 
+The performance degradation in the positive cost domains are not
+critical at all because we can simply switch the behavior depending on
+whether the domain contains zerocost actions or not. 
+Coverage results in \reftbl{tbl:dtg-summary-sum} shows the total of zerocost and
+benchmark domains. The dynamic configuration achieves the highest
+coverage overall.
+
+% While these multi-heuristic strategies did not improve the perfomance in
+% the positive cost domains because the final plateaus are small, a simple
+% method which 
+
+Overall, these results also strengthen our claim that $h$-based
+tiebreaking is not necessarily the ``rule of the thumb'' in some
+domains, as already discussed in \refsec{sec:noh}. In zerocost domains,
+using a distance-to-go version of an inadmissible heuristic function for
+tiebreaking is more effective. Also, combining the depth metric with
+such an inadmissible heuristics is also effective.
+
+
 \begin{table}[htbp]
  \centering
  \input{tables/8-1-summary}
@@ -147,6 +163,16 @@ Cybersec) has each shown a significant speedup achieved by these distance-to-go 
  of instances solved in 5min, 2GB) between several sorting strategies.
  }
  \label{tbl:dtg-summary}
+\end{table}
+
+\begin{table}[htbp]
+ \centering \input{tables/8-1-summary-sum}
+ \caption{ Summary Results:
+ Coverage Comparison, the total of IPC domains and Zerocost domains (the
+ number of instances solved in 5min, 2GB) between several sorting
+ strategies, plus a dynamic configuration strategy which selects the
+ right behavior checking whether zero-cost actions exist.  }
+ \label{tbl:dtg-summary-sum}
 \end{table}
 
 \begin{table}[htbp]

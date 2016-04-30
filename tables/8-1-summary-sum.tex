@@ -1,0 +1,34 @@
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+ & IPC+Zerocost (1724) & IPC+Zerocost (1724)\\
+ & \(h=\lmcut\) & \(h=\mands\)\\
+\hline
+Baselines &  & \\
+\([f,h,\fifo]\) & 829 & 786\\
+\([f,h,\lifo]\) & 859 & 812\\
+\([f,h,\ro]\) & 837.4 & 794\\
+\([f,h,\depth,\fifo]\) & 870 & 804\\
+\([f,h,\depth,\lifo]\) & 854 & 790\\
+\([f,h,\depth,\ro]\) & 876 & 810.4\\
+ &  & \\
+Distance-to-Go &  & \\
+\([f,\hat{h},\fifo]\) & 842 & 800\\
+\([f,\hat{h},\lifo]\) & 850 & 795\\
+\([f,\hat{h},\ro]\) & 847.7 & 792.3\\
+\([f,h,\hat{h},\fifo]\) & 854 & 798\\
+\([f,h,\hat{h},\lifo]\) & 857 & 796\\
+\([f,h,\hat{h},\ro]\) & 854 & 794.6\\
+\([f,\ffo,\fifo]\) & 914 & 809\\
+\([f,\ffo,\lifo]\) & 915 & 803\\
+\([f,\ffo,\ro]\) & 916.3 & 807.3\\
+\([f,\ffo,\depth,\fifo]\) & 916 & 809\\
+\([f,\ffo,\depth,\lifo]\) & 915 & 805\\
+\([f,\ffo,\depth,\ro]\) & 920 & 808.7\\
+ &  & \\
+If Zerocost &  & \\
+Then \([f,\ffo,\depth,\ro]\) &  & \\
+Else \([f,h,\lifo]\) & \textbf{923.7} & \textbf{847.7}\\
+\hline
+\end{tabular}
+\end{center}
