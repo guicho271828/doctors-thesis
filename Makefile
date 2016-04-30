@@ -70,8 +70,9 @@ img/%.tex: %.gnuplot %.csv
 img/%.svg: %.gnuplot %.csv
 	gnuplot $<
 
+version = 8.3.4
 org-mode:
-	$(call get-archive, http://orgmode.org/org-8.2.10.tar.gz, org-8.2.10, $@)
+	$(call get-archive, http://orgmode.org/org-$(version).tar.gz, org-$(version), $@)
 	$(MAKE) -C $@ compile
 
 %.tex: %.org compile-main-org.elc
