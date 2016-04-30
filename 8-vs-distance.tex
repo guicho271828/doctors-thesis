@@ -1,5 +1,5 @@
 \clearpage
-\section{Distance-to-Go Estimates for Optimal Planning}
+\section{Distance-to-Go Estimates}
 
 \label{sec:distance-to-go}
 
@@ -33,25 +33,35 @@ distance-to-go estimates in its iterated search framework. The first
 iteration of LAMA uses distance-to-go estimates combined with various
 satisficing search enhancements.
 
-Still, there is a number of possibilities to adopt the idea of distance-to-go in optimal search.
-One key idea is that, as long as the first sorting criteria $f$ uses an ordinary
-admissible heuristics, any sorting strategy returns an optimal solution.
-Therefore, it is possible to use the
-distance-to-go estimates in the sorting criteria of optimal search as
-long as it is not the first criteria.
- % 
+\subsection{Distance-to-Go Estimates for Optimal Planning}
+
+Although previous work on distance-to-go estimates assume the
+satisficing context,
+there is still a possibility to use the same techniques for optimal search.
+Let us call a sorting strategy as an \emph{admissible sorting strategy}
+when the best first search using the strategy is guaranteed to return an
+optimal solution. Although this
+is trivial, a sorting strategy is admisible if and only if the 
+first sorting criteria $f$ uses an ordinary
+admissible heuristics. 
+This means that the optimality of the solution is not affected by the
+second or later levels of sort criteria, and therefore
+it is possible to use an inadmissible
+distance-to-go estimate in the second or later levels of sorting criteria of optimal search.
+ 
 Let $\hat{h}$ be a distance-to-go variation of an original heuristic function $h$.
 %% redundunt
 % Upon computing the estimates, $\hat{h}$ treats all
 % actions to have unit costs, while original heuristic function $h$ uses the
 % standard action cost.
-% 
 A multi-heuristic strategy such as $[g+h,h,\hat{h}]$ or $[g+h,\hat{h}]$
-returns an optimal solution because the first criteria $f=g+h$ is
-obtained by a normal cost function.
-Moreover, it is even possible to use any inadmissible heuristic function to break
-ties. For example, one can use inadmissible FF heuristics to break ties
-among $f$ which uses admissible \lmcut heuristics: $[g+h^{\lmcut},\hat{h}^{\ff}]$.
+are admissible when $h$ is admissible, because the first criteria $f=g+h$ is
+based on the normal action costs.
+It is even possible to use any inadmissible heuristic function to break
+ties. For example, $[g+h^{\lmcut},\ffo]$ is an admissible sorting criteria
+because the first sorting criteria $f=g+h^{\lmcut}$ uses an admissible
+\lmcut heuristics. Its second sorting criteria, distance-to-go FF
+heuristics, does not affect the admissibility of this sorting criteria.
 
 An obvious flaw in such a strategy is the cost of computing additional
 heuristic estimates. Using different heuristics (e.g. $\ffo$) obviously introduces such an
@@ -61,7 +71,7 @@ the computation, but still should incur some overhead.
 
 \subsection{Evaluating Distance-to-go Estimates}
 
-We tested various sorting strategies on IPC domains and zerocost domains.
+We tested various admissible sorting strategies on IPC domains and zerocost domains.
 % on zerocost domains  where tiebreaking strategies have the large impact.
 The configurations are listed in \reftbl{list:distance-configs}. 
 In all configurations, the first sorting criterion is the $f=g+h$ value
@@ -74,7 +84,7 @@ heuristic ($\hat{h}^{\ff}$).
 % represent an uninformative but fast inadmissible heuristic function with
 % least additional overhead.
 We also added configurations with the depth metric within
-$\plateau{\hat{h}}$ or $\plateau{\hat{h}^{\text{\ff}}}$.
+$\plateau{f,\hat{h}^{\text{\ff}}}$.
 
 \begin{table}[htbp]
  \centering
@@ -86,12 +96,13 @@ $\plateau{\hat{h}}$ or $\plateau{\hat{h}^{\text{\ff}}}$.
   (4)\, [h+g, & \hat{h}^{\ff},               &L] \\\relax
   % not include it unless the reviewer complained. 
   % (5)\, [h+g, & \hat{h}^{\text{GoalCount}},  &L] \\\relax
+  (5)\, [h+g, & h, \depth, &L] \\\relax
   (6)\, [h+g, & \hat{h}^{\text{FF}}, \depth, &L] \\\relax
  \end{array}  
  \]
- \caption{Configurations which uses the distance-to-go estimates. $h$ is
- one of $\braces{\lmcut, \mands}$, and $L$ is one of last-resort
- tiebreaking strategy $\braces{\fifo,\lifo,\ro}$. }
+ \caption{Configurations being compared in this section. $h$ is
+ one of $\braces{\lmcut, \mands}$, and $L$ is one of the last-resort
+ tiebreaking strategies $\fifo,\lifo,$ or $\ro$. }
  \label{list:distance-configs}
 \end{table}
 
