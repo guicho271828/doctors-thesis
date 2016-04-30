@@ -23,12 +23,12 @@ get-archive = wget -O- $(1) | tar xz ; mv $(2) $(3)
 all: check_pages check_overflow
 
 check_pages: en
-	./check_pages.sh $(max_pages) $(name)
+	-./check_pages.sh $(max_pages) $(name)
 
 check_overflow: en
-	./check_overflow.sh $(name).log
+	-./check_overflow.sh $(name).log
 
-en:	$(name).pdf supplemental.pdf
+en:	$(name).pdf supplemental.pdf $(sources)
 
 %.pdf: %.tex $(name).tex supplemental.tex imgs $(sources) $(styles) $(reference)
 	$(latexmk) -pdf \
