@@ -19,7 +19,7 @@ either \lmcut heuristics or \mands heuristics.  For \mands heuristics,
 we used the settings recommended by Fast Downward website
 (bisimulation-based shrink strategy, DFP merge strategy and exact label
 reduction). Each experiment is run for 5 minutes excluding SAS
-translation time, with 2GB memory constraints.
+translation time, with 4GB memory constraints.
 
 We first show the summary results of these experiments (\reftbl{tbl:depth-summary}).
 Overall, depth-based tiebreaking tends to show larger coverages than the
@@ -33,7 +33,7 @@ details of each experiments.
  \setlength{\tabcolsep}{3pt}
  \input{tables/7-1-summary.tex}
  \caption{
- Main summary results: Coverage comparison (number of instances solved in 5min, 2GB, \lmcut/\mands
+ Main summary results: Coverage comparison (number of instances solved in 5min, 4GB, \lmcut/\mands
  heuristics) between standard tiebreaking and depth-based tiebreaking
  ($\depth$). When \lmcut is used, $\depth$ outperforms standard strategies both in IPC
  instances (1104 problems total) and Zerocost instances (620 problems
@@ -45,7 +45,7 @@ details of each experiments.
 
 \reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard
 IPC benchmark instances} solved by \lmcut heuristics with various
-tiebreaking strategies, under 5min, 2GB experiments. We highlight the
+tiebreaking strategies, under 5min, 4GB experiments. We highlight the
 best results when the difference between the maximum and the mininum
 coverage exceeds 2.  Depth-based tiebreaking ($\depth$) shows
 impressive results on Openstacks and Cybersec domains because these
@@ -62,7 +62,7 @@ losing performance in other domains.
  \input{tables/7-ipc-lmcut}
  % \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
  \caption{
- Coverage comparison (the number of instances solved in 5min, 2GB, LMcut
+ Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
  heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
@@ -110,7 +110,7 @@ by the management of depth buckets has affected the performance.
  \input{tables/7-ipc-mands}
  % \input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-depth.tex}
  \caption{
- Coverage comparison (the number of instances solved in 5min, 2GB, M\&S
+ Coverage comparison (the number of instances solved in 5min, 4GB, M\&S
  heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
@@ -155,7 +155,7 @@ vs 303). Also, \ro (random order) outperforms both \fifo and \lifo.
  \input{tables/7-zero-lmcut}
  % \input{tables/aaai16-robustnesscheck/zerocost/1-depth.tex}
  \caption{
- Coverage comparison (the number of instances solved in 5min, 2GB, \lmcut heuristics) 
+ Coverage comparison (the number of instances solved in 5min, 4GB, \lmcut heuristics) 
  on \textbf{620 zerocost instances}. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
@@ -170,7 +170,7 @@ vs 303). Also, \ro (random order) outperforms both \fifo and \lifo.
  \input{tables/7-zero-mands}
  % \input{tables/aaai16-robustnesscheck-mands/zerocost/1-depth.tex}
  \caption{
- Coverage comparison (the number of instances solved in 5min, 2GB, \mands heuristics)
+ Coverage comparison (the number of instances solved in 5min, 4GB, \mands heuristics)
  on \textbf{620 zerocost instances}. We highlight the
  best results when the difference between the maximum and the mininum coverage exceeds 2.
  }
