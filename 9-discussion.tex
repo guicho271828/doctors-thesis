@@ -4,11 +4,12 @@
 
 One observation that can be made from the experiments in the previous
 sections is that \textbf{optimizing search can be seen as a series of
-cooperative satisficing searches in the plateaus of an increasing order
-of $f$}.
+satisficing searches in the plateaus of an increasing order
+of $f$}. In this view, the problem of tiebreaking can be reduced to a
+satisficing search.
 
-Similar concept is common in SAT/IP/CP model-based sequential / temporal
-planning, except they are not ``cooperative''. In model-based
+Similar concept is common in SAT/IP model-based sequential / temporal
+planning \cite{rintanen2012planning,van2005optiplan}. In model-based
 planning, a planning problem is converted to a corresponding constraint
 satisfaction problem with a finite horizon $t$ (plan length /
 makespan). The search starts from the horizon 0
