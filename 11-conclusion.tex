@@ -1,7 +1,7 @@
 
 \section{Conclusion}
 
-We investigated and improved the tiebreaking strategies for optimising search using A*.
+We investigated and improved the tiebreaking strategies for optimizing search using A*.
 The contributions in this paper are the following:
 
 \begin{enumerate}
@@ -16,13 +16,13 @@ The contributions in this paper are the following:
        the final plateau with $f=f^*, h=0$. We pointed out that in such
        a plateau, search is controlled solely by the
        last-resort tiebreaking \fifo, \lifo and \ro.
- \item We proposed and analysed a new set of benchmark
+ \item We proposed and analyzed a new set of benchmark
        instances for cost-optimal planing, called Zerocost domains.
  \item As one solution to Zerocost domains, we proposed a depth metric
        which measures the distance from the entrance to the
        plateau. Using this metric, we described the pathological
        behaviors of \fifo, \lifo and \ro, proposed a new diversification
-       strategy, theoreticaly and empirically showed that it avoids the
+       strategy, theoretically and empirically showed that it avoids the
        pathological behavior and achieves a better performance.
  \item As another solution to Zerocost domains, we proposed the use of
        inadmissible heuristics as part of multi-heuristics tiebreaking.
@@ -31,7 +31,7 @@ The contributions in this paper are the following:
        multiple heuristic values, the cost can be eliminated by a simple
        case-based configuration which checks for the zero-cost actions.
  \item We introduced a new view to optimal \astar search:
-       \textbf{optimising search can be seen as a series of cooperative
+       \textbf{optimizing search can be seen as a series of cooperative
        satisficing search in the plateaus of an increasing order of
        $f$}. This view introduces more opportunity to using the
        satisficing techniques for optimal search and vice versa, as
@@ -41,7 +41,7 @@ The contributions in this paper are the following:
 
 Future work expands the last view by introducing much more variety of
 existing satisficing search techniques to optimal planning. Examples
-include: Lazy evaluation \cite{richter2010lama}, alternating/pareto open
+include: Lazy evaluation \cite{richter2010lama}, Alternating/Pareto open
 list \cite{RogerH10}, helpful actions (preferred operators) \cite{Hoffmann01},
 random walk local search \cite{nakhost2009monte}, macro operators
 \cite{Botea2005,ChrpaVM15}, factored planning

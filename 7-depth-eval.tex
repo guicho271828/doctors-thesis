@@ -46,7 +46,7 @@ details of each experiments.
 \reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard
 IPC benchmark instances} solved by \lmcut heuristics with various
 tiebreaking strategies, under 5min, 4GB experiments. We highlight the
-best results when the difference between the maximum and the mininum
+best results when the difference between the maximum and the minimum
 coverage exceeds 2.  Depth-based tiebreaking ($\depth$) shows
 impressive results on Openstacks and Cybersec domains because these
 domains contain many instances of zero-cost edges and the final plateau
@@ -64,7 +64,7 @@ losing performance in other domains.
  \caption{
  Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
  heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
- best results when the difference between the maximum and the mininum coverage exceeds 2.
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
  }
  \label{tbl:lmcut-ipc-full}
  }
@@ -78,7 +78,7 @@ As we show in \reftbl{tbl:expansion-ratio}, this is because
 the low-level overhead of depth-based tiebreaking decreases the high
 node processing speed of \mands. Evaluation of \mands heuristics is
 very efficiently implemented as a table lookup, and it is able to
-evaluate an order of magnutude larger number of nodes
+evaluate an order of magnitude larger number of nodes
 compared to \lmcut heuristics. Thus, even the slightest overhead caused
 by the management of depth buckets has affected the performance.
 
@@ -99,7 +99,7 @@ by the management of depth buckets has affected the performance.
  heuristics. Numbers are averaged over the problem instances solved by
  all 4 configurations. Since the node evaluation of \mands is an order of
  magnitude faster than \lmcut, the overhead of managing depth-based
- tiebreaking queue is non-negligeble on \mands.}
+ tiebreaking queue is non-negligible on \mands.}
  \label{tbl:expansion-ratio}
 \end{table}
 
@@ -112,7 +112,7 @@ by the management of depth buckets has affected the performance.
  \caption{
  Coverage comparison (the number of instances solved in 5min, 4GB, M\&S
  heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
- best results when the difference between the maximum and the mininum coverage exceeds 2.
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
  }
  \label{tbl:mands-ipc-full}
  }
@@ -142,7 +142,7 @@ Significant improvements were observed in X domains when using \lmcut,
 and in X domains when using \mands.
 This means that the search efficiency offered by depth based diversification
 become much more important, and the overhead caused
-by the management of depth buckets become negligeble even in the case of \mands.
+by the management of depth buckets become negligible even in the case of \mands.
 Interestingly, When $\depth$ is enabled, \fifo tends to perform better
 than \lifo in
 zerocost domains in both \lmcut and \mands heuristics (299 vs 279, 317
@@ -157,7 +157,7 @@ vs 303). Also, \ro (random order) outperforms both \fifo and \lifo.
  \caption{
  Coverage comparison (the number of instances solved in 5min, 4GB, \lmcut heuristics) 
  on \textbf{620 zerocost instances}. We highlight the
- best results when the difference between the maximum and the mininum coverage exceeds 2.
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
  }
  \label{tbl:lmcut-zerocost-full}
  }
@@ -172,7 +172,7 @@ vs 303). Also, \ro (random order) outperforms both \fifo and \lifo.
  \caption{
  Coverage comparison (the number of instances solved in 5min, 4GB, \mands heuristics)
  on \textbf{620 zerocost instances}. We highlight the
- best results when the difference between the maximum and the mininum coverage exceeds 2.
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
  }
  \label{tbl:mands-zerocost-full}
  }
@@ -193,7 +193,7 @@ this overhead.
 
 
 \refig{fig:depth-histogram} to \refig{fig:depth-histogram3}
- show the results on several exampler
+ show the results on several exemplar
 instances in various zerocost domains. Also,
  \refig{fig:depth-histogram4} shows the same results on standard
  Openstacks and Cybersec domains. We do not show some domains when we did

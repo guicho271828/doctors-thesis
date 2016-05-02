@@ -19,8 +19,8 @@ restricted to a particular plateau and is assuming the unit cost edges.
 \begin{figure}[htbp]
  \centering
  \includegraphics{img/astar/final-plateau4.png}
- \caption{The nodes in a platau are divided into several layers,
- and each layor have the corresponding depth.}
+ \caption{The nodes in a plateau are divided into several layers,
+ and each layer have the corresponding depth.}
  \label{fig:plateau-depiction}
 \end{figure}
 
@@ -109,7 +109,7 @@ In each expansion, it decrements the counter ($d_c\leftarrow d_c-1$) and
 expands from the bucket of $d_c$. When $d_c$ reaches below 0, then $d_c$
 is reset to the current largest depth in the plateau.
 It is possible to adopt a
-nondeterministic, randomized selection, as we have done in a conference
+non-deterministic, randomized selection, as we have done in a conference
 version of this paper, however we eliminate the possibility of the
 results being affected by random seeds. It also makes a theoretical
 analysis more convenient in the later section.
@@ -176,10 +176,10 @@ or Partial Order Reduction \cite{hall2013faster,wehrle2013relative}.
 While these methods are most often described as ``pruning techniques'',
 it can be rephrased as ``removing the cardinality bias to particular set
 of nodes which share the same characteristics'' because they both aim to
-prune the redundant nodes. Note that redunduncy causes a biased 
+prune the redundant nodes. Note that redundancy causes a biased 
 search effort. For example, imagine we have a
 set of nodes $S=\{a_1, a_2, a_3, a_4, b, c, d\}$ where
-$A=\{a_1, a_2, a_3, a_4\}$ are ``redundunt'' in some measure (e.g. by Symmetry,
+$A=\{a_1, a_2, a_3, a_4\}$ are ``redundant'' in some measure (e.g. by Symmetry,
 Partial-Order). 
 If a search algorithm expands $S$ by random selection, it favors the
 group $A$ by giving a 4 times larger chance of expansion than $b$,
@@ -259,14 +259,14 @@ iteration (when depth 0 becomes empty).
 
 % $D-d$th expansion in the $D$th iteration expands the depth $d$.
 At the end of $D$th iteration,
-each depth $d-1$ is expanded $D-(d-1)$ times in the preceeding $D$ iterations.
+each depth $d-1$ is expanded $D-(d-1)$ times in the preceding $D$ iterations.
 Therefore, the total number of nodes that have been in depth $d$, including those
 that have been expanded so far, is $w(D-d+1)$.
 Expansion has happened $D(D-1)$ times in total, and depth $d$ is expanded $D-d$ times.
 Thus, the probability of expanding each node in depth $d$ is
 $\frac{D-d}{D(D-1)\cdot w(D-d+1)}=\frac{1}{wD(D-1)}(1-\frac{1}{D-d+1})$.  \qed
 
-Notice that $\frac{1}{D-d+1}$ is negligeble if $D \gg d$.
+Notice that $\frac{1}{D-d+1}$ is negligible if $D \gg d$.
 Thus, after enough number of iterations (large $D$), the nodes are 
 expanded in an approximately equal probability $\frac{1}{wD(D-1)}$ in the shallower region, and is
 unaffected by the depth of the node.

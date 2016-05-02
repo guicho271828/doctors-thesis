@@ -18,17 +18,17 @@ increase makespan \cite{benton2010g}. Such actions cause so-called
 sequential planning.  They implemented an inadmissible heuristic
 function combined with distance-to-go estimates on top of
 Temporal Fast Downward system.  As stated, their method is not
-applicable to the optimising search.
+applicable to the optimizing search.
  
 % ,wilt2011cost
-Similarly, in sequencial satisficing planning,
+Similarly, in sequential satisficing planning,
 \shortciteauthor{cushing2010cost} showed that
 (non-admissibly) treating all actions as unit cost sometimes finds an
 optimal plan quickly \cite{cushing2010cost}.
 Although it could find an optimal plan by chance, this does not
 guarantee the optimality of the solution.
  
-Also, a \sota satisficing planner FD/LAMA2011 incorpolates
+Also, a \sota satisficing planner FD/LAMA2011 incorporates
 distance-to-go estimates in its iterated search framework. The first
 iteration of LAMA uses distance-to-go estimates combined with various
 satisficing search enhancements.
@@ -41,7 +41,7 @@ there is still a possibility to use the same techniques for optimal search.
 Let us call a sorting strategy as an \emph{admissible sorting strategy}
 when the best first search using the strategy is guaranteed to return an
 optimal solution. Although this
-is trivial, a sorting strategy is admisible if and only if the 
+is trivial, a sorting strategy is admissible if and only if the 
 first sorting criteria $f$ uses an ordinary
 admissible heuristics. 
 This means that the optimality of the solution is not affected by the
@@ -130,10 +130,10 @@ Therefore, the best result using \lmcut was
 $[f,h,\depth,\lifo]$ which uses depth and does not impose the cost of
 additional heuristics, and the best result using \mands
 was $[f,h,\lifo]$ which impose the least overhead on the fast expansion offered by
-\mands heursitics.
+\mands heuristics.
 However, 
 zerocost domains in this standard benchmark set (Openstacks and
-Cybersec) has each shown a significant speedup achieved by these distance-to-go estiamtes
+Cybersec) has each shown a significant speedup achieved by these distance-to-go estimates
  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
 
 The performance degradation in the positive cost domains are not
@@ -181,7 +181,7 @@ such an inadmissible heuristics is also effective.
  \setlength{\tabcolsep}{0.1em}
  \input{tables/8-zero-lmcut}
  \caption{
- Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the mininum coverage exceeds 2.
+ Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2.
  }
  \label{tbl:dtg-lmcut-zero}
  }
@@ -192,7 +192,7 @@ such an inadmissible heuristics is also effective.
  \setlength{\tabcolsep}{0.1em}
  \input{tables/8-zero-mands}
  \caption{
- Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the mininum coverage exceeds 2.
+ Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2.
  }
  \label{tbl:dtg-mands-zero}
  }
@@ -204,7 +204,7 @@ such an inadmissible heuristics is also effective.
  \setlength{\tabcolsep}{0.1em}
  \input{tables/8-ipc-lmcut}
  \caption{
- Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the best results when the difference between the maximum and the mininum coverage exceeds 2.
+ Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2.
  }
  \label{tbl:dtg-lmcut-ipc}
  }
@@ -215,7 +215,7 @@ such an inadmissible heuristics is also effective.
  \setlength{\tabcolsep}{0.1em}
  \input{tables/8-ipc-mands}
  \caption{
- Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the best results when the difference between the maximum and the mininum coverage exceeds 2.
+ Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2.
  }
  \label{tbl:dtg-mands-ipc} }
 \end{table}

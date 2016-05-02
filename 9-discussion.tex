@@ -3,18 +3,18 @@
 \label{sec:discussion}
 
 One observation that can be made from the experiments in the previous
-sections is that \textbf{optimising search can be seen as a series of
+sections is that \textbf{optimizing search can be seen as a series of
 cooperative satisficing searches in the plateaus of an increasing order
 of $f$}.
 
 Similar concept is common in SAT/IP/CP model-based sequential / temporal
 planning, except they are not ``cooperative''. In model-based
-planning, a planning problem is converted to a correspoinding constraint
+planning, a planning problem is converted to a corresponding constraint
 satisfaction problem with a finite horizon $t$ (plan length /
 makespan). The search starts from the horizon 0
 and tests if the problem is satisfiable. If not, then it increases the
 horizon and retests the same problem with additional constraints for
-horizon $t+1$. In the optimising forward heuristic search such as
+horizon $t+1$. In the optimizing forward heuristic search such as
 \astar, the concept of horizon corresponds to the $f$ value, which is a
 lower bound of the problem being solved.
 
@@ -30,7 +30,7 @@ underlying CSP solvers are forced to start the search from the scratch.
 Our notion of \emph{admissible sorting criteria} dictates that, the
 search within the same $f$ plateau can be a satisfiable search. In fact,
 if we focus on the second or later sorting criteria in the standard criteria
-$[f,h,\fifo]$ for optimising search, i.e. $[f,h,\fifo] \rightarrow [h,\fifo]$, this is exactly
+$[f,h,\fifo]$ for optimizing search, i.e. $[f,h,\fifo] \rightarrow [h,\fifo]$, this is exactly
 the same configuration as a GBFS using \fifo last-resort tiebreaking. It
 means that within the plateau of the same $f$, $[f,h,\fifo]$ is
 performing a satisficing GBFS.
@@ -53,7 +53,7 @@ exploration in Type-GBFS \cite{xie14type}.
 
 The new view can also yield another observation if we use the same logic
 in an opposite direction: We import techniques not only from satisficing
-to optimising, but also from optimising to satisficing.
+to optimizing, but also from optimizing to satisficing.
 In the experiments, we showed that the depth improved the distance-to-go \ff heuristic $\ffo$
 used for \textbf{satisficing search within a plateau}. A natural extension
 to this idea is that the depth metric can also enhance the performance of
@@ -148,10 +148,10 @@ increasing the size of a plateau.
 %  \label{tbl:lama}
 % \end{table}
 
-In the past, optimising search
+In the past, optimizing search
 techniques and satisficing search
 techniques used to be
-developped rather separately. However,
+developed rather separately. However,
 these results open up a new opportunity to break the boundary between
 optimal search and satisficing search. In fact, inspired by the new
 view that \textbf{optimal search is a sequence of satisficing
