@@ -7,10 +7,23 @@ In this paper, we investigate and improve tiebreaking strategies for
  nodes.  We find that tiebreaking has a significant impact on search
  algorithm performance when there are zero-cost operators that induce
  large plateau regions in the search space. With this in mind, we
- develop a new kind of tiebreaking based on a depth metric which
+ develop two new kinds of tiebreaking.
+ The first one is based on a depth metric which
  measures the distance from the entrance to the plateau, and propose a
  new, diversifying strategy which significantly outperforms standard
  strategies on domains with zero-cost actions.
+ We give both a theoretical analysis and an empirical analysis
+ supporting this.
+ Another one is a multi-heuristic strategy
+ based on the inadmissible distance-to-go variations of admissible or
+ inadmissible heuristics. It is shown to further improve the performance
+ in combination with the depth metric.
+ Finally, we open a new interpretation to the optimal search by 
+ pointing out that the multi-heuristic strategy is a rare attempt to apply a satisficing
+ technique to optimal search.
+ This new interpretation is additionally supported by
+ the empirical results of the satisficing search using GBFS
+ enhanced by the depth diversification.
  % 
  \textbf{Note to Reviewers: This paper is a significantly extended
 version of the AAAI-16 paper by the same authors. Additions are
