@@ -7,7 +7,7 @@
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 24.3.1 (Org mode 8.3.4)
 
-#+ATTR_LATEX: :align |rHHHHHHHHHHHHcccHHH|cccHHH|
+#+ATTR_LATEX: :align |r|*{4}{ccc|}
 | Domain                 |         $[f,\fifo]$ | $[f,\lifo]$ | $[f,\ro]$       | $[f,\depth,\fifo]$ | $[f,\depth,\lifo]$ | $[f,\depth,\ro]$ | $[f,h,\fifo]$ | $[f,h,\lifo]$ | $[f,h,\ro]$     | $[f,h,\depth,\fifo]$ | $[f,h,\depth,\lifo]$ | $[f,h,\depth,\ro]$ |
 | Zerocost (620)         |                 212 |         281 | 222.9 $\pm$ 1.5 |                271 |                261 | 280.2 $\pm$ 2.4  |           256 |           279 | 261.9 $\pm$ 1.4 |                  284 |                  264 | 288.1 $\pm$ 1.6    |
 | airport-fuel(20)       |                   7 |          15 | 7 $\pm$ 0       |                 10 |                 13 | 10.2 $\pm$ 0.4   |            15 |            13 | 13.8 $\pm$ 0.4  |                   14 |                   13 | 14 $\pm$ 0.5       |

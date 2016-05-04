@@ -7,7 +7,7 @@
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 24.3.1 (Org mode 8.3.4)
 
-# #+ATTR_LATEX: :align |r|Ec|rcl|
+#+ATTR_LATEX: :align |r|*{4}{ccc|}
 | Domain                    | $[f,\ffo,\fifo]$ | $[f,\ffo,\lifo]$ | $[f,\ffo,\ro]$  | $[f,\ffo,\depth,\fifo]$ | $[f,\ffo,\depth,\lifo]$ | $[f,\ffo,\depth,\ro]$ | $[f,h,\hh,\fifo]$ | $[f,h,\hh,\lifo]$ | $[f,h,\hh,\ro]$ | $[f,\hh,\fifo]$ | $[f,\hh,\lifo]$ | $[f,\hh,\ro]$  |
 | IPC benchmark (1104)      |              564 |              562 | 563.7 $\pm$ 1.4 |                     563 |                     560 | 561.9 $\pm$ 1.4       |               536 |               535 | 534.7 $\pm$ 1.5 |             534 |             534 | 534 $\pm$ 2.1  |
 | airport(50)               |               25 |               24 | 24.8 $\pm$ 0.4  |                      25 |                      24 | 24.6 $\pm$ 0.5        |                24 |                24 | 23.8 $\pm$ 0.4  |              24 |              25 | 23.9 $\pm$ 0.6 |
