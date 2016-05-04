@@ -7,25 +7,26 @@
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 24.3.1 (Org mode 8.3.4)
 
-#+ATTR_LATEX: :align |lc|cr|
-|                          | $[f,h,\fifo]$ | $[f,h,\fifo]$ |                        |
-| depot(22)                |             6 |             5 | depot-fuel(22)         |
-| driverlog(20)            |            12 |             9 | driverlog-fuel(20)     |
-| elevators-opt11(20)      |            13 |             8 | elevators-up(20)       |
-| floortile-opt11(20)      |             6 |             8 | floortile-ink(20)      |
-| grid(5)                  |             2 |             2 | grid-fuel(5)           |
-| gripper(20)              |            20 |            20 | gripper-move(20)       |
-| logistics00(28)          |            20 |            16 | logistics00-fuel(28)   |
-| mprime(35)               |            23 |            21 | mprime-succumb(35)     |
-| nomystery-opt11(20)      |            18 |            16 | nomystery-fuel(20)     |
-| parking-opt11(20)        |             1 |             0 | parking-movecc(20)     |
-| pathways(30)             |             4 |             4 | pathways-fuel(30)      |
-| rovers(40)               |             8 |             8 | rovers-fuel(40)        |
-| scanalyzer-opt11(20)     |            10 |            11 | scanalyzer-analyze(20) |
-| sokoban-opt11(20)        |            20 |            19 | sokoban-pushgoal(20)   |
-| storage(30)              |            15 |             4 | storage-lift(20)       |
-| tidybot-opt11(20)        |             0 |             0 | tidybot-motion(20)     |
-| tpp(30)                  |             7 |             9 | tpp-fuel(30)           |
-| woodworking-opt11(20)    |             7 |             7 | woodworking-cut(20)    |
-| zenotravel(20)           |            12 |            10 | zenotravel-fuel(20)    |
+#+ATTR_LATEX: :align |lc|ccr|
+|                       | $[f,h,\fifo]$ | $[f,h,\fifo]$ | (difference) |                        |
+| depot(22)             |             6 |             5 | (+1)         | depot-fuel(22)         |
+| driverlog(20)         |            12 |             9 | (+3)         | driverlog-fuel(20)     |
+| elevators-opt11(20)   |            13 |             8 | (+5)         | elevators-up(20)       |
+| floortile-opt11(20)   |             6 |             8 | (-2)         | floortile-ink(20)      |
+| grid(5)               |             2 |             2 |              | grid-fuel(5)           |
+| gripper(20)           |            20 |            20 |              | gripper-move(20)       |
+| logistics00(28)       |            20 |            16 | (+4)         | logistics00-fuel(28)   |
+| mprime(35)            |            23 |            21 | (+2)         | mprime-succumb(35)     |
+| nomystery-opt11(20)   |            18 |            16 | (+2)         | nomystery-fuel(20)     |
+| parking-opt11(20)     |             1 |             0 | (+1)         | parking-movecc(20)     |
+| pathways(30)          |             4 |             4 |              | pathways-fuel(30)      |
+| rovers(40)            |             8 |             8 |              | rovers-fuel(40)        |
+| scanalyzer-opt11(20)  |            10 |            11 | (-1)         | scanalyzer-analyze(20) |
+| sokoban-opt11(20)     |            20 |            19 | (+1)         | sokoban-pushgoal(20)   |
+| storage(30)           |            15 |             4 | (+11)        | storage-lift(20)       |
+| tidybot-opt11(20)     |             0 |             0 |              | tidybot-motion(20)     |
+| tpp(30)               |             7 |             9 | (-2)         | tpp-fuel(30)           |
+| woodworking-opt11(20) |             7 |             7 |              | woodworking-cut(20)    |
+| zenotravel(20)        |            12 |            10 | (+2)         | zenotravel-fuel(20)    |
+#+TBLFM: $4=$-2-$-1
 
