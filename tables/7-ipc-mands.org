@@ -9,7 +9,7 @@
 
 #+ATTR_LATEX: :align |r|*{4}{ccc|}
 | Domain                   | \rb{$[f,h,\fifo]$} | \rb{$[f,h,\lifo]$} | \rb{$[f,h,\ro]$} | \rb{$[f,h,\depth,\fifo]$} | \rb{$[f,h,\depth,\lifo]$} | \rb{$[f,h,\depth,\ro]$} |
-| IPC benchmark (1104)     |                491 |                496 | 489.4 $\pm$ 1.0  |                       487 |                       487 | 485.6 $\pm$ 1.5         |
+| IPC benchmark (1104)     |                491 |              *496* | 489.4 $\pm$ 1.0  |                       487 |                       487 | 485.6 $\pm$ 1.5         |
 | airport(50)              |                  9 |                  9 | 9 $\pm$ 0        |                         9 |                         9 | 9 $\pm$ 0               |
 | barman-opt11(20)         |                  4 |                  4 | 4 $\pm$ 0        |                         4 |                         4 | 4 $\pm$ 0               |
 | blocks(35)               |                 22 |                 22 | 22 $\pm$ 0       |                        22 |                        21 | 21.9 $\pm$ 0.3          |
@@ -27,7 +27,7 @@
 | mprime(35)               |                 23 |                 24 | 23.7 $\pm$ 0.5   |                        23 |                        24 | 23.4 $\pm$ 0.5          |
 | mystery(30)              |                 15 |                 16 | 15 $\pm$ 0       |                        15 |                        16 | 15 $\pm$ 0              |
 | nomystery-opt11(20)      |                 18 |                 18 | 18 $\pm$ 0       |                        18 |                        18 | 18 $\pm$ 0              |
-| *openstacks-opt11(20)*   |                 15 |                 19 | 15.4 $\pm$ 0.5   |                        19 |                        19 | 19 $\pm$ 0              |
+| *openstacks-opt11(20)*   |                 15 |               *19* | 15.4 $\pm$ 0.5   |                      *19* |                      *19* | *19* $\pm$ 0            |
 | parcprinter-opt11(20)    |                 10 |                 10 | 10 $\pm$ 0       |                        10 |                        10 | 10 $\pm$ 0              |
 | parking-opt11(20)        |                  1 |                  1 | 1 $\pm$ 0        |                         1 |                         1 | 1 $\pm$ 0               |
 | pathways(30)             |                  4 |                  4 | 4 $\pm$ 0        |                         4 |                         4 | 4 $\pm$ 0               |
@@ -44,4 +44,4 @@
 | transport-opt11(20)      |                  7 |                  7 | 7 $\pm$ 0        |                         6 |                         6 | 6 $\pm$ 0               |
 | visitall-opt11(20)       |                  9 |                  9 | 9 $\pm$ 0        |                         9 |                         9 | 9 $\pm$ 0               |
 | woodworking-opt11(20)    |                  7 |                  7 | 7 $\pm$ 0        |                         7 |                         7 | 7 $\pm$ 0               |
-| zenotravel(20)           |                 12 |                 12 | 12 $\pm$ 0       |                        10 |                        10 | 10.1 $\pm$ 0.3          |
+| zenotravel(20)           |               *12* |               *12* | *12* $\pm$ 0     |                        10 |                        10 | 10.1 $\pm$ 0.3          |
