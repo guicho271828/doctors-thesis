@@ -1,4 +1,81 @@
 
+* domains
+
+** benchmark
+
+| Domain                    |
+| IPC benchmark (1104)      |
+| airport(50)               |
+| barman-opt11(20)          |
+| blocks(35)                |
+| *cybersec(19)*            |
+| depot(22)                 |
+| driverlog(20)             |
+| elevators-opt11(20)       |
+| floortile-opt11(20)       |
+| freecell(80)              |
+| grid(5)                   |
+| gripper(20)               |
+| hanoi(30)                 |
+| logistics00(28)           |
+| miconic(150)              |
+| mprime(35)                |
+| mystery(30)               |
+| nomystery-opt11(20)       |
+| *openstacks-opt11(20)*    |
+| parcprinter-opt11(20)     |
+| parking-opt11(20)         |
+| pathways(30)              |
+| pegsol-opt11(20)          |
+| pipesworld-notankage(50)  |
+| pipesworld-tankage(50)    |
+| psr-small(50)             |
+| rovers(40)                |
+| scanalyzer-opt11(20)      |
+| sokoban-opt11(20)         |
+| storage(30)               |
+| tidybot-opt11(20)         |
+| tpp(30)                   |
+| transport-opt11(20)       |
+| visitall-opt11(20)        |
+| woodworking-opt11(20)     |
+| zenotravel(20)            |
+
+** zerocost
+
+| Domain                 |
+| Zerocost (620)         |
+| airport-fuel(20)       |
+| blocks-stack(20)       |
+| depot-fuel(22)         |
+| driverlog-fuel(20)     |
+| elevators-up(20)       |
+| floortile-ink(20)      |
+| freecell-move(20)      |
+|                        |
+| grid-fuel(5)           |
+| gripper-move(20)       |
+| hiking-fuel(20)        |
+| logistics00-fuel(28)   |
+| miconic-up(30)         |
+| mprime-succumb(35)     |
+| mystery-feast(20)      |
+| nomystery-fuel(20)     |
+| parking-movecc(20)     |
+| pathways-fuel(30)      |
+| pipesnt-pushstart(20)  |
+| pipesworld-pushend(20) |
+| psr-small-open(20)     |
+| rovers-fuel(40)        |
+| scanalyzer-analyze(20) |
+| sokoban-pushgoal(20)   |
+| storage-lift(20)       |
+| tidybot-motion(20)     |
+| tpp-fuel(30)           |
+| woodworking-cut(20)    |
+| zenotravel-fuel(20)    |
+
+
 * single heuristics
 
 ** benchmark
