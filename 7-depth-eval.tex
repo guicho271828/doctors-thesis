@@ -216,9 +216,9 @@ Openstacks and Cybersec domains.
 The result in Openstacks was similar to those of the zerocost domains.
 In Cybersec,
 % while the depth has improved the overall performance,
-we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because it was small\footnote{This does not contradict to the results in \refig{fig:plateau} because \refig{fig:plateau} uses a modified Fast Downward which continues the search until expanding all nodes in the final plateau, while in this experiment the planner immediately stops the search after the first solution. These figures have the different experimental purpose: \refig{fig:plateau} was intended to show the size of the entire final plateau, while \refig{fig:depth-histogram} to \refig{fig:depth-histogram4} was meant to show the actual search behavior. If we were to continue the search after the first solution, all tiebreaking strategies should result in the same figure.} according to the plot.
-Instead, we observed a large difference in the depth distribution in $\plateau{f^*,1}$ caused by the difference of tiebreaking, which shows that the depth can also enhance the search in non-final plateaus to find the nodes in the next plateau.
-Similar phenomena were observed in several domains (which are included in the figure).
+we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because it was small\footnote{This does not contradict to the results in \refig{fig:plateau} because \refig{fig:plateau} uses a modified Fast Downward which continues the search until expanding all nodes in the final plateau, while in this experiment the planner immediately stops the search after the first solution. These figures have the different experimental purpose: \refig{fig:plateau} was intended to show the size of the entire final plateau, while \refig{fig:depth-histogram} to \refig{fig:depth-histogram4} was meant to show the actual search behavior. If we were to continue the search after the first solution, all tiebreaking strategies should result in the same figure because they expands the same set of nodes.} according to the plot.
+Instead, we observed a large difference in the depth distribution in $\plateau{f^*,1}$ caused by the difference of tiebreaking (\refig{fig:depth-histogram5}), which shows that the depth can also enhance the search in non-final plateaus to find the nodes in the next plateau.
+Similar phenomena were observed in several domains (which are included in \refig{fig:depth-histogram5}).
 
 
 \begin{figure}[htbp]
@@ -264,43 +264,16 @@ Similar phenomena were observed in several domains (which are included in the fi
 \begin{figure}[htbp]
 \includegraphics{img/depth/openstacks-opt11-strips/p07.pdf}
 \includegraphics{img/depth/cybersec/p11.pdf}
-\begin{center}
-$\downarrow$ Plotting $\plateau{f^*,1}$ $\downarrow$
-\end{center}
+ \caption{(Page 4/4) Depth distribution in the final plateau ($\plateau{f^*,0}$).}
+ \label{fig:depth-histogram4}
+\end{figure}
+
+\begin{figure}[htbp]
 \includegraphics{img/depth1/cybersec/p11.pdf}
 \includegraphics{img/depth1/depot-fuel/p07.pdf}
 \includegraphics{img/depth1/driverlog-fuel/p04.pdf}
 \includegraphics{img/depth1/zenotravel-fuel/p07.pdf}
- \caption{(Page 4/4) Depth distribution in
- the final plateau ($\plateau{f^*,0}$) and a non-final plateau ($\plateau{f^*,1}$).
- }
- \label{fig:depth-histogram4}
+ \caption{Depth distribution in a non-final plateau ($\plateau{f^*,1}$).}
+ \label{fig:depth-histogram5}
 \end{figure}
-
-% \begin{figure}[htbp]
-% \includegraphics{img/depth1/cybersec/p11.pdf}
-% \includegraphics{img/depth1/depot-fuel/p07.pdf}
-% \includegraphics{img/depth1/driverlog-fuel/p04.pdf}
-% % \includegraphics{img/depth1/elevators-up/p09.pdf}
-% % \includegraphics{img/depth1/freecell-move/p04.pdf}
-% % \includegraphics{img/depth1/gripper-move/p07.pdf}
-% % \includegraphics{img/depth1/logistics00-fuel/p016.pdf}
-% % \includegraphics{img/depth1/miconic-up/p79.pdf}
-% % \includegraphics{img/depth1/pathways-fuel/p03.pdf}
-% % \includegraphics{img/depth1/pipesnt-pushstart/p06.pdf}
-% % \includegraphics{img/depth1/pipesworld-pushend/p06.pdf}
-% % \includegraphics{img/depth1/psr-small-open/p46.pdf}
-% % \includegraphics{img/depth1/rovers-fuel/p07.pdf}
-% % \includegraphics{img/depth1/scanalyzer-analyze/p04.pdf}
-% % \includegraphics{img/depth1/storage-lift/p11.pdf}
-% % \includegraphics{img/depth1/tidybot-motion/p16.pdf}
-% % \includegraphics{img/depth1/tpp-fuel/p08.pdf}
-% % \includegraphics{img/depth1/woodworking-cut/p04.pdf}
-% \includegraphics{img/depth1/zenotravel-fuel/p07.pdf}
-% % \includegraphics{img/depth1/openstacks-opt11-strips/p07.pdf}
-%  \caption{(Page 4/4) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
-%  $\plateau{f^*,1}$ with different tiebreakings. Both axes are in logarithmic scale.
-%  }
-%  \label{fig:depth-histogram-h1-1}
-% \end{figure}
 
