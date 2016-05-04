@@ -66,24 +66,35 @@ evaluate an order of magnitude larger number of nodes
 compared to \lmcut heuristics. Thus, even the slightest overhead caused
 by the management of depth buckets has affected the performance.
 
-\begin{table}[htb]
+\begin{table}[htbp]
  \centering
- \begin{tabular}{cccc}
-  nodes/sec                  & LMcut      & M\&S       & M\&S slowdown\\
-  \hline
-  $[f,h,\lifo]$              & 8.86$\times 10^3$ & 1.37$\times 10^5$ & 100\%\\
-  $[f,h,\depth,\lifo]$ & 9.37$\times 10^3$ & 1.13$\times 10^5$ & 82\%\\
-  \hline
-  $[f,h,\fifo]$              & 9.65$\times 10^3$ & 1.41$\times 10^5$ & 100\%\\
-  $[f,h,\depth,\fifo]$ & 9.62$\times 10^3$ & 1.24$\times 10^5$ & 87\%\\
-  \hline
- \end{tabular}
- \caption{Comparison of the average node expansion ratio (node/sec) between
- standard tiebreaking and depth-based tiebreaking on \lmcut and \mands
- heuristics. Numbers are averaged over the problem instances solved by
- all 4 configurations. Since the node evaluation of \mands is an order of
- magnitude faster than \lmcut, the overhead of managing depth-based
- tiebreaking queue is non-negligible on \mands.}
+ % \begin{tabular}{cccc}
+ %  nodes/sec                  & LMcut      & M\&S       & M\&S slowdown\\
+ %  \hline
+ %  $[f,h,\lifo]$              & 8.86$\times 10^3$ & 1.37$\times 10^5$ & 100\%\\
+ %  $[f,h,\depth,\lifo]$ & 9.37$\times 10^3$ & 1.13$\times 10^5$ & 82\%\\
+ %  \hline
+ %  $[f,h,\fifo]$              & 9.65$\times 10^3$ & 1.41$\times 10^5$ & 100\%\\
+ %  $[f,h,\depth,\fifo]$ & 9.62$\times 10^3$ & 1.24$\times 10^5$ & 87\%\\
+ %  \hline
+ % \end{tabular}
+ % \caption{Comparison of the average node expansion ratio (node/sec) between
+ % standard tiebreaking and depth-based tiebreaking on \lmcut and \mands
+ % heuristics. Numbers are averaged over the problem instances solved by
+ % all 4 configurations. Since the node evaluation of \mands is an order of
+ % magnitude faster than \lmcut, the overhead of managing depth-based
+ % tiebreaking queue is non-negligible on \mands.}
+ \includegraphics{img/node-sec/lmhiF-lmh_F.pdf}
+ % \includegraphics{img/node-sec/lmhiL-lmh_L.pdf}
+ \includegraphics{img/node-sec/mnhiF-mnh_F.pdf}
+ % \includegraphics{img/node-sec/mnhiL-mnh_L.pdf}
+ % 
+ \caption{Comparison of the node evaluation ratio (node/sec) between standard tiebreaking ($y$-axis) and
+ depth-based tiebreaking ($x$-axis) on \lmcut and \mands heuristics. On \mands, node evaluation rate often becomes
+ twice as slower due to depth-based tiebreaking. This is because the node evaluation of \mands is an order of
+ magnitude faster than \lmcut, and the overhead of managing depth-based tiebreaking queue is non-negligible on
+ \mands. }
+ % 
  \label{tbl:expansion-ratio}
 \end{table}
 
