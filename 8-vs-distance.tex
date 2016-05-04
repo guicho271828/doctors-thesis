@@ -126,7 +126,9 @@ better robustness (smaller variance: $2.1\rightarrow 1.3$).
 
 In standard IPC benchmark instances, the cost of additional computation of
 $\hat{h}$ or $\ffo$ tends to harm the overall performance.
-Therefore, the best result using \lmcut was
+% The only domains consistently enhanced by distance-to-go estimates are \pddl{mprime} using \lmcut,
+% \pddl{parcprinter-opt11} using \mands and \pddl{woodworking-opt11} using \mands. Moreover, their improvements are small.
+Therefore, the best overall configuration using \lmcut was
 $[f,h,\depth,\lifo]$ which uses depth and does not impose the cost of
 additional heuristics, and the best result using \mands
 was $[f,h,\lifo]$ which impose the least overhead on the fast expansion offered by
@@ -182,7 +184,7 @@ such an inadmissible heuristics is also effective.
  \centering
  \input{tables/8-zero-lmcut}
  \caption{
- Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2.
+ Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:lmcut-zerocost-full}}.
  }
  \label{tbl:dtg-lmcut-zero}
  }
@@ -192,7 +194,7 @@ such an inadmissible heuristics is also effective.
  \centering
  \input{tables/8-zero-mands}
  \caption{
- Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2.
+ Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:mands-zerocost-full}}.
  }
  \label{tbl:dtg-mands-zero}
  }
