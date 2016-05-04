@@ -55,22 +55,6 @@ are unaffected by depth-based tiebreaking.  Thus, our method offers a
 better performance in the domains of interest for free, i.e. without
 losing performance in other domains.
 
-\begin{table}[htbp]
- {
- \centering
- \setlength{\tabcolsep}{0.1em}
- \input{tables/7-ipc-lmcut}
- % \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
- \caption{
- Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
- heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
- best results when the difference between the maximum and the minimum coverage exceeds 2.
- }
- \label{tbl:lmcut-ipc-full}
- }
-\end{table}
-
-
 \reftbl{tbl:mands-ipc-full} shows the results by \mands heuristics on \textbf{1104 standard
 IPC benchmark instances}.
 In this configuration, depth-based tiebreaking negatively affects the performance.
@@ -101,6 +85,21 @@ by the management of depth buckets has affected the performance.
  magnitude faster than \lmcut, the overhead of managing depth-based
  tiebreaking queue is non-negligible on \mands.}
  \label{tbl:expansion-ratio}
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \setlength{\tabcolsep}{0.1em}
+ \input{tables/7-ipc-lmcut}
+ % \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-depth.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-ipc-full}
+ }
 \end{table}
 
 \begin{table}[htbp]
@@ -177,6 +176,8 @@ vs 303). Also, \ro (random order) outperforms both \fifo and \lifo.
  \label{tbl:mands-zerocost-full}
  }
 \end{table}
+
+\clearpage
 
 \subsection{Search Behavior Within a Plateau}
 
