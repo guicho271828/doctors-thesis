@@ -8,7 +8,7 @@
 #+CREATOR: Emacs 24.3.1 (Org mode 8.3.4)
 
 #+ATTR_LATEX: :align |lc|cr|
-| Domain                | $[f,h,\fifo]$ | $[f,h,\fifo]$ | Domain                 |
+|                       | $[f,h,\fifo]$ | $[f,h,\fifo]$ |                        |
 | depot(22)             |             6 |             6 | depot-fuel(22)         |
 | driverlog(20)         |            13 |             8 | driverlog-fuel(20)     |
 | elevators-opt11(20)   |            15 |             7 | elevators-up(20)       |
@@ -23,6 +23,7 @@
 | rovers(40)            |             7 |             8 | rovers-fuel(40)        |
 | scanalyzer-opt11(20)  |            10 |             9 | scanalyzer-analyze(20) |
 | sokoban-opt11(20)     |            19 |            18 | sokoban-pushgoal(20)   |
+| storage(30)           |            14 |             4 | storage-lift(20)       |
 | tidybot-opt11(20)     |            12 |            16 | tidybot-motion(20)     |
 | tpp(30)               |             6 |             8 | tpp-fuel(30)           |
 | woodworking-opt11(20) |            10 |             5 | woodworking-cut(20)    |

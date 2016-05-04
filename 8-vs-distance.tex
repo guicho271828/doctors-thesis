@@ -54,9 +54,9 @@ Let $\hat{h}$ be a distance-to-go variation of an original heuristic function $h
 % Upon computing the estimates, $\hat{h}$ treats all
 % actions to have unit costs, while original heuristic function $h$ uses the
 % standard action cost.
-A multi-heuristic strategy such as $[g+h,h,\hat{h}]$ or $[g+h,\hat{h}]$
-are admissible when $h$ is admissible, because the first criteria $f=g+h$ is
-based on the normal action costs.
+Multi-heuristic sorting strategies such as $[g+h,h,\hat{h}]$ or $[g+h,\hat{h}]$
+are admissible when $h$ is admissible, because the first criteria $f=g+h$ uses
+an admissible heuristics based on the normal action costs.
 It is even possible to use any inadmissible heuristic function to break
 ties. For example, $[g+h^{\lmcut},\ffo]$ is an admissible sorting criteria
 because the first sorting criteria $f=g+h^{\lmcut}$ uses an admissible
@@ -113,16 +113,16 @@ comparison, we also show the results in the previous sections.
 Detailed per-domain results are shown in
 \reftbl{tbl:dtg-lmcut-zero}-\reftbl{tbl:dtg-mands-ipc}.
 
-In Zerocost domains, we see that $\hat{h}$-tiebreaking outperforms
-$h$-tiebreaking in both \lmcut and \mands. Also, combining $h$ and
-$\hat{h}$ can further improve the performance of \lmcut, while the
-results are comparable when the main heuristics function $h$ is \mands.
-Yet more surprisingly, using $\ffo$ results in an order of magnitude
-larger coverage in both \lmcut and \mands. Thus, when the depth metric
-is not used, the best configuration is those which uses $\ffo$.
-Finally, depth metric further improves the performance of this best
-non-depth configuration using $\ffo$.
-It happened in both cases of $h=h^\lmcut$ and $h=h^\mands$. 
+In Zerocost domains, we see that $\hat{h}$-tiebreaking outperforms $h$-tiebreaking in both \lmcut and \mands. Also,
+combining $h$ and $\hat{h}$ can further improve the performance of \lmcut, while the results are comparable when
+the main heuristics function $h$ is \mands.  Yet more surprisingly, using $\ffo$ results in an order of magnitude
+larger coverage in both \lmcut and \mands. Thus, when the depth metric is not used, the best configuration is those
+which uses $\ffo$.  Finally, depth metric further improves the performance of this best non-depth configuration
+using $\ffo$.  The coverage increased in both $h=h^\lmcut$ (\fifo: $337\rightarrow 340$, \lifo: $340\rightarrow
+342$, \ro: $341\rightarrow 344.3$) and $h=h^\mands$ (\fifo: $336\rightarrow 337$, \lifo: $331\rightarrow
+333$). When the last-resort tiebreaking was \ro and the heuristics is \mands, $[f,\ffo,\depth,\ro]$ did not improve
+over $[f,\ffo,\ro]$, but the coverage difference was small ($337.9\rightarrow 337.6$) and it shows a slightly
+better robustness (smaller variance: $2.1\rightarrow 1.3$).
 
 In standard IPC benchmark instances, the cost of additional computation of
 $\hat{h}$ or $\ffo$ tends to harm the overall performance.
@@ -131,10 +131,10 @@ $[f,h,\depth,\lifo]$ which uses depth and does not impose the cost of
 additional heuristics, and the best result using \mands
 was $[f,h,\lifo]$ which impose the least overhead on the fast expansion offered by
 \mands heuristics.
-However, 
-zerocost domains in this standard benchmark set (Openstacks and
-Cybersec) has each shown a significant speedup achieved by these distance-to-go estimates
- (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
+% However, 
+% zerocost domains in this standard benchmark set (Openstacks and
+% Cybersec) has each shown a significant speedup achieved by these distance-to-go estimates
+%  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
 
 The performance degradation in the positive cost domains are not
 critical at all because we can simply switch the behavior before the
@@ -175,10 +175,11 @@ such an inadmissible heuristics is also effective.
  \label{tbl:dtg-summary-sum}
 \end{table}
 
+\setlength{\tabcolsep}{0.1em}
+
 \begin{table}[htbp]
  {
  \centering
- \setlength{\tabcolsep}{0.1em}
  \input{tables/8-zero-lmcut}
  \caption{
  Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2.
@@ -189,7 +190,6 @@ such an inadmissible heuristics is also effective.
 \begin{table}[htbp]
  {
  \centering
- \setlength{\tabcolsep}{0.1em}
  \input{tables/8-zero-mands}
  \caption{
  Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2.
@@ -201,7 +201,6 @@ such an inadmissible heuristics is also effective.
 \begin{table}[htbp]
  {
  \centering
- \setlength{\tabcolsep}{0.1em}
  \input{tables/8-ipc-lmcut}
  \caption{
  Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2.
@@ -212,7 +211,6 @@ such an inadmissible heuristics is also effective.
 \begin{table}[htbp]
  {
  \centering
- \setlength{\tabcolsep}{0.1em}
  \input{tables/8-ipc-mands}
  \caption{
  Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2.
