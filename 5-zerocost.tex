@@ -53,7 +53,7 @@ assigning cost 0 to all actions except \pddl{drive-truck}.
 Similarly, for many practical applications, a natural objective is to
 optimize the usage of one key consumable resource, e.g., fuel/energy
 minimization.  In fact, two of the IPC domains, \pddl{Openstacks} and
-\pddl{Cybersec}, which were shown difficult for standard tiebreaking
+\pddl{Cybersec}, which were shown to be difficult for standard tiebreaking
 methods in the previous section, both contain many zero-cost actions,
 and \textbf{both are based on industrial applications}: \pddl{Openstacks} models
 production planning \cite{fink1999applications} and \pddl{Cybersec}
@@ -62,7 +62,7 @@ data transfer, etc.]{boddy2005course}.
 
 Therefore, in this paper, we modified various domains
 into cost minimization domains with many zero-cost actions.
-Specifically, a domain is modified so that all action schemas are assigned
+Specifically, a domain is modified so that all action schema are assigned
 cost 0 except for a few (usually one) action schema which consumes some key resource.
 The last word in the names of these domains indicate the action which is
 assigned non-zero cost, e.g., \pddl{elevator-up} is a modified elevator
@@ -103,16 +103,16 @@ We first tested if these new domains actually poses a new type of challenge to t
 standard tiebreaking strategies. Results using \lmcut and \mands
 heuristics are shown in \reftbl{tbl:lmcut-zerocost-std} and
 \reftbl{tbl:mands-zerocost-std}, respectively. In each table, the left
-side shows the results in the original domains, and the left hand side
+hand side shows the results in the original domains, and the left hand side
 shows the zerocost versions of the domains modified from the same
-instances in the left hand side. We did not included the domains whose
-number of instances differ to each other.
+instances in the right hand side. We did not include the domains whose
+number of instances differ from each other.
 
 In both \lmcut and \mands heuristics, we observed a significant
 performance difference between the original IPC domains and the zerocost
 domains. With \lmcut, the coverage in zerocost domains
-was lower in 10 domains, while more instances were solved
-in 5 domains. With \mands, the coverage in zerocost domains was lower in 7 domains, while
+was lower in 11 domains, while more instances were solved
+in 5 domains. With \mands, the coverage in zerocost domains was lower in 10 domains, while
 more instances were solved in 3 domains.
 
 Also, \refig{fig:plateau-zerocost} plots the size of the final plateau of the
