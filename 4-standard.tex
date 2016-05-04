@@ -38,8 +38,21 @@ $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
 \begin{table}[htbp]
  {
  \centering
- \input{tables/4-1-standard-benchmark-lmcut.tex}
- % \input{tables/aaai16-robustnesscheck/aaai16prelim3/1-ff-lf-only.tex}
+ \input{tables/4-1-summary.tex}
+ \caption{
+ Summary results: Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
+ heuristics) between
+ the standard baseline tiebreaking algorithms. 
+ }
+ \label{tbl:lmcut-ipc-std}
+ }
+\end{table}
+
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/4-ipc-lmcut.tex}
  \caption{
  Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
  heuristics) between
@@ -53,8 +66,7 @@ $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
 \begin{table}[htbp]
  {
  \centering
- \input{tables/4-2-standard-benchmark-mands.tex}
- % \input{tables/aaai16-robustnesscheck-mands/aaai16prelim3/1-ff-lf-only.tex}
+ \input{tables/4-ipc-mands.tex}
  \caption{
  Coverage comparison (the number of instances solved in 5min, 4GB, M\&S heuristics) between
  the standard baseline tiebreaking algorithms. We highlight the
