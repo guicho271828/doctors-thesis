@@ -8,7 +8,8 @@
 #+CREATOR: Emacs 24.3.1 (Org mode 8.3.4)
 
 #+ATTR_LATEX: :align |l|cc|
-| Sorting Criteria | \lmcut          | \mands          |
+| Sorting Criteria | IPC(1104)       | IPC(1104)       |
+|                  | \lmcut          | \mands          |
 |                  |                 |                 |
 | $[f,\fifo]$      | 443             | 460             |
 | $[f,\lifo]$      | 558             | 490             |
