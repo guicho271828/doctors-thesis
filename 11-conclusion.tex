@@ -1,11 +1,11 @@
 
 \section{Conclusion}
 
-In this paper, we investigated the tiebreaking strategies for optimizing search using A*. Our goal was to shed some
-light on the importance of the tiebreaking in the most popular best-first search algorithm. We sought various
-possible enhancements and achieved a significant performance improvement solely by the tiebreaking techniques.
-
-The contributions in this paper are the following:
+In this paper, we investigated the tiebreaking strategies for optimizing search using \astar.  Our design goals
+were (1) to shed some light on the importance of the tiebreaking in one of the most popular best-first search
+algorithms, and (2) to improve \astar without modifying its main heuristic function at all. We reached both of
+these goals successfully: We sought various possible enhancements and achieved a significant performance
+improvement solely by the tiebreaking techniques. In detail, the contributions in this paper are the following:
 
 \begin{enumerate}
  \item We showed that tiebreaking has a significant role in the optimal
@@ -16,11 +16,12 @@ The contributions in this paper are the following:
        provide guidance in the plateau when the instances have zero-cost
        actions and have large plateaus with regard to $h$.
        We empirically showed that most of the search effort is spent in
-       the final plateau with $f=f^*, h=0$. We pointed out that in such
+       the final plateau with $f=f^*, h=0$ in some domains. We pointed out that in such
        a plateau, search is controlled solely by the
        default tiebreaking \fifo, \lifo and \ro.
- \item We proposed and analyzed a new set of benchmark
-       instances for cost-optimal planing, called Zerocost domains.
+ \item We proposed and analyzed a new set of benchmark instances for cost-optimal planing, called Zerocost domains.
+       They tend to have larger final plateaus with $f=f^*, h=0$ and pose a new challenge to the traditional search
+       algorithms.
  \item As one solution to Zerocost domains, we proposed a depth metric
        which measures the distance from the entrance to the
        plateau. Using this metric, we described the pathological
@@ -33,13 +34,10 @@ The contributions in this paper are the following:
        heuristics. Although there is an additional cost to compute
        multiple heuristic values, the cost can be eliminated by a simple
        case-based configuration which checks for the zero-cost actions.
- \item We introduced a new view to optimal \astar search:
-       \textbf{optimizing search can be seen as a series of
-       satisficing search in the plateaus of an increasing order of
-       $f$}. This view introduces more opportunity to using the
-       satisficing techniques for optimal search and vice versa, as
-       shown in the preliminary results that depth metric increases the
-       performance of GBFS using various heuristics.
+ \item We introduced a new view to optimal \astar search: Optimizing search can be seen as a series of satisficing
+       search in the plateaus of an increasing order of $f$. This view introduces more opportunity to using the
+       satisficing techniques for optimal search and vice versa, as shown in the preliminary results that depth
+       metric increases the performance of GBFS using various heuristics.
 \end{enumerate}
 
 Future work expands the last view by introducing much more variety of
