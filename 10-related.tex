@@ -33,7 +33,7 @@ is the final plateau ($f=f^*$, $h=0$) and a solution is found. %it directly find
 % and the second heuristic is used to break ties among nodes with the same primary
 % heuristic value.
 % While this did not perform well in their work on satisficing planning, 
-% additional policy using a secondary heuristic
+% additional criterion using a secondary heuristic
 % for cost-optimal search is an interesting direction for future work.
 
 
@@ -55,7 +55,7 @@ Unlike PLUSONE, depth-based tiebreaking is admissible.
 Also, unlike PLUSONE, depth-based tiebreaking does not necessarily favor smaller depth over larger depth.
 LAMA prefers smaller cost (including the increased cost),
 which biases the search toward nodes with fewer zero-cost actions on their path.
-This bias is similar to the $[f,h,\fd,\ro]$ policy,
+This bias is similar to the $[f,h,\fd,\ro]$ strategy,
 the worst performer among all depth-variants in our experiments (\reftbl{depth}).
 The best depth-based methods are  $[f,h,\ld,\ro]$ and $[f,h,\rd,\ro]$,
 which do not prefer smaller depth.

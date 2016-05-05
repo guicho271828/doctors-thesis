@@ -70,8 +70,8 @@ $f^*$.
 
 Therefore, in those majority of IPC problem instances where the size of
 the last layer ($f(n)=f^*$) of search is huge, a
-\emph{tiebreaking policy} can have a significant impact on the
-performance of \astar. Tiebreaking policy is a policy 
+\emph{tiebreaking strategy} can have a significant impact on the
+performance of \astar. Tiebreaking strategy is a strategy 
 for selecting which node to expand among nodes with the same $f$-cost.
 It is widely believed that among nodes with the same $f$-cost,
 ties should be broken according to $h(n)$, i.e.,
@@ -85,11 +85,11 @@ tiebreaking strategies for \astar (\refsec{sec:eval-common-strategies}).
 We show that:
 
 \begin{enumerate}
- \item Last-In-First-Out (\lifo) policy tends to be more efficient
-       than a First-In-First-Out (\fifo) policy.
+ \item Last-In-First-Out (\lifo) criterion tends to be more efficient
+       than a First-In-First-Out (\fifo) criterion.
  \item Tiebreaking according to the heuristic value $h$, which
        frequently appears in the heuristic search literature, has little
-       impact on the performance as long as a \lifo policy is used.
+       impact on the performance as long as a \lifo criterion is used.
  \item There are significant performance differences among tiebreaking strategies
        when domains include zero-cost actions. This is true even when
        both of the \lifo and $h$-based tiebreaking are enabled.
@@ -155,7 +155,7 @@ the same authors. The addition to the conference paper is the following:
  \item Empirical analysis of distance-to-go estimates in
        \refsec{sec:distance-to-go}.  Also, we included an empirical
        evaluation of the use of inadmissible FF heuristics as part of
-       tiebreaking criteria, and its combination with the
+       tiebreaking criterion, and its combination with the
        depths metric thereof.
  \item New perspective to \astar and the preliminary results on the use
        of depth for satisficing planning (\refsec{sec:discussion}).

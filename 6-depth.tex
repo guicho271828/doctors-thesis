@@ -187,7 +187,7 @@ $c$ or $d$.
 
 % \todo{compare id,fifo and id,lifo}
 
-% However we use a Random Order (\ro) policy, which 
+% However we use a Random Order (\ro) criterion, which 
 % randomly selects an element from the depth bucket selected by the depth-based tiebreaking.
 % This is because the effectiveness of the tiebreaking behavior within a bucket
 % can be affected by accidental biases, e.g., names/orders of action schema in the PDDL domain
@@ -196,7 +196,7 @@ $c$ or $d$.
 % Thus, we avoid bias at this level of tiebreaking by using \ro and assess its expected/average
 % performance.
 
-% Among \fifo, \lifo and \ro, the natural policy is Random Order.
+% Among \fifo, \lifo and \ro, the natural criterion is Random Order.
 % This is because the effectiveness of the third-level tiebreaking behavior
 % is affected by the accidental bias in action ordering in the PDDL domain
 % definition.  Recent work \cite{vallati2015effective} showed that the
@@ -275,7 +275,7 @@ some balance in exploration and exploitation.
 
 The important point of this characteristics is that this
 distribution is maintained at any point of the search until the solution
-is found. In fact, any depth-selection criteria, including the least
+is found. In fact, any depth-selection criterion, including the least
 depth selection (\fifo) or the largest depth selection (\lifo), 
 result in the same distribution if all nodes are to be expanded (each
 depth $d$ is expanded $Dw^d$ times), but their

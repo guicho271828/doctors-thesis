@@ -14,8 +14,7 @@ We omit the argument $(n)$ unless necessary.
 
 A \emph{sorting strategy} of a best first search algorithm is a strategy
 which tries to select a single node from the OPEN list.
-Each sorting strategy is denoted as a vector of several sorting
-criteria, such as
+Each sorting strategy is denoted as a vector of several \emph{sorting criterion}, such as
 [$\text{criterion}_1$, $\text{criterion}_2$, $\ldots$,
 $\text{criterion}_k$], which means: From the OPEN list, first, select a
 set of nodes using $\text{criterion}_1$.  If there are still multiple
@@ -42,7 +41,7 @@ strategy $\text{criterion}_k$, which is one of \fifo (first-in-first-out), \lifo
 (last-in-first-out) or \ro (random ordering).  Trivially, these
 strategies are able to select a single node from the set of
 nodes. Although these default strategies may not be a ``sorting''
-criteria, we also include them in the vector notation. For
+criterion, we also include them in the vector notation. For
 example, an \astar using \fifo tiebreaking is denoted as $[f,h,\fifo]$.
 
 

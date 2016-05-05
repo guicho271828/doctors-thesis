@@ -42,12 +42,12 @@ Let us call a sorting strategy as an \emph{admissible sorting strategy}
 when the best first search using the strategy is guaranteed to return an
 optimal solution. Although this
 is trivial, a sorting strategy is admissible if and only if the 
-first sorting criteria $f$ uses an ordinary
+first sorting criterion $f$ uses an ordinary
 admissible heuristics. 
 This means that the optimality of the solution is not affected by the
-second or later levels of sort criteria, and therefore
+second or later levels of sorting criterion, and therefore
 it is possible to use an inadmissible
-distance-to-go estimate in the second or later levels of sorting criteria of optimal search.
+distance-to-go estimate in the second or later levels of sorting criterion of optimal search.
  
 Let $\hat{h}$ be a distance-to-go variation of an original heuristic function $h$.
 %% redundunt
@@ -55,13 +55,13 @@ Let $\hat{h}$ be a distance-to-go variation of an original heuristic function $h
 % actions to have unit costs, while original heuristic function $h$ uses the
 % standard action cost.
 Multi-heuristic sorting strategies such as $[g+h,h,\hat{h}]$ or $[g+h,\hat{h}]$
-are admissible when $h$ is admissible, because the first criteria $f=g+h$ uses
+are admissible when $h$ is admissible, because the first criterion $f=g+h$ uses
 an admissible heuristics based on the normal action costs.
 It is even possible to use any inadmissible heuristic function to break
-ties. For example, $[g+h^{\lmcut},\ffo]$ is an admissible sorting criteria
-because the first sorting criteria $f=g+h^{\lmcut}$ uses an admissible
-\lmcut heuristics. Its second sorting criteria, distance-to-go FF
-heuristics, does not affect the admissibility of this sorting criteria.
+ties. For example, $[g+h^{\lmcut},\ffo]$ is an admissible sorting criterion
+because the first sorting criterion $f=g+h^{\lmcut}$ uses an admissible
+\lmcut heuristics. Its second sorting criterion, distance-to-go FF
+heuristics, does not affect the admissibility of this sorting criterion.
 
 An obvious flaw in such a strategy is the cost of computing additional
 heuristic estimates. Using different heuristics (e.g. $\ffo$) obviously introduces such an
@@ -76,7 +76,7 @@ We tested various admissible sorting strategies on IPC domains and zerocost doma
 The configurations are listed in \reftbl{list:distance-configs}. 
 In all configurations, the first sorting criterion is the $f=g+h$ value
 where $h$ is an admissible heuristics using the normal cost calculation, either \lmcut or \mands.
-As the second or later sorting criteria,
+As the second or later sorting criterion,
 we tested $\hat{h}$ of original $h$, as well as a distance-to-go variation of FF
 heuristic ($\hat{h}^{\ff}$).
 % , and a distance-to-go variation of

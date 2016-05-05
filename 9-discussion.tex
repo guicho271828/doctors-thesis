@@ -28,18 +28,18 @@ different horizons independently -- in each iteration of the search,
 they have to generate a new set of variables for each horizon, and the
 underlying CSP solvers are forced to start the search from the scratch.
 
-Our notion of \emph{admissible sorting criteria} dictates that, the
+Our notion of \emph{admissible sorting strategy} dictates that, the
 search within the same $f$ plateau can be a satisfiable search. In fact,
-if we focus on the second or later sorting criteria in the standard criteria
+if we focus on the second or later sorting criterion in the standard strategy
 $[f,h,\fifo]$ for optimizing search, i.e. $[f,h,\fifo] \rightarrow [h,\fifo]$, this is exactly
 the same configuration as a GBFS using \fifo default tiebreaking. It
 means that within the plateau of the same $f$, $[f,h,\fifo]$ is
 performing a satisficing GBFS.
 From the same standpoint, the reason for the poor performance of $[f,\fifo]$
-is clear: If we ignore the first sorting criteria, it is $[\fifo]$,
+is clear: If we ignore the first sorting criterion, it is $[\fifo]$,
 which is a pure satisficing breadth-first search in the plateau.
 Also, the good performance of $[f^{\lmcut},\ffo,\fifo]$ is also clear:
-If we ignore the first sorting criteria, it is $[\ffo,\fifo]$,
+If we ignore the first sorting criterion, it is $[\ffo,\fifo]$,
 and by itself $\ffo$ is known to be a \sota inadmissible heuristic
 function for satisficing forward search.
 
@@ -91,7 +91,7 @@ increasing the size of a plateau.
 %  tiebreaking (we omit it from the description below).
 %  $\ffo,\ceo,\cgo$ are the distance-to-go variations of FF,
 %  Context Enhanced Additive, Causal Graph heuristics.
-%  (g): GBFS with $[\hh]$ sorting criteria.
+%  (g): GBFS with $[\hh]$ sorting strategy.
 %  (G): GBFS with depth based diversification $[\hh,\depth]$.
 %  }
 %  \label{tbl:gbfs}
@@ -119,7 +119,7 @@ increasing the size of a plateau.
 %  $\ffo,\ceo,\cgo$ are the distance-to-go variations of FF,
 %  Context Enhanced Additive, Causal Graph heuristics.
 %  In each expansion, Type-GBFS alternates standard GBFS and Type-based exploration using $[g,\hh]$.
-%  The sorting criteria of the GBFS part of (gt) is $[\hh]$, while (Gt) uses $[\hh,\depth]$.
+%  The sorting strategy of the GBFS part of (gt) is $[\hh]$, while (Gt) uses $[\hh,\depth]$.
 %  }
 %  \label{tbl:type-gbfs}
 % \end{table}
