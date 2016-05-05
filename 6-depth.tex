@@ -17,10 +17,10 @@ initial node. These notions are depicted in
 restricted to a particular plateau and is assuming the unit cost edges.
 
 \begin{figure}[htbp]
- \centering
- \includegraphics{img/astar/final-plateau4.png}
- \caption{The nodes in a plateau are divided into several layers,
- and each layer have the corresponding depth.}
+  \centering
+  \includegraphics{img/astar/plateau-2.pdf}
+ \caption{The nodes in a plateau are divided into several layers, and each layer have the corresponding depth. Since all nodes have $f=f^*$, depth does not affect optimality. The goals in both shallower or deeper region yield cost-optimal solutions.
+ }
  \label{fig:plateau-depiction}
 \end{figure}
 
@@ -38,28 +38,22 @@ searching the plateau region in a decreasing or increasing order of the depth.
 \lifo strategy always selects the most recently generated node
 within $\plateau{f,h}$, and the behavior in the plateau is equivalent to depth-first search.
 Thus, it results in always selecting the largest depth
-buckets as depicted in \refig{fig:plateau-depiction-lifo}.
+buckets as depicted in \refig{fig:plateau-depiction} (left).
 Similarly, the behavior of \fifo strategy 
 in a plateau is equivalent to breadth-first search. Thus \fifo strategy
-always selects the nodes with least depth (\refig{fig:plateau-depiction-fifo}).
+always selects the nodes with least depth (right).
 Note that therefore $[f,h,\lifo]$ is equivalent to $[f,h,-d,\lifo]$ and
 $[f,h,\fifo]$ is equivalent to $[f,h,d,\fifo]$.
 
 \begin{figure}[htbp]
  \centering
- \includegraphics{img/astar/final-plateau6.png}
- \caption{\lifo tiebreaking strategy implies a depth-first behavior in a
- plateau, which could miss the solution concentrated near the entrance.}
- \label{fig:plateau-depiction-lifo}
-\end{figure}
-
-\begin{figure}[htbp]
- \centering
- \includegraphics{img/astar/final-plateau5.png}
- \caption{\fifo tiebreaking strategy implies a breadth-first behavior in a
+  \includegraphics{img/astar/plateau-3.pdf}
+ \caption{(\textbf{Left}) \lifo tiebreaking strategy implies a depth-first behavior in a
+ plateau, which could miss the solution concentrated near the entrance.
+ (\textbf{Right}) \fifo tiebreaking strategy implies a breadth-first behavior in a
  plateau, which could fail to reach a solution in the deeper region
  within the time limit.}
- \label{fig:plateau-depiction-fifo}
+ \label{fig:plateau-depiction}
 \end{figure}
 
 The problem in these traditional strategies is that we have no knowledge
@@ -116,7 +110,7 @@ analysis more convenient in the later section.
 
 \begin{figure}[htbp]
  \centering
- \includegraphics{img/astar/final-plateau7.png}
+  \includegraphics{img/astar/plateau-4.pdf}
  \caption{Depth-based diversification allows \astar to search the plateau space
  uniformly and sparsely, avoiding the concentration to shallower depths, while
  suppressing the excessive exploration to the deeper region. This

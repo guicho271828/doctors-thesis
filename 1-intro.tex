@@ -68,6 +68,16 @@ $f^*$.
  \label{fig:plateau-noh}
 \end{figure}
 
+This is visually described in \refig{fig:plateau-0}. Naively, the search space of \astar could be considered to have a thin layer of final plateau surrounding the closed nodes with $f<f^*$ (left), which is no longer true (as shown in \refig{fig:plateau-noh}). In reality, due to the curse of dimensionality, the search space has a large plateau of $f=f^*$ (right), and there is much room for improving the search within this region.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{img/astar/plateau-0.pdf}
+ \caption{(Left) Naive and incorrect understanding of the search space. (Right) In reality, plateau containing the optimal goals ($f=f^*$) is large, and it even accounts for most of the search effort required by \astar.
+  }
+ \label{fig:plateau-0}
+\end{figure}
+
 Therefore, in those majority of IPC problem instances where the size of
 the last layer ($f(n)=f^*$) of search is huge, a
 \emph{tiebreaking strategy} can have a significant impact on the

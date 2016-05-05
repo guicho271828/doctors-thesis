@@ -5,9 +5,21 @@
 \pddl{Openstacks}  is a cost
 minimization domain introduced in IPC-2006, where the objective is to 
 minimize the number of stacks used.
-There are many zero-cost actions (i.e., actions that don't increase the number of stacks), and
-they prevent the standard heuristics from producing
-informative guidance.
+One characteristics of Openstacks is the presence of many zero-cost actions which do not increase the number of stacks, the objective function in this domain. These zero-cost actions creates the problem depicted in \refig{fig:plateau-1}.
+% Since 0-cost actions corresponds to 0-cost search edges.
+% If such actions are present, the neighbors of the goal nodes could be surrounded by the 0-cost edges.
+Since zero-cost actions (edges) allows ``free'' transitions between many neighboring nodes,
+the number of neighboring nodes sharing the same $h$ also becomes quite large.
+This creates huge heuristic plateaus of $h$, which prevent the standard $h$-based tiebreaking from producing informative guidance within plateau $f=f^*$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{img/astar/plateau-1.pdf}
+ \caption{Search space of \astar and its contour according to $h$. (\textbf{Right}) In positive cost domains, $h$-tiebreaking provides a meaningful guidance. (\textbf{Left}) In domains with 0-cost actions, applying an action does not increase the cost of the path, and thus the region of $h=0$ could be quite large. Thus $h$-tiebreaking fails to provide meaningful guidance.
+  }
+ \label{fig:plateau-1}
+\end{figure}
+
 
 %% safe to remove these explanation.
 % According to \cite{richter2010lama}, \textbf{??????}
