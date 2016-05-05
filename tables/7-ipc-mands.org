@@ -7,9 +7,12 @@
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 24.3.1 (Org mode 8.3.4)
 
+#+LaTeX: \let\hline\midrule
+
 #+ATTR_LATEX: :align |r|*{4}{ccc|}
-| Domain                   | \rb{$[f,h,\fifo]$} | \rb{$[f,h,\lifo]$} | \rb{$[f,h,\ro]$} | \rb{$[f,h,\depth,\fifo]$} | \rb{$[f,h,\depth,\lifo]$} | \rb{$[f,h,\depth,\ro]$} |
+|                          | \rb{$[f,h,\fifo]$} | \rb{$[f,h,\lifo]$} | \rb{$[f,h,\ro]$} | \rb{$[f,h,\depth,\fifo]$} | \rb{$[f,h,\depth,\lifo]$} | \rb{$[f,h,\depth,\ro]$} |
 | IPC benchmark (1104)     |                491 |              *496* | 489.4 $\pm$ 1.0  |                       487 |                       487 | 485.6 $\pm$ 1.5         |
+|--------------------------+--------------------+--------------------+------------------+---------------------------+---------------------------+-------------------------|
 | airport(50)              |                  9 |                  9 | 9 $\pm$ 0        |                         9 |                         9 | 9 $\pm$ 0               |
 | barman-opt11(20)         |                  4 |                  4 | 4 $\pm$ 0        |                         4 |                         4 | 4 $\pm$ 0               |
 | blocks(35)               |                 22 |                 22 | 22 $\pm$ 0       |                        22 |                        21 | 21.9 $\pm$ 0.3          |

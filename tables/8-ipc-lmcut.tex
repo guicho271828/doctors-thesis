@@ -1,7 +1,9 @@
+\let\hline\midrule
 \begin{center}
 \begin{tabular}{|r|*{4}{ccc|}}
  & \rb{$[f,\hh,\fifo]$} & \rb{$[f,\hh,\lifo]$} & \rb{$[f,\hh,\ro]$} & \rb{$[f,h,\hh,\fifo]$} & \rb{$[f,h,\hh,\lifo]$} & \rb{$[f,h,\hh,\ro]$} & \rb{$[f,\ffo,\fifo]$} & \rb{$[f,\ffo,\lifo]$} & \rb{$[f,\ffo,\ro]$} & \rb{$[f,\ffo,\depth,\fifo]$} & \rb{$[f,\ffo,\depth,\lifo]$} & \rb{$[f,\ffo,\depth,\ro]$}\\
 IPC benchmark (1104) & 534 & 534 & 534 \(\pm\) 2.1 & 536 & 535 & 534.7 \(\pm\) 1.5 & 564 & 562 & 563.7 \(\pm\) 1.4 & 563 & 560 & 561.9 \(\pm\) 1.4\\
+\hline
 airport(50) & 24 & 25 & 23.9 \(\pm\) 0.6 & 24 & 24 & 23.8 \(\pm\) 0.4 & 25 & 24 & 24.8 \(\pm\) 0.4 & 25 & 24 & 24.6 \(\pm\) 0.5\\
 barman-opt11(20) & 0 & 0 & 0 \(\pm\) 0 & 0 & 0 & 0 \(\pm\) 0 & 0 & 0 & 0 \(\pm\) 0 & 0 & 0 & 0 \(\pm\) 0\\
 blocks(35) & 27 & 27 & 27 \(\pm\) 0 & 27 & 27 & 27 \(\pm\) 0 & 27 & 27 & 27 \(\pm\) 0 & 27 & 27 & 27 \(\pm\) 0\\
