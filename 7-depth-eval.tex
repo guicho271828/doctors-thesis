@@ -58,7 +58,7 @@ losing performance in other domains.
 \reftbl{tbl:mands-ipc-full} shows the results by \mands heuristics on \textbf{1104 standard
 IPC benchmark instances}.
 In this configuration, depth-based tiebreaking negatively affects the performance.
-As we show in \reftbl{tbl:expansion-ratio}, this is because
+As we show in \refig{fig:expansion-ratio}, this is because
 the low-level overhead of depth-based tiebreaking decreases the high
 node processing speed of \mands. Evaluation of \mands heuristics is
 very efficiently implemented as a table lookup, and it is able to
@@ -66,7 +66,7 @@ evaluate an order of magnitude larger number of nodes
 compared to \lmcut heuristics. Thus, even the slightest overhead caused
 by the management of depth buckets has affected the performance.
 
-\begin{table}[htbp]
+\begin{figure}[htbp]
  \centering
  % \begin{tabular}{cccc}
  %  nodes/sec                  & LMcut      & M\&S       & M\&S slowdown\\
@@ -90,13 +90,12 @@ by the management of depth buckets has affected the performance.
  % \includegraphics{img/node-sec/mnhiL-mnh_L.pdf}
  % 
  \caption{Comparison of the node evaluation ratio (node/sec) between standard tiebreaking ($y$-axis) and
- depth-based tiebreaking ($x$-axis) on \lmcut and \mands heuristics. On \mands, node evaluation rate often becomes
- twice as slower due to depth-based tiebreaking. This is because the node evaluation of \mands is an order of
- magnitude faster than \lmcut, and the overhead of managing depth-based tiebreaking queue is non-negligible on
- \mands. }
+ depth-based tiebreaking ($x$-axis) on \lmcut and \mands heuristics. On \mands, compared to \lmcut, node evaluation rate more often becomes
+ twice as slower when depth is enabled. This is because the node evaluation of \mands is an order of
+ magnitude faster than \lmcut, and the overhead of managing depth-based tiebreaking queue becomes significant. Same results were obtained with \lifo last-resort tiebreaking. }
  % 
- \label{tbl:expansion-ratio}
-\end{table}
+ \label{fig:expansion-ratio}
+\end{figure}
 
 \begin{table}[htbp]
  {
