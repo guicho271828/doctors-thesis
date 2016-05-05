@@ -8,15 +8,15 @@
 #+CREATOR: Emacs 24.3.1 (Org mode 8.3.4)
 
 #+ATTR_LATEX: :align |l|cc|cc|
-| Sorting Criteria     |   Zerocost(620) |   Zerocost(620) | IPC(1104)       | IPC(1104)       |
-|                      |          \lmcut |          \mands | \lmcut          | \mands          |
-|                      |                 |                 |                 |                 |
-| Standard             |                 |                 |                 |                 |
-| $[f,h,\fifo]$        |             256 |             280 | 558             | 491             |
-| $[f,h,\lifo]$        |             279 |             301 | 565             | *496*           |
-| $[f,h,\ro]$          | 261.9 $\pm$ 1.4 | 287.7 $\pm$ 3.2 | 558.9 $\pm$ 2.1 | 489.4 $\pm$ 1.0 |
-|                      |                 |                 |                 |                 |
-| Depth-based          |                 |                 |                 |                 |
-| $[f,h,\depth,\fifo]$ |             284 |             302 | 571             | 487             |
-| $[f,h,\depth,\lifo]$ |             264 |             288 | *575*           | 487             |
-| $[f,h,\depth,\ro]$   | 288.1 $\pm$ 1.6 | 308.1 $\pm$ 2.1 | 571.4 $\pm$ 1.7 | 485.6 $\pm$ 1.5 |
+| Sorting Criteria     |     Zerocost(620) |     Zerocost(620) | IPC(1104)       | IPC(1104)       |
+|                      |            \lmcut |            \mands | \lmcut          | \mands          |
+|                      |                   |                   |                 |                 |
+| Standard             |                   |                   |                 |                 |
+| $[f,h,\fifo]$        |               256 |               280 | 558             | 491             |
+| $[f,h,\lifo]$        |               279 |               301 | 565             | *496*           |
+| $[f,h,\ro]$          |   261.9 $\pm$ 1.4 |   287.7 $\pm$ 3.2 | 558.9 $\pm$ 2.1 | 489.4 $\pm$ 1.0 |
+|                      |                   |                   |                 |                 |
+| Depth-based          |                   |                   |                 |                 |
+| $[f,h,\depth,\fifo]$ |               284 |               302 | 571             | 487             |
+| $[f,h,\depth,\lifo]$ |               264 |               288 | *575*           | 487             |
+| $[f,h,\depth,\ro]$   | *288.1 $\pm$ 1.6* | *308.1 $\pm$ 2.1* | 571.4 $\pm$ 1.7 | 485.6 $\pm$ 1.5 |
