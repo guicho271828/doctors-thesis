@@ -1,3 +1,104 @@
 
-% \section{Related Work}
+\section{Related Work}
 
+Previous work on escaping search space plateaus has focused on
+non-admissible search.  DBFS \cite{imai2011novel} % is a technique which
+adds stochastic backtracking to Greedy Best First Search (GBFS) to avoid
+being misdirected by the heuristic function. Type based bucket
+\cite{xie14type} classifies the plateau of GBFS according to the
+$[g,h]$ pair and distributes the effort.  Marvin \cite{Coles07} learns plateau-escaping macros
+from the Enhanced Hill Climbing phase of the FF planner
+\cite{Hoffmann01}, and the use of these macros is inadmissible.
+\citeauthor{Hoffmann05} gives a detailed analysis of the
+structure of the search spaces of satisficing planning (\citeyear{Hoffmann05,Hoffmann11}).
+\cite{benton2010g} proposes inadmissible technique for temporal planning
+where short actions 
+% are hidden behind long actions and
+do not increase makespan. 
+\cite{cushing2010cost} investigates ``$\varepsilon$-cost
+traps''($\varepsilon=\frac{\min cost}{\max cost}$),  showing that (non-admissibly) treating all actions as unit cost sometimes finds an optimal plan quickly.
+\cite{wilt2011cost} also analyzes inadmissible distance-to-go estimates.
+% 
+To our knowledge, 
+plateaus have not been previously investigated for cost-optimal planning with admissible search.
+Admissible and inadmissible search differ significantly in how non-final plateaus (plateaus with $f < f^*$) are treated:
+Inadmissible search can skip or escape plateaus whenever possible, while
+admissible search cannot, unless it
+is the final plateau ($f=f^*$, $h=0$) and a solution is found. %it directly finds a solution.
+
+%In their work on combining multiple heuristics in a planner, 
+% \citeauthor{RogerH10} (\citeyear{RogerH10}) considered a tiebreaking approach which works as follows:
+% When combining two heuristics, one of the
+% heuristics is used as the primary criterion, % for guiding the search,
+% and the second heuristic is used to break ties among nodes with the same primary
+% heuristic value.
+% While this did not perform well in their work on satisficing planning, 
+% additional policy using a secondary heuristic
+% for cost-optimal search is an interesting direction for future work.
+
+
+The PLUSONE %\footnote{This term is used on the Fast Downward website.} XXfootnote takes too much space
+cost-type (or distance-to-go) is a non-admissible search technique in the Fast Downward/LAMA planner
+\cite{richter2010lama} which increases all action costs by 1.
+% By eliminating zero-cost actions, this behaves similar to our $[f,h,\fd,\ro]$ tiebreaking.
+%Using PLUSONE, three successive
+%applications of zero-cost operators have cost 3, and two
+%applications have cost 2, and smaller cost is preferred, just as
+%\astar always expands the node with smaller $f$-value.
+This technique explicitly targeted zero-cost actions,
+and resulted in significantly better performance in the IPC-6
+satisficing track \cite[p.137, Sec. 3.3.2]{richter2010lama}.
+%\todo*{citation}
+% There's a long discussion of Openstacks in \cite{richter2010lama}, p.167-169, but I can't find PLUSONE anywhere. Maybe it's called something else in the paper?  Maybe \richter2010lama is the wrong citation??
+Unlike PLUSONE, depth-based tiebreaking is admissible.
+%because unlike PLUSONE, action costs are not modified.  
+Also, unlike PLUSONE, depth-based tiebreaking does not necessarily favor smaller depth over larger depth.
+LAMA prefers smaller cost (including the increased cost),
+which biases the search toward nodes with fewer zero-cost actions on their path.
+This bias is similar to the $[f,h,\fd,\ro]$ policy,
+the worst performer among all depth-variants in our experiments (\reftbl{depth}).
+The best depth-based methods are  $[f,h,\ld,\ro]$ and $[f,h,\rd,\ro]$,
+which do not prefer smaller depth.
+
+% It's not clear what these techniques have in common, except that they are all orthogonal to heuristics,
+% If that's the case, then there's no need to cite them in this paper -- there's no reason why these particular techniques
+% are more relevant to this paper than hundreds of other techniques that are orthogonal to heuristics.
+%% In admissible planning,
+%% \emph{Symmetry Breaking}
+%% \cite{Fox1998,pochter2011exploiting,domshlak2013symmetry} is the search
+%% technique that tries to prune the states with symmetric
+%% paths. \emph{Partial Order Reduction}
+%% % , \emph{Strong Stubborn Sets} and \emph{Expansion Core} are
+%% is also a technique which prunes the
+%% intermediate states that reach to the same goal using the different
+%% orders of same actions. \emph{Dominance Pruning} \cite{hall2013faster} is a
+%% technique which prunes a state if it can be proven to be worse than the other nodes.
+%% % 
+%% These are usually not considered an attempt to improve the heuristic
+%% estimates, however, in terms of \emph{Path-dependent globally admissible
+%% heuristics} \cite{karpas2012optimal}, a class of heuristics which is
+%% admissible only on a particular optimal path, generalizes the above
+%% techniques as assigning an infinite cost to some nodes on the other optimal paths.
+%% % 
+%% % From a slightly different category, Pathmax \cite{mero1984heuristic} and
+%% % Bidirectional Pathmax \cite{felner2011inconsistent} are the techniques
+%% % which converts an inconsistent heuristics into non-decreasing,
+%% % consistent heuristics.
+%% Thus, in a broad term, all of these methods are the
+%% attempts to improve the heuristic estimates.
+%% % Although in some particular
+%% % case they may be able to return a perfect heuristics, they are still not
+%% % always a perfect heuristics, implying that the plateau is unavoidable.
+%% In contrast, our tiebreaking techniques aims specifically at the case
+%% where the plateau is encountered and the planners are forced to run a
+%% knowledge-free search.
+
+\emph{\astar with lookahead} ($AL^*$) \cite{stern2010look} extends \astar by performing a cost-bounded depth-first \emph{lookahead} from each node as it is generated. Upon the normal expansion of a node $n$ in \astar, lookahead search performs a depth-first search with cost bound $f(n)+k$ rooted at $n$. As a special case, under the cost bound $k=0$ ($AL^*_0$ in their notation), depth-first lookahead expands only the children with the same $f$-value.
+% There are both commonality and difference in our approach and $AL^*$:
+% In terms of commonality, 
+$AL^*$, or $AL^*_0$ in particular, is similar to $[f,\lifo]$ in that the lookahead is a depth-first search.
+However, there are both conceptual and algorithmic difference in our approach and their approach:
+First of all, $AL^*_0$ does not specify the intermediate tiebreaking (such as $h$-based tiebreaking) for its main \astar, and depth-first lookahead does not perform best-first expansion, so the tiebreaking is irrelevant. Thus, the problems and the solutions addressed in these approaches are different.
+Second, $AL^*$ has an ability to propagate the maximum and the minimum $f$ value found in the lookahead search which allows for more pruning.
+% wrong, see AAAI10 paper that ``recitify this''
+% Finally, when $k>0$ the search becomes inadmissible because it alters the best-first expansion order.
