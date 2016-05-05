@@ -19,9 +19,9 @@ the nodes with $f(n) = k$.
 Thus, the \emph{effective search space of \astar} is the set of nodes with 
 $f(n) \leq f^*$: \astar expands all nodes with $f(n) < f^*$, then
 expands \emph{some} of the nodes with $f(n) = f^*$, and
-never expands a node with $f(n) > f^*$.
+never expands the nodes with $f(n) > f^*$.
 
-If multiple nodes with the same $f$-cost are possible, \astar
+If there are multiple nodes with the same $f$-cost, \astar
 must implement some tiebreaking policy (either
 explicitly or implicitly) which selects from among these nodes.
 The early literature on heuristic search seems to have been mostly agnostic regarding tiebreaking.
