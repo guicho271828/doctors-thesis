@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="264.45193"
-   height="162.19588"
+   width="257.68463"
+   height="102.38174"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -505,8 +505,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.043934"
-     inkscape:cx="263.47515"
-     inkscape:cy="71.028006"
+     inkscape:cx="229.11113"
+     inkscape:cy="71.028009"
      inkscape:document-units="in"
      inkscape:current-layer="layer2"
      showgrid="false"
@@ -539,103 +539,10 @@
      id="layer2"
      inkscape:label="Layer"
      style="display:inline"
-     transform="translate(12.916432,-632.02354)">
+     transform="translate(6.1491289,-691.83768)">
     <g
        transform="matrix(0.23801704,0,0,0.23801704,15.573194,699.52253)"
        id="g9563" />
-    <text
-       sodipodi:linespacing="125%"
-       id="text8924-4-9"
-       y="655.7804"
-       x="21.308416"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.94874358;marker:none;marker-end:url(#Arrow1Mend);visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
-       xml:space="preserve"><tspan
-         y="655.7804"
-         x="21.308416"
-         sodipodi:role="line"
-         id="tspan16300-1-6">f = f*</tspan></text>
-    <text
-       sodipodi:linespacing="125%"
-       id="text8924-4-9-1"
-       y="641.96783"
-       x="21.308416"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.94874358;marker:none;marker-end:url(#Arrow1Mend);visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
-       xml:space="preserve"><tspan
-         y="641.96783"
-         x="21.308416"
-         sodipodi:role="line"
-         id="tspan16300-1-6-8">f &gt; f*</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.94874358;marker:none;marker-end:url(#Arrow1Mend);visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
-       x="50.966766"
-       y="641.73663"
-       id="text4003"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4005"
-         x="50.966766"
-         y="641.73663">(never expanded)</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.94874358;marker:none;marker-end:url(#Arrow1Mend);visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
-       x="50.966766"
-       y="655.49213"
-       id="text4003-1"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4005-6"
-         x="50.966766"
-         y="655.49213">(some nodes are expanded)</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.94874358;marker:none;marker-end:url(#Arrow1Mend);visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
-       x="50.966766"
-       y="669.24756"
-       id="text4003-1-7"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         x="50.966766"
-         y="669.24756"
-         id="tspan4049">(all nodes are expanded)</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.94874358;marker:none;marker-end:url(#Arrow1Mend);visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
-       x="21.308416"
-       y="669.4787"
-       id="text8924-4-9-8"
-       sodipodi:linespacing="125%"><tspan
-         id="tspan16300-1-6-5"
-         sodipodi:role="line"
-         x="21.308416"
-         y="669.4787">f &lt; f*</tspan></text>
-    <rect
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.26017123;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="rect5579"
-       width="31.022892"
-       height="11.414083"
-       x="-12.786346"
-       y="632.15363"
-       rx="1.9440737"
-       ry="2.5145667" />
-    <rect
-       style="color:#000000;fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.26017123;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="rect5579-2"
-       width="31.022892"
-       height="11.414083"
-       x="-12.786346"
-       y="645.90894"
-       rx="1.9440737"
-       ry="2.5145667" />
-    <rect
-       style="color:#000000;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.26017123;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="rect5579-3"
-       width="31.022892"
-       height="11.414083"
-       x="-12.786346"
-       y="659.66449"
-       rx="1.9440737"
-       ry="2.5145667" />
     <text
        xml:space="preserve"
        style="font-size:7.34261084px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.26017123;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;marker-end:url(#Arrow1Mend);visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
@@ -1003,5 +910,5 @@
      inkscape:groupmode="layer"
      id="layer1"
      inkscape:label="Layer#1"
-     transform="translate(-2.4336289,41.566355)" />
+     transform="translate(-9.200932,-18.247783)" />
 </svg>
