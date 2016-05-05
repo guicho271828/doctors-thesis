@@ -161,7 +161,7 @@ child remains the old value (using the old parent), which is 0.
 \subsection{Tiebreaking within Depth Buckets}
 
 Since there can be still multiple nodes within the same depth bucket, a
-last-resort tiebreaking is still necessary to break ties among them.
+default tiebreaking is still necessary to break ties among them.
 We can, for example, apply \lifo, \fifo or \ro (random order) policies
 at this level.
 
@@ -218,8 +218,8 @@ various depths in the plateau region.
 We show that the probability of expanding a node in a particular depth
 can be represented by a simple formula.  Although the notion of
 probability does not fit well with deterministic \fifo or \lifo
-last-resort tiebreaking, it is meaningful in the case of \ro (random
-order) last-resort tiebreaking.
+default tiebreaking, it is meaningful in the case of \ro (random
+order) default tiebreaking.
 
 %% danger!!
 % \begin{theo}[Uniformness of the search]

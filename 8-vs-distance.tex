@@ -101,7 +101,7 @@ $\plateau{f,\hat{h}^{\text{\ff}}}$.
  \end{array}  
  \]
  \caption{Configurations being compared in this section. $h$ is
- one of $\braces{\lmcut, \mands}$, and $L$ is one of the last-resort
+ one of $\braces{\lmcut, \mands}$, and $L$ is one of the default
  tiebreaking strategies $\fifo,\lifo,$ or $\ro$. }
  \label{list:distance-configs}
 \end{table}
@@ -120,7 +120,7 @@ larger coverage in both \lmcut and \mands. Thus, when the depth metric is not us
 which uses $\ffo$.  Finally, depth metric further improves the performance of this best non-depth configuration
 using $\ffo$.  The coverage increased in both $h=h^\lmcut$ (\fifo: $337\rightarrow 340$, \lifo: $340\rightarrow
 342$, \ro: $341\rightarrow 344.3$) and $h=h^\mands$ (\fifo: $336\rightarrow 337$, \lifo: $331\rightarrow
-333$). When the last-resort tiebreaking was \ro and the heuristics is \mands, $[f,\ffo,\depth,\ro]$ did not improve
+333$). When the default tiebreaking was \ro and the heuristics is \mands, $[f,\ffo,\depth,\ro]$ did not improve
 over $[f,\ffo,\ro]$, but the coverage difference was small ($337.9\rightarrow 337.6$) and it shows a slightly
 better robustness (smaller variance: $2.1\rightarrow 1.3$).
 

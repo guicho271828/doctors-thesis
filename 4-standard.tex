@@ -24,11 +24,11 @@ psr-small(50), rovers(40), scanalyzer-opt11(20), sokoban-opt11(20),
 storage(30), tidybot-opt11(20), tpp(30), transport-opt11(20),
 visitall-opt11(20), woodworking-opt11(20), zenotravel(20).
 
-\subsection{Does Last-Resort Strategies Make a Difference?}
+\subsection{Does Default Strategies Make a Difference?}
 
 We first compared two commonly used tiebreaking strategies, $[f,h,\fifo]$, $[f,h,\lifo]$, which
 first break ties according to $h$, and then apply \fifo or \lifo
-last-resort tiebreaking, respectively.
+default tiebreaking, respectively.
 Results for LMcut heuristic \cite{Helmert2009} and M\&S heuristic \cite{HelmertHHN14} are
 shown in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}
 (leftmost 2 columns), respectively.
@@ -83,7 +83,7 @@ $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
 In the right half of \reftbl{tbl:lmcut-ipc-std} and
 \reftbl{tbl:mands-ipc-std}, we show the results of $[f, \fifo]$ and
 $[f, \lifo]$, the \astar variants which rely on \fifo or \lifo
-last-resort tiebreaking only.  $[f,\lifo]$, which simply breaks ties
+default tiebreaking only.  $[f,\lifo]$, which simply breaks ties
 among nodes with the same $f$-cost by expanding the most recently
 generated nodes first \cite{korf1985depth}, clearly dominates
 $[f,\fifo]$.  Interestingly, the performance of the $[f,\lifo]$ strategy
@@ -118,14 +118,14 @@ more fine-grained analysis by comparing the number of node evaluation
 It shows that the difference in the number of nodes
 evaluated can sometimes be larger than a factor of 10 (\pddl{Openstacks}, \pddl{Cybersec} domains).
 Contrary to the conventional wisdom, 
-these results suggest that last-resort tiebreaking can have a significant effect on
+these results suggest that default tiebreaking can have a significant effect on
 the search performance.
 
 \begin{figure}[htbp]
  \centering \relsize{-3}
  \includegraphics{tables/aaai16-30min-5min-cut/aaai16prelim3/evaluated-lmcut_ff-lmcut_lf.pdf}
  \caption{The number of LMcut evaluations on various planning domains,
- with standard \fifo vs \lifo last-resort tiebreaking, both with $h$
+ with standard \fifo vs \lifo default tiebreaking, both with $h$
  tiebreaking. \lifo evaluates  less than $1/10$ of the nodes evaluated
  by \fifo in \pddl{Cybersec} and \pddl{Openstacks}. 
  }
@@ -138,19 +138,19 @@ the search performance.
 
 % We further investigate the cause of this performance difference in detail.
 
-The effect of the last-resort tiebreaking strategies (\lifo or
+The effect of the default tiebreaking strategies (\lifo or
 \fifo) under the presence of $h$-tiebreaking is
 limited to the search plateau $\plateau{f,h}$, the set of nodes which
 share the same $f$ values and $h$ values.
 % 
 Also, in optimal search, the two \astar with
-different last-resort tiebreaking strategies both search the same set of
+different default tiebreaking strategies both search the same set of
 nodes in the region where $f<f^*$.
 % 
 % If $h$-tiebreaking is enabled, the two \astar variants also expands the same number of nodes with $h>0$.
 Furthermore, the nodes with $h>0$ never become the goal nodes when $h$ is admissible.
 % 
-Therefore, the effect of last-resort tiebreaking is limited to
+Therefore, the effect of default tiebreaking is limited to
 the final plateau $\plateau{f^*,0}$.
  
 Conventionally, 

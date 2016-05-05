@@ -11,7 +11,7 @@ instances.
 We compared the performance of standard tiebreaking methods to
 depth-based tiebreaking methods. These all use $h$ as the first-level
 tiebreaking and either \fifo, \lifo or \ro (random order) as the
-last-resort tiebreaking.
+default tiebreaking.
 
 Experiments are conducted on \textbf{1104 standard IPC benchmark
 instances} and \textbf{620 zerocost instances}.  Each experiment uses
@@ -122,7 +122,7 @@ the performance.
  \caption{Comparison of the node evaluation ratio (node/sec) between standard tiebreaking ($y$-axis) and
  depth-based tiebreaking ($x$-axis) on \lmcut and \mands heuristics. On \mands, compared to \lmcut, node evaluation rate more often becomes
  twice as slower when depth is enabled. This is because the node evaluation of \mands is an order of
- magnitude faster than \lmcut, and the overhead of managing depth-based tiebreaking queue becomes significant. Same results were obtained with \lifo last-resort tiebreaking. }
+ magnitude faster than \lmcut, and the overhead of managing depth-based tiebreaking queue becomes significant. Same results were obtained with \lifo default tiebreaking. }
  % 
  \label{fig:expansion-ratio}
 \end{figure}

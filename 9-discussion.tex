@@ -32,7 +32,7 @@ Our notion of \emph{admissible sorting criteria} dictates that, the
 search within the same $f$ plateau can be a satisfiable search. In fact,
 if we focus on the second or later sorting criteria in the standard criteria
 $[f,h,\fifo]$ for optimizing search, i.e. $[f,h,\fifo] \rightarrow [h,\fifo]$, this is exactly
-the same configuration as a GBFS using \fifo last-resort tiebreaking. It
+the same configuration as a GBFS using \fifo default tiebreaking. It
 means that within the plateau of the same $f$, $[f,h,\fifo]$ is
 performing a satisficing GBFS.
 From the same standpoint, the reason for the poor performance of $[f,\fifo]$
@@ -87,7 +87,7 @@ increasing the size of a plateau.
 %  \input{tables/9-gbfs}
 %  \caption{
 %  Coverages under 5 min, 4GB experiments, comparing the variants with
-%  and without depths. All configurations uses \fifo last-resort
+%  and without depths. All configurations uses \fifo default
 %  tiebreaking (we omit it from the description below).
 %  $\ffo,\ceo,\cgo$ are the distance-to-go variations of FF,
 %  Context Enhanced Additive, Causal Graph heuristics.
@@ -114,7 +114,7 @@ increasing the size of a plateau.
 %  \input{tables/9-type-gbfs}
 %  \caption{
 %  Coverages of Type-GBFS under 5 min, 4GB experiments, comparing the variants with
-%  and without depths. All configurations uses \fifo last-resort
+%  and without depths. All configurations uses \fifo default
 %  tiebreaking (we omit it from the description below).
 %  $\ffo,\ceo,\cgo$ are the distance-to-go variations of FF,
 %  Context Enhanced Additive, Causal Graph heuristics.
@@ -133,7 +133,7 @@ increasing the size of a plateau.
 %  and Type-LAMA (non-portfolio winner of IPC8, newer \sota) under 5 min, 4GB
 %  experiments, comparing the performance between the original and the
 %  depth-enhanced variants. All configurations run the first GBFS
-%  iteration only, apply \fifo last-resort tiebreaking (we omit it from
+%  iteration only, apply \fifo default tiebreaking (we omit it from
 %  the description below), apply lazy evaluation and use distance-to-go synergy
 %  heuristics $\ffo / \hat{h}^{\text{LMcount}}$.
 %  % 

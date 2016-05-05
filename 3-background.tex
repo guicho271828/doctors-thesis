@@ -57,14 +57,14 @@ to our knowledge, an in-depth experimental analysis of tiebreaking strategies fo
 Although the standard practice of tiebreaking according to $h$ might be
 sufficient in some domains, further levels of tiebreaking (explicit or
 implicit) are required if multiple nodes have the same $f$ as well as
-the same $h$ values. To date, the effect of such \emph{last-resort}
+the same $h$ values. To date, the effect of such \emph{default}
 tiebreaking was not investigated in depth.
 % 
 For example, the survey of efficient \astar implementation techniques in
-\cite{burns2012implementing} did not explicitly mention the last-resort
+\cite{burns2012implementing} did not explicitly mention the default
 tiebreaking, while their library
 code\footnote{https://github.com/eaburns/search} uses \lifo
-last-resort tiebreaking.
+default tiebreaking.
 % 
 It first breaks ties according to $h$, and then
 breaks remaining ties according to a \lifo policy (most recently
