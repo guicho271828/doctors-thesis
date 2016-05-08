@@ -13,13 +13,20 @@ integer value representing the distance (number of steps) from the
 \emph{entrance} of the plateau.  An \emph{entrance} of the plateau is
 the first node which entered the plateau, along the path from the
 initial node. These notions are depicted in
-\refig{fig:plateau-depiction}. It is equivalent to the $g$-value which is
+\refig{fig:plateau-depiction} (subfigure 1). It is equivalent to the $g$-value which is
 restricted to a particular plateau and is assuming the unit cost edges.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics{img/astar/plateau-2.pdf}
- \caption{The nodes in a plateau are divided into several layers, and each layer have the corresponding depth. Since all nodes have $f=f^*$, depth does not affect optimality. The goals in both shallower or deeper region yield cost-optimal solutions.
+ \caption{(\textbf{Subfigure 1}) The nodes in a plateau are divided into several layers, and each layer have the corresponding depth. Since all nodes have $f=f^*$, depth does not affect optimality. The goals in both shallower or deeper region yield cost-optimal solutions.
+ (\textbf{Subfigure 2}) \lifo tiebreaking strategy implies a depth-first behavior in a
+ plateau, which could miss the solution concentrated near the entrance.
+ (\textbf{Subfigure 3}) \fifo tiebreaking strategy implies a breadth-first behavior in a
+ plateau, which could fail to reach a solution in the deeper region within the time limit.
+ (\textbf{Subfigure 4}) Depth-based diversification allows \astar to search the plateau space
+ uniformly and sparsely, avoiding the concentration to shallower depths, while
+ suppressing the excessive exploration to the deeper region. This balances the exploration and exploitation.
  }
  \label{fig:plateau-depiction}
 \end{figure}
@@ -31,30 +38,19 @@ key values: For example, in \astar with $h$-based tiebreaking, the key
 values of a node are represented as a vector $[f,h]$, and they are same
 when they are pairwise equivalent (i.e. $f(n) = f(m) \land h(n) =
 h(m)$).  Having the same key values means that $n$ and $m$ are in the
-same plateau. \todo{Figure}
+same plateau.
 
 The traditional \lifo and \fifo tiebreaking strategy are
 searching the plateau region in a decreasing or increasing order of the depth.
 \lifo strategy always selects the most recently generated node
 within $\plateau{f,h}$, and the behavior in the plateau is equivalent to depth-first search.
 Thus, it results in always selecting the largest depth
-buckets as depicted in \refig{fig:plateau-depiction} (left).
+buckets as depicted in \refig{fig:plateau-depiction} (subfigure 2).
 Similarly, the behavior of \fifo strategy 
 in a plateau is equivalent to breadth-first search. Thus \fifo strategy
-always selects the nodes with least depth (right).
+always selects the nodes with least depth (subfigure 3).
 Note that therefore $[f,h,\lifo]$ is equivalent to $[f,h,-d,\lifo]$ and
 $[f,h,\fifo]$ is equivalent to $[f,h,d,\fifo]$.
-
-\begin{figure}[htbp]
- \centering
-  \includegraphics{img/astar/plateau-3.pdf}
- \caption{(\textbf{Left}) \lifo tiebreaking strategy implies a depth-first behavior in a
- plateau, which could miss the solution concentrated near the entrance.
- (\textbf{Right}) \fifo tiebreaking strategy implies a breadth-first behavior in a
- plateau, which could fail to reach a solution in the deeper region
- within the time limit.}
- \label{fig:plateau-depiction}
-\end{figure}
 
 The problem in these traditional strategies is that we have no knowledge
 on whether the goals are located near or far from the entrance. Remind
@@ -65,11 +61,6 @@ solution, we do not know how the goals are distributed among various
 depths. In some problem instance the goals can be concentrated around
 the entrance, and in another problem instance the goals can be
 concentrated in some large depth $k$.
-
-% \begin{figure}[htbp]
-%  \includegraphics{img/astar/final-plateau4-2.png}
-%  \label{fig:plateau-depiction-all-optimal}
-% \end{figure}
 
 The best-first search (\fifo), which naturally focuses the search around
 the entrance favoring the smaller depths, should perform better in the
@@ -107,16 +98,6 @@ non-deterministic, randomized selection, as we have done in a conference
 version of this paper, however we eliminate the possibility of the
 results being affected by random seeds. It also makes a theoretical
 analysis more convenient in the later section.
-
-\begin{figure}[htbp]
- \centering
-  \includegraphics{img/astar/plateau-4.pdf}
- \caption{Depth-based diversification allows \astar to search the plateau space
- uniformly and sparsely, avoiding the concentration to shallower depths, while
- suppressing the excessive exploration to the deeper region. This
- balances the exploration and exploitation.}
- \label{fig:plateau-depiction-all-optimal}
-\end{figure}
 
 % We later show that
 % \fifo and \lifo strategies are incomplete when the size of the plateau
