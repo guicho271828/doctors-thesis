@@ -76,8 +76,7 @@ Therefore, in this paper, we modified various domains
 into cost minimization domains with many zero-cost actions.
 Specifically, a domain is modified so that all action schema are assigned
 cost 0 except for a few (usually one) action schema which consumes some key resource.
-The last word in the names of these domains indicate the action which is
-assigned non-zero cost, e.g., \pddl{elevator-up} is a modified elevator
+The suffixes in the names of these domains indicate the actions with non-zero costs, e.g., \pddl{elevator-up} is a modified elevator
 domain where the \pddl{up} action is assigned non-zero cost (because
 elevators are considered to consume energy only when going \pddl{up}), and all other actions have cost 0.
 Most of the transportation-type domains are modified to optimize 
@@ -115,9 +114,9 @@ We first tested if these new domains actually poses a new type of challenge to t
 standard tiebreaking strategies. Results using \lmcut and \mands
 heuristics are shown in \reftbl{tbl:lmcut-zerocost-std} and
 \reftbl{tbl:mands-zerocost-std}, respectively. In each table, the left
-hand side shows the results in the original domains, and the left hand side
+hand side shows the results in the original domains, and the right hand side
 shows the zerocost versions of the domains modified from the same
-instances in the right hand side. We did not include the domains whose
+instances in the left hand side. We did not include the domains whose
 number of instances differ from each other.
 
 In both \lmcut and \mands heuristics, we observed a significant

@@ -10,7 +10,7 @@ $[g,h]$ pair and distributes the effort.  Marvin \cite{Coles07} learns plateau-e
 from the Enhanced Hill Climbing phase of the FF planner
 \cite{Hoffmann01}, and the use of these macros is inadmissible.
 \citeauthor{Hoffmann05} gives a detailed analysis of the
-structure of the search spaces of satisficing planning (\citeyear{Hoffmann05,Hoffmann11}).
+structure of the search spaces of satisficing planning \citeyear{Hoffmann05,Hoffmann11}.
 \cite{benton2010g} proposes inadmissible technique for temporal planning
 where short actions 
 % are hidden behind long actions and
@@ -50,15 +50,7 @@ and resulted in significantly better performance in the IPC-6
 satisficing track \cite[p.137, Sec. 3.3.2]{richter2010lama}.
 %\todo*{citation}
 % There's a long discussion of Openstacks in \cite{richter2010lama}, p.167-169, but I can't find PLUSONE anywhere. Maybe it's called something else in the paper?  Maybe \richter2010lama is the wrong citation??
-Unlike PLUSONE, depth-based tiebreaking is admissible.
-%because unlike PLUSONE, action costs are not modified.  
-Also, unlike PLUSONE, depth-based tiebreaking does not necessarily favor smaller depth over larger depth.
-LAMA prefers smaller cost (including the increased cost),
-which biases the search toward nodes with fewer zero-cost actions on their path.
-This bias is similar to the $[f,h,\fd,\ro]$ strategy,
-the worst performer among all depth-variants in our experiments (\reftbl{depth}).
-The best depth-based methods are  $[f,h,\ld,\ro]$ and $[f,h,\rd,\ro]$,
-which do not prefer smaller depth.
+PLUSONE cost type makes a heuristic function inadmissible, and since LAMA uses it as the first sorting criterion, it makes the sorting criteria of LAMA inadmissible.
 
 % It's not clear what these techniques have in common, except that they are all orthogonal to heuristics,
 % If that's the case, then there's no need to cite them in this paper -- there's no reason why these particular techniques

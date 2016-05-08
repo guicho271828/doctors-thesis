@@ -25,7 +25,7 @@ restricted to a particular plateau and is assuming the unit cost edges.
 \end{figure}
 
 The depth $d(n)$ of a
-node $n$ is 0 when $n$ and the parent node $m$ has the different key
+node $n$ is 0 when $n$ and the parent node $m$ have the different key
 values for a sorting strategy, and $d(n)=d(m)+1$ when they have the same
 key values: For example, in \astar with $h$-based tiebreaking, the key
 values of a node are represented as a vector $[f,h]$, and they are same
@@ -58,7 +58,7 @@ $[f,h,\fifo]$ is equivalent to $[f,h,d,\fifo]$.
 
 The problem in these traditional strategies is that we have no knowledge
 on whether the goals are located near or far from the entrance. Remind
-that since $f=f^*, h=h^*=0$, any goals in this plateau are optimal
+that since $f=f^*$, any goals in this plateau are optimal
 regardless of the depth: A goal node in a shallower region or a deeper
 region both yields a cost-optimal solution. However, until we find a
 solution, we do not know how the goals are distributed among various
@@ -244,7 +244,7 @@ expanding each depth is decreasing as the depth increase.
 % exponential to $d$, which is common in practice (we verify this in the
 % later experiments).
 Now we show the formula which represents the probability of expanding a node in a particular depth.
-We assume that the plateau region form a tree of width
+We assume that the plateau region form a tree of a fixed branching factor
 $w\geq 2$, rather than a graph with indefinite number of successor
 nodes.  Under this assumption, each expansion of depth $d$ results in
 $w$ new nodes in depth $d+1$. Also, if there are initially

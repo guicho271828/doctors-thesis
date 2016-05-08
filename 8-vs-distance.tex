@@ -58,10 +58,10 @@ Multi-heuristic sorting strategies such as $[g+h,h,\hat{h}]$ or $[g+h,\hat{h}]$
 are admissible when $h$ is admissible, because the first criterion $f=g+h$ uses
 an admissible heuristics based on the normal action costs.
 It is even possible to use any inadmissible heuristic function to break
-ties. For example, $[g+h^{\lmcut},\ffo]$ is an admissible sorting criterion
+ties. For example, $[g+h^{\lmcut},\ffo]$ is an admissible sorting strategy
 because the first sorting criterion $f=g+h^{\lmcut}$ uses an admissible
 \lmcut heuristics. Its second sorting criterion, distance-to-go FF
-heuristics, does not affect the admissibility of this sorting criterion.
+heuristics, does not affect the admissibility of this entire sorting strategy.
 
 An obvious flaw in such a strategy is the cost of computing additional
 heuristic estimates. Using different heuristics (e.g. $\ffo$) obviously introduces such an
@@ -141,7 +141,7 @@ was $[f,h,\lifo]$ which impose the least overhead on the fast expansion offered 
 The performance degradation in the positive cost domains are not
 critical at all because we can simply switch the behavior before the
 search depending on whether the domain contains zerocost actions or not.
-Coverage results in \reftbl{tbl:dtg-summary-sum} shows the total of
+Coverage results in \reftbl{tbl:dtg-summary-sum} show the total of
 zerocost and benchmark domains. The dynamic configuration which switches
 the behavior achieves the highest coverage.
 

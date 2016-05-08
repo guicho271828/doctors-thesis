@@ -1,7 +1,7 @@
 \section{Anatomy of Standard Strategies}
 \label{sec:eval-common-strategies}
 
-In order to construct new baselines and their performance differences,
+In order to construct new baselines and analyze their performance differences,
 we evaluated tiebreaking strategies for domain-independent optimal
 classical planning.  In our experiments, all planners are based on Fast
 Downward, and all experiments are run with a 5-minute,
@@ -24,16 +24,14 @@ psr-small(50), rovers(40), scanalyzer-opt11(20), sokoban-opt11(20),
 storage(30), tidybot-opt11(20), tpp(30), transport-opt11(20),
 visitall-opt11(20), woodworking-opt11(20), zenotravel(20).
 
-\subsection{Does Default Strategies Make a Difference?}
+\subsection{Do Default Strategies Make a Difference?}
 
 We first compared two commonly used tiebreaking strategies, $[f,h,\fifo]$, $[f,h,\lifo]$, which
 first break ties according to $h$, and then apply \fifo or \lifo
 default tiebreaking, respectively.
-Results for LMcut heuristic \cite{Helmert2009} and M\&S heuristic \cite{HelmertHHN14} are
-shown in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}
-(leftmost 2 columns), respectively.
-Differences in coverage are observed in several domains, and
-$[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
+Summary results for LMcut heuristic \cite{Helmert2009} and M\&S heuristic \cite{HelmertHHN14} are
+shown in \reftbl{tbl:summary-std} (Detailed results are in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, leftmost 2 columns).
+Differences in coverage are observed in several domains and $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
 
 \begin{table}[htbp]
  {
@@ -44,7 +42,7 @@ $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
  heuristics) between
  the standard baseline tiebreaking algorithms. 
  }
- \label{tbl:lmcut-ipc-std}
+ \label{tbl:summary-std}
  }
 \end{table}
 
@@ -80,8 +78,8 @@ $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
 
 \label{sec:noh}
 
-In the right half of \reftbl{tbl:lmcut-ipc-std} and
-\reftbl{tbl:mands-ipc-std}, we show the results of $[f, \fifo]$ and
+In \reftbl{tbl:summary-std} (Detailed results are in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, rightmost 2 columns),
+we show the results of $[f, \fifo]$ and
 $[f, \lifo]$, the \astar variants which rely on \fifo or \lifo
 default tiebreaking only.  $[f,\lifo]$, which simply breaks ties
 among nodes with the same $f$-cost by expanding the most recently
@@ -140,7 +138,7 @@ the search performance.
 
 The effect of the default tiebreaking strategies (\lifo or
 \fifo) under the presence of $h$-tiebreaking is
-limited to the search plateau $\plateau{f,h}$, the set of nodes which
+limited to each search plateau $\plateau{f,h}$, the set of nodes which
 share the same $f$ values and $h$ values.
 % 
 Also, in optimal search, the two \astar with
@@ -150,16 +148,15 @@ nodes in the region where $f<f^*$.
 % If $h$-tiebreaking is enabled, the two \astar variants also expands the same number of nodes with $h>0$.
 Furthermore, the nodes with $h>0$ never become the goal nodes when $h$ is admissible.
 % 
-Therefore, the effect of default tiebreaking is limited to
-the final plateau $\plateau{f^*,0}$.
- 
-Conventionally, 
-this final plateau, $\plateau{f^*,0}$, was naively considered to be very small compared to the
-total size of the search space required to be expanded by \astar.
-However, counter-intuitively, such a region can be so large enough to
+Therefore, the effect of default tiebreaking becomes most prominent in the final plateau $\plateau{f^*,0}$.
+
+% Conventionally, 
+% this final plateau, $\plateau{f^*,0}$, was naively considered to be very small compared to the
+% total size of the search space required to be expanded by \astar.
+% However, 
+Counter intuitively, such a region can be so large enough to
 cause a performance difference, or in fact it can even account for \emph{most} of the
 search effort required by \astar.
-
 \refig{fig:plateau} plots the size of this final plateau on 1104 IPC
 benchmark instances.  The $y$-axis represents the number of nodes with
 $f=f^*, h=0$, the final plateau, and the $x$-axis represents the total
@@ -167,6 +164,7 @@ number of nodes expanded so far. This figure suggests that, in some
 domains such as \pddl{Openstacks} and \pddl{Cybersec}, the planner
 spends most of the runtime searching the final plateau for a solution,
 even with the help of $h$ tiebreaking.
+\todo{maybe we need a statistics on (#goal)/(#states) ?}
 
 One natural question might be about what makes these two domains,
 \pddl{Openstacks} and \pddl{Cybersec}, different from all other domains

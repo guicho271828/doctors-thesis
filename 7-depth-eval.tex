@@ -199,11 +199,11 @@ $[f,h,\ro]$ showed a distribution similar to $[f,h,\fifo]$.
 In contrast, $[f,h,\depth,\ro]$ is balancing the search at various depths, which
 results in successfully solving more problems.
 
-Moreover, the results suggest that in many domains the distribution follows
+Moreover, the results suggest that in many domains the distribution of $[f,h,\depth,\ro]$ follows
 $D-d$, a theoretical formula which was made under the simplified
-assumption that the plateau forms a tree of fixed width. In these
+assumption that the plateau forms a tree of fixed branching factor. In these
 figures, $D$ means the largest depth in the open list, which is equal to
-the number of iterations that was ever happened.
+the number of iterations that has ever happened in the depth diversification framework.
 
 The discrepancy from the theoretical results can happen due to the
 following factors: First, the branching factor of the graph may not be
@@ -216,7 +216,7 @@ Openstacks and Cybersec domains.
 The result in Openstacks was similar to those of the zerocost domains.
 In Cybersec,
 % while the depth has improved the overall performance,
-we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because it was small\footnote{This does not contradict to the results in \refig{fig:plateau} because \refig{fig:plateau} uses a modified Fast Downward which continues the search until expanding all nodes in the final plateau, while in this experiment the planner immediately stops the search after the first solution. These figures have the different experimental purpose: \refig{fig:plateau} was intended to show the size of the entire final plateau, while \refig{fig:depth-histogram} to \refig{fig:depth-histogram4} was meant to show the actual search behavior. If we were to continue the search after the first solution, all tiebreaking strategies should result in the same figure because they expands the same set of nodes.} according to the plot.
+we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because it was small\footnote{This does not contradict to the results in \refig{fig:plateau} because \refig{fig:plateau} uses a modified Fast Downward which continues the search until expanding all nodes in the final plateau, while in this experiment the planner immediately stops the search after the first solution. These figures are supposed to serve the different experimental purposes: \refig{fig:plateau} was intended to show the size of the entire final plateau, while \refig{fig:depth-histogram} to \refig{fig:depth-histogram4} was meant to show the actual search behavior. If we were to continue the search after the first solution, all tiebreaking strategies should result in the same figure because they expands the same set of nodes.} according to the plot.
 Instead, we observed a large difference in the depth distribution in $\plateau{f^*,1}$ caused by the difference of tiebreaking (\refig{fig:depth-histogram5}), which shows that the depth can also enhance the search in non-final plateaus to find the nodes in the next plateau.
 Similar phenomena were observed in several domains (which are included in \refig{fig:depth-histogram5}).
 
