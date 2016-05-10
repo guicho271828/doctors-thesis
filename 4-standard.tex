@@ -1,7 +1,7 @@
-\section{Anatomy of Standard Strategies}
+\section{Analysis of Standard Strategies}
 \label{sec:eval-common-strategies}
 
-In order to construct new baselines and analyze their performance differences,
+In order to establish new baselines and analyze their performance differences,
 we evaluated tiebreaking strategies for domain-independent optimal
 classical planning.  In our experiments, all planners are based on Fast
 Downward, and all experiments are run with a 5-minute,
@@ -24,23 +24,62 @@ psr-small(50), rovers(40), scanalyzer-opt11(20), sokoban-opt11(20),
 storage(30), tidybot-opt11(20), tpp(30), transport-opt11(20),
 visitall-opt11(20), woodworking-opt11(20), zenotravel(20).
 
+\subsection{Is $h$-Based Tiebreaking Necessary?}
+
+\label{sec:noh}
+\todo{changed order because the next 2 sections discuss the importance of default tiebreaking, which is directly caused by the size of plateaus, so they should be consecutive; this section is not directly related and seemed out of place sandwiched between defaults and plateaus}
+In \reftbl{tbl:summary-std} (Detailed results are in
+\reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, rightmost 2
+columns), we show the results of $[f, \fifo]$ and $[f, \lifo]$, the
+\astar variants which rely on \fifo or \lifo default tiebreaking only.
+$[f,\lifo]$, which simply breaks ties among nodes with the same
+$f$-cost by expanding the most recently generated nodes first
+\cite{korf1985depth}, clearly dominates $[f,\fifo]$.  Interestingly,
+the performance of the $[f,\lifo]$ strategy is comparable to
+$[f,h,\lifo]$ and $[f,h,\fifo]$.  This may be surprising, considering
+the ubiquity of $h$-based tiebreaking in the search and planning
+communities.
+
+This is explained by the fact that 
+\lifo behaves somewhat similarly to $h$-based tiebreaking.
+\lifo expands the most recently generated node $n$.
+For any child $n'$, 
+if the heuristic function is admissible and $f(n') = f(n)$, there are only 2 possibilities :
+(1) $g(n') > g(n)$ and $h(n') < h(n)$, or
+(2) $g(n') = g(n)$ and $h(n') = h(n)$,
+because $g(n)+h(n)=g(n')+h(n')$.
+Thus, as \lifo expands nodes in a ``depth-first'' manner,
+the nodes that continue to be expanded in the plateau by \lifo usually   %added ``usually' because usually true, but not always true because LIFO/DFS has to periodically ``back up'' to nodes with h > h(n)  after exhausiting  nodes with h=h(n).
+have non-increasing $h$-values,
+much like in $h$-based tiebreaking which always searches toward the least $h$ cost.
+Thus, although the expansion order of $[f,\lifo]$ is not exactly the same as that of $h$-based tiebreaking strategies,
+their performance is similar.
+
+% \textbf{An in-depth investigation of the behavior of $[f,\lifo]$ vs. $h$-based tiebreaking is a direction for future work.}
+% Compared to the $h$-based variants which explicitly selects nodes with smaller $h$ and its expanded nodes have non-increasing $h$-values,
+% This has the same  can behave somewhat similarly to actively expanding nodes with low $h$-values, as done by $h$-based tiebreaking.
+% \citeauthor{burns2012implementing}
+% (\citeyear{burns2012implementing}) writes ``the goal can be found more
+% quickly in the final $f$ layer of search'' about $h$ tiebreaking.
+
+
 \subsection{Do Default Strategies Make a Difference?}
 
-We first compared two commonly used tiebreaking strategies, $[f,h,\fifo]$, $[f,h,\lifo]$, which
+Next, we  compared two commonly used tiebreaking strategies, $[f,h,\fifo]$, $[f,h,\lifo]$, which
 first break ties according to $h$, and then apply \fifo or \lifo
 default tiebreaking, respectively.
 Summary results for LMcut heuristic \cite{Helmert2009} and M\&S heuristic \cite{HelmertHHN14} are
 shown in \reftbl{tbl:summary-std} (Detailed results are in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, leftmost 2 columns).
-Differences in coverage are observed in several domains and $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall.
+Differences in coverage are observed in several domains and $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall. Thus, the choice of default criterion seems to have a modest but measurable impact when the first tiebreaking criterion is $h$.
 
 \begin{table}[htbp]
  {
  \centering
  \input{tables/4-1-summary.tex}
  \caption{
- Summary results: Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
- heuristics) between
- the standard baseline tiebreaking algorithms. 
+ Summary of coverage comparison (the number of instances solved in 5min, 4GB, LMcut
+ heuristics) among
+ the standard baseline tiebreaking algorithms (details in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, leftmost 2 columns). 
  }
  \label{tbl:summary-std}
  }
@@ -53,7 +92,7 @@ Differences in coverage are observed in several domains and $[f,h,\lifo]$ outper
  \input{tables/4-ipc-lmcut.tex}
  \caption{
  Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
- heuristics) between
+ heuristics) among
  the standard baseline tiebreaking algorithms. We highlight the
  best results when the difference between the maximum and the minimum coverage exceeds 2.
  }
@@ -66,7 +105,7 @@ Differences in coverage are observed in several domains and $[f,h,\lifo]$ outper
  \centering
  \input{tables/4-ipc-mands.tex}
  \caption{
- Coverage comparison (the number of instances solved in 5min, 4GB, M\&S heuristics) between
+ Coverage comparison (the number of instances solved in 5min, 4GB, M\&S heuristics) among
  the standard baseline tiebreaking algorithms. We highlight the
  best results when the difference between the maximum and the minimum coverage exceeds 2.
  }
@@ -74,50 +113,17 @@ Differences in coverage are observed in several domains and $[f,h,\lifo]$ outper
  }
 \end{table}
 
-\subsection{Is $h$-Based Tiebreaking Necessary?}
-
-\label{sec:noh}
-
-In \reftbl{tbl:summary-std} (Detailed results are in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, rightmost 2 columns),
-we show the results of $[f, \fifo]$ and
-$[f, \lifo]$, the \astar variants which rely on \fifo or \lifo
-default tiebreaking only.  $[f,\lifo]$, which simply breaks ties
-among nodes with the same $f$-cost by expanding the most recently
-generated nodes first \cite{korf1985depth}, clearly dominates
-$[f,\fifo]$.  Interestingly, the performance of the $[f,\lifo]$ strategy
-is comparable to $[f,h,\lifo]$ and $[f,h,\fifo]$.
-This may be surprising, considering the ubiquity of $h$-based tiebreaking in the search and planning communities.
-
-\lifo behaves somewhat similarly to $h$-based tiebreaking, in the following sense:
-\lifo expands the most recently generated node $n$.
-For any child $n'$, 
-if the heuristic function is admissible and $f(n') = f(n)$, there are only 2 possibilities :
-(1) $g(n') > g(n)$ and $h(n') < h(n)$, or
-(2) $g(n') = g(n)$ and $h(n') = h(n)$,
-because $g(n)+h(n)=g(n')+h(n')$.
-Thus, as \lifo expands nodes in a ``depth-first'' manner,
-the nodes that continue to be expanded in the plateau by \lifo have non-increasing $h$-values,
-much like in $h$-based tiebreaking which always searches toward the least $h$ cost.
-Although the expansion order of $[f,\lifo]$ is not strictly the same as that of $h$-based tiebreaking strategies,
-this explains their similarity in performances.
-
-% \textbf{An in-depth investigation of the behavior of $[f,\lifo]$ vs. $h$-based tiebreaking is a direction for future work.}
-% Compared to the $h$-based variants which explicitly selects nodes with smaller $h$ and its expanded nodes have non-increasing $h$-values,
-% This has the same  can behave somewhat similarly to actively expanding nodes with low $h$-values, as done by $h$-based tiebreaking.
-% \citeauthor{burns2012implementing}
-% (\citeyear{burns2012implementing}) writes ``the goal can be found more
-% quickly in the final $f$ layer of search'' about $h$ tiebreaking.
 
 \subsection{Plateaus and Tiebreaking}
 
 \refig{fig:f-h-eval} gives us a
-more fine-grained analysis by comparing the number of node evaluation
-(computations of \lmcut) in each instance between $[f,h,\lifo]$ and $[f,h,\fifo]$ strategies.
-It shows that the difference in the number of nodes
+more fine-grained analysis by comparing the number of node evaluations
+(calls to the expensive \lmcut heuristic function) in each instance between $[f,h,\lifo]$ and $[f,h,\fifo]$ strategies.
+The difference in the number of nodes
 evaluated can sometimes be larger than a factor of 10 (\pddl{Openstacks}, \pddl{Cybersec} domains).
 Contrary to the conventional wisdom, 
 these results suggest that default tiebreaking can have a significant effect on
-the search performance.
+the search performance.\todo{``contrary to conventional wisdom'', implies that the conventional wisdome is that default tiebreaking does not have a significant effect -- citation?  If not, reword.}
 
 \begin{figure}[htbp]
  \centering \relsize{-3}
@@ -136,51 +142,51 @@ the search performance.
 
 % We further investigate the cause of this performance difference in detail.
 
-The effect of the default tiebreaking strategies (\lifo or
-\fifo) under the presence of $h$-tiebreaking is
+The effect of the 2nd-level, default tiebreaking strategies (\lifo or
+\fifo)  when the 1st-level tiebreaking criterion is  $h$-tiebreaking is
 limited to each search plateau $\plateau{f,h}$, the set of nodes which
 share the same $f$ values and $h$ values.
 % 
-Also, in optimal search, the two \astar with
-different default tiebreaking strategies both search the same set of
+Also, in admissible search, the two \astar implementations using 
+different default tiebreaking strategies both expand the same set of
 nodes in the region where $f<f^*$.
 % 
 % If $h$-tiebreaking is enabled, the two \astar variants also expands the same number of nodes with $h>0$.
-Furthermore, the nodes with $h>0$ never become the goal nodes when $h$ is admissible.
+Furthermore, nodes with $h>0$ can not be goal nodes when $h$ is admissible.
 % 
-Therefore, the effect of default tiebreaking becomes most prominent in the final plateau $\plateau{f^*,0}$.
+Therefore, the effect of default tiebreaking becomes most prominent in the final plateau, $\plateau{f^*,0}$.
 
 % Conventionally, 
 % this final plateau, $\plateau{f^*,0}$, was naively considered to be very small compared to the
 % total size of the search space required to be expanded by \astar.
 % However, 
-Counter intuitively, such a region can be so large enough to
-cause a performance difference, or in fact it can even account for \emph{most} of the
+Counterintuitively, the $\plateau{f^*,so 0}$ region can be large enough to
+cause a significant performance difference -- in fact, this final plateau can even account for \emph{most} of the
 search effort required by \astar.
-\refig{fig:plateau} plots the size of this final plateau on 1104 IPC
+\refig{fig:plateau} plots the size of the final plateau on 1104 IPC
 benchmark instances.  The $y$-axis represents the number of nodes with
-$f=f^*, h=0$, the final plateau, and the $x$-axis represents the total
-number of nodes expanded so far. This figure suggests that, in some
+in the final plateau ($f=f^*, h=0$), and the $x$-axis represents the total
+number of nodes expanded so far. This figure suggests that in some
 domains such as \pddl{Openstacks} and \pddl{Cybersec}, the planner
 spends most of the runtime searching the final plateau for a solution,
 even with the help of $h$ tiebreaking.
 \todo{maybe we need a statistics on (\#goal)/(\#states) ?}
 
-One natural question might be about what makes these two domains,
-\pddl{Openstacks} and \pddl{Cybersec}, different from all other domains
-which have much smaller final plateaus.
+A natural question is:  what makes these two domains,
+(\pddl{Openstacks} and \pddl{Cybersec})  different from all other domains
+which have much smaller final plateaus?
 
 \begin{figure}[htbp]
    \centering
   \includegraphics{tables/aaai16-frontier/aaai16prelim3/lmcut_frontier-front.pdf}
   \caption{
  The number of nodes with $f=f^*, h=0$ (y-axis), which form
-  the final plateau when $h$-based tiebreaking is enabled, compared to
+  the final plateau when 1st-level tiebreaking is according to $h$, compared to
   the total number of nodes in the search space (x-axis) with $f\leq
   f^*$ on 1104 IPC benchmark problems.  Note that \pddl{Openstacks}
   and \pddl{Cybersec} instances are near the $y=x$ line.
-  This statistics is obtained by running a modified Fast Downward with
+  These statistics are obtained by running a modified Fast Downward with
  \lmcut which continues searching after the solution is found
- until expanding all nodes with cost $f=f^*$.} \label{fig:plateau}
+ until all nodes with cost $f=f^*$ are expanded.} \label{fig:plateau}
 \end{figure}
 
