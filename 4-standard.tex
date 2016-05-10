@@ -136,12 +136,6 @@ the search performance.\todo{``contrary to conventional wisdom'', implies that t
  \label{fig:f-h-eval}
 \end{figure}
 
-% In a plateau, the heuristics do not provide any useful guidance -- a
-% plateau region requires a blind search because all neighboring nodes have the same
-% estimates. Because of this, search algorithms rely solely on the tiebreaking criterion.
-
-% We further investigate the cause of this performance difference in detail.
-
 The effect of the 2nd-level, default tiebreaking strategies (\lifo or
 \fifo)  when the 1st-level tiebreaking criterion is  $h$-tiebreaking is
 limited to each search plateau $\plateau{f,h}$, the set of nodes which
@@ -151,7 +145,6 @@ Also, in admissible search, the two \astar implementations using
 different default tiebreaking strategies both expand the same set of
 nodes in the region where $f<f^*$.
 % 
-% If $h$-tiebreaking is enabled, the two \astar variants also expands the same number of nodes with $h>0$.
 Furthermore, nodes with $h>0$ can not be goal nodes when $h$ is admissible.
 % 
 Therefore, the effect of default tiebreaking becomes most prominent in the final plateau, $\plateau{f^*,0}$.
@@ -160,19 +153,19 @@ Therefore, the effect of default tiebreaking becomes most prominent in the final
 % this final plateau, $\plateau{f^*,0}$, was naively considered to be very small compared to the
 % total size of the search space required to be expanded by \astar.
 % However, 
-Counterintuitively, the $\plateau{f^*,so 0}$ region can be large enough to
+Counterintuitively, the $\plateau{f^*, 0}$ region can be large enough to
 cause a significant performance difference -- in fact, this final plateau can even account for \emph{most} of the
 search effort required by \astar.
 \refig{fig:plateau} plots the size of the final plateau on 1104 IPC
-benchmark instances.  The $y$-axis represents the number of nodes with
-in the final plateau ($f=f^*, h=0$), and the $x$-axis represents the total
+benchmark instances.  The $y$-axis represents the number of nodes within
+the final plateau ($f=f^*, h=0$), and the $x$-axis represents the total
 number of nodes expanded so far. This figure suggests that in some
 domains such as \pddl{Openstacks} and \pddl{Cybersec}, the planner
 spends most of the runtime searching the final plateau for a solution,
 even with the help of $h$ tiebreaking.
 \todo{maybe we need a statistics on (\#goal)/(\#states) ?}
 
-A natural question is:  what makes these two domains,
+A natural question is:  What makes these two domains
 (\pddl{Openstacks} and \pddl{Cybersec})  different from all other domains
 which have much smaller final plateaus?
 
