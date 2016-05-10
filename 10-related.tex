@@ -9,33 +9,28 @@ being misdirected by the heuristic function. Type based bucket
 $[g,h]$ pair and distributes the effort.  Marvin \cite{Coles07} learns plateau-escaping macros
 from the Enhanced Hill Climbing phase of the FF planner
 \cite{Hoffmann01}, and the use of these macros is inadmissible.
-\citeauthor{Hoffmann05} gives a detailed analysis of the
-structure of the search spaces of satisficing planning \citeyear{Hoffmann05,Hoffmann11}.
-\cite{benton2010g} proposes inadmissible technique for temporal planning
-where short actions 
-% are hidden behind long actions and
-do not increase makespan. 
-\cite{cushing2010cost} investigates ``$\varepsilon$-cost
+\citeauthor{Hoffmann05} \citeyear{Hoffmann05,Hoffmann11} gives a detailed analysis of the
+structure of the search spaces of satisficing planning.
+\citeauthor{benton2010g} \citeyear{benton2010g} proposes inadmissible technique for temporal planning
+where short actions are hidden behind long actions and do not increase makespan.
+\citeauthor{cushing2010cost} \citeyear{cushing2010cost} investigates ``$\varepsilon$-cost
 traps''($\varepsilon=\frac{\min cost}{\max cost}$),  showing that (non-admissibly) treating all actions as unit cost sometimes finds an optimal plan quickly.
-\cite{wilt2011cost} also analyzes inadmissible distance-to-go estimates.
+\citeauthor{wilt2011cost} \citeyear{wilt2011cost} also analyzes inadmissible distance-to-go estimates.
 % 
-To our knowledge, 
-plateaus have not been previously investigated for cost-optimal planning with admissible search.
+To our knowledge, plateaus have not been previously investigated for cost-optimal planning with admissible search.
 Admissible and inadmissible search differ significantly in how non-final plateaus (plateaus with $f < f^*$) are treated:
 Inadmissible search can skip or escape plateaus whenever possible, while
-admissible search cannot, unless it
-is the final plateau ($f=f^*$, $h=0$) and a solution is found. %it directly finds a solution.
+admissible search cannot, unless it is the plateau with $f=f^*$.
 
-%In their work on combining multiple heuristics in a planner, 
-% \citeauthor{RogerH10} (\citeyear{RogerH10}) considered a tiebreaking approach which works as follows:
-% When combining two heuristics, one of the
-% heuristics is used as the primary criterion, % for guiding the search,
-% and the second heuristic is used to break ties among nodes with the same primary
-% heuristic value.
-% While this did not perform well in their work on satisficing planning, 
-% additional criterion using a secondary heuristic
-% for cost-optimal search is an interesting direction for future work.
-
+In their work on combining multiple heuristics in a planner,
+\citeauthor{RogerH10} \citeyear{RogerH10} considered a tiebreaking approach which works as follows:
+When combining two heuristics $h_1$ and $h_2$, $h_1$ is used as the primary criterion,
+and $h_2$ is used to break ties among nodes with the same $h_1$ --- $[h_1,h_2,\fifo]$, in effect.
+This did not perform well in their work on satisficing planning compared to the approaches based on alternation queues and pareto-optimal queue selection.
+% 
+Since their focus is on how to combine multiple heuristics,
+this tiebreaking-based approach is just one instance of various implementations of OPEN lists.
+In contrast, we discussed solely on the tiebreaking, and the focus of our paper is how tiebreaking enables the efficient search on the plateau created by the earlier levels of sorting criteria.
 
 The PLUSONE %\footnote{This term is used on the Fast Downward website.} XXfootnote takes too much space
 cost-type (or distance-to-go) is a non-admissible search technique in the Fast Downward/LAMA planner
