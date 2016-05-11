@@ -52,28 +52,34 @@
 }
 % \usepackage{soul}
 \makeatletter
+\newcounter{todo}[page]
+\renewcommand{\thetodo}{\text{$\dagger$}\arabic{todo}}
 \renewcommand{\@todons}[2]{%
-  \uline{#1}%
+  \refstepcounter{todo}%
+  $^{\thetodo}$\uline{#1}%
   \marginpar[%
     \hfill\relsize{-1}%
+    \thetodo\;%
     \protect{%
-      {\scriptsize\bf todo: #2}}%
-    $\triangleright$]{%
-    \relsize{-1} $\triangleleft$ %
+      {\scriptsize\bf #2}}]{%
+    \relsize{-1}%
+    \thetodo\;%
     \protect{%
-      {\scriptsize\bf todo: #2}}}}
+      {\scriptsize\bf #2}}}}
 \renewcommand{\@todos}[2]{%
-  \uline{#1}%
+  \refstepcounter{todo}%
+  $^{\thetodo}$\uline{#1}%
   \marginpar[%
     \hfill\relsize{-1}%
+    \thetodo\;%
     \protect{%
-      {\scriptsize done \it #2}}%
-    $\triangleright$]{%
-    \relsize{-1} $\triangleleft$ %
+      {\scriptsize \it #2}}]{%
+    \relsize{-1}%
+    \thetodo\;%
     \protect{%
-      {\scriptsize done \it #2}}}}
+      {\scriptsize \it #2}}}}
 \makeatother
-\setlength{\marginparwidth}{3.3cm}
+\setlength{\marginparwidth}{2.9cm}
 \setlength{\marginparsep}{5pt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
