@@ -221,32 +221,29 @@ order) default tiebreaking.
 As a preparation, we first show that the number of expansion happened to each depth decreases
 linearly to the depth.
 % 
-Assume that each depth bucket never exhausts as a result of
-expansion.  If the expansion of a node in the largest depth $D\geq 0$ resulted
-in more nodes in the same plateau, then the newly generated nodes have
-depth $D+1$.  Also, as we explained in the previous section, the
-expansion is diversified by a sequence of iterations from the current
-largest depth to 0.  It means that when the current maximum depth of
-the plateau is $D\geq 0$, the number of iteration happened so far is also $D$.\todo{what if all the nodes generated in an iteration, all nodes were previously generated? In this case numiterations < D. Does the assumption regarding the plateau need to be changed to: plateau such that every node has w>=2 children which were not previously generated?}
-Therefore, at the end of the $D$'th iteration, each depth $d$ has
-been expanded exactly $D-d$ times, meaning that the chance of
-expanding each depth is decreasing as the depth increase.
+\todo*{Introduced the tree assumption in the beginning.}
+We first assume that the plateau region form a tree of a fixed branching factor
+$w\geq 2$ (\emph{tree assumption}), rather than a graph with indefinite number of successor nodes.
+We also assume that no depth buckets exhaust due to the expansion (\emph{no-exhaust assumption}).
 
-% However, it does not mean that this strategy favors the nodes in the
-% shallower region.
-% This is because the number of nodes in each depth is
-% exponential to $d$, which is common in practice (we verify this in the
-% later experiments).
+Let $D\geq 0$ be the current largest depth of the nodes found in the plateau so far.  If the expansion of a node in
+depth $D$ resulted in more nodes in the same plateau, then the children have depth $D+1$.  Due to the tree
+assumption, these children are all newly generated. Also, as we explained in the previous section, the expansion is
+diversified by a sequence of iterations from the current largest depth to 0.  It means that when the current
+largest depth of the plateau is $D$, the number of iteration happened so far is also $D$.
+% Under the tree assumption, each expansion of depth $d$ results in $w$ new nodes in depth $d+1$. 
+Therefore, at the end of the $D$'th iteration, each depth $d$ has been expanded exactly $D-d$ times, with $D(D-1)$
+expansions in total.
+
+It also means that the minimum condition for \emph{no-exhaust assumption} to hold until the end of the $D$'th
+iteration is that the initial number of nodes in depth 0 is at least $D$.  If there are at least $D$ nodes in depth
+0, depth 0 trivially never exhausts until $D$'th iteration. Also, no depth buckets in depth $d>0$ will exhaust
+because each bucket have $w^{D-d-1}$ nodes in total (including those already expanded) while the expansion has
+happened only $D-d$ times. For simplicity, let us also assume that the depth 0 initially have exactly $D$ nodes and
+no nodes will be added to depth 0 during the search.
+
 Now we show the formula which represents the probability of expanding a node in a particular depth.
-We assume that the plateau region form a tree of a fixed branching factor
-$w\geq 2$, rather than a graph with indefinite number of successor
-nodes.  Under this assumption, each expansion of depth $d$ results in
-$w$ new nodes in depth $d+1$. Also, if there are initially
-$D$ nodes in depth 0, each depth bucket never exhausts until the end of $D$'th
-iteration (when depth 0 becomes empty).
-
-% $D-d$th expansion in the $D$th iteration expands the depth $d$.
-At the end of $D$th iteration,
+At the end of $D$'th iteration,
 each depth $d-1$ is expanded $D-(d-1)$ times in the preceding $D$ iterations.
 Therefore, the total number of nodes that have been in depth $d$, including those
 that have been expanded so far, is $w(D-d+1)$.
