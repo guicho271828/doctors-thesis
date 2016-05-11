@@ -181,8 +181,8 @@ found.  We plotted the most successful depth-based strategy,
 $[f,h,\depth,\fifo]$, as well as the standard strategies $[f,h,\fifo]$,
 $[f,h,\lifo]$ and a single run of randomized strategy $[f,h,\ro]$.
 
-In addition, we  added some instrumentation to the strategies which do not use depth-based tiebreaking ($[f,h,\fifo]$, $[f,h,\lifo]$, $[f,h,\ro]$) so that as these strategies run, the depth of each of the expanded methods is computed (although they do not affect the search behavior).
-Note that this instrumentation, which addes some runtime overhead, was \emph{not}
+In addition, we  added some instrumentation to the strategies which do not use depth-based tiebreaking ($[f,h,\fifo]$, $[f,h,\lifo]$, $[f,h,\ro]$) so that as these strategies run, the depth of each of the expanded nodes is computed (although they do not affect the search behavior).
+Note that this instrumentation, which adds some runtime overhead, was \emph{not}
 used in the performance comparison experiments above, and were only used for this experiment, which analyzes search behavior.
 
 
