@@ -1,22 +1,25 @@
 \section{Evaluating Depth-Based Tiebreaking}
 \label{sec:depth-based-evaluation}
-We evaluated our depth-based diversifying tiebreaking strategies against standard
-tiebreaking strategies.
-In addition to the 35 IPC benchmark domains with 1104 instances used in
-the previous set of experiments, we used 28 zerocost domains with 620
-instances.
 
-\subsection{Evaluating Depth-Based Tiebreaking with $h$-tiebreaking}
+% this text is mostly repeated below, so deleted this and promoted the subsection below up 1 level.
+%% We evaluated our depth-based diversifying tiebreaking strategies against standard
+%% tiebreaking strategies.
+%% In addition to the 35 IPC benchmark domains with 1104 instances used in
+%% the previous set of experiments, we used 28 zerocost domains with 620
+%% instances.  
+
+
+%\subsection{Evaluating Depth-Based Tiebreaking with $h$-tiebreaking}
 
 We compared the performance of standard tiebreaking methods to
 depth-based tiebreaking methods. These all use $h$ as the first-level
 tiebreaking and either \fifo, \lifo or \ro (random order) as the
-default tiebreaking.
+default tiebreaking criterion.
 
 Experiments are conducted on \textbf{1104 standard IPC benchmark
-instances} and \textbf{620 zerocost instances}.  Each experiment uses
-either \lmcut heuristics or \mands heuristics.  For \mands heuristics,
-we used the settings recommended by Fast Downward website
+instances} from 35 domains  and \textbf{620 zerocost instances} from 28 domains (see \refsec{sec:eval-common-strategies} and \refsec{sec:zerocost-domains} for full lists of these domains).  Each experiment uses
+The Fast Downward planner using A* search and either the \lmcut heuristic or \mands heuristic.  For \mands,
+we used the currently recommended settings\footnote{http://XXXfast-downward.org/XXX, as of 2016-5-11} 
 (bisimulation-based shrink strategy, DFP merge strategy and exact label
 reduction). Each experiment is run for 5 minutes excluding SAS
 translation time, with 4GB memory constraints.
@@ -24,8 +27,7 @@ translation time, with 4GB memory constraints.
 We first show the summary results of these experiments (\reftbl{tbl:depth-summary}).
 Overall, depth-based tiebreaking tends to show larger coverages than the
 standard tiebreaking strategies. 
-In the following, we describe the
-details of each experiments.
+In the following, we describe and discuss each experiment.
 
 \begin{table}[htb]
  {
@@ -44,15 +46,15 @@ details of each experiments.
 \end{table}
 
 \reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full} shows the number of \textbf{620 zerocost
-instances} solved by \lmcut heuristics with various tiebreaking strategies, under 5min, 4GB experiments. We
-highlight the best results when the difference between the maximum and the minimum coverage exceeds 2. In these
+instances} solved by \lmcut heuristics with various tiebreaking strategies, with a 5min, 4GB limit. We
+highlight the best results when the difference between the best and the worst coverages is greater than 2. In these
 zerocost domains, our proposed method outperforms the traditional tiebreaking methods in both \lmcut and \mands
 heuristics.  Significant improvements were observed in 7 domains when using \lmcut, and in 6 domains when using
 \mands.
 % This means that the search efficiency offered by depth based diversification become much more important,
 % and the overhead caused by the management of depth buckets become negligible even in the case of \mands.
-Interestingly, When $\depth$ is enabled, \fifo tends to perform better than \lifo in zerocost domains in both
-\lmcut and \mands heuristics (299 vs 279, 317 vs 303). Also, \ro (random order) outperforms both \fifo and \lifo.
+Interestingly, When the depth diversity criterion $\depth$ is used, \fifo tends to perform better than \lifo in zerocost domains for both
+\lmcut and \mands heuristics (299 vs 279 for \lmcut, 317 vs 303 for \mands). Also, \ro (random order) outperforms both \fifo and \lifo.
 
 \begin{table}[htbp]
  {
@@ -83,18 +85,17 @@ Interestingly, When $\depth$ is enabled, \fifo tends to perform better than \lif
 \reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard IPC benchmark instances} solved by \lmcut
 heuristics. Depth-based tiebreaking ($\depth$) shows impressive results on Openstacks and Cybersec domains because
 these domains contain many instances of zero-cost edges and the final plateau $\plateau{f,h}$ is huge (See
-\refig{fig:plateau}).  Most other instances are unaffected by depth-based tiebreaking.  Thus, our method offers a
-better performance in the domains of interest for free, i.e. without losing performance in other domains.
+\refig{fig:plateau}).  Most other instances are unaffected by depth-based tiebreaking.  Thus, depth-based tie-breaking yields
+better performance in the domains with large final plateaus,  without sacrificing performance in other domains.
 
-In contrast, depth-based tiebreaking negatively affects the performance of \mands.
-\reftbl{tbl:mands-ipc-full} shows the results by \mands heuristics on \textbf{1104 standard
-IPC benchmark instances}.
+In contrast, \reftbl{tbl:mands-ipc-full} shows that depth-based tiebreaking negatively affects the performance of \mands when applied to 
+\textbf{1104 standard IPC benchmark instances}.
 % 
-As we show in \refig{fig:expansion-ratio}, this is because the low-level overhead of depth-based tiebreaking
-decreases the high node processing speed of \mands. Evaluation of \mands heuristics is very efficiently implemented
+As shown in \refig{fig:expansion-ratio}, this is because the low-level overhead of depth-based tiebreaking (i.e., updates to the depth-based bucket data structures).
+Evaluation of \mands heuristics is very efficiently implemented
 as a table lookup, and it is able to evaluate an order of magnitude larger number of nodes compared to \lmcut
-heuristics. Thus, even the slightest overhead caused by the management of depth buckets has affected
-the performance.
+heuristics. Thus, even the relatively small  overhead incurred by the management of depth buckets decreases the node generation rate sufficiently to noticeably degrade performance.
+
 
 \begin{figure}[htbp]
  \centering
@@ -173,20 +174,20 @@ the performance.
 
 \subsection{Search Behavior Within a Plateau}
 
-To understand the behavior of depth-based policies, we plotted the
-histogram of the depths of search nodes opened by several tiebreaking
+To understand the behavior of depth-based policies, we plotted 
+histograms of the depths of search nodes expanded by several tiebreaking
 strategies in the final plateau $\plateau{f^*,0}$ until the solution is
 found.  We plotted the most successful depth-based strategy,
 $[f,h,\depth,\fifo]$, as well as the standard strategies $[f,h,\fifo]$,
 $[f,h,\lifo]$ and a single run of randomized strategy $[f,h,\ro]$.
-We additionally computed the depth metric for non-depth strategies and
-recorded the results. Thus this experiment is independent from the
-previous experiments for performance comparison which should not incur
-this overhead.
+
+In addition, we  added some instrumentation to the strategies which do not use depth-based tiebreaking ($[f,h,\fifo]$, $[f,h,\lifo]$, $[f,h,\ro]$) so that as these strategies run, the depth of each of the expanded methods is computed (although they do not affect the search behavior).
+Note that this instrumentation, which addes some runtime overhead, was \emph{not}
+used in the performance comparison experiments above, and were only used for this experiment, which analyzes search behavior.
 
 
-\refig{fig:depth-histogram} to \refig{fig:depth-histogram3} show the results on several exemplar instances in
-various zerocost domains.  We do not show some domains when we did not observe any depths more than 3, which means
+\refigs{fig:depth-histogram}{fig:depth-histogram3} show the results on several exemplar instances in
+various zerocost domains.  We do not show some domains when we did not observe any depths more than 3, where
 the depth metric has negligible effect on the search performance.
 
 In many domains, we observed that the depth-first behavior of
@@ -197,28 +198,28 @@ searching around the plateau entrance.  Also, due to the large bias of
 the number of nodes to the shallower depths, global randomization
 $[f,h,\ro]$ showed a distribution similar to $[f,h,\fifo]$.
 In contrast, $[f,h,\depth,\ro]$ is balancing the search at various depths, which
-results in successfully solving more problems.
+results in successfully solving more problems.\todo{Instead of only general trends for unspecified domains, mentioning specific domains to add some ``color'' might make this more interesting}
 
-Moreover, the results suggest that in many domains the distribution of $[f,h,\depth,\ro]$ follows
+Moreover, the results in \refigs{fig:depth-histogram}{fig:depth-histogram3} suggest that in many domains the distribution of $[f,h,\depth,\ro]$ follows
 $D-d$, a theoretical formula which was made under the simplified
 assumption that the plateau forms a tree of fixed branching factor. In these
 figures, $D$ means the largest depth in the open list, which is equal to
-the number of iterations that has ever happened in the depth diversification framework.
+the number of iterations that has ever happened in the depth diversification framework.\todo{refs to sec{sec:theoretical-characteristics}}
 
-The discrepancy from the theoretical results can happen due to the
+The discrepancy from the theoretical prediction can be caused by the 
 following factors: First, the branching factor of the graph may not be
 uniform across the search space. Second, some depth buckets could be
 exhausted, as is depicted in the line by $[f,h,\fifo]$ which
 shows all nodes in the shallower depths are expanded and the line can be below $D-d$.
 
-Next, \refig{fig:depth-histogram4} shows the same results on standard
+Next, \refig{fig:depth-histogram4} shows the same results on the standard IPC
 Openstacks and Cybersec domains.
 The result in Openstacks was similar to those of the zerocost domains.
 In Cybersec,
 % while the depth has improved the overall performance,
 we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because it was small\footnote{This does not contradict to the results in \refig{fig:plateau} because \refig{fig:plateau} uses a modified Fast Downward which continues the search until expanding all nodes in the final plateau, while in this experiment the planner immediately stops the search after the first solution. These figures are supposed to serve the different experimental purposes: \refig{fig:plateau} was intended to show the size of the entire final plateau, while \refig{fig:depth-histogram} to \refig{fig:depth-histogram4} was meant to show the actual search behavior. If we were to continue the search after the first solution, all tiebreaking strategies should result in the same figure because they expands the same set of nodes.} according to the plot.
 Instead, we observed a large difference in the depth distribution in $\plateau{f^*,1}$ caused by the difference of tiebreaking (\refig{fig:depth-histogram5}), which shows that the depth can also enhance the search in non-final plateaus to find the nodes in the next plateau.
-Similar phenomena were observed in several domains (which are included in \refig{fig:depth-histogram5}).
+Similar phenomena were observed in several domains (which are included in \refig{fig:depth-histogram5}).\todo{if it's only ``several'', might as well say which domains instead of having the reader figure it out. Similarly, throughout this subsection and elsewhere, consider giving more specific info (domain names, or number of domains) whenever words like ``some/several/various'' are used}
 
 
 \begin{figure}[htbp]
