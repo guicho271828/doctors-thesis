@@ -107,35 +107,31 @@ and also facilitates the  theoretical analysis below in \refsec{sec:theoretical-
 
 \subsection{The Scope Captured by Depth-Based Tiebreaking}
 
-Depth-based tiebreaking has no effect when the key values for measuring
-the depth are always updated and thus all nodes have depth 0. A key
-value is a single $f$ when $h$-based tiebreaking is not present, and a
-pair of $f$ and $h$ when $h$-based tiebreaking is present. When all
-nodes have depth 0, the search is equivalent to the case where 
-the depth-based strategy is not present.\todo{mentioning ``keys'' seems unnecessarily complicated, and  ```key'' doesn't seem to be used much in the rest of the paper -- simpler+sufficient to just say that 
-``depth diversification has no effect when there are no plateaus after the higher priority tiebreaking criteria (e.g., in a [f,h,<d>] strategy, when there are no [f,h] plateaus), which occurs when the problem only has positive cost operators'' ?}
+% ``no effect'' is ambiguous, reviewers may complain that we are trying to claim there is no overhead, including the low level overhead. Thus I reworded from ``no effect'' to ``does not affect the order of expansion''.
+Depth-based tiebreaking does not affect the order of node expansion when there are no remaining ties after the
+higher priority tiebreaking criteria, in which case all nodes have depth 0. \todo*{mentioning ``keys'' seems
+unnecessarily complicated, so remove it}
 % 
-This happens when the target problem only has 
-operators with positive cost. %\footnote{not to be confused with non-negative cost.  XXXshouldn't be necessary, positive doesn't include 0 for any standard def} 
-Let a node $n$ is reached from a node $m$. \todo{is this par necessary?}
-Assume
- $g(n)>g(m)+c$ where $c$ is a positive edge cost, and the parent of $n$
- is updated to $m$.
+This happens when the target problem only has operators with positive cost.
+Let a node $n$ is a child of a node $m$. Depending on whether $n$ is already evaluated and whether the parent of $n$ is updated or not, there are 3 cases:
 
-\begin{itemize}
- \item 
-       If $f(n)=f(m)$, $h(n)<h(m)$ should hold because the new value of
-       $g(n)$ is $g(m)+c>g(m)$. Therefore the depth is 0.
- \item If $h$-value is unchanged and $g$ is increased due to a positive
-       cost edge, then $f$ is also increased, thus the depth is 0.
-\end{itemize}
+\begin{enumerate}
+ \item If $n$ is evaluated for the first time,
+       then $g(n)=g(m)+\mit{cost}(m,n) > g(m)$ and so $f(n)-h(n) > f(m)-h(m)$.
+       Thus $f(n)=f(m)$ and $h(n)=h(m)$ cannot hold at the same time and the depth is 0.
+ \item If $n$ is already evaluated as a child of another node $m'$, $n$'s current parent is $m'$ and
+       $g(m)+\mit{cost}(m,n) < g(m') + \mit{cost}(m',n) = g(n)$,
+       then the parent of $n$ is updated to $m$ and $g(n)\leftarrow g(m)+\mit{cost}(m,n)$.
+       Since $g(n)=g(m)+\mit{cost}(m,n)>g(m)$ and so $f(n)-h(n) > f(m)-h(m)$,
+       therefore $f(n)=f(m)$ and $h(n)=h(m)$ cannot hold at the same time and the depth is 0.
+ \item If $n$ is already evaluated as a child of another node $m'$, $n$'s current parent is $m'$ and
+       $g(m)+\mit{cost}(m,n) \geq g(m') + \mit{cost}(m',n) = g(n)$, then the parent of $n$ remains $m'$. If the
+       depth of $n$ is 0 at this moment, then it remains 0 because the parent is unchanged.
+\end{enumerate}
 
-One might wonder what if the evaluated (?) nodes (?) are already visited (?) from
-another parent (old (?)parent) with smaller $g$ value, and the new $g$ value does not change it (?),
-which may cause the new parent and the child node may have the same $f$ and
-same $h$. It does not result in a positive depth because it does not update the parent. The depth of a
-child remains the old value (using the old parent), which is 0.\todo{rewrite par -- terminology is inconsistent and pronouns are ambiguous}
-
+Since the case 1 and 2 always hold and the case 3 holds at the beginning of the search,
+by mathematical induction, the case 3 always holds during the search.
+Thus, the depths of nodes in positive cost domains are always 0.
 
 \subsection{Tiebreaking within Depth Buckets}
 
