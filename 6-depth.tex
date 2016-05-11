@@ -96,7 +96,7 @@ At each expansion, the counter is decremented ($d_c\leftarrow d_c-1$) and
 a node from  bucket $d_c$ is expanded. When $d_c$ reaches below 0, then $d_c$
 is reset to the current largest depth in the plateau.
 
-In an earlier, conference paper, we used a nondeterministic,
+In an earlier, conference paper, we used a non-deterministic,
 randomized implementation of this idea \cite{Asai16}, but we use a deterministic
 implementation here because it eliminates the possibility of results being influenced by random seeds,
 and also facilitates the  theoretical analysis below in \refsec{sec:theoretical-characteristics}.
@@ -195,14 +195,15 @@ all our results are somehow specific to one particular action order.}
 
 We give further insight into the search behavior of our implementation
 of depth-based diversification.
-As described above, our implementation performs a deterministic, round-robin samping from the available depth buckets.
+As described above, our implementation performs a deterministic, round-robin sampling from the available depth buckets.
 %iterates from the largest depth to 0.
 
 %We are particularly interested in how the expansions happen among the
 %various depths in the plateau region.
 We are particularly interested in how the nodes selected for expansion are distributed 
 among the various depths in a plateau region.
-Using a simplified model where the plateau region is a tWe show that the probability of expanding a node in a particular depth
+Using a simplified model where the plateau region is a tree,
+we show that the probability of expanding a node in a particular depth
 can be represented by a simple formula.  Although the notion of
 probability does not fit well with deterministic \fifo or \lifo
 default tiebreaking, it is meaningful in the case of \ro (random
