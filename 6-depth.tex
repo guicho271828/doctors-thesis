@@ -260,10 +260,11 @@ unaffected by the depth of the node.
 However, the nodes near the largest depth has less probability, showing
 some balance in exploration and exploitation.
 
-The important point of this characteristics is that this
-distribution is maintained at any point of the search until the solution
-is found. In fact, any depth-selection criterion, including the least
-depth selection (\fifo) or the largest depth selection (\lifo), 
-result in the same distribution if all nodes are to be expanded (each
-depth $d$ is expanded $Dw^d$ times), but their
-online characteristics are not.\todo{maybe \lifo and \fifo should be analyzed wrto this tree model and compared directly to each other as well as $\depth$?}
+The important point of this characteristics is that this distribution is maintained at any point of the search
+until the solution is found. In fact, any depth-selection criterion, including the least depth selection (\fifo) or
+the largest depth selection (\lifo), result in the same distribution if all nodes are to be expanded (each depth
+$d$ is expanded $Dw^d$ times), but their online characteristics are not.
+%
+\todo*{maybe \lifo and \fifo should be analyzed wrto this tree model and compared directly to each other as well as
+$\depth$?}
+\todo*{less priority -- lets add it when required by the reviewers. unused texts are in unused/lifo-fifo-distribution.tex}

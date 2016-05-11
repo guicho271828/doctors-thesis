@@ -1,0 +1,24 @@
+
+For example, \lifo behaves the following: Assume the maximum depth in this tree is a finite integer
+$D_{\mit{max}}$. Since this is a depth-first search, it first expands all depths once until it reaches
+$D_{\mit{max}}$.
+% 
+% Since whenever a node is expanded their parent should also be expanded, when depth $d$ has been expanded $E$ times
+% so far, depth $d-1$ should have been expanded $\lceil E/w \rceil$ times. Thus, the distribution is exponentially
+% biased toward the maximum depth $D_{\mit{max}}$ at any point of the search.  The probability of each node in a
+% depth $d$ can be calculated as the following:
+% 
+Now, let $n$ be a node in depth $d$ where $d\ll D_{\mit{max}}$.  Assume every descendants of $n$ are expanded,
+while no siblings of $n$ and no siblings of ancestors of $n$ are expanded.  In this case,
+\begin{enumerate}
+ \item Depth 0 have $D$ nodes and is expanded exactly once.
+ \item The total number of nodes in each depth $k\in [1,d]$, including those expanded, is $w$, and each depth $k\in [1,d]$ is expanded exactly once. They have $wd$ nodes in total.
+ \item The total number of descendants of $n$ is $\sum_{k=1}^{D_{\mit{max}}-d} w^k = \frac{1-w^{D_{\mit{max}}-d}}{1-w}$. These nodes are entirely expanded.
+\end{enumerate}
+At this point we have expanded $1+d+\frac{1-w^{D_{\mit{max}}-d}}{1-w} \approx O(w^{D_{\mit{max}}})$ nodes in total,
+while each depth $k\in [0,d]$ is expanded exactly once.
+This means that almost all search effort is spent in depths $k\in [d+1,D_{\mit{max}}]$.
+
+As another example, \fifo behaves the following: It first expands $D$ nodes in depth 0, and proceeds the
+breadth-first search. Let $d$ the depth of the current frontier of the breadth-first search. When all nodes in
+depth $d$ are expanded, there are $wd$ nodes in depth $d+1$.
