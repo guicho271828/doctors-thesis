@@ -27,6 +27,8 @@ list, while the current model-based methods prove the satisfiability of
 different horizons independently -- in each iteration of the search,
 they have to generate a new set of variables for each horizon, and the
 underlying CSP solvers are forced to start the search from the scratch.
+\todo{A more standard interpretation of the connectin between SAT/IP/CSP planning vs A* is that SAT/IP/CSP are doing iterated deepening, where each iteration seeks a satisficing solution, like IDA*. }
+\todo{In fact, exploring the application of ``IDA* = series of satisficing seraches'' seems like an interesting direction for future work, e.g., how to simulate depth-based tiebreaking (node ordering) in IDA*? IDA* is useful for domains where memory limitations are the bottleneck, so keeping the depth buckets in memory may not be possible. More broadly, linear space, best-first search including RBFS}
 
 Our notion of \emph{admissible sorting strategy} dictates that, the
 search within the same $f$ plateau can be a satisfiable search. In fact,
@@ -52,6 +54,7 @@ exploration in Type-GBFS \cite{xie14type}.
 % Future work on this direction should be evaluated in the context of
 % future International Planning Competitions.
 
+
 The new view can also yield another observation if we use the same logic
 in an opposite direction: We import techniques not only from satisficing
 to optimizing, but also from optimizing to satisficing.
@@ -59,6 +62,8 @@ In the experiments, we showed that the depth improved the distance-to-go \ff heu
 used for \textbf{satisficing search within a plateau}. A natural extension
 to this idea is that the depth metric can also enhance the performance of
 $\ffo$ used for \textbf{satisficing search in general}.
+\todo{``exporting from optimizing to satisficing'' and ``exporting from satisficing to optimizing'' are not symmetric. The latter is interesting and surprising, the former, not so much. 
+
 
 We provide preliminary results on the IPC8 satisficing track
 instances. We tested GBFS using the distance-to-go variations of three
