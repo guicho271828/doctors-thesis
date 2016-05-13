@@ -12,7 +12,7 @@ $h^*-c$ \cite{helmert2008good} --- a
 theoretical heuristic function which
 underestimates the perfect heuristics $h^*$ by a small constant
 $c$, and directly computing this value is as difficult as solving the
-problem itself.
+problem itself.\todo{First 3 paragraphs: scope too broad, move to discussion -- in the intro, let's just focus on ``tiebreaking for A*''}
 
 The fact that even the almost-perfect heuristics result in an exponential
 blowup means, therefore, that the key to overcome this limitation is
@@ -54,7 +54,13 @@ that contains a node $n$.  For many instances, a large
 fraction of the nodes in the effective search space have $f(n)=f^*$:
 The points are located very close to the diagonal line
 ($x=y$), indicating almost all states with $f(n) \leq f^*$ have cost $f^*$.
-This is depicted in \refig{fig:plateau-0}. Naively, the search space of \astar could be considered to have a thin layer of final plateau surrounding the closed nodes with $f<f^*$ (left), which is no longer true. In reality, due to the curse of dimensionality, the search space has a large plateau of $f=f^*$ (right).
+This is depicted in \refig{fig:plateau-0}. 
+A naive view of the search space would consider the search space of \astar as a region with a thin layer representing the  final plateau surrounding a large number of closed nodes with $f<f^*$ (left).
+% Note that this naive view accurately describes some real, practical search spaces, e.g., 2D path finding on an explicit graph.
+However, for many combinatorial search problems, 
+% due to the curse of dimensionality, %``curse of dimensionality'' 
+the figure on the right is a more accurate depiction -- the  search space has a large plateau 
+for $f=f^*$.\todo{The fact that the last layer of search dominates the search was the motivation for Frontier Search and its numerous variants, so the SoCS community has been well aware of this}
 
 \begin{figure}[htbp]
   \centering
@@ -76,43 +82,45 @@ This is depicted in \refig{fig:plateau-0}. Naively, the search space of \astar c
  \label{fig:plateau-0}
 \end{figure}
 
-Therefore, in those majority of IPC problem instances where the size of
-the last layer ($f(n)=f^*$) of search is huge, a
-\emph{tiebreaking strategy} can have a significant impact on the
-performance of \astar. Tiebreaking strategy is a strategy 
-for selecting which node to expand among nodes with the same $f$-cost.
+Therefore, in the majority of IPC problem domains, where the 
+the last layer ($f(n)=f^*$) accounts for a significant fraction of the effective search space, a
+\emph{tiebreaking strategy} which determines which node to 
+ expand among nodes with the same $f$-cost,
+can have a significant impact on the
+performance of \astar. 
 It is widely believed that among nodes with the same $f$-cost,
 ties should be broken according to $h(n)$, i.e.,
 nodes with smaller $h$-values should be expanded first.  While this is a
 useful rule of thumb in many domains, it turns out that tiebreaking
 requires more careful consideration, particularly for problems where
-this tiebreaking does not reduce the size of the plateau.
+most or all of the nodes in the last layer have the same $h$-value.
 
 We empirically evaluate the existing, commonly used, standard
 tiebreaking strategies for \astar (\refsec{sec:eval-common-strategies}).
 We show that:
 
 \begin{enumerate}
- \item Last-In-First-Out (\lifo) criterion tends to be more efficient
+ \item A Last-In-First-Out (\lifo) criterion tends to be more efficient
        than a First-In-First-Out (\fifo) criterion.
  \item Tiebreaking according to the heuristic value $h$, which
        frequently appears in the heuristic search literature, has little
-       impact on the performance as long as \lifo default criterion is used.
+       impact on the performance as long as \lifo default criterion is used 
+       --  in other words, a \lifo tiebreaking policy is sufficient for most IPC domains.
  \item There are significant performance differences among tiebreaking strategies
-       when domains include zero-cost actions. This is true even with $h$-based tiebreaking.
+       when domains include zero-cost actions. This is true even when $h$-based tiebreaking is used.
 \end{enumerate}
 
 While there are relatively few domains with zero-cost actions in the IPC
 benchmark set, we argue that zero-cost actions naturally occur in
-practical cost-minimization problems. Therefore we define a new set of
+practical cost-minimization problems. Therefore we introduce a new set of
 benchmarks called \emph{zerocost domains}
 (\refsec{sec:zerocost-domains}).  We empirically show that these
 zerocost domains have the different search space structure and different
 problem difficulty from those of the original domains.
 
 In order to solve such problems more efficiently, we propose and
-evaluate a new
-tiebreaking method based on a notion of \emph{depth} within the plateau,
+evaluate \emph{depth diversification}, a new
+tiebreaking method based on the notion of a node's \emph{depth} within a plateau,
 which corresponds to the number of steps from the ``entrance'' to
 the plateau (\refsec{sec:depth},
 \refsec{sec:depth-based-evaluation}). We also propose and evaluate an
@@ -120,11 +128,11 @@ admissible method which uses the distance-to-go estimate, an estimate which trea
 to have the unit costs (\refsec{sec:distance-to-go}).
 In these sections, we empirically show that:
 \begin{enumerate}
- \item Depth-based diversification strategy significantly improves the
+ \item Our new depth-based diversification strategy significantly improves upon the 
        existing tiebreaking strategies using the same heuristic function.
  \item \emph{Inadmissible} distance-to-go variations of \emph{admissible} heuristics
        (\lmcut, \mands)
-       significantly outperforms the tiebreaking using the original admissible heuristics.
+       significantly outperforms the tiebreaking using the original admissible heuristics.\todo{listing 3 points regarding d2go might give the wrong impression that this paper is about d2go. combine some of the d2go bullets, or add another depth-related bullet?}
  \item Distance-to-go variations of \emph{inadmissible} heuristics
        (\ff) further improves the performance by an order of magnitude.
  \item Distance-to-go variations of \emph{inadmissible} heuristics
@@ -132,8 +140,9 @@ In these sections, we empirically show that:
        improves the performance.
 \end{enumerate}
 
-Finally, in \refsec{sec:discussion}, we discuss the implication by these
-results. We offer a rather trivial, but new perspective to admissible
+Finally, in \refsec{sec:discussion}, we discuss the implications of these
+results. \todo{revise par based on what ends up remaining in the discussion section}
+We offer a rather trivial, but new perspective to admissible
 \astar search: \astar can be conceived as a sequence of independent runs
 of satisficing Greedy Best First Search(GBFS)es in each plateau defined by the
 $f$-value. We argue that arbitrary satisficing techniques improve the
