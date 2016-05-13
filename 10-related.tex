@@ -11,11 +11,10 @@ from the Enhanced Hill Climbing phase of the FF planner
 \cite{Hoffmann01}, and the use of these macros is inadmissible.
 \citeauthor{Hoffmann05} \citeyear{Hoffmann05,Hoffmann11} gives a detailed analysis of the
 structure of the search spaces of satisficing planning.
-\citeauthor{benton2010g} \citeyear{benton2010g} proposes inadmissible technique for temporal planning
-where short actions are hidden behind long actions and do not increase makespan.
-\citeauthor{cushing2010cost} \citeyear{cushing2010cost} investigates ``$\varepsilon$-cost
-traps''($\varepsilon=\frac{\min cost}{\max cost}$),  showing that (non-admissibly) treating all actions as unit cost sometimes finds an optimal plan quickly.
-\citeauthor{wilt2011cost} \citeyear{wilt2011cost} also analyzes inadmissible distance-to-go estimates.
+% % duplicated, and not particularly investigating plateau
+% \citeauthor{benton2010g} \citeyear{benton2010g} proposes inadmissible technique for temporal planning
+% where short actions are hidden behind long actions and do not increase makespan.
+% \citeauthor{wilt2011cost} \citeyear{wilt2011cost} also analyzes inadmissible distance-to-go estimates.
 % 
 To our knowledge, plateaus have not been previously investigated for cost-optimal planning with admissible search.
 Admissible and inadmissible search differ significantly in how non-final plateaus (plateaus with $f < f^*$) are treated:
@@ -32,20 +31,21 @@ Since their focus is on how to combine multiple heuristics,
 this tiebreaking-based approach is just one instance of various implementations of OPEN lists.
 In contrast, we discussed solely on the tiebreaking, and the focus of our paper is how tiebreaking enables the efficient search on the plateau created by the earlier levels of sorting criteria.
 
-The PLUSONE %\footnote{This term is used on the Fast Downward website.} XXfootnote takes too much space
-cost-type (or distance-to-go) is a non-admissible search technique in the Fast Downward/LAMA planner
-\cite{richter2010lama} which increases all action costs by 1.
-% By eliminating zero-cost actions, this behaves similar to our $[f,h,\fd,\ro]$ tiebreaking.
-%Using PLUSONE, three successive
-%applications of zero-cost operators have cost 3, and two
-%applications have cost 2, and smaller cost is preferred, just as
-%\astar always expands the node with smaller $f$-value.
-This technique explicitly targeted zero-cost actions,
-and resulted in significantly better performance in the IPC-6
-satisficing track \cite[p.137, Sec. 3.3.2]{richter2010lama}.
-%\todo*{citation}
-% There's a long discussion of Openstacks in \cite{richter2010lama}, p.167-169, but I can't find PLUSONE anywhere. Maybe it's called something else in the paper?  Maybe \richter2010lama is the wrong citation??
-PLUSONE cost type makes a heuristic function inadmissible, and since LAMA uses it as the first sorting criterion, it makes the sorting criteria of LAMA inadmissible.
+%% already mentioned in the earlier section.
+% The PLUSONE %\footnote{This term is used on the Fast Downward website.} XXfootnote takes too much space
+% cost-type (or distance-to-go) is a non-admissible search technique in the Fast Downward/LAMA planner
+% \cite{richter2010lama} which increases all action costs by 1.
+% % By eliminating zero-cost actions, this behaves similar to our $[f,h,\fd,\ro]$ tiebreaking.
+% %Using PLUSONE, three successive
+% %applications of zero-cost operators have cost 3, and two
+% %applications have cost 2, and smaller cost is preferred, just as
+% %\astar always expands the node with smaller $f$-value.
+% This technique explicitly targeted zero-cost actions,
+% and resulted in significantly better performance in the IPC-6
+% satisficing track \cite[p.137, Sec. 3.3.2]{richter2010lama}.
+% %\todo*{citation}
+% % There's a long discussion of Openstacks in \cite{richter2010lama}, p.167-169, but I can't find PLUSONE anywhere. Maybe it's called something else in the paper?  Maybe \richter2010lama is the wrong citation??
+% PLUSONE cost type makes a heuristic function inadmissible, and since LAMA uses it as the first sorting criterion, it makes the sorting criteria of LAMA inadmissible.
 
 % It's not clear what these techniques have in common, except that they are all orthogonal to heuristics,
 % If that's the case, then there's no need to cite them in this paper -- there's no reason why these particular techniques

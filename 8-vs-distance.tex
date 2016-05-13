@@ -10,29 +10,46 @@ the presence of zero-cost actions, those estimates can predict the
 number of operations required to reach a goal.
 While several papers advocates the benefit of this technique, many of
 these claims took place in the context of satisficing planning.
-\todo{Need more complete  survey of previous work on d2go heuristics in best-first search (not just planning) here: Thayer+Ruml ICAPS09,Socs09; connectoins to FOCAL method of Pearl and Kim}
+\todo*{Need more complete  survey of previous work on d2go heuristics in best-first search (not just planning) here: Thayer+Ruml ICAPS09,Socs09; connectoins to FOCAL method of Pearl and Kim}
 
-\shortciteauthor{benton2010g} proposed an inadmissible technique for temporal
-planning where short actions are hidden behind long actions and do not
-increase makespan \cite{benton2010g}. Such actions cause so-called
-``g-value plateau'', a similar situation caused by 0-cost actions in
-sequential planning.  They implemented an inadmissible heuristic
-function combined with distance-to-go estimates on top of
-Temporal Fast Downward system.  As stated, their method is not
-applicable to the optimizing search.
- 
-% ,wilt2011cost
-Similarly, in sequential satisficing planning,
-\shortciteauthor{cushing2010cost} showed that
-(non-admissibly) treating all actions as unit cost sometimes finds an
-optimal plan quickly \cite{cushing2010cost}.
-Although it could find an optimal plan by chance, this does not
-guarantee the optimality of the solution.
- 
-Also, a \sota satisficing planner FD/LAMA2011 incorporates
-distance-to-go estimates in its iterated search framework. The first
-iteration of LAMA uses distance-to-go estimates combined with various
-satisficing search enhancements.
+Except for cases where the target domains are unit-cost by origin, $A^*_\epsilon$ \cite{pearl1982studies} is one of
+the earliest algorithms that combines distance-to-go estimates with the cost estimates. It is a bounded-suboptimal
+search which expands from the \emph{focal} list, the set of nodes with $f(n)\leq w\cdot f_{\mit{min}}$ where $w$ is
+a cost bound in a sense of $\mit{WA}^*$ and $f_{\mit{min}}$ is the minimum $f$ value in the OPEN list.  While $f$
+is based on an admissible heuristic function, the nodes in the focal list are expanded in the increasing order of
+an inadmissible distance-to-go estimates $\hh$. Thus the search does not follow the best-first order of $f$ and is
+not admissible, being only $w$-admissible. One exception is the case of $w=1$ where the focal list is equivalent
+to the $f$ plateau and the expansion order in the focal list corresponds to the tiebreaking on plateaus. In our
+notation, this algorithm can be written as a BFS with
+\[
+ [ \lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil, \hh, \mit{default}]
+\]
+because the focal list ``blur''s $f$ up to $w\cdot f_{\mit{min}}$. For example, when $w=2, f_{\mit{min}}=5$ and
+$f(n)=5,9,11$, then $\lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil=1,1,2$ respectively. 
+% However, actual implementation may differ because $f_{\mit{min}}$ is updated dynamically.
+
+Continuing this work, \shortciteauthor{thayer2009using} evaluated various distance-to-go configurations of Weighted
+\astar, Dynamically Weighted \astar \cite{pohl1973avoidance} and $A^*_\epsilon$
+\citeyear{thayer2009using,thayer2011bounded}. Some configurations use distance-to-go as part of
+tiebreaking. However, they focus on bounded-suboptimal search rather than optimal search.
+% 
+Also, \shortciteauthor{cushing2010cost} \citeyear{cushing2010cost} more eloquently advocated the danger of relying
+on cost estimates in satisficing search by investigating ``$\varepsilon$-cost traps'' and other pitfalls caused by
+using the cost estimators for search guidance. Again, this work targets satisficing search.
+% 
+Finally, a \sota satisficing planner FD/LAMA2011 incorporates distance-to-go estimates in its iterated search
+framework. The first iteration of LAMA uses distance-to-go estimates combined with various satisficing
+search enhancements.
+
+\shortciteauthor{benton2010g} proposed an inadmissible technique for temporal planning where short actions are
+hidden behind long actions and do not increase makespan \cite{benton2010g}. Such actions cause so-called ``g-value
+plateau'', a similar situation caused by 0-cost actions in sequential planning.  They implemented an inadmissible
+heuristic function combined with distance-to-go estimates on top of Temporal Fast Downward system
+\cite{eyerich2009using}.  As stated, their method is not applicable to the optimizing search.
+
+%% I couldnt find this in the paper now... 
+%  and showing that (non-admissibly) treating all actions as unit cost sometimes finds an optimal plan quickly.
+% Although it could find an optimal plan by chance, this does not guarantee the optimality of the solution.
 
 \subsection{Distance-to-Go Estimates for Optimal Planning}
 
