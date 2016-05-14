@@ -3,9 +3,10 @@
 
 In this paper, we investigated the tiebreaking strategies for optimizing search using \astar.  Our design goals
 were (1) to shed some light on the importance of the tiebreaking in one of the most popular best-first search
-algorithms, and (2) to improve \astar without modifying its main heuristic function at all. We reached both of
-these goals successfully: We sought various possible enhancements and achieved a significant performance
-improvement solely by the tiebreaking techniques. In detail, the contributions in this paper are the following:
+algorithms, (2) to improve \astar without modifying its main heuristic function at all (least overhead), and (3) to
+improve \astar by introducing satisficing techniques. We reached all of these goals successfully: We sought
+various possible enhancements and achieved a significant performance improvement solely by the tiebreaking
+techniques. In detail, the contributions in this paper are the following:
 
 \begin{enumerate}
  \item We showed that tiebreaking has a significant role in the optimal
@@ -36,11 +37,10 @@ improvement solely by the tiebreaking techniques. In detail, the contributions i
        case-based configuration which checks for the zero-cost actions.
  \item We introduced a new view to optimal \astar search: Optimizing search can be seen as a series of satisficing
        search in the plateaus of an increasing order of $f$. This view introduces more opportunity to using the
-       satisficing techniques for optimal search and vice versa, as shown in the preliminary results that depth
-       metric increases the performance of GBFS using various heuristics.
+       satisficing techniques for optimal search.
 \end{enumerate}
 
-Future work expands the last view by introducing much more variety of
+Future work implements the last view by introducing much more variety of
 existing satisficing search techniques to optimal planning. Examples
 include: Lazy evaluation \cite{richter2010lama}, Alternating/Pareto open
 list \cite{RogerH10}, helpful actions (preferred operators) \cite{Hoffmann01},
