@@ -1,0 +1,25 @@
+Much of the work in the recent search and planning literature has focused on
+reducing the size of the effective search space by developing
+informative heuristic functions. However, there is a theoretical
+limitation in this approach: It is known that the search space grows
+exponentially even if we had an optimistic
+heuristic function called \emph{almost-perfect} heuristics,
+$h^*-c$ \cite{helmert2008good} --- a
+theoretical heuristic function which
+underestimates the perfect heuristics $h^*$ by a small constant
+$c$, and directly computing this value is as difficult as solving the
+problem itself.\todo{First 3 paragraphs: scope too broad, move to discussion -- in the intro, let's just focus on ``tiebreaking for A*''}
+
+The fact that even the almost-perfect heuristics result in an exponential
+blowup means, therefore, that the key to overcome this limitation is
+to develop heuristic-agnostic improvements. This observation has
+led to further developments of various techniques such as Symmetry Breaking
+\cite{Fox1998,pochter2011exploiting,domshlak2013symmetry} or Partial
+Order Reduction \cite{hall2013faster,wehrle2013relative}.
+
+A tiebreaking strategy is
+independent from heuristic functions because it does not manipulate the
+main heuristics used to guide the search. It is under-investigated
+and even ignored in most papers that are published recently.
+We break the conventional wisdom on tiebreaking strategies by an
+empirical and theoretical analysis of optimal search using \astar.
