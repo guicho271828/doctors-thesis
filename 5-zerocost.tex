@@ -10,7 +10,7 @@ One characteristics of \pddl{Openstacks} is the presence of many  actions which 
 % If such actions are present, the neighbors of the goal nodes could be surrounded by the 0-cost edges.
 Since zero-cost actions (edges) allow ``free'' transitions between many neighboring nodes,
 the number of neighboring nodes sharing the same $h$ also becomes quite large.
-This creates huge heuristic plateaus that share the same $h$-value, and the standard $h$-based tiebreaking criterion can not provide informative guidance for search within the plateau $f=f^*$.\todo{why mention $f=f^*$ specifically here, instead of ``final plateau'' (f*,0) or just in general all plateaus?}
+This creates huge heuristic plateaus that share the same $h$-value, and the standard $h$-based tiebreaking criterion can not provide informative guidance for search within a plateau.\todo*{why mention $f=f^*$ specifically here, instead of ``final plateau'' (f*,0) or just in general all plateaus?}
 
 \begin{figure}[htbp]
   \centering
