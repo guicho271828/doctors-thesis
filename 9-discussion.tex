@@ -8,13 +8,13 @@ reduced to a satisficing search.
 
 Our notion of \emph{admissible sorting strategy} dictates that the
 search within the same $f$ plateau can be an arbitrary satisfiable search. For example,
-if we ignore the first sorting criterion in the standard strategy
-$[f,h,\fifo]$ for optimizing search, i.e. $[f,h,\fifo] \rightarrow [h,\fifo]$, this is exactly
+if we ignore the first sorting criterion in the standard admissible strategy
+$[f,h,\fifo]$, we get $[h,\fifo]$, which is exactly
 the same configuration as a GBFS using \fifo default tiebreaking. It
 means that within the plateau of the same $f$, $[f,h,\fifo]$ is
 performing a satisficing GBFS.
 As another example, the reason for the poor performance of $[f,\fifo]$
-is clearly that it is running a $[\fifo]$,
+is clearly that it is running $[\fifo]$,
 a pure satisficing breadth-first search, in the plateau.
 Furthermore, the good performance of $[f^{\lmcut},\ffo,\fifo]$ is also clear:
 If we ignore the first sorting criterion, it is a GBFS with $[\ffo,\fifo]$,
@@ -27,7 +27,7 @@ planning problem is converted to a corresponding constraint satisfaction problem
 length / makespan). The search starts from the horizon 0 and tests if the problem is satisfiable. If not, then it
 increases the horizon and retests the same problem with additional constraints for a new horizon $t+1$. In the
 forward heuristic search such as \astar, the concept of horizon corresponds to the $f$ value, which is a lower
-bound of the problem being solved.
+bound of the solution cost.
 
 The key difference in the \astar-based optimal planning from the model-based planning is
 that the information is transmitted between different horizons:
@@ -52,7 +52,7 @@ direction for future work, e.g., how to simulate depth-based tiebreaking (node o
 for domains where memory limitations are the bottleneck, so keeping the depth buckets in memory may not be
 possible. More broadly, linear space, best-first search including RBFS}
 
-This observation shows an interesting direction for future work.
+This entire view shows an interesting direction for future work.
 Although we evaluated only one \sota satisficing configuration $\ffo$ in
 the experiments, it does not preclude the possibility of applying yet
 more variety of satisficing planning techniques to optimal search, such as lazy-evaluation
@@ -64,9 +64,10 @@ exploration in Type-GBFS \cite{xie14type}.
 
 \subsection{Depth Diversification for Satisficing Search}
 
-However, how promising is it actually? In order to give more soundness to this future direction, we conducted
-another set of experiments. In the previous experiments, we showed that the distance-to-go \ff heuristic $\ffo$ for
-\textbf{satisficing search within a plateau} was improved by the depth diversification $\depth$.
+However, how promising is this view, or hypothesis, actually? In order to give more soundness to this future
+direction, we conducted another set of experiments. In the previous experiments, we showed that the distance-to-go
+\ff heuristic $\ffo$ for \textbf{satisficing search within a plateau} was improved by the depth diversification
+$\depth$.
 % 
 A natural extension to this idea is that the depth metric can also enhance the performance of $\ffo$ used for
 \textbf{satisficing search in general}.
@@ -76,7 +77,7 @@ testimonial that our future direction (importing satisficing techniques to optim
 This is different from a simple claim like ``X worked in optimizing search, so it should also work in satisficing search''.
 \todo*{``exporting from optimizing to satisficing'' and ``exporting from satisficing to optimizing'' are not symmetric. The latter is interesting and surprising, the former, not so much. --- changed the tone, emphasized the purpose}
 
-We provide preliminary results on the IPC8 satisficing track
+We provide preliminary results on the 280 IPC8 satisficing track
 instances. We tested GBFS using the distance-to-go variations of three
 \sota inadmissible heuristics for satisficing search: FF heuristics
  \cite{Hoffmann01}, Causal Graph (CG) heuristics \cite{Helmert2006} and
@@ -168,8 +169,8 @@ increasing the size of a plateau.
 In the past, optimizing search techniques and satisficing search techniques used to be developed rather separately, and there have been only a handful of knowledge migration between them, most of which are abstract ideas such as delete-relaxation, landmarks, causal graphs or pattern database.
 Otherwise, the migration is unidirectional, in particular from optimizing to satisficing search, because it is easy or trivial to relax the optimality requirements.
 % 
-Our results and the new observation, \textbf{Optimal search is a sequence of satisficing searches}, open up a new
-opportunity to break this boundary.  We provided the fundamentals of how and why we can import satisficing search
-techniques to the optimizing search (e.g. $\ffo$ heuristics in optimal search).  There is a large avenue for future
-work in making a migration happen in this novel direction.
+Our results and the new observation, \textbf{optimal search is a sequence of satisficing searches on each plateau},
+open up a new opportunity to break this boundary.  We provided the fundamentals of how and why we can import
+satisficing search techniques to the optimizing search (e.g. $\ffo$ heuristics in optimal search).  There is a
+large avenue for future work in making a migration happen in this novel direction.
 
