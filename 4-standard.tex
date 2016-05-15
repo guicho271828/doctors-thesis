@@ -8,7 +8,6 @@ Downward, and all experiments are run with a 5-minute,
 4GB memory limit for the search binary (FD translation/preprocessing
 times are not included in the 5-minute limit).  All experiments were
 conducted on Xeon E5410@2.33GHz CPUs. For the randomized configurations, we took the average of 10 runs.
-\todo*{The baseline [f,h,ro] and [f,ro] are in the tables, but don't seem to be defined/mentioned/discussed at all in this section}
 
 % following paragraph is added in order to avoid repeating the list of domains not
 % included due to no coverage difference.
@@ -72,6 +71,12 @@ default tiebreaking, respectively.
 Summary results for LMcut heuristic \cite{Helmert2009} and M\&S heuristic \cite{HelmertHHN14} are
 shown in \reftbl{tbl:summary-std} (Detailed results are in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, leftmost 2 columns).
 Differences in coverage are observed in several domains and $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall. Thus, the choice of default criterion seems to have a modest but measurable impact when the first tiebreaking criterion is $h$.
+
+We also conducted the experiments using \ro (Random Order) default tiebreaking because it is another trivial way to
+break ties. We ran the experiments 10 times with the different random seeds, then took the average and the
+standard deviation of the coverages. The performance of \ro is comparable to \fifo default tiebreaking regardless
+of the primary heuristics, or the presence of $h$-based tiebreaking.
+\todo*{The baseline [f,h,ro] and [f,ro] are in the tables, but don't seem to be defined/mentioned/discussed at all in this section}
 
 \begin{table}[htbp]
  {
