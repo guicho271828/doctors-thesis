@@ -1,6 +1,6 @@
 
 name       = asai
-reference  = local.bib global.bib
+reference  = $(wildcard *.bib)
 emacs 	   = emacs
 latexmk    = latexmk/latexmk.pl
 styles     = abbrev.sty aaai_my.sty
