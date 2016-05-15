@@ -40,28 +40,38 @@ standard tiebreaking strategies.
  }
 \end{table}
 
+Interestingly, when the depth diversity criterion $\depth$ is used, 
+the performance relationship between \lifo and \fifo seems to become the opposite:
+\fifo tends to perform better than \lifo in zerocost domains for both
+\lmcut and \mands heuristics (299 vs 279 for \lmcut, 317 vs 303 for \mands).
+Also, \ro (random order) outperforms both \fifo and \lifo.
+In the following, we describe and discuss each experiment.
+
 \reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full} shows the number of \textbf{620 zerocost
-instances} solved by \lmcut heuristics with various tiebreaking strategies, with a 5min, 4GB limit. We
-highlight the best results when the difference between the best and the worst coverages is greater than 2. In these
-zerocost domains, our proposed method outperforms the traditional tiebreaking methods in both \lmcut and \mands
-heuristics.  Significant improvements were observed in 7 domains when using \lmcut, and in 6 domains when using
-\mands.
-% This means that the search efficiency offered by depth based diversification become much more important,
-% and the overhead caused by the management of depth buckets become negligible even in the case of \mands.
-Interestingly, When the depth diversity criterion $\depth$ is used, \fifo tends to perform better than \lifo in zerocost domains for both
-\lmcut and \mands heuristics (299 vs 279 for \lmcut, 317 vs 303 for \mands). Also, \ro (random order) outperforms both \fifo and \lifo.
+instances} solved by \lmcut and \mands heuristics. In these
+zerocost domains, our proposed method outperforms the traditional tiebreaking methods in both heuristics.
+Significant improvements were observed in 10 domains when using \lmcut, and in 7 domains when using \mands.
+In detail,
+\begin{itemize}
+ \item \textbf{10 Domains improved by \lmcut on Zerocost} are elevators-up (\ro), freecell-move (\fifo,\ro),
+       miconic-up (all), mprime-succumb (\fifo,\ro), pipesnt-pushstart (\ro), pipesworld-pushend (\ro),
+       scanalyzer-analyze (\lifo), storage-lift (\fifo), tpp-fuel (\fifo,\ro), woodworking-cut (\fifo,\ro).
+ \item \textbf{7 Domains improved by \mands on Zerocost} are elevators-up (\ro), freecell-move (\fifo,\ro),
+       mprime-succumb (\fifo,\ro), pipesnt-pushstart (\fifo, \ro), pipesworld-pushend (\ro),
+       tpp-fuel (\fifo,\ro), woodworking-cut (\fifo,\ro).
+\end{itemize}
+
 
 \begin{table}[htbp]
  {
  \centering
  \input{tables/7-zero-lmcut}
-  \caption{
- Coverage comparison (the number of instances solved in 5min, 4GB, \lmcut heuristics) 
- on \textbf{620 zerocost instances}. We highlight the
- best results when the difference between the maximum and the minimum coverage exceeds 2.
- }
- \label{tbl:lmcut-zerocost-full}
- }
+ % 
+  \caption{ Coverage comparison (the number of instances solved in 5min, 4GB, \lmcut heuristics) on \textbf{620
+ zerocost instances}.  We highlight the best results when the difference between the best and the worst coverages
+ is greater than 2.  }
+ % 
+ \label{tbl:lmcut-zerocost-full}}
 \end{table}
 
 \begin{table}[htbp]
@@ -78,19 +88,30 @@ Interestingly, When the depth diversity criterion $\depth$ is used, \fifo tends 
 \end{table}
 
 \reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard IPC benchmark instances} solved by \lmcut
-heuristics. Depth-based tiebreaking ($\depth$) shows impressive results on Openstacks and Cybersec domains because
-these domains contain many instances of zero-cost edges and the final plateau $\plateau{f,h}$ is huge (See
-\refig{fig:plateau}).  Most other instances are unaffected by depth-based tiebreaking.  Thus, depth-based tie-breaking yields
-better performance in the domains with large final plateaus,  without sacrificing performance in other domains.
+heuristics. Depth-based tiebreaking ($\depth$) shows impressive results on \pddl{Openstacks} ($\fifo:2\to 8,\ \lifo:3\to 12,\  \ro:3.9\to 10$) and \pddl{Cybersec} ($\fifo: 11\to 18,\ \ro: 11.7\to 18$) because these
+domains contain many instances of zero-cost edges and the final plateau $\plateau{f,h}$ is huge (See
+\refig{fig:plateau}).  Most other instances are unaffected by depth-based tiebreaking.  Thus, depth-based
+tie-breaking yields better performance in the domains with large final plateaus, without sacrificing performance in
+other domains.
 
-In contrast, \reftbl{tbl:mands-ipc-full} shows that depth-based tiebreaking negatively affects the performance of \mands when applied to 
-\textbf{1104 standard IPC benchmark instances}.
+In contrast, \reftbl{tbl:mands-ipc-full} shows that depth-based tiebreaking negatively affects the performance of
+\mands when applied to \textbf{1104 standard IPC benchmark instances}. Our justification to this result is
+the following.
 % 
-As shown in \refig{fig:expansion-ratio}, this is because the low-level overhead of depth-based tiebreaking (i.e., updates to the depth-based bucket data structures).
-Evaluation of \mands heuristics is very efficiently implemented
-as a table lookup, and it is able to evaluate an order of magnitude larger number of nodes compared to \lmcut
-heuristics. Thus, even the relatively small  overhead incurred by the management of depth buckets decreases the node generation rate sufficiently to noticeably degrade performance.
+First, the coverage of \pddl{Openstacks} is improved in \fifo ($15\to 19$) and \ro ($15.4\to 19$), so we have achieved the expected behavior.
+%
+While it did not happened to \pddl{Cybersec}, this is due to the poor performance of \mands in \pddl{Cybersec}.
+The coverage of \pddl{Cybersec} is 0 in all configurations and even depth could not improve it. Thus, the positive
+effect of depth diversification to the overall score was limited.
+% 
+Second, we observed a performance degradation across wide range of domains which is caused by the low-level overhead of depth-based tiebreaking (i.e., updates to the depth-based bucket data structures).
+As shown in \refig{fig:expansion-ratio}, the number of evaluation of \mands heuristics per seconds has significantly decreased across wide range of domains, while such effect is limited in \lmcut.
+This is because the evaluation of \mands heuristics is implemented
+as an efficient table lookup, and it is able to evaluate an order of magnitude larger number of nodes compared to \lmcut heuristics.
+Thus, even the relatively small overhead incurred by the management of depth buckets decreases the node evaluation rate sufficiently to noticeably degrade performance.
+In contrast, \mands did not have such problems in Zerocost domains. This shows that the search efficiency offered by depth based diversification become much more important, and the overhead caused by the management of depth buckets become negligible even in the case of \mands.
 
+% , which is less interesting when tackling an intractable combinatorial problems.
 
 \begin{figure}[htbp]
  \centering
