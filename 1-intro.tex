@@ -32,7 +32,8 @@ A naive view of the search space would consider the search space of \astar as a 
 However, for many combinatorial search problems, 
 % due to the curse of dimensionality, %``curse of dimensionality'' 
 the figure on the right is a more accurate depiction -- the  search space has a large plateau 
-for $f=f^*$.\todo{The fact that the last layer of search dominates the search was the motivation for Frontier Search and its numerous variants, so the SoCS community has been well aware of this}
+for $f=f^*$.
+\todo*{The fact that the last layer of search dominates the search was the motivation for Frontier Search and its numerous variants, so the SoCS community has been well aware of this --- SoCS community considers the opposite. Frontier search would not gain advantage in the planning domains because the number of nodes being forgotten is low compared to the size of the plateau.}
 
 \begin{figure}[htbp]
   \centering
@@ -101,19 +102,18 @@ to have the unit costs (\refsec{sec:distance-to-go}).
 In these sections, we empirically show that:
 \begin{enumerate}
  \item Our new depth-based diversification strategy significantly improves upon the 
-       existing tiebreaking strategies using the same heuristic function.
- \item \emph{Inadmissible} distance-to-go variations of \emph{admissible} heuristics
-       (\lmcut, \mands)
-       significantly outperforms the tiebreaking using the original admissible heuristics.\todo{listing 3 points regarding d2go might give the wrong impression that this paper is about d2go. combine some of the d2go bullets, or add another depth-related bullet?}
- \item Distance-to-go variations of \emph{inadmissible} heuristics
-       (\ff) further improves the performance by an order of magnitude.
- \item Distance-to-go variations of \emph{inadmissible} heuristics
-       (\ff) combined with depth-based diversification further
-       improves the performance.
+       standard tiebreaking strategies.
+ \item Tiebreaking using distance-to-go variations of \lmcut, \mands and \ff heuristics
+       significantly improves the standard tiebreaking strategies.
+       \todo*{listing 3 points regarding d2go might give the wrong impression that this paper is about d2go. combine some of the d2go bullets, or add another depth-related bullet?}
+ % \item Distance-to-go variations of \emph{inadmissible} heuristics
+ %       (\ff) further improves the performance by an order of magnitude.
+ \item Combining depth-based diversification with distance-to-go heuristics 
+       further improves the performance.
 \end{enumerate}
 
 Finally, in \refsec{sec:discussion}, we discuss the implications of these
-results. \todo{revise par based on what ends up remaining in the discussion section}
+results. \todo*{revise par based on what ends up remaining in the discussion section}
 We offer a rather trivial, but new perspective to admissible
 \astar search: \astar can be conceived as a sequence of independent runs
 of satisficing Greedy Best First Search(GBFS)es in each plateau defined by the
@@ -123,11 +123,9 @@ a plateau.
 %  in the final plateau, which is the last and (usually) the largest
 % layer of the search.
 % 
-Regressing from the new perspective, we also show a preliminary result
-that the depth diversification tiebreaking, which has improved various
-tiebreaking heuristics, also improves the performance of bare GBFS in
-satisficing search.
-We further discuss the future direction, related works, and close the article.
+We also show a preliminary result that the depth diversification, which has improved various tiebreaking
+heuristics, also improves the performance of bare GBFS in satisficing search.  We further discuss the future
+direction, related works, and close the article.
 
 \textbf{
 Note for reviewers:
