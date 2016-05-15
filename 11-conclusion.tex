@@ -3,23 +3,23 @@
 
 In this paper, we investigated the tiebreaking strategies for optimizing search using \astar.  Our design goals
 were (1) to shed some light on the importance of the tiebreaking in one of the most popular best-first search
-algorithms, (2) to improve \astar without modifying its main heuristic function at all (least overhead), and (3) to
+algorithms, (2) to improve \astar without modifying its main heuristic function at all, and (3) to
 improve \astar by introducing satisficing techniques. We reached all of these goals successfully: We sought
-various possible enhancements and achieved a significant performance improvement solely by the tiebreaking
+various possible enhancements and achieved significant performance improvements solely by the tiebreaking
 techniques. In detail, the contributions in this paper are the following:
 
 \begin{enumerate}
  \item We showed that tiebreaking has a significant role in the optimal
-       search. We empirically showed that most instances in the IPC
+       search using \astar. We empirically showed that most instances in the IPC
        benchmark have large plateaus with regard to $f$, and most of the
        search effort is spent in the final plateau with $f=f^*$.
  \item Standard tiebreaking rule using $h$ value was shown to fail to
        provide guidance in the plateau when the instances have zero-cost
        actions and have large plateaus with regard to $h$.
-       We empirically showed that most of the search effort is spent in
+       We empirically showed that most of the search effort can be spent in
        the final plateau with $f=f^*, h=0$ in some domains. We pointed out that in such
        a plateau, search is controlled solely by the
-       default tiebreaking \fifo, \lifo and \ro.
+       default tiebreaking \fifo, \lifo or \ro.
  \item We proposed and analyzed a new set of benchmark instances for cost-optimal planing, called Zerocost domains.
        They tend to have larger final plateaus with $f=f^*, h=0$ and pose a new challenge to the traditional search
        algorithms.
