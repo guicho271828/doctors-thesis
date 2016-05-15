@@ -193,49 +193,6 @@ was $[f,h,\lifo]$ which impose no overhead including the depth.
 % Cybersec) has each shown a significant speedup achieved by these distance-to-go estimates
 %  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
 
-The performance degradation in the positive cost domains is not a practical issue
-because we can simply select from the multi-heuristic and the single-heuristic sorting strategies
-before running the search by just checking whether the domain contains zerocost actions or not.
-Since such a check is trivial and its effect on the total runtime should be negligible,
-we can simulate the behavior of such a configuration and estimate the results.
-Coverage results in \reftbl{tbl:dtg-summary-sum} show the total of
-zerocost and benchmark domains. The bottom two rows, labeled as \emph{dynamic configuration},
-are such estimated results of the switching behavior, and it achieves the highest coverage.
-In standard IPC instances, the domains with zero-cost actions are \pddl{Cybersec} and \pddl{Openstacks} only. They are solved in a multi-heuristic sorting strategy while other domains are solved in the best performing single-heuristic strategy. In Zerocost instances, all domains are solved in multi-heuristic sorting strategy.
-\todo*{Maybe we should show dynamic configuration results in the detailed per-domain tables, just so that it's obvious that we can get ``dominant'', state-of-the-art  behavior --- results are simulated, not actually implemented. Thus the total results should be fine. However, I added exactly which domains were zero-cost.}.
-
-% While these multi-heuristic strategies did not improve the perfomance in
-% the positive cost domains because the final plateaus are small, a simple
-% method which 
-
-Overall, these results also strengthen our claim that $h$-based
-tiebreaking is not necessarily the ``rule of the thumb'' in some
-domains, as already discussed in \refsec{sec:noh}. In zerocost domains,
-using a distance-to-go version of an inadmissible heuristic function for
-tiebreaking is more effective. Also, combining the depth metric with
-such an inadmissible heuristics is also effective.
-
-
-\begin{table}[htbp]
- \centering
- \input{tables/8-1-summary}
- \caption{
- Summary Results: Coverage comparison (the number
- of instances solved in 5min, 4GB) between several sorting strategies.
- }
- \label{tbl:dtg-summary}
-\end{table}
-
-\begin{table}[htbp]
- \centering \input{tables/8-1-summary-sum}
- \caption{ Summary Results:
- Coverage comparison, the total of IPC domains and Zerocost domains (the
- number of instances solved in 5min, 4GB) between several sorting
- strategies, plus a dynamic configuration strategy which selects the
- right behavior checking whether zero-cost actions exist.  }
- \label{tbl:dtg-summary-sum}
-\end{table}
-
 {
 \setlength{\tabcolsep}{0.1em}
 
@@ -281,3 +238,40 @@ such an inadmissible heuristics is also effective.
 \end{table}
 }
 
+\clearpage
+\subsection{Simple Dynamic Configuration for Overall Performance}
+
+The performance degradation by the multi-heuristic strategy in positive cost domains is not of a practical issue.
+This is because we can consider a simple case-based configuration scheme which selects a multi-heuristic strategy when there are any zerocost actions in the domain, and a single-heuristic strategy otherwise.
+
+Since such a check has only a negligible impact on the total runtime, we can simulate and estimate the results of such configurations without running it.
+Coverage results in \reftbl{tbl:dtg-summary-sum} show the total coverage of
+zerocost and benchmark domains. The bottom two rows, labeled as \emph{dynamic configuration},
+are such estimated results of the switching behavior, and it achieves the highest coverage.
+
+\begin{table}[htbp]
+ \centering \input{tables/8-1-summary-sum}
+ \caption{
+ % 
+ Summary Results: Coverage comparison, the total of IPC domains and Zerocost domains (the number of instances
+ solved in 5min, 4GB) between several sorting strategies, plus a dynamic configuration strategy.  $[f,h,\fifo],
+ [f,h,\ro], [f,\hh,\cdot], [f,h, \hh,\cdot], [f,\ffo,\cdot]$ are not shown because they achieve smaller coverage.
+ % 
+ }
+ \label{tbl:dtg-summary-sum}
+\end{table}
+
+In standard IPC instances, the domains with zero-cost actions are \pddl{Cybersec} and \pddl{Openstacks} only. They are solved in a multi-heuristic sorting strategy while other domains are solved in the best performing single-heuristic strategy. In Zerocost instances, all domains are solved in multi-heuristic sorting strategy.
+\todo*{Maybe we should show dynamic configuration results in the detailed per-domain tables, just so that it's obvious that we can get ``dominant'', state-of-the-art  behavior --- results are simulated, not actually implemented. Thus the total results should be fine. However, I added exactly which domains were zero-cost.}.
+
+% While these multi-heuristic strategies did not improve the perfomance in
+% the positive cost domains because the final plateaus are small, a simple
+% method which 
+
+
+Overall, these results also strengthen our claim that $h$-based
+tiebreaking is not necessarily the ``rule of the thumb'' in some
+domains, as already discussed in \refsec{sec:noh}. In zerocost domains,
+using a distance-to-go version of an inadmissible heuristic function for
+tiebreaking is more effective. Also, combining the depth metric with
+such an inadmissible heuristics is also effective.
