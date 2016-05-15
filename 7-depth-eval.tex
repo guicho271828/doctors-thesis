@@ -197,30 +197,43 @@ found.  We plotted the most successful depth-based strategy,
 $[f,h,\depth,\fifo]$, as well as the standard strategies $[f,h,\fifo]$,
 $[f,h,\lifo]$ and a single run of randomized strategy $[f,h,\ro]$.
 
-In addition, we  added some instrumentation to the strategies which do not use depth-based tiebreaking ($[f,h,\fifo]$, $[f,h,\lifo]$, $[f,h,\ro]$) so that as these strategies run, the depth of each of the expanded nodes is computed (although they do not affect the search behavior).
+In order to obtain the data for the plot, we added some instrumentation to the strategies which do not use depth-based tiebreaking ($[f,h,\fifo]$, $[f,h,\lifo]$, $[f,h,\ro]$) so that as these strategies run, the depth of each of the expanded nodes is computed (although they do not affect the search behavior).
 Note that this instrumentation, which adds some runtime overhead, was \emph{not}
 used in the performance comparison experiments above, and were only used for this experiment, which analyzes search behavior.
 
 
 \refigs{fig:depth-histogram}{fig:depth-histogram3} show the results on several exemplar instances in
-various zerocost domains.  We do not show some domains when we did not observe any depths more than 3, where
-the depth metric has negligible effect on the search performance.
+various zerocost domains.  We do not show some domains where we did not observe any depths more than 3, in which case
+the depth metric has only a negligible impact on the search performance.
+We observed very similar results across wide range of domains as shown in the figures.
+It indicates that the depth metric accurately describes the behavior of each tiebreaking criterion.
 
-In many domains, we observed that the depth-first behavior of
-$[f,h,\lifo]$ results in deeper search, missing the key branch at
-intermediate depths.  On the other hand, the breadth-first behavior of
-$[f,h,\fifo]$ often gets stuck spending an excessive amount of time
-searching around the plateau entrance.  Also, due to the large bias of
-the number of nodes to the shallower depths, global randomization
-$[f,h,\ro]$ showed a distribution similar to $[f,h,\fifo]$.
-In contrast, $[f,h,\depth,\ro]$ is balancing the search at various depths, which
-results in successfully solving more problems.\todo{Instead of only general trends for unspecified domains, mentioning specific domains to add some ``color'' might make this more interesting}
+For example, look at the first figure which is plotting the result of \pddl{depot-fuel}, p07.
+\todo*{...Instead of only general trends ... mention specific domains to add some ``color''}
+% 
+We observed that in the plot of $[f,h,\lifo]$, the depth-first behavior results in deeper search ($\approx 10^3$), while
+only a handful of nodes are expanded in the intermediate depth, most often once. Thus the \lifo's depth-first
+behavior has a high possibility of missing the key branch at intermediate depths that may lead to shorter solutions.
+On the other hand, the breadth-first behavior of $[f,h,\fifo]$ often gets stuck spending an excessive amount of
+time searching around the plateau entrance (expanding $\approx 10^3$ nodes at depth 10).
 
-Moreover, the results in \refigs{fig:depth-histogram}{fig:depth-histogram3} suggest that in many domains the distribution of $[f,h,\depth,\ro]$ follows
-$D-d$, a theoretical formula which was made under the simplified
-assumption that the plateau forms a tree of fixed branching factor. In these
-figures, $D$ means the largest depth in the open list, which is equal to
-the number of iterations that has ever happened in the depth diversification framework.\todo{refs to sec{sec:theoretical-characteristics}}
+Also, we noticed that the node distribution by the global randomization $[f,h,\ro]$ is very similar to $[f,h,\fifo]$.
+This means that \ro actually behaves very similar to \fifo, which agrees with the previous performance comparisons.
+This is natural, considering the large bias of the number of nodes to the shallower depths.
+For example, imaging we have 100 nodes in depth $d=1$ and a single nodes in depth $d=2$ --
+since \ro does not consider the depth, the chance of expanding $d=2$ is only $1/101$.
+This probability does not improve until a sufficient number of expansions decreases the number of nodes in $d=1$.
+Since this happens at any point of the search, overall behavior of \ro tends to be similar to \fifo.
+Thus, simply randomizing the expansion does not solve the problem of heavy bias to the shallower depth.
+
+In contrast, $[f,h,\depth,\ro]$ is balancing the search at various depths.
+The yellow curve draws a smooth line that is almost flat in the shallow depth, while gradually decreasing the number of nodes in larger depth.
+Moreover, its node distribution almost accurately follows $D-d$, a theoretical formula which assumes a simplified
+condition that the plateau forms a tree of fixed branching factor.
+$D$ means the largest depth in the open list, which is equal to
+the number of iterations that has ever happened in the depth diversification framework
+(\refsec{sec:theoretical-characteristics}).
+\todo*{refs to sec{sec:theoretical-characteristics}}
 
 The discrepancy from the theoretical prediction can be caused by the 
 following factors: First, the branching factor of the graph may not be
@@ -233,10 +246,13 @@ Openstacks and Cybersec domains.
 The result in Openstacks was similar to those of the zerocost domains.
 In Cybersec,
 % while the depth has improved the overall performance,
-we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because it was small\footnote{This does not contradict to the results in \refig{fig:plateau} because \refig{fig:plateau} uses a modified Fast Downward which continues the search until expanding all nodes in the final plateau, while in this experiment the planner immediately stops the search after the first solution. These figures are supposed to serve the different experimental purposes: \refig{fig:plateau} was intended to show the size of the entire final plateau, while \refig{fig:depth-histogram} to \refig{fig:depth-histogram4} was meant to show the actual search behavior. If we were to continue the search after the first solution, all tiebreaking strategies should result in the same figure because they expands the same set of nodes.} according to the plot.
+we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because it was small according to the plot.
 Instead, we observed a large difference in the depth distribution in $\plateau{f^*,1}$ caused by the difference of tiebreaking (\refig{fig:depth-histogram5}), which shows that the depth can also enhance the search in non-final plateaus to find the nodes in the next plateau.
-Similar phenomena were observed in several domains (which are included in \refig{fig:depth-histogram5}).\todo{if it's only ``several'', might as well say which domains instead of having the reader figure it out. Similarly, throughout this subsection and elsewhere, consider giving more specific info (domain names, or number of domains) whenever words like ``some/several/various'' are used}
+Similar phenomena were observed in several other domains (which are included in \refig{fig:depth-histogram5}). To list a few, they are the following: depot-fuel, driverlog-fuel, zenotravel-fuel.
+\todo*{if it's only ``several'', might as well say which domains instead of having the reader figure it out. Similarly, throughout this subsection and elsewhere, consider giving more specific info (domain names, or number of domains) whenever words like ``some/several/various'' are used}
 
+Note that the small number of nodes in $\plateau{f^*,0}$ in this experiment does not contradict to the results in \refig{fig:plateau} which claim the number of such nodes are quite large.
+This is because \refig{fig:plateau} uses a modified Fast Downward which continues the search until expanding all nodes in the final plateau, while in this experiment the planner immediately stops the search after the first solution. These figures are supposed to serve the different experimental purposes: \refig{fig:plateau} was intended to show the size of the entire final plateau, while \refig{fig:depth-histogram} to \refig{fig:depth-histogram4} was meant to show the actual search behavior. If we were to continue the search after the first solution, all tiebreaking strategies should result in the same figure because they expands the same set of nodes.
 
 \begin{figure}[htbp]
 % \includegraphics{img/output-lmcut/ged-opt14-strips/p17.pdf}
