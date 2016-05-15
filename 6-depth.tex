@@ -135,6 +135,7 @@ Thus, the depths of nodes in positive cost domains are always 0.
 
 \subsection{Tiebreaking within Depth Buckets}
 
+Depth diversification cannot be a default tiebreaking by itself.
 Consider a tiebreaking strategy such as $[f,h,\depth]$ which applies a depth-diversification tiebreaking.
 After the $\depth$ criterion is applied, 
 there may be multiple nodes within the same depth bucket, so a
@@ -142,49 +143,51 @@ default tiebreaking criterion is still necessary to break ties among them.
 Thus we should, for example, apply one of \lifo, \fifo or \ro (random order) criteria
 after $\depth$ criterion.
 
-There could be still a room for heuristic-agnostic improvements between $\depth$ and default criterion,
-\todo*{``this level'' == after $\depth$} while this is not in the scope of this paper.  For example, while depth
-metric measures and diversifies the depth in a plateau, another criterion $X$ may non-trivially diversify the
-search in a breadth direction before the default criterion, such as $[f,h,\depth,X,\fifo]$.
+There are 2 concerns about this default tiebreaking criteria.
+First, the default tiebreaking behavior is more prone to be
+affected by the accidental biases, e.g., names/orders of action schema in the PDDL domain definition.
+Second, it is not only about the accidental biases.
+At the same time, there could be some nontrivial biases that requires further
+sophisticated algorithms to be removed.
+
+%Finding the best action ordering is not the scope of this paper.
+% Thus, we avoid bias at this level of tiebreaking by using \ro and assess its expected/average
+% performance.
+
+Regarding the accidental bias, recent work \cite{vallati2015effective} showed that the performance of satisficing
+planner is greatly affected by changing and tuning the action ordering.
+However, the conference version of this paper \cite{Asai2016} showed that
+the effect of such an accidental bias is not statistically significant in optimal search,
+by comparing the performance on
+several sets of randomly ``mangled'' domains whose action names are replaced with random strings.
+Moreover, the \ro default tiebreaking is supposed to be unaffected by such an accidental bias.
+Thus, the experimental results we show in this paper is not a product of some piece of luck.
+
+% However, finding the best third-level tiebreaking is not the scope of this paper.
+% Thus, focusing on \ro and assess its expected/average
+% performance is the most reasonable practice to understand the behavior of second-level,
+% depth-based tiebreaking.
+
+Regarding the nontrivial biases, there could be a room for heuristic-agnostic improvements that removes them, but
+this is clearly out of scope of this paper.  \todo*{``this level'' == after $\depth$} For example, while our depth
+metric measures and diversifies the depths in a plateau, another criterion $X$ may non-trivially diversify the
+search in a breadth direction.  Such a criterion can be applied after the depth but before the default criterion,
+resulting in a sorting strategy $[f,h,\depth,X,\fifo]$. Investigating such a kind of improvements is an avenue of
+future work.
 
 Candidates for $X$ may
 include pruning techniques such as Symmetry Breaking \cite{Fox1998,pochter2011exploiting,domshlak2013symmetry} or
 Partial Order Reduction \cite{hall2013faster,wehrle2013relative}.
 While they are usually described as ``pruning techniques'',
-they can be rephrased as ``removing the bias to a particular set
-of nodes which shares the same characteristics'' because they both aim to
-prune the redundant nodes. Note that redundancy causes a biased 
-search effort. For example, imagine we have a
+it can be rephrased as ``removing the bias to a set of similar/same nodes'' because
+they both aim to prune the redundant nodes.
+Note that redundancy causes a biased search effort. For example, imagine we have a
 set of nodes $S=\{a_1, a_2, a_3, a_4, b, c, d\}$ where
 $A=\{a_1, a_2, a_3, a_4\}$ are ``redundant'' in some measure (e.g. by Symmetry,
 Partial-Order). 
 If a search algorithm expands $S$ by random selection, it favors the
 group $A$ by giving a 4 times larger chance of expansion than $b$,
 $c$ or $d$.
-
-% \todo{compare id,fifo and id,lifo}
-CommentOnTheDeletedActionOrderingText\todo{Although there's no need to show new results for action ordering, 
-it may be a good idea to summarize+point to the AAAI16 action ordering experiment, in order to eliminate concerns that
-all our results are somehow specific to one particular action order.}
-% However we use a Random Order (\ro) criterion, which 
-% randomly selects an element from the depth bucket selected by the depth-based tiebreaking.
-% This is because the effectiveness of the tiebreaking behavior within a bucket
-% can be affected by accidental biases, e.g., names/orders of action schema in the PDDL domain
-% definition \cite{vallati2015effective}.
-% %Finding the best action ordering is not the scope of this paper.
-% Thus, we avoid bias at this level of tiebreaking by using \ro and assess its expected/average
-% performance.
-
-% Among \fifo, \lifo and \ro, the natural criterion is Random Order.
-% This is because the effectiveness of the third-level tiebreaking behavior
-% is affected by the accidental bias in action ordering in the PDDL domain
-% definition.  Recent work \cite{vallati2015effective} showed that the
-% planner performance is greatly affected by changing and tuning the action ordering
-% (and also variable ordering, but it is irrelevant to the tiebreaking behavior). 
-% However, finding the best third-level tiebreaking is not the scope of this paper.
-% Thus, focusing on \ro and assess its expected/average
-% performance is the most reasonable practice to understand the behavior of second-level,
-% depth-based tiebreaking.
 
 \subsection{Theoretical Characteristics of the Depth Distribution}
 \label{sec:theoretical-characteristics}

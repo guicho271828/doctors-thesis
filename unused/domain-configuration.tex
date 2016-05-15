@@ -1,3 +1,29 @@
+% However we use a Random Order (\ro) criterion, which 
+% randomly selects an element from the depth bucket selected by the depth-based tiebreaking.
+% This is because the effectiveness of the tiebreaking behavior within a bucket
+% can be affected by accidental biases, e.g., names/orders of action schema in the PDDL domain
+% definition \cite{vallati2015effective}.
+% %Finding the best action ordering is not the scope of this paper.
+% Thus, we avoid bias at this level of tiebreaking by using \ro and assess its expected/average
+% performance.
+
+% Among \fifo, \lifo and \ro, the natural criterion is Random Order.
+% This is because the effectiveness of the third-level tiebreaking behavior
+% is affected by the accidental bias in action ordering in the PDDL domain
+% definition.  Recent work \cite{vallati2015effective} showed that the
+% planner performance is greatly affected by changing and tuning the action ordering
+% (and also variable ordering, but it is irrelevant to the tiebreaking behavior). 
+% However, finding the best third-level tiebreaking is not the scope of this paper.
+% Thus, focusing on \ro and assess its expected/average
+% performance is the most reasonable practice to understand the behavior of second-level,
+% depth-based tiebreaking.
+
+
+
+
+
+
+
 % is not necessary?
 
 \section{Domain Configuration and Tiebreaking}
