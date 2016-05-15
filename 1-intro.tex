@@ -15,7 +15,7 @@ In this paper, we investigate \emph{tiebreaking strategies} for cost-optimal \as
 algorithm for finding an optimal-cost path from an initial state $s$ to
 some goal state $g \in G$ in a search space represented as a graph
 \cite{hart1968formal}.
-In many problems, the size of the last layer of the search, called
+In many combinatorial search problems, the size of the last layer of the search, called
 \emph{final plateau}, accounts for a significant fraction of the
 effective search space of \astar.  \refig{fig:plateau-noh}
 (\refpage{fig:plateau-noh}) compares the number of states with $f(n) = f^*$
@@ -26,13 +26,21 @@ that contains a node $n$.  For many instances, a large
 fraction of the nodes in the effective search space have $f(n)=f^*$:
 The points are located very close to the diagonal line
 ($x=y$), indicating almost all states with $f(n) \leq f^*$ have cost $f^*$.
-This is depicted in \refig{fig:plateau-0}. 
-A naive view of the search space would consider the search space of \astar as a region with a thin layer representing the  final plateau surrounding a large number of closed nodes with $f<f^*$ (left).
-% Note that this naive view accurately describes some real, practical search spaces, e.g., 2D path finding on an explicit graph.
-However, for many combinatorial search problems, 
+
+\refig{fig:plateau-0} depicts the conceptual view of these phenomenon.
+% 
+A naive view of the search space (left) would consider the search space of \astar as a region with a thin layer
+representing the final plateau surrounding a large number of closed nodes with $f<f^*$.  This view is
+intuitive, and may accurately describe some real, practical search spaces such as 2D path finding on an explicit
+graph. It also gives a foundation to some family of search algorithms like Frontier Search
+\cite{korf1999divide,korf2000divide}, which tries to reduce the memory requirement by discarding the information on
+$f<f^*$, which may work if $f<f^*$ is large.
+% 
+However, for many combinatorial search problems,
 % due to the curse of dimensionality, %``curse of dimensionality'' 
-the figure on the right is a more accurate depiction -- the  search space has a large plateau 
-for $f=f^*$.
+the figure on the right is a more accurate depiction -- the  search space has a large plateau for $f=f^*$.
+In fact, Iterative Deepening approaches \cite{korf1985depth} assume this type of search space
+where this final frontier is quite huge and the cost of re-evaluating $f<f^*$ is limited.
 \todo*{The fact that the last layer of search dominates the search was the motivation for Frontier Search and its numerous variants, so the SoCS community has been well aware of this --- SoCS community considers the opposite. Frontier search would not gain advantage in the planning domains because the number of nodes being forgotten is low compared to the size of the plateau.}
 
 \begin{figure}[htbp]
@@ -50,17 +58,15 @@ for $f=f^*$.
 \begin{figure}[htbp]
   \centering
   \includegraphics{img/astar/plateau-0.pdf}
- \caption{(Left) Naive and incorrect understanding of the search space. (Right) In reality, plateau containing the optimal goals ($f=f^*$) is large, and it even accounts for most of the search effort required by \astar.
+ \caption{(Left) Naive understanding of the search space of \astar, which only holds for some limited domains. (Right) The reality of search spaces of combinatorial problems. Plateau containing the optimal goals ($f=f^*$) is large, and it even accounts for most of the search effort required by \astar.
   }
  \label{fig:plateau-0}
 \end{figure}
 
-Therefore, in the majority of IPC problem domains, where the 
+In the majority of such IPC problem domains where the 
 the last layer ($f(n)=f^*$) accounts for a significant fraction of the effective search space, a
-\emph{tiebreaking strategy} which determines which node to 
- expand among nodes with the same $f$-cost,
-can have a significant impact on the
-performance of \astar. 
+\emph{tiebreaking strategy}, which determines which node to expand among nodes with the same $f$-cost,
+can have a significant impact on the performance of \astar.
 It is widely believed that among nodes with the same $f$-cost,
 ties should be broken according to $h(n)$, i.e.,
 nodes with smaller $h$-values should be expanded first.  While this is a
