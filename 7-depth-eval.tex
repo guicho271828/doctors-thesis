@@ -8,26 +8,21 @@
 %% the previous set of experiments, we used 28 zerocost domains with 620
 %% instances.  
 
-
 %\subsection{Evaluating Depth-Based Tiebreaking with $h$-tiebreaking}
 
-We compared the performance of standard tiebreaking methods to
-depth-based tiebreaking methods. These all use $h$ as the first-level
-tiebreaking and either \fifo, \lifo or \ro (random order) as the
-default tiebreaking criterion.
+We compared the performance of standard tiebreaking methods to depth-based tiebreaking methods. These all use $h$
+as the first-level tiebreaking and either \fifo, \lifo or \ro (random order) as the default tiebreaking criterion
+and the only difference is the presence of the third, depth-diversification criteria.
 
 Experiments are conducted on \textbf{1104 standard IPC benchmark
-instances} from 35 domains  and \textbf{620 zerocost instances} from 28 domains (see \refsec{sec:eval-common-strategies} and \refsec{sec:zerocost-domains} for full lists of these domains).  Each experiment uses
-The Fast Downward planner using A* search and either the \lmcut heuristic or \mands heuristic.  For \mands,
-we used the currently recommended settings\footnote{http://XXXfast-downward.org/XXX, as of 2016-5-11} 
-(bisimulation-based shrink strategy, DFP merge strategy and exact label
-reduction). Each experiment is run for 5 minutes excluding SAS
-translation time, with 4GB memory constraints.
+instances} from 35 domains  and \textbf{620 zerocost instances} from 28 domains (see \refsec{sec:eval-common-strategies} and \refsec{sec:zerocost-domains} for full lists of these domains). 
+Fundamental experimental setting are the same as the previous ones:
+Each experiment uses Fast Downward planner using \astar search and either the \lmcut heuristic or \mands heuristic.
+Each experiment is run for 5 minutes excluding SAS translation time, with 4GB memory constraints.
 
 We first show the summary results of these experiments (\reftbl{tbl:depth-summary}).
 Overall, depth-based tiebreaking tends to show larger coverages than the
-standard tiebreaking strategies. 
-In the following, we describe and discuss each experiment.
+standard tiebreaking strategies.
 
 \begin{table}[htb]
  {

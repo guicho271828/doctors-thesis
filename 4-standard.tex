@@ -8,6 +8,12 @@ Downward, and all experiments are run with a 5-minute,
 4GB memory limit for the search binary (FD translation/preprocessing
 times are not included in the 5-minute limit).  All experiments were
 conducted on Xeon E5410@2.33GHz CPUs. For the randomized configurations, we took the average of 10 runs.
+% 
+We used two \sota heuristic functions \lmcut \cite{Helmert2009} and \mands \cite{HelmertHHN14} as the primary
+heuristic functions used for calculating $f$ and $h$.  For \mands, we used the currently recommended
+settings\footnote{http://www.fast-downward.org/Doc/Heuristic\#Merge-and-shrink\_heuristic as of \today}
+(bisimulation-based shrink strategy, DFP merge strategy and exact label reduction).  These fundamental experimental
+configurations are shared in all performance measuring experiments throughout this paper.
 
 % following paragraph is added in order to avoid repeating the list of domains not
 % included due to no coverage difference.
@@ -68,7 +74,7 @@ their performance is similar.
 Next, we  compared two commonly used tiebreaking strategies, $[f,h,\fifo]$, $[f,h,\lifo]$, which
 first break ties according to $h$, and then apply \fifo or \lifo
 default tiebreaking, respectively.
-Summary results for LMcut heuristic \cite{Helmert2009} and M\&S heuristic \cite{HelmertHHN14} are
+Summary results for \lmcut and \mands are
 shown in \reftbl{tbl:summary-std} (Detailed results are in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, leftmost 2 columns).
 Differences in coverage are observed in several domains and $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall. Thus, the choice of default criterion seems to have a modest but measurable impact when the first tiebreaking criterion is $h$.
 
