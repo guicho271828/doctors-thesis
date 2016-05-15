@@ -195,23 +195,13 @@ admissibly have $h^*=0$. For those nodes,
 there is clearly no room for improving the heuristic estimate; Any positive
 value causes the heuristics to be inadmissible.
 
-There are two approaches to improving the search performance in such plateaus
-produced by zerocost problems. The first option is to enhance the search
-by combining multiple heuristics; This allows the heuristics to be
-inadmissible when it is only used for tiebreaking strategy. The obvious
-drawback of this strategy is the cost of additional heuristic
-computation.\todo{this is talking about the distance-to-go, but seems better to skip this paragraph at this point int he paper, and not mention 2 options ye}
-
-Another option is to perform an efficient
+One approach to improving the search performance in such plateaus
+produced by zerocost problems is to perform an efficient
 \emph{knowledge-free} search within plateau; It may reuse the effort
 that are already spent to guide the search, but does not require
 additional effort to compute multiple heuristics.
-% Thus, in order to solve zerocost problems more efficiently, the planner
-% needs to perform an efficient \emph{knowledge-free} search within a
-% large, final plateau. 
-
-In the next section, we first propose and evaluate an implementation of
-the second option.  It turns out that a notion of \emph{depth} can have
+In the next section, we propose and evaluate an implementation of
+such a technique. It turns out that a notion of \emph{depth} can have
 a significant impact on the performance of knowledge-free search, as
 well as a good understanding of the existing tiebreaking strategies.
 

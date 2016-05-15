@@ -3,8 +3,20 @@
 
 \label{sec:distance-to-go}
 
-We next compare our depth diversification to the distance-to-go
-estimates in the plateau.  Distance-to-go estimates are the type of
+Although we showed the benefit of knowledge-free search technique, there is another approach to improving the
+search performance in plateaus produced by zerocost domains. The approach we evaluate in this section is one which
+enhance the search by combining multiple heuristics, especially inadmissible \emph{distance-to-go} estimates.
+
+% ; This allows the heuristics to be
+% inadmissible when it is only used for tiebreaking strategy.
+
+% The obvious
+% drawback of this strategy is the cost of additional heuristic
+% computation.
+
+% We next compare our depth diversification to the distance-to-go
+% estimates in the plateau.  
+Distance-to-go estimates are the type of
 heuristics which treat actions as if they have the unit cost. Even under
 the presence of zero-cost actions, those estimates can predict the
 number of operations required to reach a goal.
@@ -79,8 +91,7 @@ because the first sorting criterion $f=g+h^{\lmcut}$ uses an admissible
 \lmcut heuristic. Its second sorting criterion, the distance-to-go FF
 heuristics, does not affect the admissibility of this entire sorting strategy.
 
-A potential problem with sorting strategies which use multiple heuristics is the 
-the cost of computing additional
+A potential problem with sorting strategies which use multiple heuristics is the cost of computing additional
 heuristic estimates. For example, $[g+h^{\lmcut},\ffo]$ requires more time to evaluate each node compared to a standard tiebreaking strategy such as $[g+h^{\lmcut},h^{\lmcut}]$ because computing the $\ffo$ heuristic incurs significant overhead per node while the results of $h^{\lmcut}$ can be cached.
 When $\hat{h}$, the inadmissible heuristic for tiebreaking is a distance-to-go (unit cost) variant of the primary, admissible heuristic $h$, it may be possible to reduce this overhead to some extent by implementing $h$ and $\hat{h}$ so that they share some of the computation  -- this is a direction for future work.
 
