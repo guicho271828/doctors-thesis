@@ -505,7 +505,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.5136725"
-     inkscape:cx="272.50964"
+     inkscape:cx="431.63936"
      inkscape:cy="79.454201"
      inkscape:document-units="in"
      inkscape:current-layer="layer2"
@@ -516,10 +516,10 @@
      fit-margin-bottom="0"
      inkscape:snap-center="true"
      inkscape:snap-global="false"
-     inkscape:window-width="1440"
-     inkscape:window-height="818"
-     inkscape:window-x="768"
-     inkscape:window-y="25"
+     inkscape:window-width="1080"
+     inkscape:window-height="1890"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      units="in" />
   <metadata
@@ -944,22 +944,22 @@
          x="50.254971"
          y="711.17883"
          id="tspan4049">(all nodes are expanded)</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.94874358;marker:none;marker-end:url(#Arrow1Mend);visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
-       x="50.254971"
-       y="683.15692"
-       id="text4003"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4005"
-         x="50.254971"
-         y="683.15692">(entire search space, never expanded)</tspan></text>
     <path
        style="fill:none;stroke:#ff0000;stroke-width:1.84315538;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:5.30000019;stroke-opacity:1;stroke-dasharray:none;display:inline"
        d="m 323.0952,774.83703 28.81696,-4.49719 29.26031,6.11899 10.71556,-8.2587 11.47314,9.92755 19.8896,0.10255 17.03849,-9.41266 26.14621,10.56564 33.46782,-11.51626"
        id="path14326-3-4-1"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccc" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.94874358;marker:none;marker-end:url(#Arrow1Mend);visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
+       x="50.254971"
+       y="683.15692"
+       id="text4003-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4005-9"
+         x="50.254971"
+         y="683.15692">(entire search space, A* never expands outside ellipse)</tspan></text>
   </g>
 </svg>
