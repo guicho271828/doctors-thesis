@@ -11,36 +11,33 @@ In this paper, we investigate \emph{tiebreaking strategies} for cost-optimal \as
 % After defining some notations in \refsec{sec:preliminaries}, 
 % We first investigate the conventional
 % tiebreaking strategies for the optimal search using \astar.
-\astar is the standard search
-algorithm for finding an optimal-cost path from an initial state $s$ to
-some goal state $g \in G$ in a search space represented as a graph
-\cite{hart1968formal}.
-In many combinatorial search problems, the size of the last layer of the search, called
-\emph{final plateau}, accounts for a significant fraction of the
-effective search space of \astar.  \refig{fig:plateau-noh}
-(\refpage{fig:plateau-noh}) compares the number of states with $f(n) = f^*$
-(y-axis) vs. $f(n) \leq f^*$ (x-axis) for 1104 problem
-instances from the International Planning Competition (IPC1998-2011),
-where $f^*$ is the optimal cost and $f(n)$ is a lower bound of the cost of the shortest path
-that contains a node $n$.  For many instances, a large
-fraction of the nodes in the effective search space have $f(n)=f^*$:
-The points are located very close to the diagonal line
-($x=y$), indicating almost all states with $f(n) \leq f^*$ have cost $f^*$.
+\astar is the standard search algorithm for finding an optimal-cost path from an initial state $s$ to some goal
+state $g \in G$ in a search space represented as a graph \cite{hart1968formal}.
+It expands the nodes in the best-first order of $f(n)$ until up to $f^*$,
+where $f(n)$ is a lower bound of the cost of the shortest path that contains a node $n$ and $f^*$ is the optimal cost.
+% 
+In many combinatorial search problems, the size of the last layer $f(n)=f^*$ of the search , called \emph{final plateau},
+accounts for a significant fraction of the effective search space of \astar.  \refig{fig:plateau-noh}
+(\refpage{fig:plateau-noh}) compares the number of states in this final plateau with $f(n) = f^*$ (y-axis)
+vs. $f(n) \leq f^*$ (x-axis) for 1104 problem instances from the International Planning Competition (IPC1998-2011).
+For many instances, a large fraction of the nodes in the effective search space have $f(n)=f^*$: The points
+are located very close to the diagonal line ($x=y$), indicating almost all states with $f(n) \leq f^*$ have cost
+$f^*$.
 
 \refig{fig:plateau-0} depicts the conceptual view of these phenomenon.
 % 
-A naive view of the search space (left) would consider the search space of \astar as a region with a thin layer
-representing the final plateau surrounding a large number of closed nodes with $f<f^*$.  This view is
+A naive view of the search space (left) would consider the space searched by \astar as
+a thin layer of final plateau $f(n)=f^*$ surrounding a large number of closed nodes with $f<f^*$.  This view is
 intuitive, and may accurately describe some real, practical search spaces such as 2D path finding on an explicit
 graph. It also gives a foundation to some family of search algorithms like Frontier Search
 \cite{korf1999divide,korf2000divide}, which tries to reduce the memory requirement by discarding the information on
 $f<f^*$, which may work if $f<f^*$ is large.
 % 
 However, for many combinatorial search problems,
-% due to the curse of dimensionality, %``curse of dimensionality'' 
 the figure on the right is a more accurate depiction -- the  search space has a large plateau for $f=f^*$.
 In fact, Iterative Deepening approaches \cite{korf1985depth} assume this type of search space
 where this final frontier is quite huge and the cost of re-evaluating $f<f^*$ is limited.
+Classical planning problems in IPC benchmarks are clearly the instances of such combinatorial search problems.
 \todo*{The fact that the last layer of search dominates the search was the motivation for Frontier Search and its numerous variants, so the SoCS community has been well aware of this --- SoCS community considers the opposite. Frontier search would not gain advantage in the planning domains because the number of nodes being forgotten is low compared to the size of the plateau.}
 
 \begin{figure}[htbp]
@@ -48,9 +45,10 @@ where this final frontier is quite huge and the cost of re-evaluating $f<f^*$ is
   \includegraphics{tables/aaai16-frontier/aaai16prelim3/lmcut_frontier_noh-front.pdf}
  \caption{
  The number of nodes with $f=f^*$ (y-axis) compared to the
- total number of nodes in the search space (x-axis) with $f\leq f^*$ on 1104 IPC benchmark problems,
-  using modified Fast Downward with \lmcut which 
-  generates all nodes with cost $f^*$.
+ total number of nodes in the search space (x-axis) with $f\leq f^*$ on 1104 IPC benchmark problems.
+ This experiment uses a modified Fast Downward with \lmcut which 
+ continues the search within the current $f$ after any optimal solution is found.
+ This effectively generates all nodes with cost $f^*$.
   }
  \label{fig:plateau-noh}
 \end{figure}
@@ -102,9 +100,12 @@ evaluate \emph{depth diversification}, a new
 tiebreaking method based on the notion of a node's \emph{depth} within a plateau,
 which corresponds to the number of steps from the ``entrance'' to
 the plateau (\refsec{sec:depth},
-\refsec{sec:depth-based-evaluation}). We also propose and evaluate an
-admissible method which uses the distance-to-go estimate, an estimate which treats every actions
+\refsec{sec:depth-based-evaluation}). We also evaluate an
+admissible tiebreaking strategy which uses the distance-to-go estimate, a heuristic function which treats every actions
 to have the unit costs (\refsec{sec:distance-to-go}).
+Although distance-to-go estimates are inadmissible,
+it does not harm the admissibility of entire search as long as it is used only for tiebreaking.
+% 
 In these sections, we empirically show that:
 \begin{enumerate}
  \item Our new depth-based diversification strategy significantly improves upon the 
@@ -118,20 +119,16 @@ In these sections, we empirically show that:
        further improves the performance.
 \end{enumerate}
 
-Finally, in \refsec{sec:discussion}, we discuss the implications of these
-results. \todo*{revise par based on what ends up remaining in the discussion section}
-We offer a rather trivial, but new perspective to admissible
-\astar search: \astar can be conceived as a sequence of independent runs
-of satisficing Greedy Best First Search(GBFS)es in each plateau defined by the
-$f$-value. We argue that arbitrary satisficing techniques improve the
-search performance when applied as a tiebreaking strategy within
-a plateau.
-%  in the final plateau, which is the last and (usually) the largest
-% layer of the search.
+Finally, in \refsec{sec:discussion}, we discuss the implications of these results.
+We offer a new perspective to admissible \astar search:
+Admissible \astar can be seen as a series of satisficing searches on each plateau,
+and thus the problem of tiebreaking can be reduced to satisficing search techniques.
 % 
-We also show a preliminary result that the depth diversification, which has improved various tiebreaking
-heuristics, also improves the performance of bare GBFS in satisficing search.  We further discuss the future
-direction, related works, and close the article.
+In order to strengthen the connection between tiebreaking and satisficing search,
+we also show a preliminary result of the depth diversification,
+which was shown to improve tiebreaking performance,
+also improves satisficing search using Greedy Best First Search (GBFS).
+We further discuss the future direction, related works, and close the article.
 
 \textbf{
 Note for reviewers:

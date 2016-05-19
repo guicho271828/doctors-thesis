@@ -4,19 +4,19 @@ In this paper, we investigate and improve tiebreaking strategies for
  optimizing search using A*.
  We first experimentally analyze the performance of common tiebreaking
  strategies that break ties according to the heuristic value of the
- nodes.  We find that tiebreaking has a significant impact on search
+ nodes.  We find that tiebreaking strategy has a significant impact on search
  algorithm performance when there are zero-cost operators that induce
  large plateau regions in the search space. With this in mind, we
- develop two new kinds of tiebreaking.
+ develop two new kinds of tiebreaking strategy.
  The first one is based on a depth metric which
  measures the distance from the entrance to the plateau, and propose a
  new, diversifying strategy which significantly outperforms standard
  strategies on domains with zero-cost actions.
  We give both a theoretical analysis and an empirical analysis
  supporting this.
- Another one is a multi-heuristic strategy
- based on the inadmissible distance-to-go variations of admissible or
- inadmissible heuristics. It is shown to further improve the performance
+ Another one is an admissible multi-heuristic tiebreaking strategy
+ based on the inadmissible distance-to-go variations of various heuristics.
+ It is shown to further improve the performance
  in combination with the depth metric.
  Finally, we open a new interpretation to the optimal search by 
  pointing out that the multi-heuristic strategy is a rare attempt to apply a satisficing
