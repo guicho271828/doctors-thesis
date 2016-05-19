@@ -2,7 +2,7 @@
 \section{Discussion}
 \label{sec:discussion}
 
-One observation that can be made from the experiments in the previous sections is that \textbf{optimizing search
+One observation that can be made from the experiments in the previous sections is that \textbf{admissible \astar
 can be seen as a series of satisficing searches on each plateau}. In this view, the problem of tiebreaking can be
 reduced to a satisficing search.
 
@@ -15,11 +15,23 @@ means that within the plateau of the same $f$, $[f,h,\fifo]$ is
 performing a satisficing GBFS.
 As another example, the reason for the poor performance of $[f,\fifo]$
 is clearly that it is running $[\fifo]$,
-a pure satisficing breadth-first search, in the plateau.
+an uninformed satisficing breadth-first search in the plateau.
 Furthermore, the good performance of $[f^{\lmcut},\ffo,\fifo]$ is also clear:
-If we ignore the first sorting criterion, it is a GBFS with $[\ffo,\fifo]$,
-and $\ffo$ is by itself known to be a \sota inadmissible heuristic
-function for satisficing forward search.
+$\ffo$ is by itself known to be a \sota inadmissible heuristic
+function for satisficing GBFS, and 
+if we ignore the first sorting criterion, $[f^{\lmcut},\ffo,\fifo]$ is a GBFS with $[\ffo,\fifo]$.
+
+Now, we reinterpret \astar as follows: \astar expands the nodes in a best-first order of $f$ value. When the
+heuristic function is admissible, $f$ value of the nodes expanded by \astar never decreases during the
+search process.
+Thus, the entire process of \astar can be considered as a series of blocks of search on each $\plateau{f}$.
+The search in each plateau terminates when the plateau is proven to contain no goal nodes (UNSAT), or some goal is found (SAT).
+When the plateau is UNSAT, then the search continues to the plateau with the next least $f$ value.
+
+\begin{figure}[htbp]
+ \includegraphics{img/astar/plateau-5.pdf}
+ \caption{Concept of \astar as sequence of satisficing searches.}
+\end{figure}
 
 Similar concept is common in SAT/IP model-based sequential / temporal planning
 \cite{rintanen2012planning,van2005optiplan}, but in a slightly different sense.  In model-based planning, a
@@ -52,10 +64,29 @@ direction for future work, e.g., how to simulate depth-based tiebreaking (node o
 for domains where memory limitations are the bottleneck, so keeping the depth buckets in memory may not be
 possible. More broadly, linear space, best-first search including RBFS}
 
+\begin{figure}[htbp]
+ \includegraphics{img/astar/plateau-6.pdf}
+ \caption{Concept of IDA* as sequence of satisficing searches.}
+\end{figure}
+
+One may notice that there is a difference between the satisficing search and the search on a plateau that
+the former starts from a single initial node while the latter may start from multiple initial nodes.
+For example, in satisficing planning, the search space usually contains a single start node which corresponds to an initial or the current state in the real world.
+% 
+In contrast, when \astar starts expanding a new current $f$ value $f_{\mit{cur}}$ after expanding all nodes with $f<f_\mit{cur}$,
+there may be multiple nodes with $f=f_\mit{cur}$ in the open list.
+These nodes are generated as a result of expansions of the parent nodes with $f<f_\mit{cur}$.
+% The search in this plateau terminates when the plateau is proven to contain no goal nodes (UNSAT), or some goal is found (SAT).
+% When the plateau is UNSAT, then the search continues to the next plateau.
+% 
+However, this difference is superficial because the latter can be reduced to the former case by introducing a dummy
+node to a graph which acts as a common parent of all initial nodes, and reformulate the problem as the search
+starts from this dummy node.
+
 This entire view shows an interesting direction for future work.
 Although we evaluated only one \sota satisficing configuration $\ffo$ in
 the experiments, it does not preclude the possibility of applying yet
-more variety of satisficing planning techniques to optimal search, such as lazy-evaluation
+more variety of satisficing planning techniques to the tiebreaking in optimizing search, such as lazy-evaluation
 or preferred operators in LAMA, depth-first probe in Probe \cite{LipovetzkyG11}, or
 random-walk strategy in Arvand \cite{nakhost2009monte}, or Type-based
 exploration in Type-GBFS \cite{xie14type}.
@@ -64,17 +95,18 @@ exploration in Type-GBFS \cite{xie14type}.
 
 \subsection{Depth Diversification for Satisficing Search}
 
-However, how promising is this view, or hypothesis, actually? In order to give more soundness to this future
-direction, we conducted another set of experiments. In the previous experiments, we showed that the distance-to-go
+However, how promising is this view, or hypothesis, actually?
+In order to strengthen the connection between tiebreaking and satisficing search,
+we conducted another set of experiments. In the previous experiments, we showed that the distance-to-go
 \ff heuristic $\ffo$ for \textbf{satisficing search within a plateau} was improved by the depth diversification
 $\depth$.
 % 
-A natural extension to this idea is that the depth metric can also enhance the performance of $\ffo$ used for
-\textbf{satisficing search in general}.
+A natural extension to this idea is that the depth metric could also enhance the performance of $\ffo$ used for
+\textbf{satisficing search in general}, which should hold if the search on plateaus is a satisficing search.
 % 
-Our claim is that this \emph{should} work if our observation is correct, and if it is, it becomes another
-testimonial that our future direction (importing satisficing techniques to optimal search) is promising.
-This is different from a simple claim like ``X worked in optimizing search, so it should also work in satisficing search''.
+% Our claim is that this \emph{should} work if our observation is correct, and if it is, it becomes another
+% testimonial that our future direction (importing satisficing techniques to optimal search) is promising.
+% This is different from a simple claim like ``X worked in optimizing search, so it should also work in satisficing search''.
 \todo*{``exporting from optimizing to satisficing'' and ``exporting from satisficing to optimizing'' are not symmetric. The latter is interesting and surprising, the former, not so much. --- changed the tone, emphasized the purpose}
 
 We provide preliminary results on the 280 IPC8 satisficing track
