@@ -198,6 +198,25 @@ When the primary heuristics is \lmcut, we do not observe significant difference 
 When it is \mands, $[f^\mands,h^\mands,\lifo]$ slightly gains advantage over other default tiebreaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
 %  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
 
+\pagebreak[3]
+
+Thus, to recapitulate, our conclusions are the follows:
+\begin{itemize}
+ \item When the \textbf{primary heuristics is \lmcut}, the best performer under
+       \begin{itemize}
+        \item \textbf{Zerocost domains} is $[f,\ffo,\depth,\ro]$.
+        \item \textbf{Zerocost IPC domains (Cybersec, Openstacks)} is $[f,h,\depth,\lifo]$.
+        \item \textbf{Positive-cost IPC domains} is $[f,h, \text{any default tiebreaking}]$ or $[f,h, \depth, \text{any default tiebreaking}]$.
+       \end{itemize}
+ \item When the \textbf{primary heuristics is \mands}, the best performer under
+       \begin{itemize}
+        \item \textbf{Zerocost domains} is $[f,\ffo,\ro]$ or $[f,\ffo,\depth,\ro]$, but the latter has
+              a smaller variance.
+        \item \textbf{Zerocost IPC domains (Cybersec, Openstacks)} is $[f,h,\lifo]$ or depth variants with any default tiebreaking.
+        \item \textbf{Positive-cost IPC domains} is $[f,h,\lifo]$.
+       \end{itemize}
+\end{itemize}
+
 {
 \setlength{\tabcolsep}{0.1em}
 
