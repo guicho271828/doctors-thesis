@@ -8,7 +8,7 @@ being misdirected by the heuristic function. Type based bucket
 \cite{xie14type} classifies the plateau of GBFS according to the
 $[g,h]$ pair and distributes the effort.  Marvin \cite{Coles07} learns plateau-escaping macros
 from the Enhanced Hill Climbing phase of the FF planner
-\cite{Hoffmann01}, and the use of these macros is inadmissible.
+\cite{Hoffmann01} (note that use of macros makes the search inadmissible in general).
 \citeauthor{Hoffmann05} \citeyear{Hoffmann05,Hoffmann11} gives a detailed analysis of the
 structure of the search spaces of satisficing planning.
 % % duplicated, and not particularly investigating plateau
@@ -91,4 +91,6 @@ Second, $AL^*$ has an ability to propagate the maximum and the minimum $f$ value
 % wrong, see AAAI10 paper that ``recitify this''
 % Finally, when $k>0$ the search becomes inadmissible because it alters the best-first expansion order.
 
-\todo{A relevant line of work in similar spirit to Zerocost domains is the Simple/Qualitative Preference Track in the deterministic part of IPC4 (2006). }
+Another relevant line of work in similar spirit to Zerocost domains is the Preference Track in the deterministic
+part of IPC4 \cite{gerevini2009automatically}. One difference between our zero-cost domains and these domains is
+that the latter allows the more complex semantics such as multiplication.
