@@ -177,20 +177,25 @@ Improvement was observed in the following domains:
  \item \textbf{\lmcut}: mprime-succumb (\lifo, \ro), storage-lift (\ro), tidybot-motion (\fifo), tpp-fuel (\fifo, \ro).
  \item \textbf{\mands}: mprime-succumb (\lifo, \ro), tpp-fuel (\fifo).
 \end{itemize}
-When the default tiebreaking was \ro and the heuristic is \mands, $[f,\ffo,\depth,\ro]$ did not improve
-over $[f,\ffo,\ro]$, but the coverage difference was small ($337.9\rightarrow 337.6$) and $\depth$ made the performance slightly more robust (smaller variance: $2.1\rightarrow 1.3$).
+When the default tiebreaking was \ro and the heuristic is \mands, $[f,\ffo,\depth,\ro]$ have small degradation
+over $[f,\ffo,\ro]$, but the difference was fractional ($337.9\rightarrow 337.6$) and $\depth$ made the performance slightly more robust (smaller standard deviation: $2.1\rightarrow 1.3$).
 
-For standard IPC benchmark instances, the overhead due to the additional computation of
+For the standard IPC benchmark instances, the overhead due to the additional computation of
 $\hat{h}$ or $\ffo$ tends to harm the overall performance.
 % The only domains consistently enhanced by distance-to-go estimates are \pddl{mprime} using \lmcut,
 % \pddl{parcprinter-opt11} using \mands and \pddl{woodworking-opt11} using \mands. Moreover, their improvements are small.
 Therefore, the best configuration using \lmcut was
 $[f,h,\depth,\lifo]$ which uses depth and does not impose the cost of
 additional heuristics, and the best result using \mands
-was $[f,h,\lifo]$ which impose no overhead including the depth.
-% However, 
-% zerocost domains in this standard benchmark set (Openstacks and
-% Cybersec) has each shown a significant speedup achieved by these distance-to-go estimates
+was $[f,h,\lifo]$ which imposes no overhead including the depth.
+
+If we look further into the detail, we observed the following:
+In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) improve upon the standard strategy (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:3), but does not improve upon depth (e.g. $[f,h,\depth,\lifo]$: 12). When $h=h^\mands$, all coverages are zero. Overheads by $\ffo$ also slightly degrade the performance in Openstacks (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:18, $[f^\lmcut,\ffo,\lifo]$:17, $[f^\lmcut,h^\lmcut,\depth,\lifo]$: 18; Also, $[f^\mands,h^\mands,\lifo]$:19, $[f^\mands,\ffo,\lifo]$:18, $[f^\mands,h^\mands,\depth,\lifo]$: 19). Thus, in these two domains, although there are some positive effects in the guidance by $\ffo$ or $\hh$, additional overheads by those distance-to-go heuristics outweighed the merit.
+ 
+In the positive-cost domains (IPC domains except \pddl{Openstacks} and \pddl{Cybersec}), $\hat{h}$ or $\ffo$
+only harms the overall performance due to the overhead.
+When the primary heuristics is \lmcut, we do not observe significant difference between single-heuristics strategies except for the fractional difference in the configurations using \ro.
+When it is \mands, $[f^\mands,h^\mands,\lifo]$ slightly gains advantage over other default tiebreaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
 %  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
 
 {
