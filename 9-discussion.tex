@@ -85,13 +85,16 @@ starts from this dummy node.
 
 This entire view shows an interesting direction for future work.
 Although we evaluated only one \sota satisficing configuration $\ffo$ in
-the experiments, it does not preclude the possibility of applying yet
-more variety of satisficing planning techniques to the tiebreaking in optimizing search, such as lazy-evaluation
-or preferred operators in LAMA, depth-first probe in Probe \cite{LipovetzkyG11}, or
-random-walk strategy in Arvand \cite{nakhost2009monte}, or Type-based
-exploration in Type-GBFS \cite{xie14type}.
-% Future work on this direction should be evaluated in the context of
-% future International Planning Competitions.
+the experiments, it does not prevent us from applying yet
+more variety of satisficing planning techniques to the tiebreaking in optimizing search.
+There are plenty of candidates: Lazy evaluation \cite{richter2010lama}, Alternating/Pareto open
+list \cite{RogerH10}, helpful actions (preferred operators) \cite{Hoffmann01},
+random walk local search \cite{nakhost2009monte}, macro operators
+\cite{Botea2005,ChrpaVM15}, factored planning
+\cite{amir2003factored,brafman2006factored,Asai2015} and
+exploration-based search enhancements
+\cite{valenzano2014comparison,xie14type,Valenzano2016}.
+
 
 \subsection{Depth Diversification for Satisficing Search}
 
