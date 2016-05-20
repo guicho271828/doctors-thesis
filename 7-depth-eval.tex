@@ -53,10 +53,10 @@ zerocost domains, our proposed method outperforms the traditional tiebreaking me
 Significant improvements were observed in 10 domains when using \lmcut, and in 7 domains when using \mands.
 In detail,
 \begin{itemize}
- \item \textbf{10 Domains improved by \lmcut on Zerocost} are elevators-up (\ro), freecell-move (\fifo,\ro),
+ \item \textbf{10 Domains improved by depth on Zerocost, using \lmcut,} are elevators-up (\ro), freecell-move (\fifo,\ro),
        miconic-up (all), mprime-succumb (\fifo,\ro), pipesnt-pushstart (\ro), pipesworld-pushend (\ro),
        scanalyzer-analyze (\lifo), storage-lift (\fifo), tpp-fuel (\fifo,\ro), woodworking-cut (\fifo,\ro).
- \item \textbf{7 Domains improved by \mands on Zerocost} are elevators-up (\ro), freecell-move (\fifo,\ro),
+ \item \textbf{7 Domains improved by depth on Zerocost, using \mands,} are elevators-up (\ro), freecell-move (\fifo,\ro),
        mprime-succumb (\fifo,\ro), pipesnt-pushstart (\fifo, \ro), pipesworld-pushend (\ro),
        tpp-fuel (\fifo,\ro), woodworking-cut (\fifo,\ro).
 \end{itemize}
@@ -87,29 +87,30 @@ In detail,
  }
 \end{table}
 
-\reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard IPC benchmark instances} solved by \lmcut
+\reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard IPC benchmark instances} solved by the configuration using \lmcut
 heuristics. Depth-based tiebreaking ($\depth$) shows impressive results on \pddl{Openstacks} ($\fifo:2\to 8,\ \lifo:3\to 12,\  \ro:3.9\to 10$) and \pddl{Cybersec} ($\fifo: 11\to 18,\ \ro: 11.7\to 18$) because these
-domains contain many instances of zero-cost edges and the final plateau $\plateau{f,h}$ is huge (See
+domains contain many instances of zero-cost edges (See
 \refig{fig:plateau}).  Most other instances are unaffected by depth-based tiebreaking.  Thus, depth-based
-tie-breaking yields better performance in the domains with large final plateaus, without sacrificing performance in
+tie-breaking yields better performance in the domains with zero-cost actions, without sacrificing performance in
 other domains.
 
 In contrast, \reftbl{tbl:mands-ipc-full} shows that depth-based tiebreaking negatively affects the performance of
-\mands when applied to \textbf{1104 standard IPC benchmark instances}. Our justification to this result is
+the configuration using \mands when applied to \textbf{1104 standard IPC benchmark instances}. Our justification to this result is
 the following.
 % 
-First, the coverage of \pddl{Openstacks} is improved in \fifo ($15\to 19$) and \ro ($15.4\to 19$), so we have achieved the expected behavior.
+First, the coverage of \pddl{Openstacks} is improved in \fifo ($15\to 19$) and \ro ($15.4\to 19$), so we have achieved the same expected behavior as in the case of \lmcut.
 %
 While it did not happened to \pddl{Cybersec}, this is due to the poor performance of \mands in \pddl{Cybersec}.
 The coverage of \pddl{Cybersec} is 0 in all configurations and even depth could not improve it. Thus, the positive
 effect of depth diversification to the overall score was limited.
 % 
 Second, we observed a performance degradation across wide range of domains which is caused by the low-level overhead of depth-based tiebreaking (i.e., updates to the depth-based bucket data structures).
-As shown in \refig{fig:expansion-ratio}, the number of evaluation of \mands heuristics per seconds has significantly decreased across wide range of domains, while such effect is limited in \lmcut.
+As shown in \refig{fig:expansion-ratio}, the number of evaluation of \mands heuristics per seconds has significantly decreased across wide range of domains, while such an effect is limited in \lmcut.
 This is because the evaluation of \mands heuristics is implemented
 as an efficient table lookup, and it is able to evaluate an order of magnitude larger number of nodes compared to \lmcut heuristics.
-Thus, even the relatively small overhead incurred by the management of depth buckets decreases the node evaluation rate sufficiently to noticeably degrade performance.
-In contrast, \mands did not have such problems in Zerocost domains. This shows that the search efficiency offered by depth based diversification become much more important, and the overhead caused by the management of depth buckets become negligible even in the case of \mands.
+Thus, even the relatively small overhead incurred by the management of depth buckets decreases the node evaluation rate to noticeably degrade performance.
+In contrast, \mands did not have such problems in Zerocost domains. This shows that the search efficiency offered by depth based diversification become much more important,
+and the low-level overhead became negligible.
 
 % , which is less interesting when tackling an intractable combinatorial problems.
 
@@ -193,7 +194,7 @@ In contrast, \mands did not have such problems in Zerocost domains. This shows t
 To understand the behavior of depth-based policies, we plotted 
 histograms of the depths of search nodes evaluated by several tiebreaking
 strategies in the final plateau $\plateau{f^*,0}$ until the solution is
-found.  We plotted the most successful depth-based strategy,
+found.  We plotted a depth-based strategy
 $[f,h,\depth,\fifo]$, as well as the standard strategies $[f,h,\fifo]$,
 $[f,h,\lifo]$ and a single run of randomized strategy $[f,h,\ro]$.
 
@@ -220,8 +221,8 @@ time searching around the plateau entrance (expanding $\approx 10^3$ nodes at de
 Also, we noticed that the node distribution by the global randomization $[f,h,\ro]$ is very similar to $[f,h,\fifo]$.
 This means that \ro actually behaves very similar to \fifo, which agrees with the previous performance comparisons.
 This is natural, considering the large bias of the number of nodes to the shallower depths.
-For example, imaging we have 100 nodes in depth $d=1$ and a single nodes in depth $d=2$ --
-since \ro does not consider the depth, the chance of expanding $d=2$ is only $1/101$.
+For example, imagine we have 100 nodes in depth $d=1$ and a single node in depth $d=2$.
+Since \ro does not consider the depth, the chance of expanding $d=2$ is only $1/101$.
 This probability does not improve until a sufficient number of expansions decreases the number of nodes in $d=1$.
 Since this happens at any point of the search, overall behavior of \ro tends to be similar to \fifo.
 Thus, simply randomizing the expansion does not solve the problem of heavy bias to the shallower depth.
@@ -230,8 +231,8 @@ In contrast, $[f,h,\depth,\ro]$ is balancing the search at various depths.
 The yellow curve draws a smooth line that is almost flat in the shallow depth, while gradually decreasing the number of nodes in larger depth.
 Moreover, its node distribution almost accurately follows $D-d$, a theoretical formula which assumes a simplified
 condition that the plateau forms a tree of fixed branching factor.
-$D$ means the largest depth in the open list, which is equal to
-the number of iterations that has ever happened in the depth diversification framework
+$D$ means the largest depth of the unexpanded nodes in the final plateau, which is
+larger than the largest depth of the expanded nodes by 1
 (\refsec{sec:theoretical-characteristics}).
 \todo*{refs to sec{sec:theoretical-characteristics}}
 
@@ -240,6 +241,8 @@ following factors: First, the branching factor of the graph may not be
 uniform across the search space. Second, some depth buckets could be
 exhausted, as is depicted in the line by $[f,h,\fifo]$ which
 shows all nodes in the shallower depths are expanded and the line can be below $D-d$.
+Since $[f,h,\fifo]$ exhaustively expands the nodes in shallower depth,
+the number of expansion by $[f,h,\fifo]$ in the shallower depths constitutes an upper bound, which may be below $D-d$.
 
 Next, \refig{fig:depth-histogram4} shows the same results on the standard IPC
 Openstacks and Cybersec domains.
