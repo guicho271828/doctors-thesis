@@ -32,29 +32,32 @@ is based on an admissible heuristic function, the nodes in the focal list are ex
 an inadmissible distance-to-go estimates $\hh$. Thus the search does not follow the best-first order of $f$ and is
 not admissible, being only $w$-admissible. One exception is the case of $w=1$ where the focal list is equivalent
 to the $f$ plateau and the expansion order in the focal list corresponds to the tiebreaking on plateaus. In our
-notation, this algorithm can be written as a BFS with
+notation, this algorithm can be written\footnote{
+However, actual implementation may differ due to dynamic update to $f_{\mit{min}}$.}
+as a BFS with
 \[
  [ \lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil, \hh, \mit{default}]
 \]
-because the focal list ``blur''s $f$ up to $w\cdot f_{\mit{min}}$. For example, when $w=2, f_{\mit{min}}=5$ and
+where \textit{default} is one of \fifo, \lifo or \ro.
+This is because the focal list ``blur''s $f$ up to $w\cdot f_{\mit{min}}$.
+For example, when $w=2, f_{\mit{min}}=5$ and
 $f(n)=5,9,11$, then $\lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil=1,1,2$ respectively. 
-% However, actual implementation may differ because $f_{\mit{min}}$ is updated dynamically.
 
 Continuing this work, \shortciteauthor{thayer2009using} \citeyear{thayer2009using,thayer2011bounded}
 evaluated various distance-to-go configurations of Weighted
 \astar, Dynamically Weighted \astar \cite{pohl1973avoidance} and $A^*_\epsilon$.
 Some configurations use distance-to-go as part of
-tiebreaking. However, they focus on bounded-suboptimal search rather than optimal search.
+tiebreaking, while they focus on bounded-suboptimal search rather than optimal search.
 % 
 Also, \shortciteauthor{cushing2010cost} \citeyear{cushing2010cost} more eloquently advocated the danger of relying
 on cost estimates in satisficing search by investigating ``$\varepsilon$-cost traps'' and other pitfalls caused by
-using the cost estimators for search guidance. Again, this work targets satisficing search.
+cost estimators for search guidance. Again, this work targets satisficing search.
 % 
 Finally, a \sota satisficing planner FD/LAMA2011 incorporates distance-to-go estimates in its iterated search
 framework. The first iteration of LAMA uses distance-to-go estimates combined with various satisficing
 search enhancements.
 
-\shortciteauthor{benton2010g} proposed an inadmissible technique for temporal planning where short actions are
+In temporal planning, \shortciteauthor{benton2010g} proposed an inadmissible technique where short actions are
 hidden behind long actions and do not increase makespan \cite{benton2010g}. Such actions cause so-called ``g-value
 plateau'', a similar situation caused by 0-cost actions in sequential planning.  They implemented an inadmissible
 heuristic function combined with distance-to-go estimates on top of Temporal Fast Downward system
@@ -134,7 +137,7 @@ $\plateau{f,\hat{h}^{\text{\ff}}}$.
 
 % $[h^{\lmcut}+g,\hat{h}^{\mbox{LMcount}},\fifo]$,
 
-A summary of the results are shown in \reftbl{tbl:dtg-summary}. For
+A summary of the results is shown in \reftbl{tbl:dtg-summary}. For
 comparison, we also include the results of configurations evaluated in the previous sections.
 Detailed per-domain results are shown in
 \reftbls{tbl:dtg-lmcut-zero}{tbl:dtg-mands-ipc}.
@@ -160,9 +163,10 @@ Thus, when the depth diversity criterion  is not used, the best configurations a
 which use $\ffo$.
 In detail, following domains are improved by each change:
 \begin{itemize}
- \item \textbf{$h^\lmcut \to \hh^\lmcut$}: elevator-up (all), freecell-move (\fifo,\ro), mprime-succumb (all), mystery-feast (\lifo,\ro) parking-movecc (all), pipesworld-pushend (all), scanalyzer-analyze (\lifo,\ro), wood\-working-cut (all). (Compare \reftbl{})
- \item \textbf{$h^\mands \to \hh^\mands$}: elevator-up (all), freecell-move (\fifo,\ro), mprime-succumb (\ro), mystery-feast (\fifo,\lifo) parking-movecc (all), pipesworld-pushend (all), scanalyzer-analyze (all), wood\-working-cut (all), zenotravel-fuel (\lifo,\ro).
+ \item \textbf{$h^\lmcut \to \hh^\lmcut$}: elevator-up (all), freecell-move (\fifo,\ro), mprime-succumb (all), mystery-feast (\lifo,\ro) parking-movecc (all), pipesworld-pushend (all), scanalyzer-analyze (\lifo,\ro), wood\-working-cut (all). (Compare \reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:dtg-lmcut-zero}.)
+ \item \textbf{$h^\mands \to \hh^\mands$}: elevator-up (all), freecell-move (\fifo,\ro), mprime-succumb (\ro), mystery-feast (\fifo,\lifo) parking-movecc (all), pipesworld-pushend (all), scanalyzer-analyze (all), wood\-working-cut (all), zenotravel-fuel (\lifo,\ro). (Compare \reftbl{tbl:mands-zerocost-full} and \reftbl{tbl:dtg-mands-zero}.)
  \item \textbf{$h^\lmcut \to h^\lmcut,\hh^\lmcut$}: airport-fuel (\fifo,\ro), mprime-succumb (\fifo,\ro), parking-movecc (\lifo), pipesworld-pushend (\fifo), scanalyzer-analyze (all).
+ \item \textbf{$h^\mands \to h^\mands,\hh^\mands$}: comparable.
  \item \textbf{$h^\lmcut,\hh^\lmcut \to \ffo$}: blocks-stack (all), freecell-move (all), hiking-fuel (all), miconic-up (all), mprime-succumb (all), parking-movecc (all), pipesworld-pushend (all), sokoban-pushgoal (all), tidybot-motion (all), tpp-fuel (\ro).
  \item \textbf{$h^\mands,\hh^\mands \to \ffo$}: airport-fuel (all), elevator-up (all), freecell-move (all), miconic-up (all), mprime-succumb (all), parking-movecc (all), pipesnt-pushstart (all), scanalyzer-analyze (all), sokoban-pushgoal (all), tpp-fuel (\ro).
 \end{itemize}
@@ -266,7 +270,8 @@ Thus, to recapitulate, our conclusions are the follows:
 \subsection{Simple Dynamic Configuration for Overall Performance}
 
 The performance degradation by the multi-heuristic strategy in positive cost domains is not of a practical issue.
-This is because we can consider a simple case-based configuration scheme which selects a multi-heuristic strategy when there are any zerocost actions in the domain, and a single-heuristic strategy otherwise.
+We can easily avoid the overhead incurred by the distance-to-go heuristics in positive cost domains, using a simple case-based configuration scheme.
+We select a multi-heuristic strategy when there are any zerocost actions in the domain, and a single-heuristic strategy otherwise.
 
 Since such a check has only a negligible impact on the total runtime, we can simulate and estimate the results of such configurations without running it.
 Coverage results in \reftbl{tbl:dtg-summary-sum} show the total coverage of
@@ -285,7 +290,7 @@ are such estimated results of the switching behavior, and it achieves the highes
  \label{tbl:dtg-summary-sum}
 \end{table}
 
-In standard IPC instances, the domains with zero-cost actions are \pddl{Cybersec} and \pddl{Openstacks} only. They are solved in a multi-heuristic sorting strategy while other domains are solved in the best performing single-heuristic strategy. In Zerocost instances, all domains are solved in multi-heuristic sorting strategy.
+In standard IPC instances, the domains with zero-cost actions are \pddl{Cybersec} and \pddl{Openstacks} only. They are solved in a multi-heuristic strategy while other domains are solved in the best performing single-heuristic strategy. In Zerocost instances, all domains are solved in multi-heuristic strategy.
 \todo*{Maybe we should show dynamic configuration results in the detailed per-domain tables, just so that it's obvious that we can get ``dominant'', state-of-the-art  behavior --- results are simulated, not actually implemented. Thus the total results should be fine. However, I added exactly which domains were zero-cost.}.
 
 % While these multi-heuristic strategies did not improve the perfomance in
