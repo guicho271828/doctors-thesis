@@ -183,9 +183,8 @@ $c$ or $d$.
 \subsection{Theoretical Characteristics of the Depth Distribution}
 \label{sec:theoretical-characteristics}
 
-We give further insight into the search behavior of our implementation
-of depth-based diversification.
-As described above, although the random selection from depth buckets is possible, our implementation performs a deterministic, round-robin sampling from the available depth buckets.
+We give further insight into the search behavior of our implementation of depth-based diversification.
+In the diversification, although the random selection from the depth buckets is possible, our implementation performs a deterministic, round-robin sampling from the available depth buckets as described above.
 %iterates from the largest depth to 0.
 % 
 %We are particularly interested in how the expansions happen among the
@@ -212,9 +211,14 @@ As a preparation, we first show that the number of expansion happened to each de
 linearly with the depth.
 % 
 \todo*{Introduced the tree assumption in the beginning.}
-We first assume that the plateau region forms a tree of a fixed branching factor
+We first present several assumptions to continue the discussion.
+First, we assume that the plateau region forms a tree of a fixed branching factor
 $w\geq 2$ (\emph{tree assumption}), rather than a graph with an indefinite number of successor nodes.
-We also assume that no depth buckets exhaust due to the expansion (\emph{no-exhaust assumption}).
+In the later experiments, we show this assumption is not much distant from the real situations.
+Next, we assume that no depth bucket exhausts due to the expansion (\emph{no-exhaust assumption}).
+We provide a condition for this assumption to hold within this section.
+Finally, we assume that the sorting strategy performs a \ro default tiebreaking
+after the depth-based diversification is applied.
 
 Let $D\geq 0$ be the current largest depth of the nodes found in the plateau so far.  If the expansion of a node in
 depth $D$ resulted in more nodes on the same plateau, then the children have depth $D+1$.  Due to the tree
@@ -228,60 +232,59 @@ expansions in total.
 It also means that the minimum condition for the \emph{no-exhaust assumption} to hold until the end of the $D$'th
 iteration is that the initial number of nodes in depth 0 is at least $D$.  If there are at least $D$ nodes in depth
 0, depth 0 trivially never exhausts until $D$'th iteration. Also, no depth buckets in depth $d>0$ will exhaust
-because each bucket has $w(D-d+1)$ nodes in total (including those already expanded) while the expansion has
-happened only $D-d$ times. For simplicity, let us also assume that the depth 0 initially have exactly $D$ nodes and
+because each bucket has $w(D-d+1)$ generated nodes in total (i.e. OPEN+CLOSED) while the expansion has
+happened only $D-d$ times (since $w>2$, $w(D-d+1)>2(D-d)+2>D-d$).
+$w(D-d+1)$ follows from the fact that the depth $d-1$ is expanded $D-(d-1)$ times in the preceding $D$ iterations.
+For simplicity, let us also assume that the depth 0 initially have exactly $D$ nodes and
 no nodes will be added to depth 0 during the search.
+Also let $N=w(D-d+1)$ for readability.
 
 Now we show the formula which represents the probability of expanding a node in a particular depth.
-At the end of $D$'th iteration,
-expansion has happened $D(D-1)$ times in total, and depth $d$ is expanded $D-d$ times.
-Thus, first, the probability of selecting a depth $d$ for expansion is simply $\frac{D-d}{D(D-1)}$.
-Next, after selecting this depth bucket, the probability of selecting a node in the bucket is $\frac{1}{w(D-d+1)}$ because there are 
-the depth $d-1$ is expanded $D-(d-1)$ times in the preceding $D$ iterations
-and therefore, the total number of nodes that have been in depth $d$, including those that have been expanded so far, is $w(D-d+1)$.
+% First, at the end of $D$'th iteration,
+% expansion has happened $D(D-1)$ times in total, and depth $d$ is expanded $D-d$ times.
+% Thus, first, the probability of selecting a depth $d$ for expansion is simply $\frac{D-d}{D(D-1)}$.
+We should obtain the probability of selecting a node $n$ in a bucket with depth $d$
+in the course of $D$ iterations (i.e. $D(D-1)$ expansions in total and $D-d$ expansions in depth $d$).
+At this point, the number of nodes generated in this bucket is $N$.
+There are $\frac{N!}{(N-(D-d))!}$ potential ways to select $D-d$ nodes in this bucket.
+Among these, 
+there are $\frac{(N-1)!}{((N-1)-(D-d))!}$ ways to select $D-d$ nodes from the nodes \emph{except} $n$.
+Assuming the randomized default tiebreaking \ro, the probability of selecting $n$ in $D-d$ expansions is therefore
+\[
+ 1-\frac{(N-1)!}{((N-1)-(D-d))!} \cdot \frac{(N-(D-d))!}{N!} = 1- \frac{N-(D-d)}{N} = \frac{D-d}{N}
+\]
 
+\[
+ \frac{D-d}{N} = \frac{D-d}{w(D-d+1)} = \frac{1}{w}(1+\frac{1}{d-(D+1)})
+\]
 
-Thus, the probability of expanding each node in depth $d$ is
-$\frac{D-d}{D(D-1)\cdot w(D-d+1)}=\frac{1}{wD(D-1)}(1-\frac{1}{D-d+1})$.  \qed
+%% below is wrong, since it does not account for the fact that there are D-d expansions
+% Next, after selecting this depth bucket, the probability of selecting a node in the bucket is $\frac{1}{w(D-d+1)}$ because
+% the depth $d-1$ is expanded $D-(d-1)$ times in the preceding $D$ iterations
+% and therefore, the total number of nodes that have been in depth $d$, including those that have been expanded so far, is $w(D-d+1)$.
+% 
+% 
+% Thus, the probability of expanding each node in depth $d$ is
+% $\frac{D-d}{D(D-1)\cdot w(D-d+1)}=\frac{1}{wD(D-1)}(1-\frac{1}{D-d+1})$. 
 
-Notice that $\frac{1}{D-d+1}$ is negligible if $D \gg d$.
+\qed
+
+Notice that $\frac{1}{d-(D+1)}$ is a negligible amount of negative value if $d \ll D$.
 Thus, after enough number of iterations (large $D$), the nodes are 
-expanded in an approximately equal probability $\frac{1}{wD(D-1)}$ in the shallower region and is
+expanded in an approximately equal probability $\frac{1}{w}$ in the shallower region and is
 unaffected by the depth of the node.
-However, the nodes near the largest depth have less probability, showing
-some balance in exploration and exploitation.
+% However, the nodes near the largest depth have less probability, showing
+% some balance in exploration and exploitation.
+% Also, the difference of $\frac{1}{d-(D+1)}$ wrto $D$ is small ($O((D-d)^2)$) compared to 1
 
 The important point of this characteristics is that this distribution is maintained at any point of the search
-until the solution is found. In fact, any depth-selection criterion, including the least depth selection (\fifo) or
-the largest depth selection (\lifo), result in the same distribution if all nodes are to be expanded (each depth
-$d$ is expanded $Dw^d$ times), but their online characteristics are not.
+until the solution is found. In fact, every depth-selection criterion, including the least depth selection (\fifo) or
+the largest depth selection (\lifo), expands the same set of nodes if there are no solutions (each depth
+$d$ is expanded $Dw^d$ times) and results in the same distribution.
+However, their online characteristics are different.
 %
 \todo*{maybe \lifo and \fifo should be analyzed wrto this tree model and compared directly to each other as well as
 $\depth$?}
 \todo*{less priority -- lets add it when required by the reviewers. unused texts are in unused/lifo-fifo-distribution.tex}
+For example, in \fifo, all nodes with $d<D$ are expanded while depth $d=D$ can take arbitrary number of expansions $e \in [0, Dw^D]$. Also, in \lifo, for some $k\in [1,D]$, there can be a situation where all depths $d \in [0,k-1]$ gets only 1 expansion while all nodes in depths $d \in [k,D]$ are expanded. Such an imbalance during the search causes the pathological behavior described above.
 
-\hrule
-
-For example, \lifo behaves the following: Assume the maximum depth in this tree is a finite integer
-$D_{\mit{max}}$. Since this is a depth-first search, it first expands all depths once until it reaches
-$D_{\mit{max}}$.
-% 
-% Since whenever a node is expanded their parent should also be expanded, when depth $d$ has been expanded $E$ times
-% so far, depth $d-1$ should have been expanded $\lceil E/w \rceil$ times. Thus, the distribution is exponentially
-% biased toward the maximum depth $D_{\mit{max}}$ at any point of the search.  The probability of each node in a
-% depth $d$ can be calculated as the following:
-% 
-Now, let $n$ be a node in depth $d$ where $d\ll D_{\mit{max}}$.  Assume every descendant of $n$ are expanded
-while no siblings of $n$ and no siblings of ancestors of $n$ are expanded.  In this case,
-\begin{enumerate}
- \item Depth 0 have $D$ nodes and is expanded exactly once.
- \item The total number of nodes in each depth $k\in [1,d]$, including those expanded, is $w$, and each depth $k\in [1,d]$ is expanded exactly once. They have $wd$ nodes in total.
- \item The total number of descendants of $n$ is $\sum_{k=1}^{D_{\mit{max}}-d} w^k = \frac{1-w^{D_{\mit{max}}-d}}{1-w}$. These nodes are entirely expanded.
-\end{enumerate}
-At this point we have expanded $1+d+\frac{1-w^{D_{\mit{max}}-d}}{1-w} \approx O(w^{D_{\mit{max}}})$ nodes in total,
-while each depth $k\in [0,d]$ is expanded exactly once.
-This means that almost all search effort is spent in depths $k\in [d+1,D_{\mit{max}}]$.
-
-As another example, \fifo behaves the following: It first expands $D$ nodes in depth 0 and proceeds the
-breadth-first search. Let $d$ the depth of the current frontier of the breadth-first search. When all nodes in
-depth $d$ are expanded, there are $wd$ nodes in depth $d+1$.
