@@ -250,7 +250,10 @@ The result in Openstacks was similar to those of the zerocost domains.
 In Cybersec,
 % while the depth has improved the overall performance,
 we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because it was small according to the plot.
-Instead, we observed a large difference in the depth distribution in $\plateau{f^*,1}$ caused by the difference of tiebreaking (\refig{fig:depth-histogram5}), which shows that the depth can also enhance the search in non-final plateaus to find the nodes in the next plateau.
+Instead, we observed a large difference in the depth distribution in $\plateau{f^*,1}$ caused by the difference of tiebreaking (\refig{fig:depth-histogram5}).
+It suggests that most children of the nodes in $\plateau{f^*,1}$ have $f$ value larger than $f^*$ or stays in $\plateau{f^*,1}$, and the planner is struggling to find nodes in $\plateau{f^*,0}$.
+Thanks to the unbiased search, depth-based strategy quickly finds a node in $\plateau{f^*,0}$, which has happened to be a goal node immediately.
+This shows that the depth can also enhance the search in non-final plateaus to find the nodes in the next plateau.
 Similar phenomena were observed in several other domains (which are included in \refig{fig:depth-histogram5}). To list a few, they are the following: depot-fuel, driverlog-fuel, zenotravel-fuel.
 \todo*{if it's only ``several'', might as well say which domains instead of having the reader figure it out. Similarly, throughout this subsection and elsewhere, consider giving more specific info (domain names, or number of domains) whenever words like ``some/several/various'' are used}
 
