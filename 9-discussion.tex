@@ -2,7 +2,7 @@
 \section{Discussion}
 \label{sec:discussion}
 
-One observation that can be made from the experiments in the previous sections is that \textbf{optimizing search
+One observation that can be made from the experiments in the previous sections is that \textbf{cost-optimal search
 can be seen as a series of satisficing searches on each plateau}. In this view, the problem of tiebreaking can be
 reduced to a satisficing search.
 
@@ -31,12 +31,12 @@ When the plateau is UNSAT, then the search continues to the plateau with the nex
 
 \begin{figure}[htbp]
  \includegraphics{img/astar/plateau-5.pdf}
- \caption{Concept of \astar as sequence of satisficing searches.}
+ \caption{The concept of \astar as a sequence of satisficing searches.}
  \label{fig:astar-sat}
 \end{figure}
 
-Similar concept is common in SAT/IP model-based sequential / temporal planning
-\cite{rintanen2012planning,van2005optiplan}, but in a slightly different sense.  In model-based planning, a
+A similar concept is common in SAT/IP model-based sequential / temporal planning
+\cite{rintanen2012planning,van2005optiplan} in a slightly different sense.  In model-based planning, a
 planning problem is converted to a corresponding constraint satisfaction problem with a finite horizon $t$ (plan
 length / makespan). The search starts from the horizon 0 and tests if the problem is satisfiable. If not, then it
 increases the horizon and retests the same problem with additional constraints for a new horizon $t+1$. In the
@@ -52,9 +52,9 @@ different horizons independently -- in each iteration of the search,
 they have to generate a new instance of a SAT/IP problem, and the
 underlying model-based solvers are forced to start the search from the scratch.
 
-More precisely, each iteration of \astar only requires to test the satisfiability in the space of particular
+More precisely, each iteration of \astar only requires testing the satisfiability in the space of particular
 $f$ while each iteration of model-based solvers tests the satisfiability in the space of all nodes $0<f(n)<t$
-($t$: horizon).  This latter behavior also connects model-based approaches to Iterative Deepening \astar
+($t$: a horizon).  This latter behavior also connects model-based approaches to Iterative Deepening \astar
 \cite{korf1985depth} where the search is restarted from the scratch on each iteration, forgetting the past search
 effort in order to ensure the linear space usage.
 \refig{fig:idastar-sat} illustrates the concept.
@@ -65,7 +65,7 @@ doing iterated deepening, where each iteration seeks a satisficing solution, lik
 
 \begin{figure}[htbp]
  \includegraphics{img/astar/plateau-6.pdf}
- \caption{Concept of IDA* and model-based planning as a sequence of satisficing searches.}
+ \caption{The concept of IDA* and model-based planning as a sequence of satisficing searches.}
  \label{fig:idastar-sat}
 \end{figure}
 
@@ -101,7 +101,7 @@ we conducted another set of experiments. In the previous experiments, we showed 
 \ff heuristic $\ffo$ for \textbf{satisficing search within a plateau} was improved by the depth diversification
 $\depth$.
 % 
-A natural extension to this idea is that the depth metric could also enhance the performance of $\ffo$ used for
+A natural extension of this idea is that the depth metric could also enhance the performance of $\ffo$ used for
 \textbf{satisficing search in general}, which should hold if the search on plateaus and satisficing search are in
 fact the same thing.
 % 
@@ -113,7 +113,7 @@ fact the same thing.
 We provide preliminary results on the 280 IPC8 satisficing track
 instances. We tested GBFS using the distance-to-go variations of three
 \sota inadmissible heuristics for satisficing search: FF heuristics
- \cite{Hoffmann01}, Causal Graph (CG) heuristics \cite{Helmert2006} and
+ \cite{Hoffmann01}, Causal Graph (CG) heuristics \cite{Helmert2006}, and
 Context Enhanced Additive (CEA) heuristics\ \cite{helmert2008unifying}.
 For each heuristics, we tested eager and lazy search, with and without
 the depth metric.  Tests are conducted under 5 min, 4GB
@@ -199,10 +199,10 @@ increasing the size of each plateau.
 %  \label{tbl:lama}
 % \end{table}
 
-In the past, optimizing search techniques and satisficing search techniques used to be developed rather separately, and there have been only a handful of knowledge migration between them, most of which are abstract ideas such as delete-relaxation, landmarks, causal graphs or pattern database.
+In the past, optimizing search techniques and satisficing search techniques used to be developed rather separately, and there has been only a handful of knowledge migration between them, most of which are abstract ideas such as delete-relaxation, landmarks, causal graphs or pattern database.
 Otherwise, the migration is unidirectional, in particular from optimizing to satisficing search, because it is easy or trivial to relax the optimality requirements.
 % 
-Our results and the new interpretation, \textbf{optimizing search is a sequence of satisficing searches on each plateau},
+Our results and the new interpretation, \textbf{cost-optimal search is a sequence of satisficing searches on each plateau},
 open up a new opportunity to break this boundary.  We provided the fundamentals of how and why we can import
 satisficing search techniques to the optimizing search (e.g. $\ffo$ heuristics in optimizing search).  There is a
 large avenue for future work in making a new migration happen.

@@ -14,18 +14,18 @@ integer representing the distance (number of steps) from the
 the first node which encountered in the plateau, along the path from the
 initial node. These notions are depicted in
 \refig{fig:plateau-depiction} (subfigure 1). 
-Another way to think about depth is consider the problem of finding an exit from a particular plateau (i.e., finding either a goal node or exhausting the plateau) a unit-cost search space by itself -- the depth is analogous to a $g$-value for this space.
+Another way to think about depth is to consider the problem of finding an exit from a particular plateau (i.e., finding either a goal node or exhausting the plateau) a unit-cost search space by itself -- the depth is analogous to a $g$-value for this space.
 %It is equivalent to the $g$-value which is
 %restricted to a particular plateau and is assuming the unit cost edges.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics{img/astar/plateau-2.pdf}
- \caption{(\textbf{Subfigure 1}) The nodes in a plateau are divided into several layers, and each layer have the corresponding depth. Since all nodes have $f=f^*$, depth does not affect optimality. The goals in both shallower or deeper region yield cost-optimal solutions.
+ \caption{(\textbf{Subfigure 1}) The nodes in a plateau are divided into several layers, and each layer has the corresponding depth. Since all nodes have $f=f^*$, depth does not affect optimality. The goals in both shallower or deeper region yield cost-optimal solutions.
  (\textbf{Subfigure 2}) \lifo tiebreaking strategy results in depth-first behavior in a
  plateau, which could miss solutions if they are concentrated near the entrance.
  (\textbf{Subfigure 3}) \fifo tiebreaking strategy results in  breadth-first behavior in a
- plateau, which could fail to reach a solutions in deeper layers within the time limit.
+ plateau, which could fail to reach solutions in deeper layers within the time limit.
  (\textbf{Subfigure 4}) Depth-based diversification allows \astar to search the plateau space
  sparsely in a less biased, more uniformly and manner. This balances exploration and exploitation, avoiding the problems with both \lifo (depth-first) and \fifo (breadth-first) behavior.
  }
@@ -42,7 +42,7 @@ h(m)$).  Having the same key values means that $n$ and $m$ are in the
 same plateau.
 
 The traditional \lifo and \fifo tiebreaking strategy 
-search the plateau region in decreasing and increasing order of the depth, respectively.
+search the plateau region in a decreasing and increasing order of the depth, respectively.
 The \lifo strategy always selects the most recently generated node
 within $\plateau{f,h}$, and the behavior in the plateau is equivalent to depth-first search.
 Thus, \lifo always selects the largest depth
@@ -59,7 +59,7 @@ that since $f=f^*$, all goal nodes in the final plateau are optimal with respect
 regardless of the depth.%: A goal node in a shallower region or a deeper region both yields a cost-optimal solution. 
 However, until we find a
 solution, we do not know how the goals are distributed among various
-depths. In some problem instance the goals can be concentrated around
+depths. In some problem instances the goals can be concentrated around
 the entrance, and in other problem instances the goals can be
 concentrated at some large depth. % $k$.  k never used below?
 
@@ -80,7 +80,7 @@ In our proposed \emph{depth diversification} strategy, the nodes are inserted in
 associated with depths, and upon expansion, search effort is distributed in a more balanced manner
 among various depths (\refsec{sec:theoretical-characteristics} defines ``more balanced''  more precisely).
 Nodes are not  ``sorted''
-according to increasing or decreasing order of depth -- instead we try to 
+according to increasing or decreasing order of depth -- instead, we try to 
 ``diversify'' the node expansion within the plateau.
 We denote this depth diversification criterion as $\depth$. 
 For example, $[f,h,\depth]$ first breaks ties according to $h$ values,
@@ -118,7 +118,7 @@ Let a node $n$ is a child of a node $m$. Depending on whether $n$ is already eva
 \begin{enumerate}
  \item If $n$ is evaluated for the first time,
        then $g(n)=g(m)+\mit{cost}(m,n) > g(m)$ and so $f(n)-h(n) > f(m)-h(m)$.
-       Thus $f(n)=f(m)$ and $h(n)=h(m)$ cannot hold at the same time and the depth is 0.
+       Therefore, $f(n)=f(m)$ and $h(n)=h(m)$ cannot hold at the same time and the depth is 0.
  \item If $n$ is already evaluated as a child of another node $m'$, $n$'s current parent is $m'$ and
        $g(m)+\mit{cost}(m,n) < g(m') + \mit{cost}(m',n) = g(n)$,
        then the parent of $n$ is updated to $m$ and $g(n)\leftarrow g(m)+\mit{cost}(m,n)$.
@@ -140,19 +140,15 @@ Consider a tiebreaking strategy such as $[f,h,\depth]$ which applies a depth-div
 After the $\depth$ criterion is applied, 
 there may be multiple nodes within the same depth bucket, so a
 default tiebreaking criterion is still necessary to break ties among them.
-Thus we should, for example, apply one of \lifo, \fifo or \ro (random order) criteria
+Thus, we should, for example, apply one of \lifo, \fifo or \ro (random order) criteria
 after $\depth$ criterion.
 
 There are 2 concerns about this default tiebreaking criteria.
 First, the default tiebreaking behavior is more prone to be
 affected by the accidental biases, e.g., names/orders of action schema in the PDDL domain definition.
 Second, it is not only about the accidental biases.
-At the same time, there could be some nontrivial biases that requires further
+At the same time, there could be some nontrivial biases that require further
 sophisticated algorithms to be removed.
-
-%Finding the best action ordering is not the scope of this paper.
-% Thus, we avoid bias at this level of tiebreaking by using \ro and assess its expected/average
-% performance.
 
 Regarding the accidental bias, recent work \cite{vallati2015effective} showed that the performance of satisficing
 planner is greatly affected by changing and tuning the action ordering.
@@ -163,15 +159,10 @@ several sets of randomly ``mangled'' domains whose action names are replaced wit
 Moreover, the \ro default tiebreaking is supposed to be unaffected by such an accidental bias.
 Thus, the experimental results we show in this paper is not a product of some piece of luck.
 
-% However, finding the best third-level tiebreaking is not the scope of this paper.
-% Thus, focusing on \ro and assess its expected/average
-% performance is the most reasonable practice to understand the behavior of second-level,
-% depth-based tiebreaking.
-
 Regarding the nontrivial biases, there could be a room for heuristic-agnostic improvements that removes them, but
-this is clearly out of scope of this paper.  \todo*{``this level'' == after $\depth$} For example, while our depth
+this is clearly out of the scope of this paper.  \todo*{``this level'' == after $\depth$} For example, while our depth
 metric measures and diversifies the depths in a plateau, another criterion $X$ may non-trivially diversify the
-search in a breadth direction.  Such a criterion can be applied after the depth but before the default criterion,
+search in a breadth direction.  Such a criterion can be applied after the depth criterion but before the default criterion,
 resulting in a sorting strategy $[f,h,\depth,X,\fifo]$. Investigating such a kind of improvements is an avenue of
 future work.
 
@@ -186,7 +177,7 @@ set of nodes $S=\{a_1, a_2, a_3, a_4, b, c, d\}$ where
 $A=\{a_1, a_2, a_3, a_4\}$ are ``redundant'' in some measure (e.g. by Symmetry,
 Partial-Order). 
 If a search algorithm expands $S$ by random selection, it favors the
-group $A$ by giving a 4 times larger chance of expansion than $b$,
+group $A$ by giving 4 times larger chance of expansion than $b$,
 $c$ or $d$.
 
 \subsection{Theoretical Characteristics of the Depth Distribution}
@@ -218,15 +209,15 @@ order) default tiebreaking.
 
 % I no longer claim the distribution is uniform.
 As a preparation, we first show that the number of expansion happened to each depth decreases
-linearly to the depth.
+linearly with the depth.
 % 
 \todo*{Introduced the tree assumption in the beginning.}
-We first assume that the plateau region form a tree of a fixed branching factor
-$w\geq 2$ (\emph{tree assumption}), rather than a graph with indefinite number of successor nodes.
+We first assume that the plateau region forms a tree of a fixed branching factor
+$w\geq 2$ (\emph{tree assumption}), rather than a graph with an indefinite number of successor nodes.
 We also assume that no depth buckets exhaust due to the expansion (\emph{no-exhaust assumption}).
 
 Let $D\geq 0$ be the current largest depth of the nodes found in the plateau so far.  If the expansion of a node in
-depth $D$ resulted in more nodes in the same plateau, then the children have depth $D+1$.  Due to the tree
+depth $D$ resulted in more nodes on the same plateau, then the children have depth $D+1$.  Due to the tree
 assumption, these children are all newly generated. Also, as we explained in the previous section, the expansion is
 diversified by a sequence of iterations from the current largest depth to 0.  It means that when the current
 largest depth of the plateau is $D$, the number of iteration happened so far is also $D$.
@@ -234,10 +225,10 @@ largest depth of the plateau is $D$, the number of iteration happened so far is 
 Therefore, at the end of the $D$'th iteration, each depth $d$ has been expanded exactly $D-d$ times, with $D(D-1)$
 expansions in total.
 
-It also means that the minimum condition for \emph{no-exhaust assumption} to hold until the end of the $D$'th
+It also means that the minimum condition for the \emph{no-exhaust assumption} to hold until the end of the $D$'th
 iteration is that the initial number of nodes in depth 0 is at least $D$.  If there are at least $D$ nodes in depth
 0, depth 0 trivially never exhausts until $D$'th iteration. Also, no depth buckets in depth $d>0$ will exhaust
-because each bucket have $w(D-d+1)$ nodes in total (including those already expanded) while the expansion has
+because each bucket has $w(D-d+1)$ nodes in total (including those already expanded) while the expansion has
 happened only $D-d$ times. For simplicity, let us also assume that the depth 0 initially have exactly $D$ nodes and
 no nodes will be added to depth 0 during the search.
 
@@ -255,9 +246,9 @@ $\frac{D-d}{D(D-1)\cdot w(D-d+1)}=\frac{1}{wD(D-1)}(1-\frac{1}{D-d+1})$.  \qed
 
 Notice that $\frac{1}{D-d+1}$ is negligible if $D \gg d$.
 Thus, after enough number of iterations (large $D$), the nodes are 
-expanded in an approximately equal probability $\frac{1}{wD(D-1)}$ in the shallower region, and is
+expanded in an approximately equal probability $\frac{1}{wD(D-1)}$ in the shallower region and is
 unaffected by the depth of the node.
-However, the nodes near the largest depth has less probability, showing
+However, the nodes near the largest depth have less probability, showing
 some balance in exploration and exploitation.
 
 The important point of this characteristics is that this distribution is maintained at any point of the search
@@ -280,7 +271,7 @@ $D_{\mit{max}}$.
 % biased toward the maximum depth $D_{\mit{max}}$ at any point of the search.  The probability of each node in a
 % depth $d$ can be calculated as the following:
 % 
-Now, let $n$ be a node in depth $d$ where $d\ll D_{\mit{max}}$.  Assume every descendants of $n$ are expanded,
+Now, let $n$ be a node in depth $d$ where $d\ll D_{\mit{max}}$.  Assume every descendant of $n$ are expanded
 while no siblings of $n$ and no siblings of ancestors of $n$ are expanded.  In this case,
 \begin{enumerate}
  \item Depth 0 have $D$ nodes and is expanded exactly once.
@@ -291,6 +282,6 @@ At this point we have expanded $1+d+\frac{1-w^{D_{\mit{max}}-d}}{1-w} \approx O(
 while each depth $k\in [0,d]$ is expanded exactly once.
 This means that almost all search effort is spent in depths $k\in [d+1,D_{\mit{max}}]$.
 
-As another example, \fifo behaves the following: It first expands $D$ nodes in depth 0, and proceeds the
+As another example, \fifo behaves the following: It first expands $D$ nodes in depth 0 and proceeds the
 breadth-first search. Let $d$ the depth of the current frontier of the breadth-first search. When all nodes in
 depth $d$ are expanded, there are $wd$ nodes in depth $d+1$.

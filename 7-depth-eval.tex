@@ -16,7 +16,7 @@ and the only difference is the presence of the third, depth-diversification crit
 
 Experiments are conducted on \textbf{1104 standard IPC benchmark
 instances} from 35 domains  and \textbf{620 zerocost instances} from 28 domains (see \refsec{sec:eval-common-strategies} and \refsec{sec:zerocost-domains} for full lists of these domains). 
-Fundamental experimental setting are the same as the previous ones:
+Fundamental experimental settings are the same as the previous ones:
 Each experiment uses Fast Downward planner using \astar search and either the \lmcut heuristic or \mands heuristic.
 Each experiment is run for 5 minutes excluding SAS translation time, with 4GB memory constraints.
 
@@ -100,12 +100,12 @@ the following.
 % 
 First, the coverage of \pddl{Openstacks} is improved in \fifo ($15\to 19$) and \ro ($15.4\to 19$), so we have achieved the same expected behavior as in the case of \lmcut.
 %
-While it did not happened to \pddl{Cybersec}, this is due to the poor performance of \mands in \pddl{Cybersec}.
+While it did not happen to \pddl{Cybersec}, this is due to the poor performance of \mands in \pddl{Cybersec}.
 The coverage of \pddl{Cybersec} is 0 in all configurations and even depth could not improve it. Thus, the positive
 effect of depth diversification to the overall score was limited.
 % 
-Second, we observed a performance degradation across wide range of domains which is caused by the low-level overhead of depth-based tiebreaking (i.e., updates to the depth-based bucket data structures).
-As shown in \refig{fig:expansion-ratio}, the number of evaluation of \mands heuristics per seconds has significantly decreased across wide range of domains, while such an effect is limited in \lmcut.
+Second, we observed a performance degradation across a wide range of domains which is caused by the low-level overhead of depth-based tiebreaking (i.e., updates to the depth-based bucket data structures).
+As shown in \refig{fig:expansion-ratio}, the number of evaluation of \mands heuristics per seconds has significantly decreased across a wide range of domains, while such an effect is limited in \lmcut.
 This is because the evaluation of \mands heuristics is implemented
 as an efficient table lookup, and it is able to evaluate an order of magnitude larger number of nodes compared to \lmcut heuristics.
 Thus, even the relatively small overhead incurred by the management of depth buckets decreases the node evaluation rate to noticeably degrade performance.
@@ -203,17 +203,17 @@ Note that this instrumentation, which adds some runtime overhead, was \emph{not}
 used in the performance comparison experiments above, and were only used for this experiment, which analyzes search behavior.
 
 
-\refigs{fig:depth-histogram}{fig:depth-histogram3} show the results on several exemplar instances in
+\refigs{fig:depth-histogram}{fig:depth-histogram3} show the results on several exemplary instances in
 various zerocost domains.  We do not show some domains where we did not observe any depths more than 3, in which case
 the depth metric has only a negligible impact on the search performance.
-We observed very similar results across wide range of domains as shown in the figures.
+We observed very similar results across a wide range of domains as shown in the figures.
 It indicates that the depth metric accurately describes the behavior of each tiebreaking criterion.
 
 For example, look at the first figure which is plotting the result of \pddl{depot-fuel}, p07.
 \todo*{...Instead of only general trends ... mention specific domains to add some ``color''}
 % 
 We observed that in the plot of $[f,h,\lifo]$, the depth-first behavior results in deeper search ($\approx 10^3$), while
-only a handful of nodes are expanded in the intermediate depth, most often once. Thus the \lifo's depth-first
+only a handful of nodes are expanded in the intermediate depth, most often once. Thus, the \lifo's depth-first
 behavior has a high possibility of missing the key branch at intermediate depths that may lead to shorter solutions.
 On the other hand, the breadth-first behavior of $[f,h,\fifo]$ often gets stuck spending an excessive amount of
 time searching around the plateau entrance (expanding $\approx 10^3$ nodes at depth 10).
@@ -228,7 +228,7 @@ Since this happens at any point of the search, overall behavior of \ro tends to 
 Thus, simply randomizing the expansion does not solve the problem of heavy bias to the shallower depth.
 
 In contrast, $[f,h,\depth,\ro]$ is balancing the search at various depths.
-The yellow curve draws a smooth line that is almost flat in the shallow depth, while gradually decreasing the number of nodes in larger depth.
+The yellow curve draws a smooth line that is almost flat in the shallow depth while gradually decreasing the number of nodes in larger depth.
 Moreover, its node distribution almost accurately follows $D-d$, a theoretical formula which assumes a simplified
 condition that the plateau forms a tree of fixed branching factor.
 $D$ means the largest depth of the unexpanded nodes in the final plateau, which is
@@ -252,13 +252,13 @@ In Cybersec,
 we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because it was small according to the plot.
 Instead, we observed a large difference in the depth distributions in non-final plateaus $\plateau{f^*,h}, h\not=0$ caused by the difference of tiebreaking.
 It suggests that most children of the nodes in $\plateau{f^*,h}$ have $f$ value larger than $f^*$ or stays in $\plateau{f^*,h}$, and the planner is struggling to find nodes with better $h$.
-Thanks to the unbiased search, depth-based strategy has a better chance of improving $h$ values, finding a node in $\plateau{f^*,0}$ more quickly.
+Thanks to the unbiased search, the depth-based strategy has a better chance of improving $h$ values, finding a node in $\plateau{f^*,0}$ more quickly.
 This shows that the depth can also enhance the search in non-final plateaus to find the nodes in the next plateau.
 Similar phenomena were observed in several other instances and domains (\refig{fig:depth-histogram5}). To list a few, they are the following: depot-fuel, driverlog-fuel, zenotravel-fuel, floortile-ink, mprime-succumb, storage-lift.
 \todo*{might as well say which domains...}
 
-Note that the small number of nodes in $\plateau{f^*,0}$ in this experiment does not contradict to the results in \refig{fig:plateau} which claim the number of such nodes are quite large.
-This is because \refig{fig:plateau} uses a modified Fast Downward which continues the search until expanding all nodes in the final plateau, while in this experiment the planner immediately stops the search after the first solution. These figures are supposed to serve the different experimental purposes: \refig{fig:plateau} was intended to show the size of the entire final plateau, while \refig{fig:depth-histogram} to \refig{fig:depth-histogram4} was meant to show the actual search behavior. If we were to continue the search after the first solution, all tiebreaking strategies should result in the same figure because they expands the same set of nodes.
+Note that the small number of nodes in $\plateau{f^*,0}$ in this experiment does not contradict to the results in \refig{fig:plateau} which claim the number of such nodes is quite large.
+This is because \refig{fig:plateau} uses a modified Fast Downward which continues the search until expanding all nodes in the final plateau while in this experiment the planner immediately stops the search after the first solution. These figures are supposed to serve the different experimental purposes: \refig{fig:plateau} was intended to show the size of the entire final plateau, while \refig{fig:depth-histogram} to \refig{fig:depth-histogram4} was meant to show the actual search behavior. If we were to continue the search after the first solution, all tiebreaking strategies should result in the same figure because they expand the same set of nodes.
 
 \begin{figure}[htbp]
 % \includegraphics{img/output-lmcut/ged-opt14-strips/p17-0.pdf}
@@ -269,7 +269,7 @@ This is because \refig{fig:plateau} uses a modified Fast Downward which continue
 \includegraphics{img/output-lmcut/gripper-move/p07-0.pdf}
 \includegraphics{img/output-lmcut/logistics00-fuel/p016-0.pdf}
  \caption{(Page 1/5) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
- the final plateau with different tiebreakings. Both axes are in logarithmic scale.
+ the final plateau with different tiebreaking strategies. Both axes are in logarithmic scale.
  }
  \label{fig:depth-histogram}
 \end{figure}
@@ -282,7 +282,7 @@ This is because \refig{fig:plateau} uses a modified Fast Downward which continue
 \includegraphics{img/output-lmcut/psr-small-open/p46-0.pdf}
 \includegraphics{img/output-lmcut/rovers-fuel/p07-0.pdf}
  \caption{(Page 2/5) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
- the final plateau with different tiebreakings. Both axes are in logarithmic scale.
+ the final plateau with different tiebreaking strategies. Both axes are in logarithmic scale.
  }
  \label{fig:depth-histogram2}
 \end{figure}
@@ -295,7 +295,7 @@ This is because \refig{fig:plateau} uses a modified Fast Downward which continue
 \includegraphics{img/output-lmcut/woodworking-cut/p04-0.pdf}
 \includegraphics{img/output-lmcut/zenotravel-fuel/p07-0.pdf}
  \caption{(Page 3/5) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
- the final plateau with different tiebreakings. Both axes are in logarithmic scale.
+ the final plateau with different tiebreaking strategies. Both axes are in logarithmic scale.
  }
  \label{fig:depth-histogram3}
 \end{figure}
@@ -310,7 +310,7 @@ This is because \refig{fig:plateau} uses a modified Fast Downward which continue
 % \includegraphics{img/output-lmcut/cybersec/p07-1.pdf}
 \includegraphics{img/output-lmcut/cybersec/p07-94.pdf}
 % \includegraphics{img/output-lmcut/cybersec/p07-95.pdf}
- \caption{(Page 4/5) Depth distribution of Openstacks and Cybersec instances in the final ($\plateau{f^*,0}$) and non-final plateaus ($\plateau{f^*,h}, h\not=0$). In Cybersec p06, although $\plateau{f^*,0}$ is small, \fifo and \ro behaved poorly on $\plateau{f^*,1}$, and also \lifo behaved poorly on $\plateau{f^*,5}$. Same behavior was observed in p07.}
+ \caption{(Page 4/5) Depth distribution of Openstacks and Cybersec instances in the final ($\plateau{f^*,0}$) and non-final plateaus ($\plateau{f^*,h}, h\not=0$). In Cybersec p06, although $\plateau{f^*,0}$ is small, \fifo and \ro behaved poorly on $\plateau{f^*,1}$, and also \lifo behaved poorly on $\plateau{f^*,5}$. The same behavior was observed in p07.}
  \label{fig:depth-histogram4}
 \end{figure}
 

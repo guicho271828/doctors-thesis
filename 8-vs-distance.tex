@@ -5,7 +5,7 @@
 
 Although we showed the benefit of knowledge-free search technique, there is another approach to improving the
 search performance in plateaus produced by zerocost domains. The approach we evaluate in this section is one which
-enhance the search by combining multiple heuristics, especially inadmissible \emph{distance-to-go} estimates.
+enhances the search by combining multiple heuristics, especially inadmissible \emph{distance-to-go} estimates.
 
 % ; This allows the heuristics to be
 % inadmissible when it is only used for tiebreaking strategy.
@@ -20,7 +20,7 @@ Distance-to-go estimates are the type of
 heuristics which treat actions as if they have the unit cost. Even under
 the presence of zero-cost actions, those estimates can predict the
 number of operations required to reach a goal.
-While several papers advocates the benefit of this technique, many of
+While several papers advocate the benefit of this technique, many of
 these claims took place in the context of satisficing planning.
 \todo*{Need more complete  survey of previous work on d2go heuristics in best-first search (not just planning) here: Thayer+Ruml ICAPS09,Socs09; connectoins to FOCAL method of Pearl and Kim}
 
@@ -29,11 +29,11 @@ the earliest algorithms that combines distance-to-go estimates with the cost est
 search which expands from the \emph{focal} list, the set of nodes with $f(n)\leq w\cdot f_{\mit{min}}$ where $w$ is
 a cost bound in a sense of $\mit{WA}^*$ and $f_{\mit{min}}$ is the minimum $f$ value in the OPEN list.  While $f$
 is based on an admissible heuristic function, the nodes in the focal list are expanded in the increasing order of
-an inadmissible distance-to-go estimates $\hh$. Thus the search does not follow the best-first order of $f$ and is
+an inadmissible distance-to-go estimates $\hh$. Thus, the search does not follow the best-first order of $f$ and is
 not admissible, being only $w$-admissible. One exception is the case of $w=1$ where the focal list is equivalent
 to the $f$ plateau and the expansion order in the focal list corresponds to the tiebreaking on plateaus. In our
 notation, this algorithm can be written\footnote{
-However, actual implementation may differ due to dynamic update to $f_{\mit{min}}$.}
+However, an actual implementation may differ due to dynamic update to $f_{\mit{min}}$.}
 as a BFS with
 \[
  [ \lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil, \hh, \mit{default}]
@@ -47,10 +47,10 @@ Continuing this work, \shortciteauthor{thayer2009using} \citeyear{thayer2009usin
 evaluated various distance-to-go configurations of Weighted
 \astar, Dynamically Weighted \astar \cite{pohl1973avoidance} and $A^*_\epsilon$.
 Some configurations use distance-to-go as part of
-tiebreaking, while they focus on bounded-suboptimal search rather than optimal search.
+tiebreaking while they focus on bounded-suboptimal search rather than optimal search.
 % 
 Also, \shortciteauthor{cushing2010cost} \citeyear{cushing2010cost} more eloquently advocated the danger of relying
-on cost estimates in satisficing search by investigating ``$\varepsilon$-cost traps'' and other pitfalls caused by
+on cost estimates in a satisficing search by investigating ``$\varepsilon$-cost traps'' and other pitfalls caused by
 cost estimators for search guidance. Again, this work targets satisficing search.
 % 
 Finally, a \sota satisficing planner FD/LAMA2011 incorporates distance-to-go estimates in its iterated search
@@ -72,11 +72,11 @@ heuristic function combined with distance-to-go estimates on top of Temporal Fas
 Although previous work on distance-to-go estimates assume a satisficing context,
 there is still a possibility to use the same techniques for cost-optimal search.
 We say that a sorting strategy is an \emph{admissible sorting strategy}
-when best first search using the strategy is guaranteed to return an optimal solution.
+when Best First Search using the strategy is guaranteed to return a cost-optimal solution.
 Clearly, a sorting strategy is admissible if and only if the 
 first sorting criterion $f$ is admissible (since $f=g+h$, $h$ must be an admissible heuristic).
 This means that as long as the first criterion is admissible, the optimality of the solution is not affected by the
-subsequent levels of sorting criterion, and therefore it is possible to use an inadmissible distance-to-go estimate
+subsequent levels of sorting criterion, and therefore, it is possible to use an inadmissible distance-to-go estimate
 in the second (or later) level sorting criteria without sacrificing the optimality of the solution found.
 
 Let $h$ be an admissible heuristic, and
@@ -198,8 +198,8 @@ In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) imp
  
 In the positive-cost domains (IPC domains except \pddl{Openstacks} and \pddl{Cybersec}), $\hat{h}$ or $\ffo$
 only harms the overall performance due to the overhead.
-When the primary heuristics is \lmcut, we do not observe significant difference between single-heuristics strategies except for the fractional difference in the configurations using \ro.
-When it is \mands, $[f^\mands,h^\mands,\lifo]$ slightly gains advantage over other default tiebreaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
+When the primary heuristics is \lmcut, we do not observe a significant difference between single-heuristics strategies except for the fractional difference in the configurations using \ro.
+When it is \mands, $[f^\mands,h^\mands,\lifo]$ slightly gains an advantage over other default tiebreaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
 %  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
 
 \pagebreak[3]
@@ -291,7 +291,7 @@ are such estimated results of the switching behavior, and it achieves the highes
 \end{table}
 
 In standard IPC instances, the domains with zero-cost actions are \pddl{Cybersec} and \pddl{Openstacks} only. They are solved in a multi-heuristic strategy while other domains are solved in the best performing single-heuristic strategy. In Zerocost instances, all domains are solved in multi-heuristic strategy.
-\todo*{Maybe we should show dynamic configuration results in the detailed per-domain tables, just so that it's obvious that we can get ``dominant'', state-of-the-art  behavior --- results are simulated, not actually implemented. Thus the total results should be fine. However, I added exactly which domains were zero-cost.}.
+\todo*{Maybe we should show dynamic configuration results in the detailed per-domain tables, just so that it's obvious that we can get ``dominant'', state-of-the-art  behavior --- results are simulated, not actually implemented. Thus the total results should be fine. However, I added exactly which domains were zero-cost.}
 
 % While these multi-heuristic strategies did not improve the perfomance in
 % the positive cost domains because the final plateaus are small, a simple
