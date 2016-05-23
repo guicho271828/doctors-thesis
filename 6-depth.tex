@@ -194,9 +194,9 @@ $c$ or $d$.
 
 We give further insight into the search behavior of our implementation
 of depth-based diversification.
-As described above, our implementation performs a deterministic, round-robin sampling from the available depth buckets.
+As described above, although the random selection from depth buckets is possible, our implementation performs a deterministic, round-robin sampling from the available depth buckets.
 %iterates from the largest depth to 0.
-
+% 
 %We are particularly interested in how the expansions happen among the
 %various depths in the plateau region.
 We are particularly interested in how the nodes selected for expansion are distributed 
@@ -205,7 +205,7 @@ Using a simplified model where the plateau region is a tree,
 we show that the probability of expanding a node in a particular depth
 can be represented by a simple formula.  Although the notion of
 probability does not fit well with deterministic \fifo or \lifo
-default tiebreaking, it is meaningful in the case of \ro (random
+default tiebreaking, it is still meaningful in the case of \ro (random
 order) default tiebreaking.
 
 %% danger!!
@@ -243,10 +243,13 @@ no nodes will be added to depth 0 during the search.
 
 Now we show the formula which represents the probability of expanding a node in a particular depth.
 At the end of $D$'th iteration,
-each depth $d-1$ is expanded $D-(d-1)$ times in the preceding $D$ iterations.
-Therefore, the total number of nodes that have been in depth $d$, including those
-that have been expanded so far, is $w(D-d+1)$.
-Expansion has happened $D(D-1)$ times in total, and depth $d$ is expanded $D-d$ times.
+expansion has happened $D(D-1)$ times in total, and depth $d$ is expanded $D-d$ times.
+Thus, first, the probability of selecting a depth $d$ for expansion is simply $\frac{D-d}{D(D-1)}$.
+Next, after selecting this depth bucket, the probability of selecting a node in the bucket is $\frac{1}{w(D-d+1)}$ because there are 
+the depth $d-1$ is expanded $D-(d-1)$ times in the preceding $D$ iterations
+and therefore, the total number of nodes that have been in depth $d$, including those that have been expanded so far, is $w(D-d+1)$.
+
+
 Thus, the probability of expanding each node in depth $d$ is
 $\frac{D-d}{D(D-1)\cdot w(D-d+1)}=\frac{1}{wD(D-1)}(1-\frac{1}{D-d+1})$.  \qed
 
@@ -265,3 +268,29 @@ $d$ is expanded $Dw^d$ times), but their online characteristics are not.
 \todo*{maybe \lifo and \fifo should be analyzed wrto this tree model and compared directly to each other as well as
 $\depth$?}
 \todo*{less priority -- lets add it when required by the reviewers. unused texts are in unused/lifo-fifo-distribution.tex}
+
+\hrule
+
+For example, \lifo behaves the following: Assume the maximum depth in this tree is a finite integer
+$D_{\mit{max}}$. Since this is a depth-first search, it first expands all depths once until it reaches
+$D_{\mit{max}}$.
+% 
+% Since whenever a node is expanded their parent should also be expanded, when depth $d$ has been expanded $E$ times
+% so far, depth $d-1$ should have been expanded $\lceil E/w \rceil$ times. Thus, the distribution is exponentially
+% biased toward the maximum depth $D_{\mit{max}}$ at any point of the search.  The probability of each node in a
+% depth $d$ can be calculated as the following:
+% 
+Now, let $n$ be a node in depth $d$ where $d\ll D_{\mit{max}}$.  Assume every descendants of $n$ are expanded,
+while no siblings of $n$ and no siblings of ancestors of $n$ are expanded.  In this case,
+\begin{enumerate}
+ \item Depth 0 have $D$ nodes and is expanded exactly once.
+ \item The total number of nodes in each depth $k\in [1,d]$, including those expanded, is $w$, and each depth $k\in [1,d]$ is expanded exactly once. They have $wd$ nodes in total.
+ \item The total number of descendants of $n$ is $\sum_{k=1}^{D_{\mit{max}}-d} w^k = \frac{1-w^{D_{\mit{max}}-d}}{1-w}$. These nodes are entirely expanded.
+\end{enumerate}
+At this point we have expanded $1+d+\frac{1-w^{D_{\mit{max}}-d}}{1-w} \approx O(w^{D_{\mit{max}}})$ nodes in total,
+while each depth $k\in [0,d]$ is expanded exactly once.
+This means that almost all search effort is spent in depths $k\in [d+1,D_{\mit{max}}]$.
+
+As another example, \fifo behaves the following: It first expands $D$ nodes in depth 0, and proceeds the
+breadth-first search. Let $d$ the depth of the current frontier of the breadth-first search. When all nodes in
+depth $d$ are expanded, there are $wd$ nodes in depth $d+1$.
