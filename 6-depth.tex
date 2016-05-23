@@ -237,7 +237,7 @@ expansions in total.
 It also means that the minimum condition for \emph{no-exhaust assumption} to hold until the end of the $D$'th
 iteration is that the initial number of nodes in depth 0 is at least $D$.  If there are at least $D$ nodes in depth
 0, depth 0 trivially never exhausts until $D$'th iteration. Also, no depth buckets in depth $d>0$ will exhaust
-because each bucket have $w^{D-d-1}$ nodes in total (including those already expanded) while the expansion has
+because each bucket have $w(D-d+1)$ nodes in total (including those already expanded) while the expansion has
 happened only $D-d$ times. For simplicity, let us also assume that the depth 0 initially have exactly $D$ nodes and
 no nodes will be added to depth 0 during the search.
 
