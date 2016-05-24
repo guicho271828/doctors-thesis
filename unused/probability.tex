@@ -1,0 +1,42 @@
+% Now we show the formula which represents the probability of expanding a node in a particular depth.
+% 
+% %% ??
+% % $\frac{D-d}{Dw^d}$
+% 
+% second
+% % First, at the end of $D$'th iteration,
+% % expansion has happened $D(D-1)$ times in total, and depth $d$ is expanded $D-d$ times.
+% % Thus, first, the probability of selecting a depth $d$ for expansion is simply $\frac{D-d}{D(D-1)}$.
+% We should obtain the probability of selecting a node $n$ in a bucket with depth $d$
+% in the course of $D$ iterations (i.e. $D(D-1)$ expansions in total and $D-d$ expansions in depth $d$).
+% At this point, the number of nodes generated in this bucket is $N$.
+% There are $\frac{N!}{(N-(D-d))!}$ potential ways to select $D-d$ nodes in this bucket.
+% Among these, 
+% there are $\frac{(N-1)!}{((N-1)-(D-d))!}$ ways to select $D-d$ nodes from the nodes \emph{except} $n$.
+% Assuming the randomized default tiebreaking \ro, the probability of selecting $n$ in $D-d$ expansions is therefore
+% \[
+%  1-\frac{(N-1)!}{((N-1)-(D-d))!} \cdot \frac{(N-(D-d))!}{N!} = 1- \frac{N-(D-d)}{N} = \frac{D-d}{N}
+% \]
+% 
+% \[
+%  \frac{D-d}{N} = \frac{D-d}{w(D-d+1)} = \frac{1}{w}(1+\frac{1}{d-(D+1)})
+% \]
+% 
+% below is wrong, since it does not account for the fact that there are D-d expansions
+% Next, after selecting this depth bucket, the probability of selecting a node in the bucket is $\frac{1}{w(D-d+1)}$ because
+% the depth $d-1$ is expanded $D-(d-1)$ times in the preceding $D$ iterations
+% and therefore, the total number of nodes that have been in depth $d$, including those that have been expanded so far, is $w(D-d+1)$.
+% 
+% 
+% Thus, the probability of expanding each node in depth $d$ is
+% $\frac{D-d}{D(D-1)\cdot w(D-d+1)}=\frac{1}{wD(D-1)}(1-\frac{1}{D-d+1})$. 
+% 
+% \qed
+% 
+% Notice that $\frac{1}{d-(D+1)}$ is a negligible amount of negative value if $d \ll D$.
+% Thus, after enough number of iterations (large $D$), the nodes are 
+% expanded in an approximately equal probability $\frac{1}{w}$ in the shallower region and is
+% unaffected by the depth of the node.
+% % However, the nodes near the largest depth have less probability, showing
+% % some balance in exploration and exploitation.
+% % Also, the difference of $\frac{1}{d-(D+1)}$ wrto $D$ is small ($O((D-d)^2)$) compared to 1

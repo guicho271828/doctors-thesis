@@ -5,7 +5,7 @@
 \pddl{Openstacks}  is a cost
 minimization domain introduced in IPC-2006, where the objective is to 
 minimize the number of stacks used.
-One characteristics of \pddl{Openstacks} is the presence of many  actions which have zero cost because they do not increase the number of stacks. These zero-cost actions creates the problem depicted in \refig{fig:plateau-1}.
+One characteristic of \pddl{Openstacks} is the presence of many  actions which have zero cost because they do not increase the number of stacks. These zero-cost actions create the problem depicted in \refig{fig:plateau-1}.
 % Since 0-cost actions corresponds to 0-cost search edges.
 % If such actions are present, the neighbors of the goal nodes could be surrounded by the 0-cost edges.
 Since zero-cost actions (edges) allow ``free'' transitions between many neighboring nodes,
@@ -15,7 +15,7 @@ This creates huge heuristic plateaus that share the same $h$-value, and the stan
 \begin{figure}[htbp]
   \centering
   \includegraphics{img/astar/plateau-1.pdf}
- \caption{Search space of \astar and its contour according to $h$. (\textbf{Right}) In positive cost domains, $h$-based tiebreaking provides a meaningful guidance. (\textbf{Left}) In domains with 0-cost actions, applying an action may not increase the cost of the path, and thus the region with $h=0$ could be quite large. Thus $h$-based tiebreaking fails to provide meaningful guidance in this space.
+ \caption{Search space of \astar and its contour according to $h$. (\textbf{Right}) In positive cost domains, $h$-based tiebreaking provides a meaningful guidance. (\textbf{Left}) In domains with 0-cost actions, applying an action may not increase the cost of the path and the region with $h=0$ could be quite large. Thus, $h$-based tiebreaking fails to provide meaningful guidance in this space.
   }
  \label{fig:plateau-1}
 \end{figure}
@@ -35,9 +35,9 @@ This creates huge heuristic plateaus that share the same $h$-value, and the stan
 % necessary for this AAAI submission. 
 % (2) It's better if this paper is not so strongly associated with the ICAPS community only -- this work applies in general to search with A*, and is not strongly tied to almost-perfect heuristics, lmcut, m&s, etc.
 
-Although most traditional  benchmark problems in the planning community as well as the combinatorial search community do not have zero-cost actions,
+Although most traditional benchmark problems in the planning community and the combinatorial search community do not have zero-cost actions,
 we argue that such domains are of an important class of models for cost-minimization problems, i.e.,
-assigning zero costs make sense from a practical, modeling perspective.
+assigning zero costs makes sense from a practical, modeling perspective.
 For example, consider the \pddl{driverlog} domain, where the task is to move packages between locations using trucks.
 The IPC version of this domain assigns unit costs to all actions. Thus, cost-optimal planning on this domain seeks to minimize the number of steps in the plan.
 However, another natural objective function would be the one which minimizes the amount of fuel spent by driving the trucks,
@@ -67,7 +67,7 @@ Similarly, for many practical applications, a natural objective is to
 optimize the usage of one key consumable resource, e.g., fuel/energy
 minimization.  In fact, two of the IPC domains, \pddl{Openstacks} and
 \pddl{Cybersec}, which were shown to be difficult for standard tiebreaking
-methods in the previous section, both contain many zero-cost actions,
+methods in the previous section, both contain many zero-cost actions
 and are based on industrial applications: %no textbf here because both cybersec and openstacks are highly simplified models, let's not exaggerate their importance
 \pddl{Openstacks} models
 production planning \cite{fink1999applications} and \pddl{Cybersec}
@@ -113,20 +113,20 @@ instances by picking p05, p10, ... p150.
 
 \subsection{Difference in Problem Characteristics between IPC and Zerocost Domains}
 
-We first tested if these new domains actually poses a new type of challenge to the
+We first tested if these new domains actually pose a new type of challenge to the
 standard tiebreaking strategies. Results using \lmcut and \mands
 heuristics are shown in \reftbl{tbl:lmcut-zerocost-std} and
-\reftbl{tbl:mands-zerocost-std}, respectively. In each table, the left
-hand side shows the results in the original domains, and the right hand side
+\reftbl{tbl:mands-zerocost-std}, respectively. In each table,
+the left-hand side shows the results in the original domains, and the right-hand side
 shows the zerocost versions of the domains modified from the same
-instances in the left hand side. We did not exclude domains whose
+instances on the left-hand side. We did not exclude domains whose
 number of instances in the standard domain differs from the number of instances in the zero-cost version.
 
 In both \lmcut and \mands heuristics, we observed a significant
 performance difference between the original IPC domains and the zerocost
 domains. With \lmcut, the coverage in zerocost domains
-was lower in 11 domains, while more instances were solved
-in 5 domains. With \mands, the coverage in zerocost domains was lower in 10 domains, while
+was lower in 11 domains while more instances were solved
+in 5 domains. With \mands, the coverage in zerocost domains was lower in 10 domains while
 more instances were solved in 3 domains.
 \todo{Can we consolidate the lmcut  table mand table comparing the 0-cost vs standard domains?  Doesn't seem important enough for 2 tables}
 
@@ -198,7 +198,7 @@ value causes the heuristics to be inadmissible.
 One approach to improving the search performance in such plateaus
 produced by zerocost problems is to perform an efficient
 \emph{knowledge-free} search within plateau; It may reuse the effort
-that are already spent to guide the search, but does not require
+that is already spent to guide the search but does not require
 additional effort to compute multiple heuristics.
 In the next section, we propose and evaluate an implementation of
 such a technique. It turns out that a notion of \emph{depth} can have

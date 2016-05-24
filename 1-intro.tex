@@ -11,12 +11,12 @@ In this paper, we investigate \emph{tiebreaking strategies} for cost-optimal \as
 % After defining some notations in \refsec{sec:preliminaries}, 
 % We first investigate the conventional
 % tiebreaking strategies for the optimal search using \astar.
-\astar is the standard search algorithm for finding an optimal-cost path from an initial state $s$ to some goal
+\astar is the standard search algorithm for finding an optimal cost path from an initial state $s$ to some goal
 state $g \in G$ in a search space represented as a graph \cite{hart1968formal}.
 It expands the nodes in the best-first order of $f(n)$ until up to $f^*$,
 where $f(n)$ is a lower bound of the cost of the shortest path that contains a node $n$ and $f^*$ is the optimal cost.
 % 
-In many combinatorial search problems, the size of the last layer $f(n)=f^*$ of the search , called \emph{final plateau},
+In many combinatorial search problems, the size of the last layer $f(n)=f^*$ of the search, called a \emph{final plateau},
 accounts for a significant fraction of the effective search space of \astar.  \refig{fig:plateau-noh}
 (\refpage{fig:plateau-noh}) compares the number of states in this final plateau with $f(n) = f^*$ (y-axis)
 vs. $f(n) \leq f^*$ (x-axis) for 1104 problem instances from the International Planning Competition (IPC1998-2011).
@@ -24,11 +24,11 @@ For many instances, a large fraction of the nodes in the effective search space 
 are located very close to the diagonal line ($x=y$), indicating almost all states with $f(n) \leq f^*$ have cost
 $f^*$.
 
-\refig{fig:plateau-0} depicts the conceptual view of these phenomenon.
+\refig{fig:plateau-0} depicts the conceptual view of this phenomenon.
 % 
 A naive view of the search space (left) would consider the space searched by \astar as
 a thin layer of final plateau $f(n)=f^*$ surrounding a large number of closed nodes with $f<f^*$.  This view is
-intuitive, and may accurately describe some real, practical search spaces such as 2D path finding on an explicit
+intuitive, and may accurately describe some real, practical search spaces such as 2D pathfinding on an explicit
 graph. It also gives a foundation to some family of search algorithms like Frontier Search
 \cite{korf1999divide,korf2000divide}, which tries to reduce the memory requirement by discarding the information on
 $f<f^*$, which may work if $f<f^*$ is large.
@@ -61,7 +61,7 @@ Classical planning problems in IPC benchmarks are clearly the instances of such 
  \label{fig:plateau-0}
 \end{figure}
 
-In the majority of such IPC problem domains where the 
+In the majority of such IPC problem domains where
 the last layer ($f(n)=f^*$) accounts for a significant fraction of the effective search space, a
 \emph{tiebreaking strategy}, which determines which node to expand among nodes with the same $f$-cost,
 can have a significant impact on the performance of \astar.
@@ -89,10 +89,10 @@ We show that:
 
 While there are relatively few domains with zero-cost actions in the IPC
 benchmark set, we argue that zero-cost actions naturally occur in
-practical cost-minimization problems. Therefore we introduce a new set of
-benchmarks called \emph{zerocost domains}
+practical cost-minimization problems. Therefore, we introduce a new set of
+benchmarks called \emph{Zerocost domains}
 (\refsec{sec:zerocost-domains}).  We empirically show that these
-zerocost domains have the different search space structure and different
+Zerocost domains have the different search space structure and different
 problem difficulty from those of the original domains.
 
 In order to solve such problems more efficiently, we propose and
@@ -101,7 +101,7 @@ tiebreaking method based on the notion of a node's \emph{depth} within a plateau
 which corresponds to the number of steps from the ``entrance'' to
 the plateau (\refsec{sec:depth},
 \refsec{sec:depth-based-evaluation}). We also evaluate an
-admissible tiebreaking strategy which uses the distance-to-go estimate, a heuristic function which treats every actions
+admissible tiebreaking strategy which uses the distance-to-go estimate, a heuristic function which treats every action
 to have the unit costs (\refsec{sec:distance-to-go}).
 Although distance-to-go estimates are inadmissible,
 it does not harm the admissibility of entire search as long as it is used only for tiebreaking.
@@ -120,7 +120,7 @@ In these sections, we empirically show that:
 \end{enumerate}
 
 Finally, in \refsec{sec:discussion}, we discuss the implications of these results.
-We offer a new perspective to optimizing search:
+We offer a new perspective to cost-optimal search:
 It can be seen as a series of satisficing searches on each plateau,
 and thus the problem of tiebreaking can be reduced to satisficing search techniques.
 % 

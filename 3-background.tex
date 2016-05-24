@@ -2,7 +2,7 @@
 
 \label{sec:astar-background}
 
-\astar is a standard search algorithm for finding an optimal-cost path
+\astar is a standard search algorithm for finding an optimal cost path
 on a graph.
 Starting from the single initial node, in each iteration, \astar
 selects and expands a node $n$ with the lowest $f$-cost in the OPEN
@@ -12,7 +12,7 @@ is marked as CLOSED, in order to avoid duplicated evaluations.
 $\forall n; h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
 the nearest goal.
 
-The best-first order of the expansion is a key to guarantee solution optimality. 
+The best-first order of the expansion is a key to guaranteeing solution optimality. 
 The first solution found by the algorithm is guaranteed to have the optimal cost $f=f^*$ because 
 all nodes with $f(n) < k$ are already expanded when it starts expanding
 the nodes with $f(n) = k$.
@@ -72,7 +72,7 @@ generated nodes first), i.e., $[f,h,\lifo]$.
 % 
 Although not documented, their choice of a \lifo 2nd-level tiebreaking
 criterion appears to be a natural consequence of the fact it can be
-trivially, efficiently implemented in their two-level bucket (vector)
+trivially and efficiently implemented in their two-level bucket (vector)
 implementation of OPEN.
 % 
 In contrast, the current implementation of the \sota \astar based planner Fast

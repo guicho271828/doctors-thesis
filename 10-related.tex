@@ -16,7 +16,7 @@ structure of the search spaces of satisficing planning.
 % where short actions are hidden behind long actions and do not increase makespan.
 % \citeauthor{wilt2011cost} \citeyear{wilt2011cost} also analyzes inadmissible distance-to-go estimates.
 % 
-To our knowledge, plateaus have not been previously investigated for cost-optimal planning with admissible search.
+To our knowledge, plateaus have not been previously investigated for cost-optimal search.
 Admissible and inadmissible search differ significantly in how non-final plateaus (plateaus with $f < f^*$) are treated:
 Inadmissible search can skip or escape plateaus whenever possible, while
 admissible search cannot, unless it is the plateau with $f=f^*$ where the goals can immediately be found.
@@ -25,11 +25,11 @@ In their work on combining multiple inadmissible heuristics in a planner,
 \citeauthor{RogerH10} \citeyear{RogerH10} considered a tiebreaking approach which works as follows:
 When combining two heuristics $h_1$ and $h_2$, $h_1$ is used as the primary criterion,
 and $h_2$ is used to break ties among nodes with the same $h_1$ --- $[h_1,h_2,\fifo]$.
-This did not perform well in their work on satisficing planning compared to the approaches based on alternation queues and pareto-optimal queue selection.
+This did not perform well in their work on satisficing planning compared to the approaches based on alternation queues and Pareto-optimal queue selection.
 % 
 Since their focus is on how to combine multiple heuristics,
 this tiebreaking-based approach is just one instance of various implementations of OPEN lists.
-In contrast, we discussed solely on the tiebreaking, and moreover, discussed various tiebreakings.
+In contrast, we discussed solely on the tiebreaking, and moreover, discussed various tiebreaking strategies.
 The focus of our paper is how tiebreaking enables the efficient search on the plateau created by the earlier levels of sorting criteria.
 
 %% already mentioned in the earlier section.
@@ -91,6 +91,6 @@ Second, $AL^*$ has an ability to propagate the maximum and the minimum $f$ value
 % wrong, see AAAI10 paper that ``recitify this''
 % Finally, when $k>0$ the search becomes inadmissible because it alters the best-first expansion order.
 
-Another relevant line of work in similar spirit to Zerocost domains is the Preference Track in the deterministic
+Another relevant line of work in a similar spirit to Zerocost domains is the Preference Track in the deterministic
 part of IPC4 \cite{gerevini2009automatically}. One difference between our zero-cost domains and these domains is
-that the latter allows the more complex semantics such as multiplication.
+that the latter allows a more complex semantics such as multiplication.

@@ -39,50 +39,50 @@
 }
 % /Author (Masataro Asai, Alex Fukunaga)
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-% forbid the direct use of \\ref --- it results in inconsistency in styles, e.g., Figure,Fig., etc.
-% Macros are for styles!
-% !!!WARN!!! this should be removed in the camera-ready version.
-\def\ref{\todo{Do not use ``ref'' directly!}}
-\renewcommand{\subsubparagraph}[1]{%
-\vspace{3pt}%
-\hrule width \linewidth%
-\marginpar[\hfill\relsize{-1} \protect{{#1}} $\triangleright$]{\relsize{-1} $\triangleleft$ \protect{{#1}}}%
-\vspace{3pt}%
-}
-% \usepackage{soul}
-\makeatletter
-\newcounter{todo}[page]
-\renewcommand{\thetodo}{\text{$\dagger$}\arabic{todo}}
-\renewcommand{\@todons}[2]{%
-  \refstepcounter{todo}%
-  $^{\thetodo}$\uline{#1}%
-  \marginpar[%
-    \hfill\relsize{-1}%
-    \thetodo\;%
-    \protect{%
-      {\scriptsize\bf #2}}]{%
-    \relsize{-1}%
-    \thetodo\;%
-    \protect{%
-      {\scriptsize\bf #2}}}}
-\renewcommand{\@todos}[2]{%
-  \refstepcounter{todo}%
-  $^{\thetodo}$\uline{#1}%
-  \marginpar[%
-    \hfill\relsize{-1}%
-    \thetodo\;%
-    \protect{%
-      {\scriptsize \it #2}}]{%
-    \relsize{-1}%
-    \thetodo\;%
-    \protect{%
-      {\scriptsize \it #2}}}}
-\makeatother
-\setlength{\marginparwidth}{2.9cm}
-\setlength{\marginparsep}{5pt}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%
+% % forbid the direct use of \\ref --- it results in inconsistency in styles, e.g., Figure,Fig., etc.
+% % Macros are for styles!
+% % !!!WARN!!! this should be removed in the camera-ready version.
+% \def\ref{\todo{Do not use ``ref'' directly!}}
+% \renewcommand{\subsubparagraph}[1]{%
+% \vspace{3pt}%
+% \hrule width \linewidth%
+% \marginpar[\hfill\relsize{-1} \protect{{#1}} $\triangleright$]{\relsize{-1} $\triangleleft$ \protect{{#1}}}%
+% \vspace{3pt}%
+% }
+% % \usepackage{soul}
+% \makeatletter
+% \newcounter{todo}[page]
+% \renewcommand{\thetodo}{\text{$\dagger$}\arabic{todo}}
+% \renewcommand{\@todons}[2]{%
+%   \refstepcounter{todo}%
+%   $^{\thetodo}$\uline{#1}%
+%   \marginpar[%
+%     \hfill\relsize{-1}%
+%     \thetodo\;%
+%     \protect{%
+%       {\scriptsize\bf #2}}]{%
+%     \relsize{-1}%
+%     \thetodo\;%
+%     \protect{%
+%       {\scriptsize\bf #2}}}}
+% \renewcommand{\@todos}[2]{%
+%   \refstepcounter{todo}%
+%   $^{\thetodo}$\uline{#1}%
+%   \marginpar[%
+%     \hfill\relsize{-1}%
+%     \thetodo\;%
+%     \protect{%
+%       {\scriptsize \it #2}}]{%
+%     \relsize{-1}%
+%     \thetodo\;%
+%     \protect{%
+%       {\scriptsize \it #2}}}}
+% \makeatother
+% \setlength{\marginparwidth}{2.9cm}
+% \setlength{\marginparsep}{5pt}
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\setcounter{secnumdepth}{2}
 % \setlength{\floatsep}{1mm}
