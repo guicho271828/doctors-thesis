@@ -94,3 +94,20 @@ Second, $AL^*$ has an ability to propagate the maximum and the minimum $f$ value
 Another relevant line of work in a similar spirit to Zerocost domains is the Preference Track in the deterministic
 part of IPC4 \cite{gerevini2009automatically}. One difference between our zero-cost domains and these domains is
 that the latter allows a more complex semantics such as multiplication.
+% 
+More recently, \shortciteauthor{wray2015multi} \citeyear{wray2015multi} proposed a model called \emph{conditional lexicographic preferences with slack} in the context of planning under uncertainty. 
+% 
+Lexicographic preferences allow the problem to have multiple preference criteria evaluated individually. The
+solution quality is determined by the first preference, breaking ties by the second preference and so on.
+% 
+A slack means a constant amount of error from the optimal value. With a slack, one can model a situation where the
+goal is to optimize the first preference, but the difference up to some amount is ignored and ties are broken by
+the second preference.
+% 
+One example planning problem with such lexicographic preferences with slack would be something like this:
+Its first optimization objective is the amount of fuel usage, allowing a slack up to 5 liters.
+The second optimization target is the makespan of the plan.
+In this case, a plan with 100 liters of fuel usage and a plan with 105 liters of fuel usage are considered equally preferable in the first criterion, and the better plan is the one with a shorter makespan.
+% 
+Since a slack allows multiple values (e.g. 100 and 105) to have the same preference, it is supposed to introduce larger plateaus.
+Applying our techniques to the problems with slack is an avenue of future work.
