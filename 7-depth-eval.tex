@@ -245,9 +245,9 @@ Since $[f,h,\fifo]$ exhaustively expands the nodes in shallower depth,
 the number of expansion by $[f,h,\fifo]$ in the shallower depths constitutes an upper bound, which may be below $D-d$.
 
 Next, \refig{fig:depth-histogram4} shows the same results on the standard IPC
-Openstacks and Cybersec domains.
-The result in Openstacks was similar to those of the zerocost domains.
-In Cybersec,
+\pddl{Openstacks} and \pddl{Cybersec} domains.
+The result in \pddl{Openstacks} was similar to those of the zerocost domains.
+In \pddl{Cybersec},
 % while the depth has improved the overall performance,
 we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because all tiebreaking strategies have generated only a small number of such nodes before the solution was found.
 Instead, we observed a large difference in the depth distributions in non-final plateaus $\plateau{f^*,h}, h\not=0$ caused by the difference of tiebreaking.
@@ -310,7 +310,7 @@ This is because \refig{fig:plateau} uses a modified Fast Downward which continue
 % \includegraphics{img/output-lmcut/cybersec/p07-1.pdf}
 \includegraphics{img/output-lmcut/cybersec/p07-94.pdf}
 % \includegraphics{img/output-lmcut/cybersec/p07-95.pdf}
- \caption{(Page 4/5) Depth distribution of Openstacks and Cybersec instances in the final ($\plateau{f^*,0}$) and non-final plateaus ($\plateau{f^*,h}, h\not=0$). In Cybersec p06, although the number of nodes generated in $\plateau{f^*,0}$ is small, \fifo and \ro behaved poorly on $\plateau{f^*,1}$, and also \lifo behaved poorly on $\plateau{f^*,5}$. The same behavior was observed in p07.}
+ \caption{(Page 4/5) Depth distribution of \pddl{Openstacks} and \pddl{Cybersec} instances in the final ($\plateau{f^*,0}$) and non-final plateaus ($\plateau{f^*,h}, h\not=0$). In \pddl{Cybersec} p06, although the number of nodes generated in $\plateau{f^*,0}$ is small, \fifo and \ro behaved poorly on $\plateau{f^*,1}$, and also \lifo behaved poorly on $\plateau{f^*,5}$. The same behavior was observed in p07.}
  \label{fig:depth-histogram4}
 \end{figure}
 

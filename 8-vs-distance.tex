@@ -194,7 +194,7 @@ additional heuristics, and the best result using \mands
 was $[f,h,\lifo]$ which imposes no overhead including the depth.
 
 If we look further into the detail, we observed the following:
-In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) improve upon the standard strategy (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:3), but does not improve upon depth (e.g. $[f,h,\depth,\lifo]$: 12). When $h=h^\mands$, all coverages are zero. Overheads by $\ffo$ also slightly degrade the performance in Openstacks (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:18, $[f^\lmcut,\ffo,\lifo]$:17, $[f^\lmcut,h^\lmcut,\depth,\lifo]$: 18; Also, $[f^\mands,h^\mands,\lifo]$:19, $[f^\mands,\ffo,\lifo]$:18, $[f^\mands,h^\mands,\depth,\lifo]$: 19). Thus, in these two domains, although there are some positive effects in the guidance by $\ffo$ or $\hh$, additional overheads by those distance-to-go heuristics outweighed the merit.
+In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) improve upon the standard strategy (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:3), but does not improve upon depth (e.g. $[f,h,\depth,\lifo]$: 12). When $h=h^\mands$, all coverages are zero. Overheads by $\ffo$ also slightly degrade the performance in \pddl{Openstacks} (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:18, $[f^\lmcut,\ffo,\lifo]$:17, $[f^\lmcut,h^\lmcut,\depth,\lifo]$: 18; Also, $[f^\mands,h^\mands,\lifo]$:19, $[f^\mands,\ffo,\lifo]$:18, $[f^\mands,h^\mands,\depth,\lifo]$: 19). Thus, in these two domains, although there are some positive effects in the guidance by $\ffo$ or $\hh$, additional overheads by those distance-to-go heuristics outweighed the merit.
  
 In the positive-cost domains (IPC domains except \pddl{Openstacks} and \pddl{Cybersec}), $\hat{h}$ or $\ffo$
 only harms the overall performance due to the overhead.
@@ -209,14 +209,14 @@ Thus, to recapitulate, our conclusions are the follows:
  \item When the \textbf{primary heuristics is \lmcut}, the best performer under
        \begin{itemize}
         \item \textbf{Zerocost domains} is $[f,\ffo,\depth,\ro]$.
-        \item \textbf{Zerocost IPC domains (Cybersec, Openstacks)} is $[f,h,\depth,\lifo]$.
+        \item \textbf{Zerocost IPC domains (\pddl{Cybersec}, \pddl{Openstacks})} is $[f,h,\depth,\lifo]$.
         \item \textbf{Positive-cost IPC domains} is $[f,h, \text{any default tiebreaking}]$ or $[f,h, \depth, \text{any default tiebreaking}]$.
        \end{itemize}
  \item When the \textbf{primary heuristics is \mands}, the best performer under
        \begin{itemize}
         \item \textbf{Zerocost domains} is $[f,\ffo,\ro]$ or $[f,\ffo,\depth,\ro]$, but the latter has
               a smaller variance.
-        \item \textbf{Zerocost IPC domains (Cybersec, Openstacks)} is $[f,h,\lifo]$ or depth variants with any default tiebreaking.
+        \item \textbf{Zerocost IPC domains (\pddl{Cybersec}, \pddl{Openstacks})} is $[f,h,\lifo]$ or depth variants with any default tiebreaking.
         \item \textbf{Positive-cost IPC domains} is $[f,h,\lifo]$.
        \end{itemize}
 \end{itemize}
