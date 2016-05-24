@@ -53,12 +53,12 @@ zerocost domains, our proposed method outperforms the traditional tiebreaking me
 Significant improvements were observed in 10 domains when using \lmcut, and in 7 domains when using \mands.
 In detail,
 \begin{itemize}
- \item \textbf{10 Domains improved by depth on Zerocost, using \lmcut,} are elevators-up (\ro), freecell-move (\fifo,\ro),
-       miconic-up (all), mprime-succumb (\fifo,\ro), pipesnt-pushstart (\ro), pipesworld-pushend (\ro),
-       scanalyzer-analyze (\lifo), storage-lift (\fifo), tpp-fuel (\fifo,\ro), woodworking-cut (\fifo,\ro).
- \item \textbf{7 Domains improved by depth on Zerocost, using \mands,} are elevators-up (\ro), freecell-move (\fifo,\ro),
-       mprime-succumb (\fifo,\ro), pipesnt-pushstart (\fifo, \ro), pipesworld-pushend (\ro),
-       tpp-fuel (\fifo,\ro), woodworking-cut (\fifo,\ro).
+ \item \textbf{10 Domains improved by depth on Zerocost, using \lmcut,} are \pddl{elevators-up} (\ro), \pddl{freecell-move} (\fifo,\ro),
+       \pddl{miconic-up} (all), \pddl{mprime-succumb} (\fifo,\ro), \pddl{pipesnt-pushstart} (\ro), \pddl{pipesworld-pushend} (\ro),
+       \pddl{scanalyzer-analyze} (\lifo), \pddl{storage-lift} (\fifo), \pddl{tpp-fuel} (\fifo,\ro), \pddl{woodworking-cut} (\fifo,\ro).
+ \item \textbf{7 Domains improved by depth on Zerocost, using \mands,} are \pddl{elevators-up} (\ro), \pddl{freecell-move} (\fifo,\ro),
+       \pddl{mprime-succumb} (\fifo,\ro), \pddl{pipesnt-pushstart} (\fifo, \ro), \pddl{pipesworld-pushend} (\ro),
+       \pddl{tpp-fuel} (\fifo,\ro), \pddl{woodworking-cut} (\fifo,\ro).
 \end{itemize}
 
 
@@ -254,7 +254,7 @@ Instead, we observed a large difference in the depth distributions in non-final 
 It suggests that most children of the nodes in $\plateau{f^*,h}$ have $f$ value larger than $f^*$ or stays in $\plateau{f^*,h}$, and the planner is struggling to find nodes with better $h$.
 Thanks to the unbiased search, the depth-based strategy has a better chance of improving $h$ values, finding a node in $\plateau{f^*,0}$ more quickly.
 This shows that the depth can also enhance the search in non-final plateaus to find the nodes in the next plateau.
-Similar phenomena were observed in several other instances and domains (\refig{fig:depth-histogram5}). To list a few, they are the following: depot-fuel, driverlog-fuel, zenotravel-fuel, floortile-ink, mprime-succumb, storage-lift.
+Similar phenomena were observed in several other instances and domains (\refig{fig:depth-histogram5}). To list a few, they are the following: \pddl{depot-fuel}, \pddl{driverlog-fuel}, \pddl{zenotravel-fuel}, \pddl{floortile-ink}, \pddl{mprime-succumb}, \pddl{storage-lift}.
 \todo*{might as well say which domains...}
 
 Note that the small number of nodes in $\plateau{f^*,0}$ in this experiment does not contradict to the results in \refig{fig:plateau} which claim the number of such nodes is quite large.

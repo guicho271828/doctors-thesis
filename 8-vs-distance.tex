@@ -163,12 +163,12 @@ Thus, when the depth diversity criterion  is not used, the best configurations a
 which use $\ffo$.
 In detail, following domains are improved by each change:
 \begin{itemize}
- \item \textbf{$h^\lmcut \to \hh^\lmcut$}: elevator-up (all), freecell-move (\fifo,\ro), mprime-succumb (all), mystery-feast (\lifo,\ro) parking-movecc (all), pipesworld-pushend (all), scanalyzer-analyze (\lifo,\ro), wood\-working-cut (all). (Compare \reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:dtg-lmcut-zero}.)
- \item \textbf{$h^\mands \to \hh^\mands$}: elevator-up (all), freecell-move (\fifo,\ro), mprime-succumb (\ro), mystery-feast (\fifo,\lifo) parking-movecc (all), pipesworld-pushend (all), scanalyzer-analyze (all), wood\-working-cut (all), zenotravel-fuel (\lifo,\ro). (Compare \reftbl{tbl:mands-zerocost-full} and \reftbl{tbl:dtg-mands-zero}.)
- \item \textbf{$h^\lmcut \to h^\lmcut,\hh^\lmcut$}: airport-fuel (\fifo,\ro), mprime-succumb (\fifo,\ro), parking-movecc (\lifo), pipesworld-pushend (\fifo), scanalyzer-analyze (all).
+ \item \textbf{$h^\lmcut \to \hh^\lmcut$}: \pddl{elevator-up} (all), \pddl{freecell-move} (\fifo,\ro), \pddl{mprime-succumb} (all), \pddl{mystery-feast} (\lifo,\ro) \pddl{parking-movecc} (all), \pddl{pipesworld-pushend} (all), \pddl{scanalyzer-analyze} (\lifo,\ro), \pddl{wood\-working-cut} (all). (Compare \reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:dtg-lmcut-zero}.)
+ \item \textbf{$h^\mands \to \hh^\mands$}: elevator-up (all), \pddl{freecell-move} (\fifo,\ro), \pddl{mprime-succumb} (\ro), \pddl{mystery-feast} (\fifo,\lifo) \pddl{parking-movecc} (all), \pddl{pipesworld-pushend} (all), \pddl{scanalyzer-analyze} (all), wood\-working-cut (all), \pddl{zenotravel-fuel} (\lifo,\ro). (Compare \reftbl{tbl:mands-zerocost-full} and \reftbl{tbl:dtg-mands-zero}.)
+ \item \textbf{$h^\lmcut \to h^\lmcut,\hh^\lmcut$}: \pddl{airport-fuel} (\fifo,\ro), \pddl{mprime-succumb} (\fifo,\ro), \pddl{parking-movecc} (\lifo), \pddl{pipesworld-pushend} (\fifo), \pddl{scanalyzer-analyze} (all).
  \item \textbf{$h^\mands \to h^\mands,\hh^\mands$}: comparable.
- \item \textbf{$h^\lmcut,\hh^\lmcut \to \ffo$}: blocks-stack (all), freecell-move (all), hiking-fuel (all), miconic-up (all), mprime-succumb (all), parking-movecc (all), pipesworld-pushend (all), sokoban-pushgoal (all), tidybot-motion (all), tpp-fuel (\ro).
- \item \textbf{$h^\mands,\hh^\mands \to \ffo$}: airport-fuel (all), elevator-up (all), freecell-move (all), miconic-up (all), mprime-succumb (all), parking-movecc (all), pipesnt-pushstart (all), scanalyzer-analyze (all), sokoban-pushgoal (all), tpp-fuel (\ro).
+ \item \textbf{$h^\lmcut,\hh^\lmcut \to \ffo$}: \pddl{blocks-stack} (all), \pddl{freecell-move} (all), \pddl{hiking-fuel} (all), \pddl{miconic-up} (all), \pddl{mprime-succumb} (all), \pddl{parking-movecc} (all), \pddl{pipesworld-pushend} (all), \pddl{sokoban-pushgoal} (all), \pddl{tidybot-motion} (all), \pddl{tpp-fuel} (\ro).
+ \item \textbf{$h^\mands,\hh^\mands \to \ffo$}: \pddl{airport-fuel} (all), elevator-up (all), \pddl{freecell-move} (all), \pddl{miconic-up} (all), \pddl{mprime-succumb} (all), \pddl{parking-movecc} (all), \pddl{pipesnt-pushstart} (all), \pddl{scanalyzer-analyze} (all), \pddl{sokoban-pushgoal} (all), \pddl{tpp-fuel} (\ro).
 \end{itemize}
  
 Adding the depth diversity criterion further improves the performance of the $\ffo$-based strategies,
@@ -178,8 +178,8 @@ The coverage increased in both
  $h=h^\mands$ (\fifo: $336\rightarrow 337$, \lifo: $331\rightarrow 333$).
 Improvement was observed in the following domains:
 \begin{itemize}
- \item \textbf{\lmcut}: mprime-succumb (\lifo, \ro), storage-lift (\ro), tidybot-motion (\fifo), tpp-fuel (\fifo, \ro).
- \item \textbf{\mands}: mprime-succumb (\lifo, \ro), tpp-fuel (\fifo).
+ \item \textbf{\lmcut}: \pddl{mprime-succumb} (\lifo, \ro), \pddl{storage-lift} (\ro), \pddl{tidybot-motion} (\fifo), \pddl{tpp-fuel} (\fifo, \ro).
+ \item \textbf{\mands}: \pddl{mprime-succumb} (\lifo, \ro), \pddl{tpp-fuel} (\fifo).
 \end{itemize}
 When the default tiebreaking was \ro and the heuristic is \mands, $[f,\ffo,\depth,\ro]$ have small degradation
 over $[f,\ffo,\ro]$, but the difference was fractional ($337.9\rightarrow 337.6$) and $\depth$ made the performance slightly more robust (smaller standard deviation: $2.1\rightarrow 1.3$).

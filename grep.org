@@ -1,0 +1,9 @@
+
+
+
+
+
+
+
+
+\(airport-fuel\|blocks-stack\|depot-fuel\|driverlog-fuel\|elevators-up\|floortile-ink\|freecell-move\|grid-fuel\|gripper-move\|hiking-fuel\|logistics00-fuel\|miconic-up\|mprime-succumb\|mystery-feast\|nomystery-fuel\|parking-movecc\|pathways-fuel\|pipesnt-pushstart\|pipesworld-pushend\|psr-small-open\|rovers-fuel\|scanalyzer-analyze\|sokoban-pushgoal\|storage-lift\|tidybot-motion\|tpp-fuel\|woodworking-cut\|zenotravel-fuel\)\([^}]\)
