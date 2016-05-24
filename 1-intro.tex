@@ -47,7 +47,7 @@ Classical planning problems in IPC benchmarks are clearly the instances of such 
  The number of nodes with $f=f^*$ (y-axis) compared to the
  total number of nodes in the search space (x-axis) with $f\leq f^*$ on 1104 IPC benchmark problems.
  This experiment uses a modified Fast Downward with \lmcut which 
- continues the search within the current $f$ after any optimal solution is found.
+ continues the search within the current $f$ after any cost-optimal solution is found.
  This effectively generates all nodes with cost $f^*$.
   }
  \label{fig:plateau-noh}
@@ -56,7 +56,7 @@ Classical planning problems in IPC benchmarks are clearly the instances of such 
 \begin{figure}[htbp]
   \centering
   \includegraphics{img/astar/plateau-0.pdf}
- \caption{(Left) Naive understanding of the search space of \astar, which only holds for some limited domains. (Right) The reality of search spaces of combinatorial problems. Plateau containing the optimal goals ($f=f^*$) is large, and it even accounts for most of the search effort required by \astar.
+ \caption{(Left) Naive understanding of the search space of \astar, which only holds for some limited domains. (Right) The reality of search spaces of combinatorial problems. The plateau containing the cost-optimal goals ($f=f^*$) is large, and it even accounts for most of the search effort required by \astar.
   }
  \label{fig:plateau-0}
 \end{figure}

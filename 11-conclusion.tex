@@ -9,7 +9,7 @@ various possible enhancements and achieved significant performance improvements 
 techniques. In detail, the contributions in this paper are the following:
 
 \begin{enumerate}
- \item We showed that tiebreaking has a significant role in the optimal
+ \item We showed that tiebreaking has a significant role in the cost-optimal
        search using \astar. We empirically showed that most instances in the IPC
        benchmark have large plateaus with regard to $f$, and most of the
        search effort is spent in the final plateau with $f=f^*$.
@@ -35,13 +35,13 @@ techniques. In detail, the contributions in this paper are the following:
        heuristics. Although there is an additional cost to compute
        multiple heuristic values, the cost can be eliminated by a simple
        case-based configuration which checks for zero-cost actions.
- \item We introduced a new view to optimal \astar search: Optimizing search can be seen as a series of satisficing
+ \item We introduced a new view to cost-optimal \astar search: Optimizing search can be seen as a series of satisficing
        search in the plateaus of an increasing order of $f$. This view introduces more opportunity to using the
-       satisficing techniques for optimal search.
+       satisficing techniques for cost-optimal search.
 \end{enumerate}
 
 Future work implements the last view by introducing much more variety of
-existing satisficing search techniques to optimal search.
+existing satisficing search techniques to cost-optimal search.
 
 % Another direction for future work is implementing tiebreaking strategies for IDA* and similar linear-space
 % strategies like RBFS.
