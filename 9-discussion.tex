@@ -43,7 +43,7 @@ increases the horizon and retests the same problem with additional constraints f
 forward heuristic search such as \astar, the concept of horizon corresponds to the $f$ value, which is a lower
 bound of the solution cost.
 
-The key difference in the \astar-based optimizing planning from the model-based planning is
+The key difference in the \astar-based cost-optimal planning from the model-based planning is
 that the information is transmitted between different horizons:
 In \astar, nodes that are generated in the smaller
 $f$ layer will be ``sent'' to the larger $f$ layer through the global OPEN
@@ -85,7 +85,7 @@ which acts as a common parent of all initial nodes. We can thus reformulate the 
 This entire view shows an interesting direction for future work.
 Although we evaluated only one \sota satisficing configuration $\ffo$ in
 the experiments, it does not prevent us from applying yet
-more variety of satisficing planning techniques to the tiebreaking in optimizing search.
+more variety of satisficing planning techniques to the tiebreaking in cost-optimal search.
 There are plenty of candidates: Lazy evaluation \cite{richter2010lama}, Alternating/Pareto open
 list \cite{RogerH10}, helpful actions (preferred operators) \cite{Hoffmann01},
 random walk local search \cite{nakhost2009monte}, macro operators
@@ -107,7 +107,7 @@ fact the same thing.
 % 
 % Our claim is that this \emph{should} work if our observation is correct, and if it is, it becomes another
 % testimonial that our future direction (importing satisficing techniques to optimal search) is promising.
-% This is different from a simple claim like ``X worked in optimizing search, so it should also work in satisficing search''.
+% This is different from a simple claim like ``X worked in cost-optimal search, so it should also work in satisficing search''.
 \todo*{``exporting from optimizing to satisficing'' and ``exporting from satisficing to optimizing'' are not symmetric. The latter is interesting and surprising, the former, not so much. --- changed the tone, emphasized the purpose}
 
 We provide preliminary results on the 280 IPC8 satisficing track
@@ -199,11 +199,11 @@ increasing the size of each plateau.
 %  \label{tbl:lama}
 % \end{table}
 
-In the past, optimizing search techniques and satisficing search techniques used to be developed rather separately, and there has been only a handful of knowledge migration between them, most of which are abstract ideas such as delete-relaxation, landmarks, causal graphs or pattern database.
-Otherwise, the migration is unidirectional, in particular from optimizing to satisficing search, because it is easy or trivial to relax the optimality requirements.
+In the past, cost-optimal search techniques and satisficing search techniques used to be developed rather separately, and there has been only a handful of knowledge migration between them, most of which are abstract ideas such as delete-relaxation, landmarks, causal graphs or pattern database.
+Otherwise, the migration is unidirectional, in particular from cost-optimal to satisficing search, because it is easy or trivial to relax the optimality requirements.
 % 
 Our results and the new interpretation, \textbf{cost-optimal search is a sequence of satisficing searches on each plateau},
 open up a new opportunity to break this boundary.  We provided the fundamentals of how and why we can import
-satisficing search techniques to the optimizing search (e.g. $\ffo$ heuristics in optimizing search).  There is a
+satisficing search techniques to the cost-optimal search (e.g. $\ffo$ heuristics in cost-optimal search).  There is a
 large avenue for future work in making a new migration happen.
 
