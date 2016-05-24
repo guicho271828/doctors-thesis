@@ -53,7 +53,7 @@ they have to generate a new instance of a SAT/IP problem, and the
 underlying model-based solvers are forced to start the search from the scratch.
 
 More precisely, each iteration of \astar only requires testing the satisfiability in the space of particular
-$f$ while each iteration of model-based solvers tests the satisfiability in the space of all nodes $0<f(n)<t$
+$f$ while each iteration of model-based solvers tests the satisfiability in the space of all nodes $0\leq f(n)\leq t$
 ($t$: a horizon).  This latter behavior also connects model-based approaches to Iterative Deepening \astar
 \cite{korf1985depth} where the search is restarted from the scratch on each iteration, forgetting the past search
 effort in order to ensure the linear space usage.
