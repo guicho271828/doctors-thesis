@@ -15,7 +15,7 @@ This creates huge heuristic plateaus that share the same $h$-value, and the stan
 \begin{figure}[htbp]
   \centering
   \includegraphics{img/astar/plateau-1.pdf}
- \caption{Search space of \astar and its contour according to $h$. (\textbf{Right}) In positive cost domains, $h$-based tiebreaking provides a meaningful guidance. (\textbf{Left}) In domains with 0-cost actions, applying an action may not increase the cost of the path and the region with $h=0$ could be quite large. Thus, $h$-based tiebreaking fails to provide meaningful guidance in this space.
+ \caption{Search space of \astar and its contour according to admissible heuristics $h$. (\textbf{Right}) In positive cost domains, $h$-based tiebreaking provides a meaningful guidance. (\textbf{Left}) In domains with 0-cost actions, applying an action may not increase the cost of the path and the region with $h=0$ could be quite large. With the same mechanism, other heuristic plateaus (e.g. $h=1$) also become larger. Thus, $h$-based tiebreaking fails to provide meaningful guidance.
   }
  \label{fig:plateau-1}
 \end{figure}
