@@ -504,9 +504,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.5777211"
-     inkscape:cx="157.11631"
-     inkscape:cy="332.5906"
+     inkscape:zoom="1.6184688"
+     inkscape:cx="274.96686"
+     inkscape:cy="183.19784"
      inkscape:document-units="in"
      inkscape:current-layer="layer2"
      showgrid="false"
@@ -516,10 +516,10 @@
      fit-margin-bottom="0"
      inkscape:snap-center="true"
      inkscape:snap-global="false"
-     inkscape:window-width="1080"
-     inkscape:window-height="1890"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-width="1440"
+     inkscape:window-height="818"
+     inkscape:window-x="768"
+     inkscape:window-y="25"
      inkscape:window-maximized="1"
      units="in" />
   <metadata
@@ -714,8 +714,8 @@
        sodipodi:cy="230.38475"
        sodipodi:rx="17.537941"
        sodipodi:ry="17.537941"
-       d="m 802.75938,230.38475 c 0,9.68594 -7.85201,17.53794 -17.53794,17.53794 -9.68594,0 -17.53795,-7.852 -17.53795,-17.53794 0,-9.68594 7.85201,-17.53794 17.53795,-17.53794 9.68593,0 17.53794,7.852 17.53794,17.53794 z"
-       transform="matrix(0.36713051,0,0,0.36713051,-60.21015,673.03449)" />
+       d="m 802.75938,230.38475 a 17.537941,17.537941 0 1 1 -35.07589,0 17.537941,17.537941 0 1 1 35.07589,0 z"
+       transform="matrix(0.36713051,0,0,0.36713051,-124.46841,698.36707)" />
     <text
        xml:space="preserve"
        style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.99000001;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
@@ -878,8 +878,8 @@
        sodipodi:cy="230.38475"
        sodipodi:rx="17.537941"
        sodipodi:ry="17.537941"
-       d="m 802.75938,230.38475 c 0,9.68594 -7.85201,17.53794 -17.53794,17.53794 -9.68594,0 -17.53795,-7.852 -17.53795,-17.53794 0,-9.68594 7.85201,-17.53794 17.53795,-17.53794 9.68593,0 17.53794,7.852 17.53794,17.53794 z"
-       transform="matrix(0.36713051,0,0,0.36713051,-99.68206,705.61177)" />
+       d="m 802.75938,230.38475 a 17.537941,17.537941 0 1 1 -35.07589,0 17.537941,17.537941 0 1 1 35.07589,0 z"
+       transform="matrix(0.36713051,0,0,0.36713051,-99.064192,706.84751)" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0;display:inline"
        d="m 164.15872,808.71859 c -4.07086,-7.93818 -8.80317,-17.51037 -11.49078,-28.2913 m 0.56653,-37.16557 c 2.09695,-7.78429 5.25359,-15.45495 7.37682,-21.25845"
@@ -1729,11 +1729,11 @@
          sodipodi:role="line"
          x="388.49234"
          y="886.86847"
-         id="tspan3437-7">Depth-diversification searches</tspan><tspan
+         id="tspan3437-7">Depth-diversification distributes</tspan><tspan
          sodipodi:role="line"
          x="388.49234"
          y="903.11847"
-         id="tspan3567">the various depths uniformly</tspan></text>
+         id="tspan3567">the search in various depths</tspan></text>
     <path
        sodipodi:type="arc"
        style="opacity:0.89830508;color:#000000;fill:#ff8080;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:4.32000017;stroke-miterlimit:4;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
