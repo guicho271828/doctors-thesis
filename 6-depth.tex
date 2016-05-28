@@ -105,7 +105,8 @@ and also facilitates the  theoretical analysis below in \refsec{sec:theoretical-
 % \fifo and \lifo strategies are incomplete when the size of the plateau
 % region is inifinite, while our \id is probabilistically complete.
 
-\subsection{The Scope Captured by Depth-Based Tiebreaking}
+%\subsection{The Scope Captured by Depth-Based Tiebreaking}
+\subsection{When Does Depth-Based Tiebreaking Affect Node Expansion Order?}
 
 % ``no effect'' is ambiguous, reviewers may complain that we are trying to claim there is no overhead, including the low level overhead. Thus I reworded from ``no effect'' to ``does not affect the order of expansion''.
 Depth-based tiebreaking does not affect the order of node expansion when there are no remaining ties after the
@@ -129,8 +130,8 @@ Let a node $n$ is a child of a node $m$. Depending on whether $n$ is already eva
        depth of $n$ is 0 at this moment, then it remains 0 because the parent is unchanged.
 \end{enumerate}
 
-Since the case 1 and 2 always hold and the case 3 holds at the beginning of the search,
-by mathematical induction, the case 3 always holds during the search.
+Since cases 1 and 2 always hold and case 3 holds at the beginning of the search,
+by induction, the case 3 always holds during the search.
 Thus, the depths of nodes in positive cost domains are always 0.
 
 \subsection{Tiebreaking within Depth Buckets}
@@ -215,7 +216,7 @@ can be represented by a simple formula.
 
 % 
 \todo*{Introduced the tree assumption in the beginning.}
-We first present several assumptions to continue the discussion.
+In the discussion below, we assume the following.
 First, we assume that the plateau region forms a tree of a fixed branching factor
 $w\geq 2$ (\emph{tree assumption}), rather than a graph with an indefinite number of successor nodes.
 In the later experiments, we show this assumption is not much distant from the real situations.
@@ -228,7 +229,7 @@ Let $D\geq 0$ be the current largest depth of the nodes found in the plateau so 
 depth $D$ resulted in more nodes on the same plateau, then the children have depth $D+1$.  Due to the tree
 assumption, these children are all newly generated. Also, as we explained in the previous section, the expansion is
 diversified by a sequence of iterations from the current largest depth to 0.  It means that when the current
-largest depth of the plateau is $D$, the number of iteration happened so far is also $D$ because
+largest depth of the plateau is $D$, the number of iteration executed so far is also $D$ because
 in each iteration the largest depth is increased by 1.
 % Under the tree assumption, each expansion of depth $d$ results in $w$ new nodes in depth $d+1$. 
 Therefore, at the end of the $D$'th iteration, each depth $d$ has been expanded exactly $D-d$ times, with $D(D-1)$
