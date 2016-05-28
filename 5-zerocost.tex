@@ -68,7 +68,7 @@ optimize the usage of one key consumable resource, e.g., fuel/energy
 minimization.  In fact, two of the IPC domains, \pddl{Openstacks} and
 \pddl{Cybersec}, which were shown to be difficult for standard tiebreaking
 methods in the previous section, both contain many zero-cost actions
-and are based on industrial applications: %no textbf here because both cybersec and openstacks are highly simplified models, let's not exaggerate their importance
+and are based on industrial applications: %no textbf here because both \pddl{Cybersec} and \pddl{Openstacks} are highly simplified models, let's not exaggerate their importance
 \pddl{Openstacks} models
 production planning \cite{fink1999applications} and \pddl{Cybersec}
 models Behavioral Adversary Modeling System \cite[minimizing decryption,
@@ -86,24 +86,24 @@ The suffixes in the names of these domains indicate the actions with non-zero co
 e.g., \pddl{logistics-fuel} is a modified logistics domain where only actions which consume fuel have non-zero cost.
 Most of the transportation-type domains are modified to optimize 
 energy usage (\pddl{logistics-fuel}, \pddl{elevator-up} etc.), and  assembly-type domains are modified to minimize resource usage
-%% floortile-ink is not shown, so better not to mention it
+%% \pddl{floortile-ink} is not shown, so better not to mention it
 (\pddl{Woodworking-cut} minimizes wood usage, etc.).
 
 We did not
 include domains which have only a single action schema, or which already had many zero-cost actions.
 We refer to these 28 new domains as \emph{zerocost domains}.
 In detail, they are:
-airport-fuel (20), blocks-stack (20), depot-fuel (22), driverlog-fuel (20),
-elevators-up (20), floortile-ink (20), freecell-move (20), grid-fuel (5),
-gripper-move (20), hiking-fuel (20), logistics00-fuel (28), miconic-up (30),
-mprime-succumb (35), mystery-feast (20), nomystery-fuel (20),
-parking-movecc (20), pathways-fuel (30), pipesnt-pushstart (20),
-pipesworld-pushend (20), psr-small-open (20), rovers-fuel (40),
-scanalyzer-analyze (20), sokoban-pushgoal (20), storage-lift (20),
-tidybot-motion (20), tpp-fuel (30), woodworking-cut (20),
-zenotravel-fuel (20).
+\pddl{airport-fuel} (20), \pddl{blocks-stack} (20), \pddl{depot-fuel} (22), \pddl{driverlog-fuel} (20),
+\pddl{elevators-up} (20), \pddl{floortile-ink} (20), \pddl{freecell-move} (20), \pddl{grid-fuel} (5),
+\pddl{gripper-move} (20), \pddl{hiking-fuel} (20), \pddl{logistics00-fuel} (28), \pddl{miconic-up} (30),
+\pddl{mprime-succumb} (35), \pddl{mystery-feast} (20), \pddl{nomystery-fuel} (20),
+\pddl{parking-movecc} (20), \pddl{pathways-fuel} (30), \pddl{pipesnt-pushstart} (20),
+\pddl{pipesworld-pushend} (20), \pddl{psr-small-open} (20), \pddl{rovers-fuel} (40),
+\pddl{scanalyzer-analyze} (20), \pddl{sokoban-pushgoal} (20), \pddl{storage-lift} (20),
+\pddl{tidybot-motion} (20), \pddl{tpp-fuel} (30), \pddl{woodworking-cut} (20),
+\pddl{zenotravel-fuel} (20).
 
-In some domains (specifically, blocks, freecell, pipes-notanckage, miconic), the set of zerocost domain instances has fewer instances than the original domain.% blocks original 35 vs 20, freecell 80 vs 20, pipesnt 50 vs 20, miconic 150 vs 30
+In some domains (specifically, \pddl{blocks}, \pddl{freecell}, \pddl{pipesworld-notankage}, \pddl{miconic}), the set of zerocost domain instances has fewer instances than the original domain.% \pddl{blocks} original 35 vs 20, \pddl{freecell} 80 vs 20, pipesnt 50 vs 20, \pddl{miconic} 150 vs 30
 For example, the original \pddl{miconic} domain has
 150 instances, while our zerocost version has 30 instances.
 This is in order to avoid  the problem of domains with a large number of instances  skewing the overall coverage sums.

@@ -1,0 +1,13 @@
+
+
+
+
+
+
+
+
+
+
+
+
+\(airport\|barman-opt11\|blocks\|cybersec\|depot\|driverlog\|elevators-opt11\|floortile-opt11\|freecell\|grid\|gripper\|hanoi\|logistics00\|miconic\|mprime\|mystery\|nomystery-opt11\|openstacks-opt11\|parcprinter-opt11\|parking-opt11\|pathways\|pegsol-opt11\|pipesworld-notankage\|pipesworld-tankage\|psr-small\|rovers\|scanalyzer-opt11\|sokoban-opt11\|storage\|tidybot-opt11\|tpp\|transport-opt11\|visitall-opt11\|woodworking-opt11\|zenotravel\|airport-fuel\|blocks-stack\|depot-fuel\|driverlog-fuel\|elevators-up\|floortile-ink\|freecell-move\|grid-fuel\|gripper-move\|hiking-fuel\|logistics00-fuel\|miconic-up\|mprime-succumb\|mystery-feast\|nomystery-fuel\|parking-movecc\|pathways-fuel\|pipesnt-pushstart\|pipesworld-pushend\|psr-small-open\|rovers-fuel\|scanalyzer-analyze\|sokoban-pushgoal\|storage-lift\|tidybot-motion\|tpp-fuel\|woodworking-cut\|zenotravel-fuel\)\([^}]\)

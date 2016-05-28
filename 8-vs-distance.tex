@@ -47,7 +47,7 @@ Continuing this work, \shortciteauthor{thayer2009using} \citeyear{thayer2009usin
 evaluated various distance-to-go configurations of Weighted
 \astar, Dynamically Weighted \astar \cite{pohl1973avoidance} and $A^*_\epsilon$.
 Some configurations use distance-to-go as part of
-tiebreaking while they focus on bounded-suboptimal search rather than optimal search.
+tiebreaking while they focus on bounded-suboptimal search rather than cost-optimal search.
 % 
 Also, \shortciteauthor{cushing2010cost} \citeyear{cushing2010cost} more eloquently advocated the danger of relying
 on cost estimates in a satisficing search by investigating ``$\varepsilon$-cost traps'' and other pitfalls caused by
@@ -163,12 +163,12 @@ Thus, when the depth diversity criterion  is not used, the best configurations a
 which use $\ffo$.
 In detail, following domains are improved by each change:
 \begin{itemize}
- \item \textbf{$h^\lmcut \to \hh^\lmcut$}: elevator-up (all), freecell-move (\fifo,\ro), mprime-succumb (all), mystery-feast (\lifo,\ro) parking-movecc (all), pipesworld-pushend (all), scanalyzer-analyze (\lifo,\ro), wood\-working-cut (all). (Compare \reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:dtg-lmcut-zero}.)
- \item \textbf{$h^\mands \to \hh^\mands$}: elevator-up (all), freecell-move (\fifo,\ro), mprime-succumb (\ro), mystery-feast (\fifo,\lifo) parking-movecc (all), pipesworld-pushend (all), scanalyzer-analyze (all), wood\-working-cut (all), zenotravel-fuel (\lifo,\ro). (Compare \reftbl{tbl:mands-zerocost-full} and \reftbl{tbl:dtg-mands-zero}.)
- \item \textbf{$h^\lmcut \to h^\lmcut,\hh^\lmcut$}: airport-fuel (\fifo,\ro), mprime-succumb (\fifo,\ro), parking-movecc (\lifo), pipesworld-pushend (\fifo), scanalyzer-analyze (all).
+ \item \textbf{$h^\lmcut \to \hh^\lmcut$}: \pddl{elevator-up} (all), \pddl{freecell-move} (\fifo,\ro), \pddl{mprime-succumb} (all), \pddl{mystery-feast} (\lifo,\ro) \pddl{parking-movecc} (all), \pddl{pipesworld-pushend} (all), \pddl{scanalyzer-analyze} (\lifo,\ro), \pddl{wood\-working-cut} (all). (Compare \reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:dtg-lmcut-zero}.)
+ \item \textbf{$h^\mands \to \hh^\mands$}: elevator-up (all), \pddl{freecell-move} (\fifo,\ro), \pddl{mprime-succumb} (\ro), \pddl{mystery-feast} (\fifo,\lifo) \pddl{parking-movecc} (all), \pddl{pipesworld-pushend} (all), \pddl{scanalyzer-analyze} (all), wood\-working-cut (all), \pddl{zenotravel-fuel} (\lifo,\ro). (Compare \reftbl{tbl:mands-zerocost-full} and \reftbl{tbl:dtg-mands-zero}.)
+ \item \textbf{$h^\lmcut \to h^\lmcut,\hh^\lmcut$}: \pddl{airport-fuel} (\fifo,\ro), \pddl{mprime-succumb} (\fifo,\ro), \pddl{parking-movecc} (\lifo), \pddl{pipesworld-pushend} (\fifo), \pddl{scanalyzer-analyze} (all).
  \item \textbf{$h^\mands \to h^\mands,\hh^\mands$}: comparable.
- \item \textbf{$h^\lmcut,\hh^\lmcut \to \ffo$}: blocks-stack (all), freecell-move (all), hiking-fuel (all), miconic-up (all), mprime-succumb (all), parking-movecc (all), pipesworld-pushend (all), sokoban-pushgoal (all), tidybot-motion (all), tpp-fuel (\ro).
- \item \textbf{$h^\mands,\hh^\mands \to \ffo$}: airport-fuel (all), elevator-up (all), freecell-move (all), miconic-up (all), mprime-succumb (all), parking-movecc (all), pipesnt-pushstart (all), scanalyzer-analyze (all), sokoban-pushgoal (all), tpp-fuel (\ro).
+ \item \textbf{$h^\lmcut,\hh^\lmcut \to \ffo$}: \pddl{blocks-stack} (all), \pddl{freecell-move} (all), \pddl{hiking-fuel} (all), \pddl{miconic-up} (all), \pddl{mprime-succumb} (all), \pddl{parking-movecc} (all), \pddl{pipesworld-pushend} (all), \pddl{sokoban-pushgoal} (all), \pddl{tidybot-motion} (all), \pddl{tpp-fuel} (\ro).
+ \item \textbf{$h^\mands,\hh^\mands \to \ffo$}: \pddl{airport-fuel} (all), elevator-up (all), \pddl{freecell-move} (all), \pddl{miconic-up} (all), \pddl{mprime-succumb} (all), \pddl{parking-movecc} (all), \pddl{pipesnt-pushstart} (all), \pddl{scanalyzer-analyze} (all), \pddl{sokoban-pushgoal} (all), \pddl{tpp-fuel} (\ro).
 \end{itemize}
  
 Adding the depth diversity criterion further improves the performance of the $\ffo$-based strategies,
@@ -178,8 +178,8 @@ The coverage increased in both
  $h=h^\mands$ (\fifo: $336\rightarrow 337$, \lifo: $331\rightarrow 333$).
 Improvement was observed in the following domains:
 \begin{itemize}
- \item \textbf{\lmcut}: mprime-succumb (\lifo, \ro), storage-lift (\ro), tidybot-motion (\fifo), tpp-fuel (\fifo, \ro).
- \item \textbf{\mands}: mprime-succumb (\lifo, \ro), tpp-fuel (\fifo).
+ \item \textbf{\lmcut}: \pddl{mprime-succumb} (\lifo, \ro), \pddl{storage-lift} (\ro), \pddl{tidybot-motion} (\fifo), \pddl{tpp-fuel} (\fifo, \ro).
+ \item \textbf{\mands}: \pddl{mprime-succumb} (\lifo, \ro), \pddl{tpp-fuel} (\fifo).
 \end{itemize}
 When the default tiebreaking was \ro and the heuristic is \mands, $[f,\ffo,\depth,\ro]$ have small degradation
 over $[f,\ffo,\ro]$, but the difference was fractional ($337.9\rightarrow 337.6$) and $\depth$ made the performance slightly more robust (smaller standard deviation: $2.1\rightarrow 1.3$).
@@ -194,7 +194,7 @@ additional heuristics, and the best result using \mands
 was $[f,h,\lifo]$ which imposes no overhead including the depth.
 
 If we look further into the detail, we observed the following:
-In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) improve upon the standard strategy (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:3), but does not improve upon depth (e.g. $[f,h,\depth,\lifo]$: 12). When $h=h^\mands$, all coverages are zero. Overheads by $\ffo$ also slightly degrade the performance in Openstacks (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:18, $[f^\lmcut,\ffo,\lifo]$:17, $[f^\lmcut,h^\lmcut,\depth,\lifo]$: 18; Also, $[f^\mands,h^\mands,\lifo]$:19, $[f^\mands,\ffo,\lifo]$:18, $[f^\mands,h^\mands,\depth,\lifo]$: 19). Thus, in these two domains, although there are some positive effects in the guidance by $\ffo$ or $\hh$, additional overheads by those distance-to-go heuristics outweighed the merit.
+In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) improve upon the standard strategy (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:3), but does not improve upon depth (e.g. $[f,h,\depth,\lifo]$: 12). When $h=h^\mands$, all coverages are zero. Overheads by $\ffo$ also slightly degrade the performance in \pddl{Openstacks} (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:18, $[f^\lmcut,\ffo,\lifo]$:17, $[f^\lmcut,h^\lmcut,\depth,\lifo]$: 18; Also, $[f^\mands,h^\mands,\lifo]$:19, $[f^\mands,\ffo,\lifo]$:18, $[f^\mands,h^\mands,\depth,\lifo]$: 19). Thus, in these two domains, although there are some positive effects in the guidance by $\ffo$ or $\hh$, additional overheads by those distance-to-go heuristics outweighed the merit.
  
 In the positive-cost domains (IPC domains except \pddl{Openstacks} and \pddl{Cybersec}), $\hat{h}$ or $\ffo$
 only harms the overall performance due to the overhead.
@@ -209,14 +209,14 @@ Thus, to recapitulate, our conclusions are the follows:
  \item When the \textbf{primary heuristics is \lmcut}, the best performer under
        \begin{itemize}
         \item \textbf{Zerocost domains} is $[f,\ffo,\depth,\ro]$.
-        \item \textbf{Zerocost IPC domains (Cybersec, Openstacks)} is $[f,h,\depth,\lifo]$.
+        \item \textbf{Zerocost IPC domains (\pddl{Cybersec}, \pddl{Openstacks})} is $[f,h,\depth,\lifo]$.
         \item \textbf{Positive-cost IPC domains} is $[f,h, \text{any default tiebreaking}]$ or $[f,h, \depth, \text{any default tiebreaking}]$.
        \end{itemize}
  \item When the \textbf{primary heuristics is \mands}, the best performer under
        \begin{itemize}
         \item \textbf{Zerocost domains} is $[f,\ffo,\ro]$ or $[f,\ffo,\depth,\ro]$, but the latter has
               a smaller variance.
-        \item \textbf{Zerocost IPC domains (Cybersec, Openstacks)} is $[f,h,\lifo]$ or depth variants with any default tiebreaking.
+        \item \textbf{Zerocost IPC domains (\pddl{Cybersec}, \pddl{Openstacks})} is $[f,h,\lifo]$ or depth variants with any default tiebreaking.
         \item \textbf{Positive-cost IPC domains} is $[f,h,\lifo]$.
        \end{itemize}
 \end{itemize}
