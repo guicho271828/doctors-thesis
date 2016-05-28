@@ -7,25 +7,26 @@ In this paper, we investigate and improve tiebreaking strategies for
  nodes.  We find that tiebreaking strategy has a significant impact on search
  algorithm performance when there are zero-cost operators that induce
  large plateau regions in the search space. With this in mind, we
- develop two new kinds of tiebreaking strategy.
- The first one is based on a depth metric which
- measures the distance from the entrance to the plateau and proposes a
- new, diversifying strategy which significantly outperforms standard
+ develop two new classes of tiebreaking strategy.
+ The first class of strategy we propose is based on a depth metric which
+ measures the distance from the entrance to the plateau. We  proposes a
+ new, depth diversification strategy which significantly outperforms standard
  strategies on domains with zero-cost actions.
  We give both a theoretical analysis and an empirical analysis
- supporting this.
- Another one is an admissible multi-heuristic tiebreaking strategy
- based on the inadmissible distance-to-go variations of various heuristics.
- It is shown to further improve the performance
+ supporting these results.
+ The second class of strategy we investigate is 
+ an admissible multi-heuristic tiebreaking strategy
+ based on inadmissible, distance-to-go variations of various heuristics.
+ This is shown to further improve the performance
  in combination with the depth metric.
  Finally, we open a new interpretation to the cost-optimal search by 
  pointing out that the multi-heuristic strategy is a rare attempt to apply a satisficing
- technique to cost-optimal search.
+ technique to cost-optimal search.{\bf [TODO: preceding sentence doesn't make sense - fix later]}
  This new interpretation is additionally supported by
  the empirical results of the satisficing search using GBFS
  enhanced by the depth diversification.
  % 
  \textbf{Note to Reviewers: This paper is a significantly extended
-version of the AAAI-16 paper by the same authors. Additions are
+version of an AAAI-16 paper by the same authors. The differences are
 summarized at the end of \refsec{sec:introduction}.}
 \end{abstract}

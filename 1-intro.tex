@@ -21,20 +21,22 @@ accounts for a significant fraction of the effective search space of \astar.  \r
 (\refpage{fig:plateau-noh}) compares the number of states in this final plateau with $f(n) = f^*$ (y-axis)
 vs. $f(n) \leq f^*$ (x-axis) for 1104 problem instances from the International Planning Competition (IPC1998-2011).
 For many instances, a large fraction of the nodes in the effective search space have $f(n)=f^*$: The points
-are located very close to the diagonal line ($x=y$), indicating almost all states with $f(n) \leq f^*$ have cost
+are located very close to the diagonal line ($x=y$), indicating that almost all states with $f(n) \leq f^*$ have cost
 $f^*$.
 
 \refig{fig:plateau-0} depicts the conceptual view of this phenomenon.
 % 
-A naive view of the search space (left) would consider the space searched by \astar as
-a thin layer of final plateau $f(n)=f^*$ surrounding a large number of closed nodes with $f<f^*$.  This view is
-intuitive, and may accurately describe some real, practical search spaces such as 2D pathfinding on an explicit
-graph. It also gives a foundation to some family of search algorithms like Frontier Search
-\cite{korf1999divide,korf2000divide}, which tries to reduce the memory requirement by discarding the information on
-$f<f^*$, which may work if $f<f^*$ is large.
+One natural  % avoiding ``naive'' here because we don't want to Frontier Search people to misunderstand and belive that we're calling them naive.
+view of the search space (left) would consider the space searched by \astar as
+a large number of closed nodes with $f<f^*$, surrounded by a
+a thin layer of final plateau $f(n)=f^*$.  This intuitive view
+may accurately describe some real, practical search spaces such as 2D pathfinding on an explicit
+graph. This view has also served as the algorithms such as Frontier Search
+\cite{korf1999divide,korf2000divide}, which tries to reduce the memory requirement by discarding the information associated with states with 
+$f<f^*$, which can be effective when the number of states with $f<f^*$ accounts for a large fraction of the search effort.
 % 
-However, for many combinatorial search problems,
-the figure on the right is a more accurate depiction -- the  search space has a large plateau for $f=f^*$.
+However, for many other classes of combinatorial search problems, e.g., the IPC Planning Competition Benchmarks, 
+the figure on the right is a more accurate depiction -- here, the  search space has a large plateau for $f=f^*$.
 In fact, Iterative Deepening approaches \cite{korf1985depth} assume this type of search space
 where this final frontier is quite huge and the cost of re-evaluating $f<f^*$ is limited.
 Classical planning problems in IPC benchmarks are clearly the instances of such combinatorial search problems.
@@ -56,7 +58,8 @@ Classical planning problems in IPC benchmarks are clearly the instances of such 
 \begin{figure}[htbp]
   \centering
   \includegraphics{img/astar/plateau-0.pdf}
- \caption{(Left) Naive understanding of the search space of \astar, which only holds for some limited domains. (Right) The reality of search spaces of combinatorial problems. The plateau containing the cost-optimal goals ($f=f^*$) is large, and it even accounts for most of the search effort required by \astar.
+% \caption{(Left) Naive understanding of the search space of \astar, which only holds for some limited domains. (Right) The reality of search spaces of combinatorial problems. The plateau containing the cost-optimal goals ($f=f^*$) is large, and it even accounts for most of the search effort required by \astar.
+ \caption{(Left) One possible class of serach space which is dominated by the states with cost $f<f^*$. (Right) This paper focuses on another class of search space, where the plateau containing the cost-optimal goals ($f=f^*$) is large, and it even accounts for most of the search effort required by \astar. % reworded to avoid offending all the SoCS people.
   }
  \label{fig:plateau-0}
 \end{figure}
@@ -87,13 +90,14 @@ We show that:
        when domains include zero-cost actions. This is true even when $h$-based tiebreaking is used.
 \end{enumerate}
 
-While there are relatively few domains with zero-cost actions in the IPC
-benchmark set, we argue that zero-cost actions naturally occur in
+While there are currently relatively few standard benchmark domains with zero-cost actions,
+we argue that zero-cost actions naturally occur in
 practical cost-minimization problems. Therefore, we introduce a new set of
 benchmarks called \emph{Zerocost domains}
-(\refsec{sec:zerocost-domains}).  We empirically show that these
-Zerocost domains have the different search space structure and different
-problem difficulty from those of the original domains.
+(\refsec{sec:zerocost-domains}), which are a set of domains based on standard IPC domains for which only the most important actions which are directly related to resource usage incur non-zero cost.
+We compare these domains with the original IPC domains from which they are derived, and empirically show that 
+Zerocost domains have a different search space structure and different
+problem difficulty.
 
 In order to solve such problems more efficiently, we propose and
 evaluate \emph{depth diversification}, a new
