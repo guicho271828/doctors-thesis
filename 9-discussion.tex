@@ -1,5 +1,5 @@
 \clearpage 
-\section{Discussion}
+\section{Discussion: Reformulation of A* as a Series of Satisficing Search Episodes}
 \label{sec:discussion}
 
 One observation that can be made from the experiments in the previous sections is that \textbf{cost-optimal search
@@ -17,17 +17,17 @@ As another example, the reason for the poor performance of $[f,\fifo]$
 is clearly that it is running $[\fifo]$,
 an uninformed satisficing breadth-first search in the plateau.
 Furthermore, the good performance of $[f^{\lmcut},\ffo,\fifo]$ is also clear:
-$\ffo$ is by itself known to be a \sota inadmissible heuristic
+$\ffo$ is by itself known to be a powerful inadmissible heuristic  % let's avoid using \sota to describe relatively ``old'' heuristics like ff (where ``relatively old'': 10yrs).
 function for satisficing GBFS, and 
 if we ignore the first sorting criterion, $[f^{\lmcut},\ffo,\fifo]$ is a GBFS with $[\ffo,\fifo]$.
 
-Now, we reinterpret \astar as follows: \astar expands the nodes in a best-first order of $f$ value. When the
-heuristic function is admissible, $f$ value of the nodes expanded by \astar never decreases during the
+From this perspective, we can reinterpret \astar as follows: \astar expands the nodes in best-first order of $f$ value. When the
+heuristic function is admissible, the $f$ values of the nodes expanded by \astar never decreases during the
 search process.
-Thus, the entire process of \astar can be considered as a series of blocks of search on each $\plateau{f}$.
+Thus, the entire process of \astar can be considered as a series of search episodes on each $\plateau{f}$.
 The search on each plateau terminates when the plateau is proven to contain no goal nodes (UNSAT), or when a goal is found (SAT).
-When the plateau is UNSAT, then the search continues to the plateau with the next least $f$ value.
-\refig{fig:astar-sat} illustrates the concept.
+When the plateau is UNSAT, then the search continues to the plateau with the next smallest $f$ value.
+\refig{fig:astar-sat} illustrates this view.
 
 \begin{figure}[htbp]
  \includegraphics{img/astar/plateau-5.pdf}
@@ -35,39 +35,49 @@ When the plateau is UNSAT, then the search continues to the plateau with the nex
  \label{fig:astar-sat}
 \end{figure}
 
-A similar concept is common in SAT/IP model-based sequential / temporal planning
-\cite{rintanen2012planning,van2005optiplan} in a slightly different sense.  In model-based planning, a
+
+This is also somewhat similar to the standard approach to model-based planning using SAT/IP/CP solvers model-based sequential / temporal planning (c.f. \cite{KautzS1992,van2005optiplan}).
+% \cite{rintanen2012planning,   Rintanen is state-of-the-art but not a good exemplar for this point, because his solver jumps around various horizons. van2005optiplan} in a slightly different sense.  
+In model-based planning, a
 planning problem is converted to a corresponding constraint satisfaction problem with a finite horizon $t$ (plan
 length / makespan). The search starts from the horizon 0 and tests if the problem is satisfiable. If not, then it
-increases the horizon and retests the same problem with additional constraints for a new horizon $t+1$. In the
-forward heuristic search such as \astar, the concept of horizon corresponds to the $f$ value, which is a lower
-bound of the solution cost.
+increases the horizon and retests the same problem with additional constraints for a new horizon $t+1$. 
+The stratey of iterative search over a sequence of horizons in model-based planning is somewhat analogous to our view of A* as a sequence of satisficing search over a set of plateaus.
 
-The key difference in the \astar-based cost-optimal planning from the model-based planning is
-that the information is transmitted between different horizons:
-In \astar, nodes that are generated in the smaller
-$f$ layer will be ``sent'' to the larger $f$ layer through the global OPEN
-list, while the current model-based methods prove the satisfiability of
-different horizons independently -- in each iteration of the search,
-they have to generate a new instance of a SAT/IP problem, and the
-underlying model-based solvers are forced to start the search from the scratch.
 
-More precisely, each iteration of \astar only requires testing the satisfiability in the space of particular
-$f$ while each iteration of model-based solvers tests the satisfiability in the space of all nodes $0\leq f(n)\leq t$
-($t$: a horizon).  This latter behavior also connects model-based approaches to Iterative Deepening \astar
-\cite{korf1985depth} where the search is restarted from the scratch on each iteration, forgetting the past search
-effort in order to ensure the linear space usage.
-\refig{fig:idastar-sat} illustrates the concept.
+
+%In forward heuristic search algorithms such as \astar, the concept of horizon corresponds to the $f$ value, which is a lower bound of the solution cost.
+
+
+% XXX it's not a correct/safe to say that model-based methods solves from scratch on each iteration. In a model-based planners, at iteration  t, a constraint is added to exclude solutions with <t steps/layers (depending on whether layers are sequential/parallel) so that only possible solutions for that horizon are tested, so on the t't hiteration no search effort is wasted searching for solutions <t. This is different from the way IDA* repeats all work on each iteration.
+
+%% A key difference in the \astar-based cost-optimal planning from the model-based planning is
+%% that the information is transmitted between different horizons:
+%% In \astar, nodes that are generated in the smaller
+%% $f$ layer will be ``sent'' to the larger $f$ layer through the global OPEN
+%% list, while current model-based methods prove the satisfiability of
+%% different horizons independently -- in each iteration of the search,
+%% they have to generate a new instance of a SAT/IP problem, and the
+%% underlying model-based solvers are forced to start the search from the scratch.
+
+%More precisely, each iteration of \astar only requires testing the satisfiability in the space of particular
+%$f$ while each iteration of model-based solvers tests the satisfiability in the space of all nodes $0\leq f(n)\leq t$ ($t$: a horizon).   
+
+
+%This latter behavior also connects model-based approaches to Iterative Deepening \astar
+%\cite{korf1985depth} where the search is restarted from the scratch on each iteration, forgetting the past search
+%effort in order to ensure the linear space usage.
+%\refig{fig:idastar-sat} illustrates the concept.
 % 
-\todo*{A more standard interpretation of the connectin between SAT/IP/CSP planning vs A* is that SAT/IP/CSP are
-doing iterated deepening, where each iteration seeks a satisficing solution, like IDA*. }
+%\todo*{A more standard interpretation of the connectin between SAT/IP/CSP planning vs A* is that SAT/IP/CSP are
+%doing iterated deepening, where each iteration seeks a satisficing solution, like IDA*. }
 % 
 
-\begin{figure}[htbp]
- \includegraphics{img/astar/plateau-6.pdf}
- \caption{The concept of IDA* and model-based planning as a sequence of satisficing searches.}
- \label{fig:idastar-sat}
-\end{figure}
+%% \begin{figure}[htbp]
+%%  \includegraphics{img/astar/plateau-6.pdf}
+%%  \caption{The concept of IDA* and model-based planning as a sequence of satisficing searches.}
+%%  \label{fig:idastar-sat}
+%% \end{figure}
 
 One may notice the difference between the satisficing search and the search on a plateau.
 In fact, the former starts from a single initial node while the latter may start from multiple initial nodes.
@@ -82,11 +92,16 @@ These nodes are generated as a result of expansions of the parent nodes with $f<
 However, the difference is superficial: The latter can be reduced to the former case by introducing a dummy node
 which acts as a common parent of all initial nodes. We can thus reformulate the plateau search problem as a satisficing search from the single dummy node.
 
-This entire view shows an interesting direction for future work.
-Although we evaluated only one \sota satisficing configuration $\ffo$ in
-the experiments, it does not prevent us from applying yet
-more variety of satisficing planning techniques to the tiebreaking in cost-optimal search.
-There are plenty of candidates: Lazy evaluation \cite{richter2010lama}, Alternating/Pareto open
+
+This view of A* search as a series of satisficing searches also reminiscent of the behavior of 
+iterative deepening A* \cite{korf1985depth}, which executes a series of satisficing searches with a $f$-cost limit which increases on each iteration. 
+However, ``A*-as a sequence of satisficing search'' differs from IDA* in that IDA*, in order to achieve linear memory usage, repeats prevoius work on each iteration.
+
+Reformulating A* as a sequence of satisficing searches 
+points to  an interesting direction for future work.
+Although we evaluated only one relatively simple, satisficing configuration ($\ffo$) in
+the experiments, many techniques which have previously been developed for satisficing planning can be applied to enhance tiebreaking (plateau-search) in cost-optimal search, including
+lazy evaluation \cite{richter2010lama}, alternating/pareto open
 list \cite{RogerH10}, helpful actions (preferred operators) \cite{Hoffmann01},
 random walk local search \cite{nakhost2009monte}, macro operators
 \cite{Botea2005,ChrpaVM15}, factored planning
@@ -94,6 +109,7 @@ random walk local search \cite{nakhost2009monte}, macro operators
 exploration-based search enhancements
 \cite{valenzano2014comparison,xie14type,Valenzano2016}.
 
+\begin{comment} % If you're still considering submitting tiebreaking for satisficing to a conference, including this subsection can block the conference paper and is a bad idea.
 \subsection{Depth Diversification for Satisficing Search}
 
 In order to strengthen the connection between tiebreaking and satisficing search,
@@ -108,7 +124,7 @@ fact the same thing.
 
 We provide preliminary results on the 280 IPC8 satisficing track
 instances. We tested GBFS using the distance-to-go variations of three
-\sota inadmissible heuristics for satisficing search: FF heuristics
+inadmissible heuristics for satisficing search: FF heuristics
  \cite{Hoffmann01}, Causal Graph (CG) heuristics \cite{Helmert2006}, and
 Context Enhanced Additive (CEA) heuristics\ \cite{helmert2008unifying}.
 For each heuristics, we tested eager and lazy search, with and without
@@ -194,7 +210,9 @@ increasing the size of each plateau.
 %  metric improves the coverage.}
 %  \label{tbl:lama}
 % \end{table}
+\end{comment}
 
+\begin{comment} % Too much excitement. We've already said enough already on this.
 In the past, cost-optimal search techniques and satisficing search techniques used to be developed rather separately, and there has been only a handful of knowledge migration between them, most of which are abstract ideas such as delete-relaxation, landmarks, causal graphs or pattern database.
 Otherwise, the migration is unidirectional, in particular from cost-optimal to satisficing search, because it is easy or trivial to relax the optimality requirements.
 % 
@@ -202,4 +220,5 @@ Our results and the new interpretation, \textbf{cost-optimal search is a sequenc
 open up a new opportunity to break this boundary.  We provided the fundamentals of how and why we can import
 satisficing search techniques to the cost-optimal search (e.g. $\ffo$ heuristics in cost-optimal search).  There is a
 large avenue for future work in making a new migration happen.
+\end{comment}
 

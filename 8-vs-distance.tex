@@ -1,11 +1,12 @@
 \clearpage
-\section{Distance-to-Go Estimates}
+\section{Tie-Breaking Using Distance-to-Go Estimates}
 
 \label{sec:distance-to-go}
 
-Although we showed the benefit of knowledge-free search technique, there is another approach to improving the
-search performance in plateaus produced by zerocost domains. The approach we evaluate in this section is one which
-enhances the search by combining multiple heuristics, especially inadmissible \emph{distance-to-go} estimates.
+So far, we have shown that a {\it knowledge-free}, depth-based tiebreaking method can significantly improve search performance on domains with zero-cost actions.
+In this ection, we turn to another approach to improving the
+search performance in plateaus produced by zerocost domains --
+using inadmissible \emph{distance-to-go} estimates (heuristics) as a tiebreaking criterion within an admissible A* search.
 
 % ; This allows the heuristics to be
 % inadmissible when it is only used for tiebreaking strategy.
@@ -16,19 +17,20 @@ enhances the search by combining multiple heuristics, especially inadmissible \e
 
 % We next compare our depth diversification to the distance-to-go
 % estimates in the plateau.  
-Distance-to-go estimates are the type of
-heuristics which treat actions as if they have the unit cost. Even under
+Distance-to-go estimates are a class of
+heuristics which treat all actions as if they have the unit cost. Even under
 the presence of zero-cost actions, those estimates can predict the
 number of operations required to reach a goal.
-While several papers advocate the benefit of this technique, many of
-these claims took place in the context of satisficing planning.
+While several papers advocate the benefit of this technique, the preivious work has focused on 
+distance-go-to estimates in the context of satisficing planning.
 \todo*{Need more complete  survey of previous work on d2go heuristics in best-first search (not just planning) here: Thayer+Ruml ICAPS09,Socs09; connectoins to FOCAL method of Pearl and Kim}
 
-Except for cases where the target domains are unit-cost by origin, $A^*_\epsilon$ \cite{pearl1982studies} is one of
+Except for cases where the target domains are unit-cost by origin, {\bf [don't understand previous clause -- are you saying that in cases where the target domains are originally unit-cost, there were d2go estimates before  $A^*_\epsilon$ ??]}
+$A^*_\epsilon$ \cite{pearl1982studies} is one of
 the earliest algorithms that combines distance-to-go estimates with the cost estimates. It is a bounded-suboptimal
-search which expands from the \emph{focal} list, the set of nodes with $f(n)\leq w\cdot f_{\mit{min}}$ where $w$ is
-a cost bound in a sense of $\mit{WA}^*$ and $f_{\mit{min}}$ is the minimum $f$ value in the OPEN list.  While $f$
-is based on an admissible heuristic function, the nodes in the focal list are expanded in the increasing order of
+search which expands from the \emph{focal} list, the set of nodes with $f(n)\leq w\cdot f_{\mit{min}}$ where weight $w$ serves as a suboptimality bound, similar to weighted \astar, 
+ and $f_{\mit{min}}$ is the minimum $f$ value in the OPEN list.  While $f$
+is based on an admissible heuristic function, the nodes in the focal list are expanded in increasing order of
 an inadmissible distance-to-go estimates $\hh$. Thus, the search does not follow the best-first order of $f$ and is
 not admissible, being only $w$-admissible. One exception is the case of $w=1$ where the focal list is equivalent
 to the $f$ plateau and the expansion order in the focal list corresponds to the tiebreaking on plateaus. In our
@@ -43,15 +45,15 @@ This is because the focal list ``blur''s $f$ up to $w\cdot f_{\mit{min}}$.
 For example, when $w=2, f_{\mit{min}}=5$ and
 $f(n)=5,9,11$, then $\lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil=1,1,2$ respectively. 
 
-Continuing this work, \shortciteauthor{thayer2009using} \citeyear{thayer2009using,thayer2011bounded}
+Continuing this line of work, \shortciteauthor{thayer2009using} \citeyear{thayer2009using,thayer2011bounded}
 evaluated various distance-to-go configurations of Weighted
 \astar, Dynamically Weighted \astar \cite{pohl1973avoidance} and $A^*_\epsilon$.
 Some configurations use distance-to-go as part of
 tiebreaking while they focus on bounded-suboptimal search rather than cost-optimal search.
 % 
-Also, \shortciteauthor{cushing2010cost} \citeyear{cushing2010cost} more eloquently advocated the danger of relying
+\shortciteauthor{cushing2010cost} \citeyear{cushing2010cost} pointed out the danger of relying  % neutral tone
 on cost estimates in a satisficing search by investigating ``$\varepsilon$-cost traps'' and other pitfalls caused by
-cost estimators for search guidance. Again, this work targets satisficing search.
+cost estimators for search guidance. % Again, this work targets satisficing search. %''satisficing search'' appears in previous sentence.
 % 
 Finally, a \sota satisficing planner FD/LAMA2011 incorporates distance-to-go estimates in its iterated search
 framework. The first iteration of LAMA uses distance-to-go estimates combined with various satisficing
@@ -67,7 +69,7 @@ heuristic function combined with distance-to-go estimates on top of Temporal Fas
 %  and showing that (non-admissibly) treating all actions as unit cost sometimes finds an optimal plan quickly.
 % Although it could find an optimal plan by chance, this does not guarantee the optimality of the solution.
 
-\subsection{Distance-to-Go Estimates for Cost-Optimal Planning}
+\subsection{Embedding Distance-to-Go Estimates in Admissible Search}
 
 Although previous work on distance-to-go estimates assume a satisficing context,
 there is still a possibility to use the same techniques for cost-optimal search.
@@ -105,8 +107,8 @@ We tested various admissible sorting strategies on IPC domains and Zerocost doma
 The configurations are listed in \reftbl{list:distance-configs}. 
 In all configurations, the first sorting criterion is the $f=g+h$ value
 where $h$ is an admissible heuristic (either \lmcut or \mands) using the actual action-cost based  cost calculation.
-As the second or later sorting criterion,
-we tested $\hat{h}$ of original $h$, as well as a distance-to-go variation of FF
+As the second (and third) criteria,
+we used $\hat{h}$, the distanc-to-go version tested  of the original heuristic function $h$ , as well as a distance-to-go variation of FF
 heuristic ($\hat{h}^{\ff}$).
 % , and a distance-to-go variation of
 % GoalCount heuristic ($\hat{h}^{\text{GoalCount}}$) which is added to
@@ -155,7 +157,7 @@ Detailed per-domain results are shown in
 In Zerocost domains, we see that $\hat{h}$-tiebreaking outperforms $h$-tiebreaking for both \lmcut (e.g. $256\rightarrow 295$ with \fifo) and \mands (e.g. $280\rightarrow 308$ with \fifo).
 Also, combining $h$ and $\hat{h}$ can further improve performance when the heuristic is \lmcut (e.g. $295\rightarrow 305$ with \fifo). The results with/without $\hat{h}$ are comparable when the main heuristic function $h$ is \mands.
 % 
-Yet more surprisingly, using $\ffo$ improved the performance by another factor in both \lmcut
+Yet more surprisingly, using $\ffo$ further improved the performance for both \lmcut
 (e.g. $[f,h,\hh,\fifo]:305 \rightarrow [f,\ffo,\fifo]:337$) and \mands 
 (e.g. $[f,h,\hh,\fifo]:307 \rightarrow [f,\ffo,\fifo]:336$).
 % 
@@ -181,8 +183,8 @@ Improvement was observed in the following domains:
  \item \textbf{\lmcut}: \pddl{mprime-succumb} (\lifo, \ro), \pddl{storage-lift} (\ro), \pddl{tidybot-motion} (\fifo), \pddl{tpp-fuel} (\fifo, \ro).
  \item \textbf{\mands}: \pddl{mprime-succumb} (\lifo, \ro), \pddl{tpp-fuel} (\fifo).
 \end{itemize}
-When the default tiebreaking was \ro and the heuristic is \mands, $[f,\ffo,\depth,\ro]$ have small degradation
-over $[f,\ffo,\ro]$, but the difference was fractional ($337.9\rightarrow 337.6$) and $\depth$ made the performance slightly more robust (smaller standard deviation: $2.1\rightarrow 1.3$).
+When the default tiebreaking was \ro and the heuristic is \mands, $[f,\ffo,\depth,\ro]$ performed slightly worse than 
+$[f,\ffo,\ro]$, but the difference was very small  ($337.9\rightarrow 337.6$) and $\depth$ made the performance slightly more robust (smaller standard deviation: $2.1\rightarrow 1.3$).
 
 For the standard IPC benchmark instances, the overhead due to the additional computation of
 $\hat{h}$ or $\ffo$ tends to harm the overall performance.
@@ -194,17 +196,18 @@ additional heuristics, and the best result using \mands
 was $[f,h,\lifo]$ which imposes no overhead including the depth.
 
 If we look further into the detail, we observed the following:
-In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) improve upon the standard strategy (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:3), but does not improve upon depth (e.g. $[f,h,\depth,\lifo]$: 12). When $h=h^\mands$, all coverages are zero. Overheads by $\ffo$ also slightly degrade the performance in \pddl{Openstacks} (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:18, $[f^\lmcut,\ffo,\lifo]$:17, $[f^\lmcut,h^\lmcut,\depth,\lifo]$: 18; Also, $[f^\mands,h^\mands,\lifo]$:19, $[f^\mands,\ffo,\lifo]$:18, $[f^\mands,h^\mands,\depth,\lifo]$: 19). Thus, in these two domains, although there are some positive effects in the guidance by $\ffo$ or $\hh$, additional overheads by those distance-to-go heuristics outweighed the merit.
+In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) improve upon the standard strategy (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:3), but does not improve upon depth (e.g. $[f,h,\depth,\lifo]$: 12). When $h=h^\mands$, all coverages are zero. Overheads by $\ffo$ also slightly degrade the performance in \pddl{Openstacks} (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:18, $[f^\lmcut,\ffo,\lifo]$:17, $[f^\lmcut,h^\lmcut,\depth,\lifo]$: 18; Also, $[f^\mands,h^\mands,\lifo]$:19, $[f^\mands,\ffo,\lifo]$:18, $[f^\mands,h^\mands,\depth,\lifo]$: 19). Thus, in these two domains, although there are some improvements in search efficiency due to the guidance by $\ffo$ or $\hh$, the runtime overhead of computing the  distance-to-go heuristics outweighed the merit.
  
-In the positive-cost domains (IPC domains except \pddl{Openstacks} and \pddl{Cybersec}), $\hat{h}$ or $\ffo$
+In the domains with only positive cost actions (all IPC domains except \pddl{Openstacks} and \pddl{Cybersec}), $\hat{h}$ or $\ffo$
 only harms the overall performance due to the overhead.
 When the primary heuristics is \lmcut, we do not observe a significant difference between single-heuristics strategies except for the fractional difference in the configurations using \ro.
-When it is \mands, $[f^\mands,h^\mands,\lifo]$ slightly gains an advantage over other default tiebreaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
+When the primary heuristic is  \mands, $[f^\mands,h^\mands,\lifo]$ performs slightly better than  other default tiebreaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
 %  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
 
 \pagebreak[3]
 
 Thus, to recapitulate, our conclusions are the follows:
+{\bf [XXXTODO: this looks like a powerpoint slide, and also has too much bf. Convert to a table]}
 \begin{itemize}
  \item When the \textbf{primary heuristics is \lmcut}, the best performer under
        \begin{itemize}
@@ -269,14 +272,15 @@ Thus, to recapitulate, our conclusions are the follows:
 \clearpage
 \subsection{Simple Dynamic Configuration for Overall Performance}
 
-The performance degradation by the multi-heuristic strategy in positive cost domains is not of a practical issue.
-We can easily avoid the overhead incurred by the distance-to-go heuristics in positive cost domains, using a simple case-based configuration scheme.
-We select a multi-heuristic strategy when there are any zerocost actions in the domain, and a single-heuristic strategy otherwise.
+In practice, the performance degradation when using multi-heuristic strategy in domains with only positive cost actions does not pose a problem.
+We can easily avoid the overhead incurred by the distance-to-go heuristics in domains with only positive cost actions by applying the following, simle policy:: 
+When solving an instance, if there are any zero-cost actions, use a multi-heuristic strategy.
+Otherwise, use a single-heuristic strategy.
 
-Since such a check has only a negligible impact on the total runtime, we can simulate and estimate the results of such configurations without running it.
+Since such a check has negligible impact on the total runtime, we can extrapolate the result of applying this rule based on the previously obtained results.
 Coverage results in \reftbl{tbl:dtg-summary-sum} show the total coverage of
 zerocost and benchmark domains. The bottom two rows, labeled as \emph{dynamic configuration},
-are such estimated results of the switching behavior, and it achieves the highest coverage.
+are the extrapolated results when the switching policy is applied -- this dynamic configuratoin achieves the highest overall coverage.
 
 \begin{table}[htbp]
  \centering \input{tables/8-1-summary-sum}
@@ -290,7 +294,7 @@ are such estimated results of the switching behavior, and it achieves the highes
  \label{tbl:dtg-summary-sum}
 \end{table}
 
-In standard IPC instances, the domains with zero-cost actions are \pddl{Cybersec} and \pddl{Openstacks} only. They are solved in a multi-heuristic strategy while other domains are solved in the best performing single-heuristic strategy. In Zerocost instances, all domains are solved in multi-heuristic strategy.
+When the configuration rule is applied to standard IPC instances, the domains with zero-cost actions are \pddl{Cybersec} and \pddl{Openstacks} only. They are solved using a multi-heuristic strategy while other domains are solved in the best performing single-heuristic strategy. In Zerocost instances, all domains are solved using the multi-heuristic strategy.
 \todo*{Maybe we should show dynamic configuration results in the detailed per-domain tables, just so that it's obvious that we can get ``dominant'', state-of-the-art  behavior --- results are simulated, not actually implemented. Thus the total results should be fine. However, I added exactly which domains were zero-cost.}
 
 % While these multi-heuristic strategies did not improve the perfomance in
@@ -298,8 +302,8 @@ In standard IPC instances, the domains with zero-cost actions are \pddl{Cybersec
 % method which 
 
 
-Overall, these results also strengthen our claim that $h$-based
-tiebreaking is not necessarily the ``rule of the thumb'' in some
+Overall, these results also strengthen our claim that one should not necessarily rely upon $h$-based
+tiebreaking in some
 domains, as already discussed in \refsec{sec:noh}. In zerocost domains,
 using a distance-to-go version of an inadmissible heuristic function for
 tiebreaking is more effective. Also, combining the depth metric with
