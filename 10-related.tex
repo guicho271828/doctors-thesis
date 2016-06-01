@@ -4,8 +4,8 @@
 Previous work on escaping search space plateaus has focused on
 non-admissible search.  DBFS \cite{imai2011novel} % is a technique which
 adds stochastic backtracking to Greedy Best First Search (GBFS) to avoid
-being misdirected by the heuristic function. Type based bucket
-\cite{xie14type} classifies the plateau of GBFS according to the
+being misdirected by the heuristic function. Type based buckets
+\cite{xie14type} classify plateaus in GBFS according to the
 $[g,h]$ pair and distributes the effort.  Marvin \cite{Coles07} learns plateau-escaping macros
 from the Enhanced Hill Climbing phase of the FF planner
 \cite{Hoffmann01} (note that use of macros makes the search inadmissible in general).
@@ -29,8 +29,9 @@ This did not perform well in their work on satisficing planning compared to the 
 % 
 Since their focus is on how to combine multiple heuristics,
 this tiebreaking-based approach is just one instance of various implementations of OPEN lists.
-In contrast, we discussed solely on the tiebreaking, and moreover, discussed various tiebreaking strategies.
-The focus of our paper is how tiebreaking enables the efficient search on the plateau created by the earlier levels of sorting criteria.
+In contrast, this paper provides a focused, in-depth investigation of various tiebreaking strategies,
+and shows 
+how tiebreaking enables the efficient search on the plateau created by the earlier levels of sorting criteria.
 
 %% already mentioned in the earlier section.
 % The PLUSONE %\footnote{This term is used on the Fast Downward website.} XXfootnote takes too much space
@@ -85,13 +86,13 @@ The focus of our paper is how tiebreaking enables the efficient search on the pl
 % There are both commonality and difference in our approach and $AL^*$:
 % In terms of commonality, 
 $AL^*$, or $AL^*_0$ in particular, is similar to $[f,\lifo]$ in that the lookahead is a depth-first search.
-However, there are both conceptual and algorithmic difference in our approach and their approach:
+However, there are both conceptual and algorithmic differences: 
 First of all, $AL^*_0$ does not specify the intermediate tiebreaking (such as $h$-based tiebreaking) for its main \astar, and depth-first lookahead does not perform best-first expansion, so the tiebreaking is irrelevant. Thus, the problems and the solutions addressed in these approaches are different.
-Second, $AL^*$ has an ability to propagate the maximum and the minimum $f$ value found in the lookahead search which allows for more pruning.
+Second, $AL^*$ propagates the maximum and the minimum $f$ values found in the lookahead search, which allows for more pruning.
 % wrong, see AAAI10 paper that ``recitify this''
 % Finally, when $k>0$ the search becomes inadmissible because it alters the best-first expansion order.
 
-Another relevant line of work in a similar spirit to Zerocost domains is the Preference Track in the deterministic
+Another relevant line of work, similar spirit to Zerocost domains, is the Preference Track in the deterministic
 part of IPC4 \cite{gerevini2009automatically}. One difference between our zero-cost domains and these domains is
 that the latter allows a more complex semantics such as multiplication.
 % 
@@ -100,14 +101,14 @@ More recently, \shortciteauthor{wray2015multi} \citeyear{wray2015multi} proposed
 Lexicographic preferences allow the problem to have multiple preference criteria evaluated individually. The
 solution quality is determined by the first preference, breaking ties by the second preference and so on.
 % 
-A slack means a constant amount of error from the optimal value. With a slack, one can model a situation where the
-goal is to optimize the first preference, but the difference up to some amount is ignored and ties are broken by
+Slack refers to a constant amount of error from the optimal value. With slack, one can model a situation where the
+goal is to optimize the first preference, but the difference up to some amount is ignored and ties are broken according to 
 the second preference.
 % 
-One example planning problem with such lexicographic preferences with slack would be something like this:
-Its first optimization objective is the amount of fuel usage, allowing a slack up to 5 liters.
-The second optimization target is the makespan of the plan.
+An example of a planning problem with such lexicographic preferences with slack would be a transportation problem where 
+the first optimization objective is the amount of fuel usage, allowing a slack up to 5 liters, and 
+the second optimization target is the makespan of the plan.
 In this case, a plan with 100 liters of fuel usage and a plan with 105 liters of fuel usage are considered equally preferable in the first criterion, and the better plan is the one with a shorter makespan.
 % 
-Since a slack allows multiple values (e.g. 100 and 105) to have the same preference, it is supposed to introduce larger plateaus.
-Applying our techniques to the problems with slack is an avenue of future work.
+Since a slack allows multiple values (e.g. 100 and 105) to have the same preference, it should introduce larger plateaus.
+Applying our techniques to problems with slack is an avenue of future work.

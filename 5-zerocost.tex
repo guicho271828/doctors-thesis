@@ -10,12 +10,12 @@ One characteristic of \pddl{Openstacks} is the presence of many  actions which h
 % If such actions are present, the neighbors of the goal nodes could be surrounded by the 0-cost edges.
 Since zero-cost actions (edges) allow ``free'' transitions between many neighboring nodes,
 the number of neighboring nodes sharing the same $h$ also becomes quite large.
-This creates huge heuristic plateaus that share the same $h$-value, and the standard $h$-based tiebreaking criterion can not provide informative guidance for search within a plateau.\todo*{why mention $f=f^*$ specifically here, instead of ``final plateau'' (f*,0) or just in general all plateaus?}
+This creates huge plateaus that share the same $h$-value, and the standard $h$-based tiebreaking criterion can not provide informative guidance for search within a plateau.\todo*{why mention $f=f^*$ specifically here, instead of ``final plateau'' (f*,0) or just in general all plateaus?}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics{img/astar/plateau-1.pdf}
- \caption{Search space of \astar and its contour according to admissible heuristics $h$. (\textbf{Right}) In positive cost domains, $h$-based tiebreaking provides a meaningful guidance. (\textbf{Left}) In domains with 0-cost actions, applying an action may not increase the cost of the path and the region with $h=0$ could be quite large. With the same mechanism, other heuristic plateaus (e.g. $h=1$) also become larger. Thus, $h$-based tiebreaking fails to provide meaningful guidance.
+ \caption{Search space of \astar and its contour according to admissible heuristic $h$. (\textbf{Right}) In domains with only positive-cost actions, $h$-based tiebreaking provides meaningful guidance. (\textbf{Left}) In domains with 0-cost actions, applying an action may not increase the cost of the path and the region with $h=0$ could be quite large. With the same mechanism, other heuristic plateaus (e.g. $h=1$) also become larger. Thus, $h$-based tiebreaking fails to provide meaningful guidance in this space.
   }
  \label{fig:plateau-1}
 \end{figure}
@@ -41,7 +41,7 @@ assigning zero costs makes sense from a practical, modeling perspective.
 For example, consider the \pddl{driverlog} domain, where the task is to move packages between locations using trucks.
 The IPC version of this domain assigns unit costs to all actions. Thus, cost-optimal planning on this domain seeks to minimize the number of steps in the plan.
 However, another natural objective function would be the one which minimizes the amount of fuel spent by driving the trucks,
-assigning cost 0 to all actions except \pddl{drive-truck}.
+assigning cost 0 to all actions except \pddl{drive-truck} -- we believe that for cost-optimal planning, this is at least as natural as the current IPC model in which all actions are unit cost.
 
 % While I agree with the point you're trying to make,
 % There is an ugly issue when arguing that current models try to  optimize plan-execution time (i.e., makespan), 
@@ -109,7 +109,7 @@ Although some domains (specifically, \pddl{blocks}, \pddl{freecell}, \pddl{pipes
 their problem definitions are the evenly sampled subset of the original set of instances.
 % \pddl{blocks} original 35 vs 20, \pddl{freecell} 80 vs 20, pipesnt 50 vs 20, \pddl{miconic} 150 vs 30
 For example, the original \pddl{miconic} domain has 150 instances, while our zerocost version has 30 instances.
-These 30 instances are selected evenly from the original set of instances, by picking p05, p10, ... p150.
+These 30 instances are selected evenly from the original set of instances, by picking instances p05, p10, ... p150.
 % 
 The aim of reducing the number of instances is to avoid the problem of the overall coverage sums being skewed by the domains with a larger number of instances.
 Thus, we did not modified the problem definitions at all, only modifying the action costs described in the domain definitions.
@@ -125,7 +125,7 @@ shows the zerocost versions of the domains modified from the same
 instances on the left-hand side. We did not exclude domains whose
 number of instances in the standard domain differs from the number of instances in the zero-cost version.
 
-In both \lmcut and \mands heuristics, we observed a significant
+For both \lmcut and \mands heuristics, we observed a significant
 performance difference between the original IPC domains and the zerocost
 domains. With \lmcut, the coverage in zerocost domains
 was lower in 11 domains while more instances were solved
@@ -140,8 +140,8 @@ each point shows the total number of nodes in $\plateau{f^*,0}$ vs the
 total number of nodes with $f\leq f^*$. Compared to \refig{fig:plateau},
 most zerocost domains have larger plateaus even with the help of
 $h$-tiebreaking.  Thus, in these cost-minimization problems, the search
-strategy within plateaus, i.e., tiebreaking, becomes a yet more critical
-factor which determines the search performance.
+strategy within plateaus, i.e., tiebreaking, becomes a even more critical
+in determining search performance.
 
 
 \begin{table}[htbp]
@@ -150,7 +150,7 @@ factor which determines the search performance.
  \caption{
  Assessment of the relative difficulty of zero-cost domains vs. their corresponding standard domains, for the standard $[f,h,\fifo]$ strategy.
  Coverage comparison (the number of instances solved) 
- between the original instances and the modified zerocost instances are shown, 
+ between the original IPC instances and the modified zerocost instances are shown, 
  using the same planner configuration and experimental setting (5min, 4GB, \lmcut heuristics).
  This table does not include domains where the total number of instances
  in the zerocost domain  and the original domain differ. 
@@ -163,7 +163,7 @@ factor which determines the search performance.
  \input{tables/5-std-zero-comparison-mands}
  \caption{
  Coverage comparison (the number of instances solved) 
- between the original instances and the modified zerocost instances,
+ between the original IPC instances and the modified zerocost instances,
  using the same configuration and experimental setting (5min, 4GB, \mands heuristics).
  This table does not include domains where the total number of instances
  differ in the zerocost domain and the original domain. The results in
@@ -195,17 +195,18 @@ Note that the difficulty posed by these domains sometimes \emph{cannot}
 be tackled by improving the heuristic estimates, or reducing the
 underestimation of an admissible heuristic function.  Due to the
 existence of 0-cost edges, some non-goal neighbors of a goal node 
-admissibly have $h^*=0$. For those nodes,
+% admissibly 
+have $h^*=0$. For those nodes,
 there is clearly no room for improving the heuristic estimate; Any positive
 value causes the heuristics to be inadmissible.
 
 One approach to improving the search performance in such plateaus
 produced by zerocost problems is to perform an efficient
 \emph{knowledge-free} search within plateau; It may reuse the effort
-that is already spent to guide the search but does not require
+that is already spent to guide the search but without requiring 
 additional effort to compute multiple heuristics.
 In the next section, we propose and evaluate an implementation of
-such a technique. It turns out that a notion of \emph{depth} can have
-a significant impact on the performance of knowledge-free search, as
-well as a good understanding of the existing tiebreaking strategies.
+such a technique. It turns out that introducing a notion of \emph{depth} within a plateau can have
+a significant impact on the performance of knowledge-free search, and can also 
+provide a good  understanding of the behavior of standard tiebreaking strategies.
 

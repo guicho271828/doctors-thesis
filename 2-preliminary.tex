@@ -11,9 +11,9 @@ $f(n)=g(n)+h(n)$ is the estimate of the resulting cost of the path to a goal
 containing the current node.
 We omit the argument $(n)$ unless necessary.
 
-A \emph{sorting strategy} of a best first search algorithm is a strategy
+A \emph{sorting strategy} for a best first search algorithm 
 which tries to select a single node from the OPEN list.
-Each sorting strategy is denoted as a vector of several \emph{sorting criterion}, such as
+Each sorting strategy is denoted as a vector of several \emph{sorting criteria}, such as
 [$\text{criterion}_1$, $\text{criterion}_2$, $\ldots$,
 $\text{criterion}_k$], which means: From the OPEN list, first, select a
 set of nodes using $\text{criterion}_1$.  If there are still multiple
@@ -36,15 +36,18 @@ key value.
 The sorting strategy may fail to select a single node because some nodes
 may share the same sorting keys. In such cases, a search algorithm must
 decide which node to expand by a \emph{default} tiebreaking
-strategy $\text{criterion}_k$, which is one of \fifo (first-in-first-out), \lifo
-(last-in-first-out) or \ro (random ordering).  Trivially, these
+strategy $\text{criterion}_k$ such as  \fifo (first-in-first-out), \lifo
+(last-in-first-out) or \ro (random ordering).  
+By definition, there is only 1 node which satisfies these criteria, so these
 strategies are able to select a single node from the set of
 nodes. Although these default strategies may not be a ``sorting''
-criterion, we also include them in the vector notation. For
+criterion, {\bf [XXX - why?]}
+ we also include them in the vector notation. For
 example, an \astar using \fifo tiebreaking is denoted as $[f,h,\fifo]$.
 
 
-A \emph{plateau} is a set of nodes in OPEN, the element of which are
+Given a search algorithm which uses a particular sorting strategy, 
+a \emph{plateau} is a set of nodes in OPEN whose elements are
 indistinguishable according to the sorting strategy. In a case of \astar
 using tiebreaking with $h$ ($[f,h]$), this is the set of nodes with the
 same $f$ cost and the same $h$ cost.

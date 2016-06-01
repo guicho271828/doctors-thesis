@@ -1,9 +1,10 @@
 \section{Analysis of Standard Strategies}
 \label{sec:eval-common-strategies}
 
-In order to establish new baselines and analyze their performance differences,
-we evaluated tiebreaking strategies for domain-independent cost-optimal
-classical planning.  In our experiments, all planners are based on Fast
+We first 
+we evaluated standard tiebreaking strategies for domain-independent cost-optimal
+classical planning and analyze their performance differences.  
+In our experiments, all planners are based on Fast
 Downward, and all experiments are run with a 5-minute,
 4GB memory limit for the search binary (FD translation/preprocessing
 times are not included in the 5-minute limit).  All experiments were
@@ -12,13 +13,13 @@ conducted on Xeon E5410@2.33GHz CPUs. For the randomized configurations, we took
 We used two \sota heuristic functions \lmcut \cite{Helmert2009} and \mands \cite{HelmertHHN14} as the primary
 heuristic functions used for calculating $f$ and $h$.  For \mands, we used the currently recommended
 settings\footnote{http://www.fast-downward.org/Doc/Heuristic\#Merge-and-shrink\_heuristic as of \today}
-(bisimulation-based shrink strategy, DFP merge strategy and exact label reduction).  These fundamental experimental
-configurations are shared in all performance measuring experiments throughout this paper.
+(bisimulation-based shrink strategy, DFP merge strategy and exact label reduction).  These basic experimental
+configurations are shared in all performance evaluation experiments throughout this paper. 
 
 % following paragraph is added in order to avoid repeating the list of domains not
 % included due to no coverage difference.
 We used 1104 instances from 35 standard benchmark domains. These
-instances are those originally included in the test suite of Fast
+instances are those originally included in the test suite included with the Fast
 Downward planning system. In detail, they are: \pddl{airport}(50),
 \pddl{barman-opt11}(20), \pddl{blocks}(35), \pddl{cybersec}(19), \pddl{depot}(22), \pddl{driverlog}(20),
 \pddl{elevators-opt11}(20), \pddl{floortile-opt11}(20), \pddl{freecell}(80), \pddl{grid}(5),
@@ -34,10 +35,12 @@ Downward planning system. In detail, they are: \pddl{airport}(50),
 
 \label{sec:noh}
 \todo*{changed order because the next 2 sections discuss the importance of default tiebreaking, which is directly caused by the size of plateaus, so they should be consecutive; this section is not directly related and seemed out of place sandwiched between defaults and plateaus}
-In \reftbl{tbl:summary-std} (Detailed results are in
-\reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, rightmost 2
-columns), we show the results of $[f, \fifo]$ and $[f, \lifo]$, the
-\astar variants which rely on \fifo or \lifo default tiebreaking only.
+As noted above in Section \ref{sec:astar-background}, the current standard practice is to use a tiebreaking criterion which uses the $h$-value of the nodes. However, to our knowledge, the need for $h$-based tiebreaking has not been previously empirically inestigated.
+
+In \reftbl{tbl:summary-std}, we show the summary results for $[f, \fifo]$ and $[f, \lifo]$, the
+\astar variants which rely on \fifo or \lifo default tiebreaking only, as well as the standard $[f, h, \fifo]$ and $[f, h, \lifo]$ strategies.
+(detailed results are in
+\reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}.
 $[f,\lifo]$, which simply breaks ties among nodes with the same
 $f$-cost by expanding the most recently generated nodes first
 \cite{korf1985depth}, clearly dominates $[f,\fifo]$.  Interestingly,
@@ -75,10 +78,10 @@ Next, we  compared two commonly used tiebreaking strategies, $[f,h,\fifo]$, $[f,
 first break ties according to $h$, and then apply \fifo or \lifo
 default tiebreaking, respectively.
 Summary results for \lmcut and \mands are
-shown in \reftbl{tbl:summary-std} (Detailed results are in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, leftmost 2 columns).
+shown in \reftbl{tbl:summary-std} (Detailed results are in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}.
 Differences in coverage are observed in several domains and $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall. Thus, the choice of default criterion seems to have a modest but measurable impact when the first tiebreaking criterion is $h$.
 
-We also conducted the experiments using \ro (Random Order) default tiebreaking because it is another trivial way to
+We also conducted experiments using \ro (Random Order) default tiebreaking because it is another trivial way to
 break ties. We ran the experiments 10 times with the different random seeds, then took the average and the
 standard deviation of the coverages. The performance of \ro is comparable to \fifo default tiebreaking regardless
 of the primary heuristics, or the presence of $h$-based tiebreaking.
@@ -128,19 +131,19 @@ of the primary heuristics, or the presence of $h$-based tiebreaking.
 
 \subsection{Plateaus and Tiebreaking}
 
-\refig{fig:f-h-eval} gives us a
+\refig{fig:f-h-eval} provides a
 more fine-grained analysis by comparing the number of node evaluations
 (calls to the expensive \lmcut heuristic function) in each instance between $[f,h,\lifo]$ and $[f,h,\fifo]$ strategies.
 The difference in the number of nodes
 evaluated can sometimes be larger than a factor of 10 (\pddl{Openstacks}, \pddl{Cybersec} domains).
-Traditionally, such default criteria used to be considered not much important, as evident in the lack of the mention to default tiebreaking criterion in many of the recent papers. \todo{we cant cite this --- when nobody cares about it, how can it have a citation?}
+As noted in Section \ref{sec:astar-background}, the choice among default criteria has not been considered very important in the literature, as evidenced by the lack of explicit descriptions of the default tiebreaking criterion in recent papers. 
 Our results suggest that 2nd-level default tiebreaking can have a surprisingly large effect on
-the search performance.\todo*{``contrary to conventional wisdom'', implies that the conventional wisdome is that default tiebreaking does not have a significant effect -- citation?  If not, reword.}
+the search performance.
 
 \begin{figure}[htbp]
  \centering \relsize{-3}
  \includegraphics[width=\linewidth]{tables/aaai16-30min-5min-cut/aaai16prelim3/evaluated-lmcut_ff-lmcut_lf.pdf}
- \caption{The number of LMcut evaluations on various planning domains,
+ \caption{The number of LMcut evaluations on various IPC planning benchmark domains,
  with standard \fifo vs \lifo default tiebreaking, both with $h$
  tiebreaking. \lifo evaluates  less than $1/10$ of the nodes evaluated
  by \fifo in \pddl{Cybersec} and \pddl{Openstacks}. 
@@ -148,13 +151,13 @@ the search performance.\todo*{``contrary to conventional wisdom'', implies that 
  \label{fig:f-h-eval}
 \end{figure}
 
-The effect of the 2nd-level default tiebreaking criteria (\lifo or
+The effect of the choice of 2nd-level default tiebreaking criteria (\lifo vs.
 \fifo)  when the 1st-level tiebreaking criterion is  $h$-tiebreaking is
 limited to each search plateau $\plateau{f,h}$, the set of nodes which
 share the same $f$ value and $h$ value.
 % 
-Also, in admissible search, the two \astar implementations using 
-the different default tiebreaking criteria both expand the same set of
+Also, in admissible search, two \astar implementations using 
+different default tiebreaking criteria both expand the same set of
 nodes in the region where $f<f^*$.
 % 
 Furthermore, nodes with $h>0$ can not be goal nodes when $h$ is admissible.
