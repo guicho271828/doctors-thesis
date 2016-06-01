@@ -1,8 +1,13 @@
 \clearpage 
-\section{Discussion: Reformulation of A* as a Series of Satisficing Search Episodes}
+\section{Viewing A* as a Series of Satisficing Search Episodes}
 \label{sec:discussion}
 
-One observation that can be made from the experiments in the previous sections is that \textbf{cost-optimal search
+
+So far, we have shown that by carefully analyzing search within an $f$-cost plateau,
+we were able to develop an effective
+{\it knowledge-free}, depth-based tiebreaking method which can significantly improve search performance on domains with zero-cost actions.
+We now propose a more general framework which underscores the importance of tiebreaking in \astar.
+\textbf{Cost-optimal search
 can be seen as a series of satisficing searches on each plateau}. In this view, the problem of tiebreaking can be
 reduced to a satisficing search.
 
@@ -16,6 +21,7 @@ performing a satisficing GBFS.
 As another example, the reason for the poor performance of $[f,\fifo]$
 is clearly that it is running $[\fifo]$,
 an uninformed satisficing breadth-first search in the plateau.
+{\bf [XXXTODO: move following sentences after d2go experiment data] }
 Furthermore, the good performance of $[f^{\lmcut},\ffo,\fifo]$ is also clear:
 $\ffo$ is by itself known to be a powerful inadmissible heuristic  % let's avoid using \sota to describe relatively ``old'' heuristics like ff (where ``relatively old'': 10yrs).
 function for satisficing GBFS, and 
@@ -97,17 +103,6 @@ This view of A* search as a series of satisficing searches also reminiscent of t
 iterative deepening A* \cite{korf1985depth}, which executes a series of satisficing searches with a $f$-cost limit which increases on each iteration. 
 However, ``A*-as a sequence of satisficing search'' differs from IDA* in that IDA*, in order to achieve linear memory usage, repeats prevoius work on each iteration.
 
-Reformulating A* as a sequence of satisficing searches 
-points to  an interesting direction for future work.
-Although we evaluated only one relatively simple, satisficing configuration ($\ffo$) in
-the experiments, many techniques which have previously been developed for satisficing planning can be applied to enhance tiebreaking (plateau-search) in cost-optimal search, including
-lazy evaluation \cite{richter2010lama}, alternating/pareto open
-list \cite{RogerH10}, helpful actions (preferred operators) \cite{Hoffmann01},
-random walk local search \cite{nakhost2009monte}, macro operators
-\cite{Botea2005,ChrpaVM15}, factored planning
-\cite{amir2003factored,brafman2006factored,Asai2015} and
-exploration-based search enhancements
-\cite{valenzano2014comparison,xie14type,Valenzano2016}.
 
 \begin{comment} % If you're still considering submitting tiebreaking for satisficing to a conference, including this subsection can block the conference paper and is a bad idea.
 \subsection{Depth Diversification for Satisficing Search}

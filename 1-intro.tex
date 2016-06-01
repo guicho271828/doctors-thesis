@@ -104,13 +104,19 @@ evaluate \emph{depth diversification}, a new
 tiebreaking method based on the notion of a node's \emph{depth} within a plateau,
 which corresponds to the number of steps from the ``entrance'' to
 the plateau (\refsec{sec:depth},
-\refsec{sec:depth-based-evaluation}). We also evaluate an
+\refsec{sec:depth-based-evaluation}). 
+
+
+We then propose a new framework which considers cost-optimal search using \astar 
+as a series of satisficing searches on each plateau,
+which allows the problem of tiebreaking to be reduced to satisficing search within a plateau (\refsec{sec:discussion}).
+Based on this insight, we then investigate an
 admissible tiebreaking strategy which uses the distance-to-go estimate, a heuristic function which treats every action
 to have the unit costs (\refsec{sec:distance-to-go}).
 Although distance-to-go estimates are inadmissible,
 it does not harm the admissibility of entire search as long as it is used only for tiebreaking.
 % 
-In these sections, we empirically show that:
+We empirically show that:
 \begin{enumerate}
  \item Our new depth-based diversification strategy significantly improves upon the 
        standard tiebreaking strategies.
@@ -123,35 +129,33 @@ In these sections, we empirically show that:
        further improves the performance.
 \end{enumerate}
 
-Finally, in \refsec{sec:discussion}, we discuss the implications of these results.
-We offer a new perspective to cost-optimal search:
-Cost-optimal search can be seen as a series of satisficing searches on each plateau,
-and thus the problem of tiebreaking can be reduced to satisficing search techniques.
 % 
+
+\begin{comment} % exclude if you want to submit a AAAI/ICAPS paper on satisficing 
 In order to strengthen the connection between tiebreaking and satisficing search,
 we also show a preliminary result that the depth diversification,
 which was shown to improve tiebreaking performance,
 also improves satisficing search using Greedy Best First Search (GBFS).
-We further discuss the future direction, related works, and close the article.
+\end{comment}
 
 \textbf{
 Note for reviewers:
 This paper is a significantly extended version of the AAAI-16 paper by
-the same authors. The addition to the conference paper is the following:
+the same authors. The additions to the conference paper are the following:
 \begin{enumerate}
  \item Introduction of deterministic depth-based diversification
        strategy (as opposed to the randomized version in the conference
-       paper), and its theoretical analysis in \refsec{sec:depth}. We
-       also added thorough empirical analysis in
-       \refsec{sec:depth-based-evaluation} that are not included in the
-       conference version.
- \item Empirical analysis of distance-to-go estimates in
-       \refsec{sec:distance-to-go}.  Also, we included an empirical
-       evaluation of the use of inadmissible FF heuristics as part of
-       tiebreaking criterion, and its combination with the
-       depths metric thereof.
- \item New perspective to \astar and the preliminary results on the use
-       of depth for satisficing search (\refsec{sec:discussion}).
+       paper), and its theoretical analysis in \refsec{sec:depth}. 
+ \item A new, thorough empirical analysis of the behavior of depth-based diversification in 
+       \refsec{sec:depth-based-evaluation}.
+ \item We propose a new framework for treating \astar as a sequence of satisficing searches on a set of $f$-cost plateaus (\refsec{discussion}), and based on this new framework, we propose and evaluate tie-breaking strategies which incorporates distance-to-go estimates
+       \refsec{sec:distance-to-go}.  
+%Also, we included an empirical
+%       evaluation of the use of inadmissible FF heuristics as part of
+%       tiebreaking criterion, and its combination with the
+%       depths metric thereof.
 \end{enumerate}
+Thus, over 50\% of \refsec{sec:depth}, as well as 100\% of \refsecs{sec:discussion}{sec:distance-to-go} are new.
+{[XXXTODO: Anything new (new experiments/data) in Sections 4??]}
 }
 

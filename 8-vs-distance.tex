@@ -2,9 +2,9 @@
 \section{Tie-Breaking Using Distance-to-Go Estimates}
 
 \label{sec:distance-to-go}
-
-So far, we have shown that a {\it knowledge-free}, depth-based tiebreaking method can significantly improve search performance on domains with zero-cost actions.
-In this ection, we turn to another approach to improving the
+In the previous section, we proposed a view of cost-optimal search as a series of satisficing searches on each $f$-cost plateau, and argued that 
+the problem of tiebreaking can be reduced to a satisficing search.
+In this section, we use this insight to propose another approach to improving the
 search performance in plateaus produced by zerocost domains --
 using inadmissible \emph{distance-to-go} estimates (heuristics) as a tiebreaking criterion within an admissible A* search.
 
@@ -204,6 +204,13 @@ only harms the overall performance due to the overhead.
 When the primary heuristics is \lmcut, we do not observe a significant difference between single-heuristics strategies except for the fractional difference in the configurations using \ro.
 When the primary heuristic is  \mands, $[f^\mands,h^\mands,\lifo]$ performs slightly better than  other default tiebreaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
 %  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
+
+
+% sentences below were moved from section which proposes f*SAT -- is this the right location?
+The reason for the good performance of $[f^{\lmcut},\ffo,\fifo]$ is not surprising:
+$\ffo$ is by itself known to be a powerful inadmissible heuristic  % let's avoid using \sota to describe relatively ``old'' heuristics like ff (where ``relatively old'': 10yrs).
+function for satisficing GBFS, and 
+if we ignore the first sorting criterion, $[f^{\lmcut},\ffo,\fifo]$ is a GBFS with $[\ffo,\fifo]$.
 
 \pagebreak[3]
 
