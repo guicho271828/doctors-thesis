@@ -251,6 +251,7 @@ In \pddl{Cybersec},
 % while the depth has improved the overall performance,
 we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because all tiebreaking strategies have generated only a small number of such nodes before the solution was found.
 Instead, we observed a large difference in the depth distributions in non-final plateaus $\plateau{f^*,h}, h\not=0$ caused by the difference of tiebreaking.
+Note that depth diversification is always applied regardless of $f$ value or $h$ value.
 It suggests that most children of the nodes in $\plateau{f^*,h}$ have $f$ value larger than $f^*$ or stays in $\plateau{f^*,h}$, and the planner is struggling to find nodes with better $h$.
 Thanks to the unbiased search, the depth-based strategy has a better chance of improving $h$ values, finding a node in $\plateau{f^*,0}$ more quickly.
 This shows that the depth can also enhance the search in non-final plateaus to find the nodes in the next plateau.
