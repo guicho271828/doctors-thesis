@@ -109,7 +109,7 @@ As shown in \refig{fig:expansion-ratio}, the number of evaluation of \mands heur
 This is because the evaluation of \mands heuristics is implemented
 as an efficient table lookup, and it is able to evaluate an order of magnitude larger number of nodes compared to \lmcut heuristics.
 Thus, even the relatively small overhead incurred by the management of depth buckets decreases the node evaluation rate to noticeably degrade performance.
-In contrast, \mands did not have such problems in Zerocost domains. This shows that the search efficiency offered by depth based diversification become much more important,
+In contrast, \mands did not have such problems in Zerocost domains. This shows that the search efficiency offered by depth based diversification becomes much more important,
 and the low-level overhead became negligible.
 
 % , which is less interesting when tackling an intractable combinatorial problems.
@@ -198,7 +198,7 @@ found.  We plotted a depth-based strategy
 $[f,h,\depth,\fifo]$, as well as the standard strategies $[f,h,\fifo]$,
 $[f,h,\lifo]$ and a single run of randomized strategy $[f,h,\ro]$.
 
-In order to obtain the data for the plot, we added some instrumentation to the strategies which do not use depth-based tiebreaking ($[f,h,\fifo]$, $[f,h,\lifo]$, $[f,h,\ro]$) so that as these strategies run, the depth of each of the expanded nodes is computed (although they do not affect the search behavior).
+In order to obtain the data for the plot, we added some instrumentation to the strategies which do not use depth-based tiebreaking ($[f,h,\fifo]$, $[f,h,\lifo]$, $[f,h,\ro]$). As these strategies run, the depth of each of the expanded nodes is computed, although they do not affect the search behavior.
 Note that this instrumentation, which adds some runtime overhead, was \emph{not}
 used in the performance comparison experiments above, and were only used for this experiment, which analyzes search behavior.
 
