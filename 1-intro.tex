@@ -105,7 +105,8 @@ tiebreaking method based on the notion of a node's \emph{depth} within a plateau
 which corresponds to the number of steps from the ``entrance'' to
 the plateau (\refsec{sec:depth},
 \refsec{sec:depth-based-evaluation}). 
-
+Our new depth-based diversification strategy significantly improves upon the 
+standard tiebreaking strategies.
 
 We then propose a new framework which considers cost-optimal search using \astar 
 as a series of satisficing searches on each plateau,
@@ -118,8 +119,6 @@ it does not harm the admissibility of entire search as long as it is used only f
 % 
 We empirically show that:
 \begin{enumerate}
- \item Our new depth-based diversification strategy significantly improves upon the 
-       standard tiebreaking strategies.
  \item Tiebreaking using distance-to-go variations of \lmcut, \mands and \ff heuristics,
        with \lmcut or \mands as a primary heuristics for computing $f$ value (for maintaining admissibility),
        significantly improves the standard tiebreaking strategies.
