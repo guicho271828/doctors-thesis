@@ -120,7 +120,8 @@ We empirically show that:
 \begin{enumerate}
  \item Our new depth-based diversification strategy significantly improves upon the 
        standard tiebreaking strategies.
- \item Tiebreaking using distance-to-go variations of \lmcut, \mands and \ff heuristics
+ \item Tiebreaking using distance-to-go variations of \lmcut, \mands and \ff heuristics,
+       with \lmcut or \mands as a primary heuristics for computing $f$ value (for maintaining admissibility),
        significantly improves the standard tiebreaking strategies.
        \todo*{listing 3 points regarding d2go might give the wrong impression that this paper is about d2go. combine some of the d2go bullets, or add another depth-related bullet?}
  % \item Distance-to-go variations of \emph{inadmissible} heuristics
@@ -131,12 +132,12 @@ We empirically show that:
 
 % 
 
-\begin{comment} % exclude if you want to submit a AAAI/ICAPS paper on satisficing 
+% \begin{comment} % exclude if you want to submit a AAAI/ICAPS paper on satisficing 
 In order to strengthen the connection between tiebreaking and satisficing search,
 we also show a preliminary result that the depth diversification,
 which was shown to improve tiebreaking performance,
 also improves satisficing search using Greedy Best First Search (GBFS).
-\end{comment}
+% \end{comment}
 
 \textbf{
 Note for reviewers:
@@ -156,6 +157,6 @@ the same authors. The additions to the conference paper are the following:
 %       depths metric thereof.
 \end{enumerate}
 Thus, over 50\% of \refsec{sec:depth}, as well as 100\% of \refsecs{sec:discussion}{sec:distance-to-go} are new.
-{[XXXTODO: Anything new (new experiments/data) in Sections 4??]}
+% {[XXXTODO: Anything new (new experiments/data) in Sections 4??]}
 }
 
