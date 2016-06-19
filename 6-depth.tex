@@ -64,9 +64,10 @@ depths. In some problem instances the goals can be concentrated around
 the entrance, and in other problem instances the goals can be
 concentrated at some large depth. % $k$.  k never used below?
 
-In the former case, (\fifo), whose breadth-first behavior naturally
-focuses the search around the entrance favoring the smaller depths,
-should perform well, but in the latter case, exhaustively searching
+In the former case, \fifo
+should perform well because its breadth-first behavior naturally
+focuses the search around the entrance favoring the smaller depths.
+However, in the latter case, exhaustively searching
 the shallower depths can result in not finding any solutions within
 the time limit because \fifo may never reach the depth where the goals
 exist.  On the other hand, \lifo behaves in a depth-fist manner, so it
