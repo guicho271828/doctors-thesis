@@ -74,6 +74,11 @@ production planning \cite{fink1999applications} and \pddl{Cybersec}
 models Behavioral Adversary Modeling System \cite[minimizing decryption,
 data transfer, etc.]{boddy2005course}.
 
+Furthermore, through parameterized complexity analysis, it is already known that the planning problems with
+zero-cost actions are strictly harder (para-\textbf{NP}-complete) than the planning problems with strictly positive
+costs (\textbf{W}[2] complete) \cite{aghighi2015}. This indicates the inherent difficulty of optimally solving the
+planning problems with zero-cost actions.
+
 Therefore, in this paper, we modified various standard domains
 into cost minimization domains with many zero-cost actions.
 Specifically, each of our ``zero-cost domains'' is a standard domain which has been modified so that all action schema are assigned
@@ -116,8 +121,15 @@ Thus, we did not modified the problem definitions at all, only modifying the act
 
 \subsection{Difference in Problem Characteristics between IPC and Zerocost Domains}
 
-We first tested if these new domains actually pose a new type of challenge to the
-standard tiebreaking strategies. Results using \lmcut and \mands
+The previous study on the parameterized complexity of planning domains \cite{aghighi2015} shows a strong evidence that there would be also the large practical performance differences when a domain independent planner solves the original IPC instances and our Zerocost instances.
+However, to our knowledge, an empirical study on such differences over wide range of IPC domains is missing in the literature.
+Existing empirical analyses mainly focus on the performance difference caused by using a plan length metric for inadmissible heuristic search (further discussed in \refsec{sec:distance-to-go}), not the performance difference caused by the target cost function in cost-optimal search.
+% Such a performance difference is primarily regarded as a ``special case'' simply because there are only a few zero-cost action domains.
+% As a result, the number of domains used for evaluations is usually below 8 \cite{}
+% Also, 
+
+Thus, we tested if these new domains actually pose a new type of challenge to the
+standard tiebreaking strategies through experiments. Results using \lmcut and \mands
 heuristics are shown in \reftbl{tbl:lmcut-zerocost-std} and
 \reftbl{tbl:mands-zerocost-std}, respectively. In each table,
 the left-hand side shows the results in the original domains, and the right-hand side

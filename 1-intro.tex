@@ -92,12 +92,12 @@ We show that:
 
 While there are currently relatively few standard benchmark domains with zero-cost actions,
 we argue that zero-cost actions naturally occur in
-practical cost-minimization problems. Therefore, we introduce a new set of
-benchmarks called \emph{Zerocost domains}
+practical cost-minimization problems.
+Also, according to the parameterized complexity analysis, problem instances containing zero-cost actions are strictly harder than the instances with strictly positive action costs \cite{aghighi2015}.
+Therefore, we introduce a new set of benchmarks called \emph{Zerocost domains}
 (\refsec{sec:zerocost-domains}), which are a set of domains based on standard IPC domains for which only the most important actions which are directly related to resource usage incur non-zero cost.
 We compare these domains with the original IPC domains from which they are derived, and empirically show that 
-Zerocost domains have a different search space structure and different
-problem difficulty.
+Zerocost domains have a different search space structure and different practical problem difficulty.
 
 In order to solve such problems more efficiently, we propose and
 evaluate \emph{depth diversification}, a new
