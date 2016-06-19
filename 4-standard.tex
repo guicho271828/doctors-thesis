@@ -35,7 +35,7 @@ Downward planning system. In detail, they are: \pddl{airport}(50),
 
 \label{sec:noh}
 \todo*{changed order because the next 2 sections discuss the importance of default tiebreaking, which is directly caused by the size of plateaus, so they should be consecutive; this section is not directly related and seemed out of place sandwiched between defaults and plateaus}
-As noted above in Section \ref{sec:astar-background}, the current standard practice is to use a tiebreaking criterion which uses the $h$-value of the nodes. However, to our knowledge, the need for $h$-based tiebreaking has not been previously empirically inestigated.
+As noted above in Section \ref{sec:astar-background}, the current standard practice is to use a tiebreaking criterion which uses the $h$-value of the nodes. However, to our knowledge, the need for $h$-based tiebreaking has not been previously empirically investigated.
 
 In \reftbl{tbl:summary-std}, we show the summary results for $[f, \fifo]$ and $[f, \lifo]$, the
 \astar variants which rely on \fifo or \lifo default tiebreaking only, as well as the standard $[f, h, \fifo]$ and $[f, h, \lifo]$ strategies.
@@ -78,7 +78,7 @@ Next, we  compared two commonly used tiebreaking strategies, $[f,h,\fifo]$, $[f,
 first break ties according to $h$, and then apply \fifo or \lifo
 default tiebreaking, respectively.
 Summary results for \lmcut and \mands are
-shown in \reftbl{tbl:summary-std} (Detailed results are in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}.
+shown in \reftbl{tbl:summary-std}, and the detailed results are in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}.
 Differences in coverage are observed in several domains and $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall. Thus, the choice of default criterion seems to have a modest but measurable impact when the first tiebreaking criterion is $h$.
 
 We also conducted experiments using \ro (Random Order) default tiebreaking because it is another trivial way to
