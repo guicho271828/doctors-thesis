@@ -42,6 +42,18 @@ When the plateau is UNSAT, then the search continues to the plateau with the nex
  \label{fig:astar-sat}
 \end{figure}
 
+One may notice the difference between the satisficing search and the search on a plateau.
+In fact, the former starts from a single initial node while the latter may start from multiple initial nodes.
+For example, in satisficing planning, the search space contains a single start node which corresponds to an initial state.
+% 
+In contrast, when \astar starts expanding a new current $f$ value $f_{\mit{cur}}$ after expanding all nodes with $f<f_\mit{cur}$,
+there may be multiple nodes with $f=f_\mit{cur}$ in the open list.
+These nodes are generated as a result of expansions of the parent nodes with $f<f_\mit{cur}$.
+% The search in this plateau terminates when the plateau is proven to contain no goal nodes (UNSAT), or some goal is found (SAT).
+% When the plateau is UNSAT, then the search continues to the next plateau.
+% 
+However, the difference is superficial: The latter can be reduced to the former case by introducing a dummy node
+which acts as a common parent of all initial nodes. We can thus reformulate the plateau search problem as a satisficing search from the single dummy node.
 
 This is also somewhat similar to the standard approach to model-based sequential / temporal planning using SAT/IP/CP solvers \cite{kautz1992planning,van2005optiplan}.
 % \cite{rintanen2012planning,   Rintanen is state-of-the-art but not a good exemplar for this point, because his solver jumps around various horizons. van2005optiplan} in a slightly different sense.  
@@ -50,8 +62,6 @@ planning problem is converted to a corresponding constraint satisfaction problem
 length / makespan). The search starts from the horizon 0 and tests if the problem is satisfiable. If not, then it
 increases the horizon and retests the same problem with additional constraints for a new horizon $t+1$. 
 The strategy of iterative search over a sequence of horizons in model-based planning is somewhat analogous to our view of \astar as a sequence of satisficing search over a set of plateaus.
-
-
 
 %In forward heuristic search algorithms such as \astar, the concept of horizon corresponds to the $f$ value, which is a lower bound of the solution cost.
 
@@ -85,20 +95,6 @@ The strategy of iterative search over a sequence of horizons in model-based plan
 %%  \caption{The concept of IDA* and model-based planning as a sequence of satisficing searches.}
 %%  \label{fig:idastar-sat}
 %% \end{figure}
-
-One may notice the difference between the satisficing search and the search on a plateau.
-In fact, the former starts from a single initial node while the latter may start from multiple initial nodes.
-For example, in satisficing planning, the search space contains a single start node which corresponds to an initial state.
-% 
-In contrast, when \astar starts expanding a new current $f$ value $f_{\mit{cur}}$ after expanding all nodes with $f<f_\mit{cur}$,
-there may be multiple nodes with $f=f_\mit{cur}$ in the open list.
-These nodes are generated as a result of expansions of the parent nodes with $f<f_\mit{cur}$.
-% The search in this plateau terminates when the plateau is proven to contain no goal nodes (UNSAT), or some goal is found (SAT).
-% When the plateau is UNSAT, then the search continues to the next plateau.
-% 
-However, the difference is superficial: The latter can be reduced to the former case by introducing a dummy node
-which acts as a common parent of all initial nodes. We can thus reformulate the plateau search problem as a satisficing search from the single dummy node.
-
 
 This view of \astar search as a series of satisficing searches also reminiscent of the behavior of 
 iterative deepening \astar \cite{korf1985depth}, which executes a series of satisficing searches with a $f$-cost limit which increases on each iteration. 
