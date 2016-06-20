@@ -21,11 +21,12 @@ Distance-to-go estimates are a class of
 heuristics which treat all actions as if they have the unit cost. Even under
 the presence of zero-cost actions, those estimates can predict the
 number of operations required to reach a goal.
+The estimates are inadmissible in general, with exceptions that the domains are unit-cost by origin.
 While several papers advocate the benefit of this technique, the preivious work has focused on 
-distance-go-to estimates in the context of satisficing planning.
+the context of satisficing planning.
 \todo*{Need more complete  survey of previous work on d2go heuristics in best-first search (not just planning) here: Thayer+Ruml ICAPS09,Socs09; connectoins to FOCAL method of Pearl and Kim}
 
-Except for cases where the target domains are unit-cost by origin, {\bf [don't understand previous clause -- are you saying that in cases where the target domains are originally unit-cost, there were d2go estimates before  $A^*_\epsilon$ ??]}
+% Except for cases where the target domains are unit-cost by origin (e.g. puzzle domains), in which case \astar is already using unit cost estimates without any modification anyways,
 $A^*_\epsilon$ \cite{pearl1982studies} is one of
 the earliest algorithms that combines distance-to-go estimates with the cost estimates. It is a bounded-suboptimal
 search which expands from the \emph{focal} list, the set of nodes with $f(n)\leq w\cdot f_{\mit{min}}$ where weight $w$ serves as a suboptimality bound, similar to weighted \astar, 
@@ -41,7 +42,7 @@ as a BFS with
  [ \lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil, \hh, \mit{default}]
 \]
 where \textit{default} is one of \fifo, \lifo or \ro.
-This is because the focal list ``blur''s $f$ up to $w\cdot f_{\mit{min}}$.
+This notation derives from the fact that the focal list ``blur''s $f$ up to $w\cdot f_{\mit{min}}$.
 For example, when $w=2, f_{\mit{min}}=5$ and
 $f(n)=5,9,11$, then $\lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil=1,1,2$ respectively. 
 
@@ -56,7 +57,7 @@ on cost estimates in a satisficing search by investigating ``$\varepsilon$-cost 
 cost estimators for search guidance. % Again, this work targets satisficing search. %''satisficing search'' appears in previous sentence.
 % 
 Finally, a \sota satisficing planner FD/LAMA2011 incorporates distance-to-go estimates in its iterated search
-framework. The first iteration of LAMA uses distance-to-go estimates combined with various satisficing
+framework \cite{richter2011lama}. The first iteration of LAMA uses distance-to-go estimates combined with various satisficing
 search enhancements.
 
 In temporal planning, \shortciteauthor{benton2010g} proposed an inadmissible technique where short actions are
