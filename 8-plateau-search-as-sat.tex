@@ -10,8 +10,14 @@ We now propose a more general framework which underscores the importance of tieb
 can be seen as a series of satisficing searches on each plateau}. In this view, the problem of tiebreaking can be
 reduced to a satisficing search.
 
-Our notion of \emph{admissible sorting strategy} dictates that the
-search within the same $f$ plateau can be an arbitrary satisficing search. For example,
+First, for the ease of discussion, 
+we say that a sorting strategy is an \emph{admissible sorting strategy}
+when Best First Search using the strategy is guaranteed to return a cost-optimal solution.
+Clearly, a sorting strategy for \astar is admissible if and only if the 
+first sorting criterion $f$ is admissible (since $f=g+h$, $h$ must also be an admissible heuristic).
+However, the admissibility of later sorting criteria used for tiebreaking is not necessarily.
+
+This means that the search within the same $f$ plateau can be an arbitrary pure\footnote{as opposed to the ``satisficing'' track setting in IPC which also seeks to minimize the plan cost with anytime algorithms} satisficing search without any cost minimization requirement. For example,
 if we ignore the first sorting criterion in the standard admissible strategy
 $[f,h,\fifo]$, we get $[h,\fifo]$, which is exactly
 the same configuration as a GBFS using \fifo default tiebreaking. It

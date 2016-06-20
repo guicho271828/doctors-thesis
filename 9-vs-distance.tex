@@ -73,13 +73,10 @@ heuristic function combined with distance-to-go estimates on top of Temporal Fas
 
 Although previous work on distance-to-go estimates assume a satisficing context,
 there is still a possibility to use the same techniques for cost-optimal search.
-We say that a sorting strategy is an \emph{admissible sorting strategy}
-when Best First Search using the strategy is guaranteed to return a cost-optimal solution.
-Clearly, a sorting strategy is admissible if and only if the 
-first sorting criterion $f$ is admissible (since $f=g+h$, $h$ must be an admissible heuristic).
-This means that as long as the first criterion is admissible, the optimality of the solution is not affected by the
-subsequent levels of sorting criteria, and therefore, it is possible to use an inadmissible distance-to-go estimate
-in the second (or later) level sorting criteria without sacrificing the optimality of the solution found.
+Since the admissibility of the sorting strategy and the optimality of the solution are not affected by the
+second or later levels of sorting criteria, it is possible to use an inadmissible distance-to-go estimate
+in these subsequent sorting criteria without sacrificing the optimality of the solution found.
+This means the use of inadmissible heuristics for tiebreaking.
 
 Let $h$ be an admissible heuristic, and
 let $\hat{h}$ be a distance-to-go variation of $h$, i.e., $\hat{h}$ uses essentially the same algorithm as $h$, except that while $h$ uses the actual action costs for the problem domain, $\hat{h}$ treats all action costs as unit cost.
