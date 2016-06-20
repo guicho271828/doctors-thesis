@@ -103,6 +103,14 @@ randomized implementation of this idea \cite{Asai2016}, but we use a determinist
 implementation here because it eliminates the possibility of results being influenced by random seeds,
 and also facilitates the  theoretical analysis below in \refsec{sec:theoretical-characteristics}.
 
+This depth-based diversification is significantly different from \ro the strategy which simply selects a random node from the OPEN list.
+Actually, the global randomization \ro behaves very similar to \fifo, and is insufficient to achieve the level of diversity provided by our depth diversification tiebreaking.
+This is natural, considering that at any given point in the search, more nodes will tend to have shallower depth than deeper depth, and a uniform, random selection will therefore be biased to select a node with shallow depth.
+For example, imagine we have 100 nodes at depth $d=1$ and a single node at depth $d=2$.
+Since \ro does not consider the depth, the chance of expanding $d=2$ is only $1/101$.
+This probability does not improve until a sufficient number of expansions decreases the number of nodes in $d=1$.
+In contrast, our depth diversification gives $d=1,2$ an equal chance of expansion.
+
 % We later show that
 % \fifo and \lifo strategies are incomplete when the size of the plateau
 % region is inifinite, while our \id is probabilistically complete.

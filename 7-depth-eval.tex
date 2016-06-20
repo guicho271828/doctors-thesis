@@ -219,11 +219,7 @@ On the other hand, the breadth-first behavior of $[f,h,\fifo]$ often gets stuck 
 time searching around the plateau entrance (expanding $\approx 10^3$ nodes at depth 10).
 
 Also, we noticed that the node distribution by the global randomization $[f,h,\ro]$ is very similar to $[f,h,\fifo]$.
-This means that \ro actually behaves very similar to \fifo, which is consistent with the previous performance comparisons.
-This is natural, considering that at any given point in the search, more nodes will tend to have shallower depth than deeper depth, and a uniform, random selection will therefore be biased to select a node with shallow depth.
-For example, imagine we have 100 nodes at depth $d=1$ and a single node at depth $d=2$.
-Since \ro does not consider the depth, the chance of expanding $d=2$ is only $1/101$.
-This probability does not improve until a sufficient number of expansions decreases the number of nodes in $d=1$.
+This shows that \ro actually behaves very similar to \fifo, which is consistent with the previous performance comparisons in \refsec{sec:eval-common-strategies} and our observation to \ro in \refsec{sec:depth}.
 Thus, overall behavior of \ro tends to be similar to \fifo, and naive randomization does not solve the problem of heavy bias for shallower depth nodes.
 
 In contrast, $[f,h,\depth,\ro]$ is balancing the search at various depths.
