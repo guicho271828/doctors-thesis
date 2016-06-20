@@ -26,11 +26,6 @@ performing a satisficing GBFS.
 As another example, the reason for the poor performance of $[f,\fifo]$
 is clearly that it is running $[\fifo]$,
 an uninformed satisficing breadth-first search in the plateau.
-{\bf [XXXTODO: move following sentences after d2go experiment data] }
-Furthermore, the good performance of $[f^{\lmcut},\ffo,\fifo]$ is also clear:
-$\ffo$ is by itself known to be a powerful inadmissible heuristic  % let's avoid using \sota to describe relatively ``old'' heuristics like ff (where ``relatively old'': 10yrs).
-function for satisficing GBFS, and 
-if we ignore the first sorting criterion, $[f^{\lmcut},\ffo,\fifo]$ is a GBFS with $[\ffo,\fifo]$.
 
 From this perspective, we can reinterpret \astar as follows: \astar expands the nodes in best-first order of $f$ value. When the
 heuristic function is admissible, the $f$ values of the nodes expanded by \astar never decreases during the
