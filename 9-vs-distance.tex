@@ -78,12 +78,8 @@ second or later levels of sorting criteria, it is possible to use an inadmissibl
 in these subsequent sorting criteria without sacrificing the optimality of the solution found.
 This means the use of inadmissible heuristics for tiebreaking.
 
-Let $h$ be an admissible heuristic, and
-let $\hat{h}$ be a distance-to-go variation of $h$, i.e., $\hat{h}$ uses essentially the same algorithm as $h$, except that while $h$ uses the actual action costs for the problem domain, $\hat{h}$ treats all action costs as unit cost.
-%% redundunt
-% Upon computing the estimates, $\hat{h}$ treats all
-% actions to have unit costs, while original heuristic function $h$ uses the
-% standard action cost.
+Let $h$ be an admissible heuristic function, and
+$\hat{h}$ be a distance-to-go variation of $h$, i.e., $\hat{h}$ uses essentially the same algorithm as $h$, except that while $h$ uses the actual action costs for the problem domain, $\hat{h}$ replaces all action costs with 1.
 Since $h$ is admissible, multi-heuristic sorting strategies such as $[g+h,h,\hat{h}]$ or $[g+h,\hat{h}]$
 are admissible.
 
@@ -91,7 +87,7 @@ Moreover, we can even use a multi-heuristic strategy which uses an inadmissible 
  For example, $[g+h^{\lmcut},\ffo]$ is an admissible sorting strategy
 because the first sorting criterion $f=g+h^{\lmcut}$ uses an admissible
 \lmcut heuristic. Its second sorting criterion, the distance-to-go FF
-heuristics \cite{Hoffmann01}, does not affect the admissibility of this entire sorting strategy.
+heuristic \cite{Hoffmann01}, does not affect the admissibility of this entire sorting strategy.
 
 A potential problem with sorting strategies which use multiple heuristics is the cost of computing additional
 heuristic estimates. For example, $[g+h^{\lmcut},\ffo]$ requires more time to evaluate each node compared to a standard tiebreaking strategy such as $[g+h^{\lmcut},h^{\lmcut}]$ because computing the $\ffo$ heuristic incurs significant overhead per node while the results of $h^{\lmcut}$ can be reused by a caching mechanism.
