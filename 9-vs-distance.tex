@@ -96,7 +96,7 @@ A potential problem with sorting strategies which use multiple heuristics is the
 heuristic estimates. For example, $[g+h^{\lmcut},\ffo]$ requires more time to evaluate each node compared to a standard tiebreaking strategy such as $[g+h^{\lmcut},h^{\lmcut}]$ because computing the $\ffo$ heuristic incurs significant overhead per node while the results of $h^{\lmcut}$ can be reused by a caching mechanism.
 When the inadmissible heuristic for tiebreaking is $\hat{h}$, i.e. a distance-to-go (unit cost) variant of the primary, admissible heuristic $h$, it may be possible to reduce this overhead to some extent by implementing $h$ and $\hat{h}$ so that they share some of the computation  -- this is a direction for future work.
 
-\subsubsection{Combining Distance-to-go Estimates with Default Tiebreaking and Depth Diversity} % added subsection to highlight the new combination of depth + d2go
+\subsubsection{Combining Distance-to-go Estimates with Default Tiebreaking and Depth Diversification} % added subsection to highlight the new combination of depth + d2go
 
 Tiebreaking using distance-to-go estimates can still leave a set of nodes which are equivalent up to the distance-to-go criterion (multiple nodes can have the same $f$, $h$, and $\hh$ values), so additional level(s) of tiebreaking are necessary in order to select a single node. By adding a standard default criterion such as \fifo, \lifo, \ro, we obtain a sorting strategy that imposes a total order. For example, 
 $[f^{\lmcut},\ffo,\fifo]$
@@ -219,7 +219,7 @@ If we look further into the detail, we observed the following:
 In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) improve upon the standard strategy (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:3), but does not improve upon depth (e.g. $[f,h,\depth,\lifo]$: 12). When $h=h^\mands$, all coverages are zero. Overheads by $\ffo$ also slightly degrade the performance in \pddl{Openstacks} (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:18, $[f^\lmcut,\ffo,\lifo]$:17, $[f^\lmcut,h^\lmcut,\depth,\lifo]$: 18; Also, $[f^\mands,h^\mands,\lifo]$:19, $[f^\mands,\ffo,\lifo]$:18, $[f^\mands,h^\mands,\depth,\lifo]$: 19). Thus, in these two domains, although there are some improvements in search efficiency due to the guidance by $\ffo$ or $\hh$, the runtime overhead of computing the  distance-to-go heuristics outweighed the merit.
  
 In the domains with only positive cost actions (all IPC domains except \pddl{Openstacks} and \pddl{Cybersec}), $\hat{h}$ or $\ffo$
-only harms the overall performance due to the overhead.
+only harm the overall performance due to the overhead.
 When the primary heuristics is \lmcut, we do not observe a significant difference between single-heuristics strategies except for the fractional difference in the configurations using \ro.
 When the primary heuristic is  \mands, $[f^\mands,h^\mands,\lifo]$ performs slightly better than  other default tiebreaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
 %  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
@@ -300,13 +300,12 @@ Thus, to recapitulate, our conclusions can be summarized as in \reftbl{tbl:summa
 \subsection{Simple Dynamic Configuration for Overall Performance}
 
 In practice, the performance degradation when using multi-heuristic strategy in domains with only positive cost actions does not pose a problem.
-We can easily avoid the overhead incurred by the distance-to-go heuristics in domains with only positive cost actions by applying the following, simle policy:: 
-When solving an instance, if there are any zero-cost actions, use a multi-heuristic strategy.
-Otherwise, use a single-heuristic strategy.
+We can easily avoid the overhead incurred by the distance-to-go heuristics in those domains by applying the following simple policy:
+If there are any zero-cost actions, use a multi-heuristic strategy; Otherwise, use a single-heuristic strategy.
 
 Since such a check has negligible impact on the total runtime, we can extrapolate the result of applying this rule based on the previously obtained results.
 Coverage results in \reftbl{tbl:dtg-summary-sum} show the total coverage of
-zerocost and benchmark domains. The bottom two rows, labeled as \emph{dynamic configuration},
+Zerocost and IPC benchmark domains. The bottom two rows, labeled as \emph{dynamic configuration},
 are the extrapolated results when the switching policy is applied -- this dynamic configuratoin achieves the highest overall coverage.
 
 \begin{table}[htbp]
@@ -331,7 +330,7 @@ When the configuration rule is applied to standard IPC instances, the domains wi
 
 Overall, these results also strengthen our claim that one should not necessarily rely upon $h$-based
 tiebreaking in some
-domains, as already discussed in \refsec{sec:noh}. In zerocost domains,
+domains, as already discussed in \refsec{sec:noh}. In Zerocost domains,
 using a distance-to-go version of an inadmissible heuristic function for
 tiebreaking is more effective. Also, combining the depth metric with
 such an inadmissible heuristics is also effective.
