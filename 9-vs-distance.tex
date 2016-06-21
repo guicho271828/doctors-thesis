@@ -128,19 +128,20 @@ $\plateau{f,\hat{h}^{\text{\ff}}}$.
 \begin{table}[htbp]
  \centering
  \[
- \begin{array}{lcll}
-  (1)\, [h+g, & h,                           &L] \\\relax
-  (2)\, [h+g, & h,     \quad   \hat{h},      &L] \\\relax
-  (3)\, [h+g, & \hat{h},                     &L] \\\relax
-  (4)\, [h+g, & \hat{h}^{\ff},               &L] \\\relax
+ \begin{array}{lcllcllcl}
+  (1)\, [h+g, & h,                      &\mit{default}] & % \\\relax
+  (2)\, [h+g, & h,     \quad   \hat{h}, &\mit{default}] & % \\\relax
+  (3)\, [h+g, & \hat{h},                &\mit{default}]     \\\relax
+  (4)\, [h+g, & \hat{h}^{\ff},          &\mit{default}] & % \\\relax
   % not include it unless the reviewer complained. 
-  % (5)\, [h+g, & \hat{h}^{\text{GoalCount}},  &L] \\\relax
-  (5)\, [h+g, & h, \depth, &L] \\\relax
-  (6)\, [h+g, & \hat{h}^{\text{FF}}, \depth, &L] \\\relax
- \end{array}  
+  % (5)\, [h+g, & \hat{h}^{\text{GoalCount}},  &\mit{default}]     \\\relax
+  (5)\, [h+g,   & h, \depth,                   &\mit{default}] & % \\\relax
+  (6)\, [h+g,   & \hat{h}^{\text{FF}}, \depth, &\mit{default}]     \\\relax
+ \end{array}
  \]
+ \vspace{-3em}
  \caption{Configurations compared in this section. $h$ is
- one of $\braces{\lmcut, \mands}$, and $L$ is one of the default
+ either \lmcut or \mands, and $\mit{default}$ is one of the default
  tiebreaking strategies $\fifo,\lifo,$ or $\ro$. }
  \label{list:distance-configs}
 \end{table}
@@ -314,7 +315,7 @@ are the extrapolated results when the switching policy is applied -- this dynami
  % 
  Summary Results: Coverage comparison, the total of IPC domains and Zerocost domains (the number of instances
  solved in 5min, 4GB) between several sorting strategies, plus a dynamic configuration strategy.  $[f,h,\fifo],
- [f,h,\ro], [f,\hh,\cdot], [f,h, \hh,\cdot], [f,\ffo,\cdot]$ are not shown because they achieve smaller coverage.
+ [f,h,\ro], [f,\hh,\mit{default}], [f,h, \hh,\mit{default}], [f,\ffo,\mit{default}]$ are not shown because they achieve smaller coverage.
  % 
  }
  \label{tbl:dtg-summary-sum}
