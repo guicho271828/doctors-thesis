@@ -104,7 +104,7 @@ However, ``\astar-as a sequence of satisficing search'' differs from IDA* in tha
 
 Within this framework, the implementation of depth diversification can be viewed as a variant of Type-based diversification approach \cite{xie14type} which is specifically tailored toward zero-cost domains.
 
-\citeauthor{xie14type} proposed \emph{type based buckets}, an implementation of the OPEN list which paritions the nodes into buckets according to some set of key values (\emph{types}). They proposed several types, for example $\brackets{1}$, $\brackets{g}$, $\brackets{h}$ or $\brackets{g,h}$. In type-based expansion, at each expansion, a randomly selected node from a randomly selected single bucket is selected. For example, with type $\brackets{g,h}$, a node with $g=5$ and $h=3$ is put into a bucket  $\brackets{5,3}$. This mechanism diversifies the search so that it tries to expand the nodes with various distances from the initial state and various distances from a goal state.
+\citeauthor{xie14type} proposed \emph{type based buckets}, an implementation of the OPEN list which partitions the nodes into buckets according to some set of key values (\emph{types}). They proposed several types, for example $\brackets{1}$, $\brackets{g}$, $\brackets{h}$ or $\brackets{g,h}$. In type-based expansion, at each expansion, a randomly selected node from a randomly selected single bucket is selected. For example, with type $\brackets{g,h}$, a node with $g=5$ and $h=3$ is put into a bucket  $\brackets{5,3}$. This mechanism diversifies the search so that it tries to expand the nodes with various distances from the initial state and various distances from a goal state.
 
 They then proposed Type-based GBFS, which alternates the expansion between normal GBFS with a $[h,\fifo]$ sorting criteria and type-based expansion. This alternating framework addresses a weakness of GBFS: 
 GBFS is solely guided by the heuristic function $h$, and heuristic errors in $h$ can easily misguide GBFS to spend all of its time in the wrong part of the search space -- GBFS can become trapped due to heuristic error and cannot recover from the wrong decision until expanding all nodes in that branch.
@@ -112,7 +112,7 @@ In the worst case, on infinite graphs, GBFS is not complete because it can be mi
 In contrast, in type-based GBFS, the alternation with type-based expansion introduces exploratory behavior of nodes with low $g$ and high $h$, offering the possibility of escaping from heuristic error traps.
 As a result, type-based GBFS is probabilistically complete on infinite graphs \cite{Valenzano2016}.
 
-Type-based GBFS was primarily evaluated in the context of satisficing search with no consideration of plan quality, and performance is solevely evaluated according to coverage.
+Type-based GBFS was primarily evaluated in the context of satisficing search with no consideration of plan quality, and performance is solely evaluated according to coverage.
 This leads to the adaptation of a unit-cost domain model: All action costs are ignored and replaced with unit costs in their experiments in order to boost the coverage. This technique is also used in the first iteration of LAMA2011 \cite{richter2011lama}. 
 
 % (i.e., finding either a goal node or exhausting the plateau)
