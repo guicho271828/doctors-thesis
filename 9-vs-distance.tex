@@ -174,6 +174,13 @@ Yet more surprisingly, using $\ffo$ further improved the performance for both \l
 % 
 Thus, when the depth diversity criterion  is not used, the best configurations are those
 which use $\ffo$.
+
+% let's avoid using \sota to describe relatively ``old'' heuristics like ff (where ``relatively old'': 10yrs).
+The reason for the good performance of $[f^{\lmcut},\ffo,\mit{default}]$ is not surprising:
+$\ffo$ is by itself known to be a powerful inadmissible heuristic
+function for satisficing GBFS, and 
+if we ignore the first sorting criterion, $[f^{\lmcut},\ffo,\mit{default}]$ is a GBFS with $[\ffo,\mit{default}]$.
+
 In detail, following domains are improved by each change:
 \begin{itemize}
  \item \textbf{$h^\lmcut \to \hh^\lmcut$}: \pddl{elevator-up} (all), \pddl{freecell-move} (\fifo,\ro), \pddl{mprime-succumb} (all), \pddl{mystery-feast} (\lifo,\ro) \pddl{parking-movecc} (all), \pddl{pipesworld-pushend} (all), \pddl{scanalyzer-analyze} (\lifo,\ro), \pddl{wood\-working-cut} (all). (Compare \reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:dtg-lmcut-zero}.)
@@ -216,14 +223,6 @@ only harms the overall performance due to the overhead.
 When the primary heuristics is \lmcut, we do not observe a significant difference between single-heuristics strategies except for the fractional difference in the configurations using \ro.
 When the primary heuristic is  \mands, $[f^\mands,h^\mands,\lifo]$ performs slightly better than  other default tiebreaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
 %  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
-
-
-% sentences below were moved from section which proposes f*SAT -- is this the right location?
-% --- yes!
-The reason for the good performance of $[f^{\lmcut},\ffo,\fifo]$ is not surprising:
-$\ffo$ is by itself known to be a powerful inadmissible heuristic  % let's avoid using \sota to describe relatively ``old'' heuristics like ff (where ``relatively old'': 10yrs).
-function for satisficing GBFS, and 
-if we ignore the first sorting criterion, $[f^{\lmcut},\ffo,\fifo]$ is a GBFS with $[\ffo,\fifo]$.
 
 {
 \setlength{\tabcolsep}{0.1em}
