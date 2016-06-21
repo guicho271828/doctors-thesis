@@ -100,13 +100,14 @@ randomized implementation of this idea \cite{Asai2016}, but we use a determinist
 implementation here because it eliminates the possibility of results being influenced by random seeds,
 and also facilitates the  theoretical analysis below in \refsec{sec:theoretical-characteristics}.
 
-This depth-based diversification is significantly different from \ro the strategy which simply selects a random node from the OPEN list.
-Actually, the global randomization \ro behaves very similar to \fifo, and is insufficient to achieve the level of diversity provided by our depth diversification tiebreaking.
-This is natural, considering that at any given point in the search, more nodes will tend to have shallower depth than deeper depth, and a uniform, random selection will therefore be biased to select a node with shallow depth.
+Depth-based diversification is significantly different from \ro the strategy which simply selects a random node from the OPEN list.
+The uniform samplig behavior of  \ro behaves very similar to \fifo, and is insufficient to achieve the level of diversity provided by our depth diversification tiebreaking.
+This is because at any given point in the search, more nodes will tend to have shallower depth than deeper depth, and a uniform, random selection will therefore be biased to select a node with shallow depth.
 For example, imagine we have 100 nodes at depth $d=1$ and a single node at depth $d=2$.
 Since \ro does not consider the depth, the chance of expanding $d=2$ is only $1/101$.
 This probability does not improve until a sufficient number of expansions decreases the number of nodes in $d=1$.
-In contrast, our depth diversification gives $d=1,2$ an equal chance of expansion.
+In contrast, our depth diversification policy gives expands nodes at $d=1$ and $d=2$ with equal probability.
+
 
 % We later show that
 % \fifo and \lifo strategies are incomplete when the size of the plateau
@@ -149,17 +150,16 @@ After the $\depth$ criterion is applied,
 there may be multiple nodes within the same depth bucket, so a
 default tiebreaking criterion is still necessary to break ties among them.
 Thus, we should, for example, apply one of \lifo, \fifo or \ro (random order) criteria
-after $\depth$ criterion.
+after the $\depth$ criterion.
 
-There are 2 concerns about this default tiebreaking criteria.
+There are two concerns about this default tiebreaking criteria.
 First, the default tiebreaking behavior is more prone to be
 affected by the accidental biases, e.g., names/orders of action schema in the PDDL domain definition.
-Second, it is not only about the accidental biases.
-At the same time, there could be some nontrivial biases that require further
+Second, in addition to accidental biases, there may be some nontrivial biases that require 
 sophisticated algorithms to be removed.
 
-Regarding the accidental bias, recent work \cite{vallati2015effective} showed that the performance of satisficing
-planner is greatly affected by changing and tuning the action ordering.
+Recent work  showed that the performance of satisficing
+planner can be significantly affected by the order in which actions appear in a PDDL file \cite{vallati2015effective}.
 However, the conference version of this paper \cite{Asai2016} showed that
 the effect of such an accidental bias is not statistically significant in cost-optimal search,
 by comparing the performance on
@@ -167,13 +167,10 @@ several sets of randomly ``mangled'' domains whose action names are replaced wit
 Moreover, the \ro default tiebreaking is supposed to be unaffected by such an accidental bias.
 Thus, the experimental results we show in this paper is not a product of some piece of luck.
 
-Regarding the nontrivial biases, there could be a room for heuristic-agnostic improvements that removes them, but
-this is clearly out of the scope of this paper.  \todo*{``this level'' == after $\depth$} For example, while our depth
-metric measures and diversifies the depths in a plateau, another criterion $X$ may non-trivially diversify the
-search in a breadth direction.  Such a criterion can be applied after the depth criterion but before the default criterion,
-resulting in a sorting strategy $[f,h,\depth,X,\fifo]$. Investigating such a kind of improvements is an avenue of
-future work.
-
+% ``breadth direction'' example was not well defined, replaced with vague discussion of symmetry (combined with the next par); also removing ``non-trivial'' because trivial/nontrivial is not obvious and undefined.
+Aside from accidental biases, there may other nontrivial biases such as some form of symmetry among states which can be removed using some tiebreaking criterion $X$.
+Such a criterion can be applied after the depth criterion but before the default criterion,
+resulting in a sorting strategy $[f,h,\depth,X,\fifo]$. 
 Candidates for $X$ may
 include pruning techniques such as Symmetry Breaking \cite{Fox1998,pochter2011exploiting,domshlak2013symmetry} or
 Partial Order Reduction \cite{hall2013faster,wehrle2013relative}.
@@ -187,6 +184,9 @@ Partial-Order).
 If a search algorithm expands $S$ by random selection, it favors the
 group $A$ by giving 4 times larger chance of expansion than $b$,
 $c$ or $d$.
+Methods for addressing such biases is an avenue for future work.
+
+
 
 \subsection{Theoretical Characteristics of the Depth Distribution}
 \label{sec:theoretical-characteristics}
