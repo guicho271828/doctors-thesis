@@ -1,4 +1,4 @@
-\clearpage
+% \clearpage
 \section{Tie-Breaking Using Distance-to-Go Estimates}
 
 \label{sec:distance-to-go}
@@ -124,6 +124,8 @@ heuristic ($\hat{h}^{\ff}$).
 % least additional overhead.
 We also added configurations with the depth metric within
 $\plateau{f,\hat{h}^{\text{\ff}}}$.
+A summary of the results is shown in \reftbl{tbl:dtg-summary}.
+Detailed per-domain results are shown in \reftbls{tbl:dtg-lmcut-zero}{tbl:dtg-mands-ipc}.
 
 \begin{table}[htbp]
  \centering
@@ -146,19 +148,13 @@ $\plateau{f,\hat{h}^{\text{\ff}}}$.
  \label{list:distance-configs}
 \end{table}
 
-% $[h^{\lmcut}+g,\hat{h}^{\mbox{LMcount}},\fifo]$,
-
-A summary of the results is shown in \reftbl{tbl:dtg-summary}. For
-comparison, we also include the results of configurations evaluated in the previous sections.
-Detailed per-domain results are shown in
-\reftbls{tbl:dtg-lmcut-zero}{tbl:dtg-mands-ipc}.
-
 \begin{table}[htbp]
  \centering
  \input{tables/8-1-summary}
  \caption{
  Summary Results: Coverage comparison (the number
  of instances solved in 5min, 4GB) between several sorting strategies.
+ For comparison, we also include the results of configurations evaluated in the previous sections.
  }
  \label{tbl:dtg-summary}
 \end{table}
@@ -225,59 +221,13 @@ When the primary heuristics is \lmcut, we do not observe a significant differenc
 When the primary heuristic is  \mands, $[f^\mands,h^\mands,\lifo]$ performs slightly better than  other default tiebreaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
 %  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
 
-{
-\setlength{\tabcolsep}{0.1em}
-
-\begin{table}[htbp]
- {
- \centering
- \input{tables/8-zero-lmcut}
- \caption{
- Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:lmcut-zerocost-full}}.
- }
- \label{tbl:dtg-lmcut-zero}
- }
-\end{table}
-\begin{table}[htbp]
- {
- \centering
- \input{tables/8-zero-mands}
- \caption{
- Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:mands-zerocost-full}}.
- }
- \label{tbl:dtg-mands-zero}
- }
-\end{table}
-
-\begin{table}[htbp]
- {
- \centering
- \input{tables/8-ipc-lmcut}
- \caption{
- Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}.
- }
- \label{tbl:dtg-lmcut-ipc}
- }
-\end{table}
-\begin{table}[htbp]
- {
- \centering
- \input{tables/8-ipc-mands}
- \caption{
- Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}.
- }
- \label{tbl:dtg-mands-ipc} }
-\end{table}
-}
-
-\clearpage
-
 \subsubsection{Summary of the Evaluation}
 % \pagebreak[3]
 
-Thus, to recapitulate, our conclusions can be summarized as in \reftbl{tbl:summary}. We conclude that, although the performance gain by depth and distance-to-go heuristics depend on the domain characteristics, they provide a promising overall performance enhancement.
+Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}. We conclude that, although the performance gain by depth and distance-to-go heuristics depend on the domain characteristics, they provide a promising overall performance enhancement.
 
-\begin{table}[htbp]
+\begin{table}[htb]
+\centering
 \begin{tabular}{|p{5em}|p{8em}||p{10em}|p{10em}|}
 \hline
  Primary Heuristics & Zerocost domains
@@ -297,6 +247,53 @@ Thus, to recapitulate, our conclusions can be summarized as in \reftbl{tbl:summa
 \label{tbl:summary}
 \end{table}
 
+
+{
+\setlength{\tabcolsep}{0.1em}
+
+\begin{table}[p]
+ {
+ \centering
+ \input{tables/8-zero-lmcut}
+ \caption{
+ Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:lmcut-zerocost-full}}.
+ }
+ \label{tbl:dtg-lmcut-zero}
+ }
+\end{table}
+\begin{table}[p]
+ {
+ \centering
+ \input{tables/8-zero-mands}
+ \caption{
+ Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:mands-zerocost-full}}.
+ }
+ \label{tbl:dtg-mands-zero}
+ }
+\end{table}
+
+\begin{table}[p]
+ {
+ \centering
+ \input{tables/8-ipc-lmcut}
+ \caption{
+ Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}.
+ }
+ \label{tbl:dtg-lmcut-ipc}
+ }
+\end{table}
+\begin{table}[p]
+ {
+ \centering
+ \input{tables/8-ipc-mands}
+ \caption{
+ Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}.
+ }
+ \label{tbl:dtg-mands-ipc} }
+\end{table}
+}
+
+\clearpage
 
 \subsection{Simple Dynamic Configuration for Overall Performance}
 
