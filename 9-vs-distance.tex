@@ -225,26 +225,6 @@ $\ffo$ is by itself known to be a powerful inadmissible heuristic  % let's avoid
 function for satisficing GBFS, and 
 if we ignore the first sorting criterion, $[f^{\lmcut},\ffo,\fifo]$ is a GBFS with $[\ffo,\fifo]$.
 
-\pagebreak[3]
-
-Thus, to recapitulate, our conclusions are the follows:
-{\bf [XXXTODO: this looks like a powerpoint slide, and also has too much bf. Convert to a table]}
-\begin{itemize}
- \item When the \textbf{primary heuristics is \lmcut}, the best performer under
-       \begin{itemize}
-        \item \textbf{Zerocost domains} is $[f,\ffo,\depth,\ro]$.
-        \item \textbf{Zerocost IPC domains (\pddl{Cybersec}, \pddl{Openstacks})} is $[f,h,\depth,\lifo]$.
-        \item \textbf{Positive-cost IPC domains} is $[f,h, \text{any default tiebreaking}]$ or $[f,h, \depth, \text{any default tiebreaking}]$.
-       \end{itemize}
- \item When the \textbf{primary heuristics is \mands}, the best performer under
-       \begin{itemize}
-        \item \textbf{Zerocost domains} is $[f,\ffo,\ro]$ or $[f,\ffo,\depth,\ro]$, but the latter has
-              a smaller variance.
-        \item \textbf{Zerocost IPC domains (\pddl{Cybersec}, \pddl{Openstacks})} is $[f,h,\lifo]$ or depth variants with any default tiebreaking.
-        \item \textbf{Positive-cost IPC domains} is $[f,h,\lifo]$.
-       \end{itemize}
-\end{itemize}
-
 {
 \setlength{\tabcolsep}{0.1em}
 
@@ -291,6 +271,33 @@ Thus, to recapitulate, our conclusions are the follows:
 }
 
 \clearpage
+
+\subsubsection{Summary of the Evaluation}
+% \pagebreak[3]
+
+Thus, to recapitulate, our conclusions can be summarized as in \reftbl{tbl:summary}. We conclude that, although the performance gain by depth and distance-to-go heuristics depend on the domain characteristics, they provide a promising overall performance enhancement.
+
+\begin{table}[htbp]
+\begin{tabular}{|p{5em}|p{8em}||p{10em}|p{10em}|}
+\hline
+ Primary Heuristics & Zerocost domains
+                    & Zerocost IPC domains (\pddl{Cybersec}, \pddl{Openstacks})
+                    & Positive-cost IPC domains \\
+\hline
+\lmcut & $[f,\ffo,\depth,\ro]$
+       & $[f,h,\depth,\lifo]$
+       & $[f,h, \mit{default}]$ or $[f,h, \depth, \mit{default}]$ (any \textit{default} tiebreaking) \\[0.1em]
+\hline
+\mands & $[f,\ffo,\ro]$ or $[f,\ffo,\depth,\ro]$, but the latter has a smaller variance. 
+       & $[f,h,\lifo]$ or $[f,h,\depth,\mit{default}]$ (any \textit{default} tiebreaking)
+       & $[f,h,\lifo]$ \\
+\hline
+\end{tabular}
+\caption{Summary of the performance evaluation: Best tiebreaking strategy for each group of domains and each primary heuristic function.}
+\label{tbl:summary}
+\end{table}
+
+
 \subsection{Simple Dynamic Configuration for Overall Performance}
 
 In practice, the performance degradation when using multi-heuristic strategy in domains with only positive cost actions does not pose a problem.
