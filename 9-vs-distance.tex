@@ -2,9 +2,10 @@
 \section{Tie-Breaking Using Distance-to-Go Estimates}
 
 \label{sec:distance-to-go}
-In the previous section, we proposed a view of cost-optimal search as a series of satisficing searches on each $f$-cost plateau, and argued that 
+In the previous section, we proposed a framework which views cost-optimal \astar search as a series of satisficing searches on each $f$-cost plateau, and argued that 
 the problem of tiebreaking can be reduced to a satisficing search.
-In this section, we use this insight to propose another approach to improving the
+We showed that the depth diversification tiebreaking criterion which is highly effective on zerocost domains is in fact a case where a previously studied technique for satisficing search (type-based exploration) turns out to be highly effective when applied to tiebreaking.
+In this section, we push this insight further and propose a more general approach to improving the
 search performance in plateaus produced by zerocost domains --
 using inadmissible \emph{distance-to-go} estimates (heuristics) as a tiebreaking criterion within an admissible \astar search.
 
@@ -21,10 +22,10 @@ Distance-to-go estimates are a class of
 heuristics which treat all actions as if they have the unit cost. Even under
 the presence of zero-cost actions, those estimates can predict the
 number of operations required to reach a goal.
-The estimates are inadmissible in general, with exceptions that the domains are unit-cost by origin.
-While several papers advocate the benefit of this technique, the preivious work has focused on 
-the context of satisficing planning.
-\todo*{Need more complete  survey of previous work on d2go heuristics in best-first search (not just planning) here: Thayer+Ruml ICAPS09,Socs09; connectoins to FOCAL method of Pearl and Kim}
+In general, the estimates are inadmissible (unless the estimates are guaranteed to underestimate the number of required actions and all actions in the original domain have unit cost).
+Previous work on distance-to-go-heuristics has focused on 
+their use for satisficing planning.
+
 
 % Except for cases where the target domains are unit-cost by origin (e.g. puzzle domains), in which case \astar is already using unit cost estimates without any modification anyways,
 $A^*_\epsilon$ \cite{pearl1982studies} is one of
@@ -77,7 +78,8 @@ there is still a possibility to use the same techniques for cost-optimal search.
 Since the admissibility of the sorting strategy and the optimality of the solution are not affected by the
 second or later levels of sorting criteria, it is possible to use an inadmissible distance-to-go estimate
 in these subsequent sorting criteria without sacrificing the optimality of the solution found.
-This means the use of inadmissible heuristics for tiebreaking.
+This means inadmissible heuristics can be used for tiebreaking.
+
 
 Let $h$ be an admissible heuristic function, and
 $\hat{h}$ be a distance-to-go variation of $h$, i.e., $\hat{h}$ uses essentially the same algorithm as $h$, except that while $h$ uses the actual action costs for the problem domain, $\hat{h}$ replaces all action costs with 1.
@@ -94,7 +96,19 @@ A potential problem with sorting strategies which use multiple heuristics is the
 heuristic estimates. For example, $[g+h^{\lmcut},\ffo]$ requires more time to evaluate each node compared to a standard tiebreaking strategy such as $[g+h^{\lmcut},h^{\lmcut}]$ because computing the $\ffo$ heuristic incurs significant overhead per node while the results of $h^{\lmcut}$ can be reused by a caching mechanism.
 When the inadmissible heuristic for tiebreaking is $\hat{h}$, i.e. a distance-to-go (unit cost) variant of the primary, admissible heuristic $h$, it may be possible to reduce this overhead to some extent by implementing $h$ and $\hat{h}$ so that they share some of the computation  -- this is a direction for future work.
 
-\subsection{Evaluating Distance-to-go Estimates}
+\subsubsection{Combining Distance-to-go Estimates with Default Tiebreaking and Depth Diversity} % added subsection to highlight the new combination of depth + d2go
+
+Tiebreaking using distance-to-go estimates can still leave a set of nodes which are equivalent up to the distance-to-go criterion (multiple nodes can have the same $f$, $h$, and $\hh$ values), so additional level(s) of tiebreaking are necessary in order to select a single node. By adding a standard default criterion such as \fifo, \lifo, \ro, we obtain a sorting strategy that imposes a total order. For example, 
+$[f^{\lmcut},\ffo,\fifo]$
+ applies \fifo after the distance-to-go estimate $\hh$.
+
+Furthermore, it is possible to combine depth diversity based tiebreaking with distance-to-go estimates by applying the depth-diversity criterion after the distance-to-go estimate. For example, 
+$[f^{\lmcut},\ffo,\depth,\fifo]$ applies depth diversification criterion after the $\ffo$ distance-to-go estimate.
+As we shall see below, a sorting strategy which performs tiebreaking using both distance-to-go estimates and depth diversity results in the best performance overall.
+
+
+
+\subsection{Evaluation of Distance-to-go Estimates as Tiebreaking Criteria for Admissible Search}
 
 We tested various admissible sorting strategies on IPC domains and Zerocost domains.
 % on zerocost domains  where tiebreaking strategies have the large impact.

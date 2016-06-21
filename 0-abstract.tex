@@ -12,19 +12,16 @@ In this paper, we investigate and improve tiebreaking strategies for
  measures the distance from the entrance to the plateau. We  proposes a
  new, depth diversification strategy which significantly outperforms standard
  strategies on domains with zero-cost actions.
- We give both a theoretical analysis and an empirical analysis
+ We provide both a theoretical analysis and an empirical analysis
  supporting these results.
- The second class of strategy we investigate is 
- an admissible multi-heuristic tiebreaking strategy
- based on inadmissible, distance-to-go variations of various heuristics.
+ We propose a new framework for interpreting \astar search as a series of satisficing searches within plateaus consisting of nodes with the same f-cost.
+ Based on this framework, we investigate a second class of tiebreaking strategy 
+ which is a  multi-heuristic tiebreaking strategy
+ which embeds inadmissible, distance-to-go variations of various heuristics within an admissible search.
  This is shown to further improve the performance
  in combination with the depth metric.
- Finally, we open a new interpretation to the cost-optimal search by 
- pointing out that the multi-heuristic strategy is a rare attempt to apply a satisficing
- technique to cost-optimal search.{\bf [TODO: preceding sentence doesn't make sense - fix later]}
- This new interpretation is additionally supported by
- the empirical results of the satisficing search using Greedy Best First Search
- enhanced by the depth diversification.
+%a rare attempt to apply a satisficing
+% technique to cost-optimal search.
  % 
  \textbf{Note to Reviewers: This paper is a significantly extended
 version of an AAAI-16 paper by the same authors. The differences are
