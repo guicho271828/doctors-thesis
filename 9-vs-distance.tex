@@ -4,9 +4,9 @@
 \label{sec:distance-to-go}
 In the previous section, we proposed a framework which views cost-optimal \astar search as a series of satisficing searches on each $f$-cost plateau, and argued that 
 the problem of tiebreaking can be reduced to a satisficing search.
-We showed that the depth diversification tiebreaking criterion which is highly effective on zerocost domains is in fact a case where a previously studied technique for satisficing search (type-based exploration) turns out to be highly effective when applied to tiebreaking.
+We showed that the depth diversification tiebreaking criterion which is highly effective on Zerocost domains is in fact a case where a previously studied technique for satisficing search (type-based exploration) turns out to be highly effective when applied to tiebreaking.
 In this section, we push this insight further and propose a more general approach to improving the
-search performance in plateaus produced by zerocost domains --
+search performance in plateaus produced by Zerocost domains --
 using inadmissible \emph{distance-to-go} estimates (heuristics) as a tiebreaking criterion within an admissible \astar search.
 
 % ; This allows the heuristics to be
@@ -111,7 +111,7 @@ As we shall see below, a sorting strategy which performs tiebreaking using both 
 \subsection{Evaluation of Distance-to-go Estimates as Tiebreaking Criteria for Admissible Search}
 
 We tested various admissible sorting strategies on IPC domains and Zerocost domains.
-% on zerocost domains  where tiebreaking strategies have the large impact.
+% on Zerocost domains  where tiebreaking strategies have the large impact.
 The configurations are listed in \reftbl{list:distance-configs}. 
 In all configurations, the first sorting criterion is the $f=g+h$ value
 where $h$ is an admissible heuristic (either \lmcut or \mands) using the actual action-cost based  cost calculation.
@@ -256,7 +256,7 @@ Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}
  \centering
  \input{tables/8-zero-lmcut}
  \caption{
- Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:lmcut-zerocost-full}}.
+ Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 Zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:lmcut-zerocost-full}}.
  }
  \label{tbl:dtg-lmcut-zero}
  }
@@ -266,7 +266,7 @@ Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}
  \centering
  \input{tables/8-zero-mands}
  \caption{
- Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:mands-zerocost-full}}.
+ Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 Zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:mands-zerocost-full}}.
  }
  \label{tbl:dtg-mands-zero}
  }

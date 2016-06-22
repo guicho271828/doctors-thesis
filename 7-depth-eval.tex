@@ -5,7 +5,7 @@
 %% We evaluated our depth-based diversifying tiebreaking strategies against standard
 %% tiebreaking strategies.
 %% In addition to the 35 IPC benchmark domains with 1104 instances used in
-%% the previous set of experiments, we used 28 zerocost domains with 620
+%% the previous set of experiments, we used 28 Zerocost domains with 620
 %% instances.  
 
 %\subsection{Evaluating Depth-Based Tiebreaking with $h$-tiebreaking}
@@ -15,7 +15,7 @@ as the first-level tiebreaking and either \fifo, \lifo or \ro (random order) as 
 and the only difference is the presence of the third, depth-diversification criteria.
 
 Experiments are conducted on \textbf{1104 standard IPC benchmark
-instances} from 35 domains  and \textbf{620 zerocost instances} from 28 domains (see \refsec{sec:eval-common-strategies} and \refsec{sec:zerocost-domains} for full lists of these domains). 
+instances} from 35 domains  and \textbf{620 Zerocost instances} from 28 domains (see \refsec{sec:eval-common-strategies} and \refsec{sec:zerocost-domains} for full lists of these domains). 
 The basic experimental settings are the same as the previous ones:
 Each experiment uses Fast Downward planner using \astar search and either the \lmcut heuristic or \mands heuristic.
 Each experiment is run for 5 minutes excluding SAS translation time, with 4GB memory constraints.
@@ -42,14 +42,14 @@ standard tiebreaking strategies.
 
 Interestingly, when the depth diversity criterion $\depth$ is used, 
 the performance relationship between \lifo and \fifo seems to become the opposite:
-\fifo tends to perform better than \lifo in zerocost domains for both
+\fifo tends to perform better than \lifo in Zerocost domains for both
 \lmcut and \mands heuristics (299 vs 279 for \lmcut, 317 vs 303 for \mands).
 Also, \ro (random order) outperforms both \fifo and \lifo.
 In the following, we describe and discuss each experiment.
 
-\reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full} shows the number of \textbf{620 zerocost
+\reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full} shows the number of \textbf{620 Zerocost
 instances} solved by \lmcut and \mands heuristics. In these
-zerocost domains, our proposed method outperforms the traditional tiebreaking methods in both heuristics.
+Zerocost domains, our proposed method outperforms the traditional tiebreaking methods in both heuristics.
 Significant improvements were observed in 10 domains when using \lmcut, and in 7 domains when using \mands.
 In detail,
 \begin{itemize}
@@ -68,7 +68,7 @@ In detail,
  \input{tables/7-zero-lmcut}
  % 
   \caption{ Coverage comparison (the number of instances solved in 5min, 4GB, \lmcut heuristics) on \textbf{620
- zerocost instances}.  We highlight the best results when the difference between the best and the worst coverages
+ Zerocost instances}.  We highlight the best results when the difference between the best and the worst coverages
  is greater than 2.  }
  % 
  \label{tbl:lmcut-zerocost-full}}
@@ -80,7 +80,7 @@ In detail,
  \input{tables/7-zero-mands}
   \caption{
  Coverage comparison (the number of instances solved in 5min, 4GB, \mands heuristics)
- on \textbf{620 zerocost instances}. We highlight the
+ on \textbf{620 Zerocost instances}. We highlight the
  best results when the difference between the maximum and the minimum coverage exceeds 2.
  }
  \label{tbl:mands-zerocost-full}
@@ -174,7 +174,7 @@ and the low-level overhead became negligible.
 % \reftbl{tbl:mands-evaluations} shows that if we instead compare the
 % number of evaluations on problems solved by both, depth-based
 % tiebreaking significantly outperforms the standard tiebreaking
-% strategies. Moreover, in the next \textbf{zerocost} domain experiments,
+% strategies. Moreover, in the next \textbf{Zerocost} domain experiments,
 % depth-based tiebreaking ourperforms the standard tiebreaking
 % overall. Besides, the coverages by \mands is less than that of \lmcut.
 
@@ -204,7 +204,7 @@ used in the performance comparison experiments above, and were only used for thi
 
 
 \refigs{fig:depth-histogram}{fig:depth-histogram3} show the results on exemplary instances from 
-various zerocost domains.  We do not show some domains where we did not observe any depths more than 3, in which case
+various Zerocost domains.  We do not show some domains where we did not observe any depths more than 3, in which case
 the depth metric has only a negligible impact on the search performance.
 We observed very similar results across a wide range of domains as shown in the figures.
 It indicates that the depth metric accurately describes the behavior of each tiebreaking criterion.
@@ -239,7 +239,7 @@ the number of expansion by $[f,h,\fifo]$ in the shallower depths constitutes an 
 
 Next, \refig{fig:depth-histogram4} shows the same results on the standard IPC
 \pddl{Openstacks} and \pddl{Cybersec} domains.
-The result in \pddl{Openstacks} was similar to those of the zerocost domains.
+The result in \pddl{Openstacks} was similar to those of the Zerocost domains.
 In \pddl{Cybersec},
 % while the depth has improved the overall performance,
 we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because all tiebreaking strategies have generated only a small number of such nodes before the solution was found.
