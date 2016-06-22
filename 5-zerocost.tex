@@ -121,7 +121,8 @@ Thus, we did not modified the problem definitions at all, only modifying the act
 
 \subsection{Difference in Problem Characteristics between IPC and Zerocost Domains}
 
-The previous study on the parameterized complexity of planning domains \cite{aghighi2015} shows a strong evidence that there would be also the large practical performance differences when a domain independent planner solves the original IPC instances and our Zerocost instances.
+The previous study on the parameterized complexity of planning domains \cite{aghighi2015} suggests % can't extrapolate too strongly from problem class complexity results to specific instances 
+that there would be significant practical performance differences when a domain independent planner solves the original IPC instances and our Zerocost instances.
 However, to our knowledge, an empirical study on such differences over wide range of IPC domains is missing in the literature.
 Existing empirical analyses mainly focus on the performance difference caused by using a plan length metric for inadmissible heuristic search (further discussed in \refsec{sec:distance-to-go}), not the performance difference caused by the target cost function in cost-optimal search.
 % Such a performance difference is primarily regarded as a ``special case'' simply because there are only a few zero-cost action domains.
@@ -221,4 +222,15 @@ In the next section, we propose and evaluate an implementation of
 such a technique. It turns out that introducing a notion of \emph{depth} within a plateau can have
 a significant impact on the performance of knowledge-free search, and can also 
 provide a good  understanding of the behavior of standard tiebreaking strategies.
+
+\subsection{Completeness of Tiebreaking Strategies on Zerocost Domains}
+
+The presence of zero-cost edges in the search space affects the completeness of tiebreaking strategies for \astar. 
+As long as the search graph is finite, \astar is complete regardless of the tiebreaking strategy.
+If the search graph is infinite, and the branching factor is finite, then 
+\fifo will always return a solution if one exists.
+
+However, some solvable, infinite search graphs with finite branching factors can contain traps for a \lifo tiebreaking policy -- there may be infinite regions of the search space consisting of nodes connected by zero-cost edges which cause \astar with \lifo tiebreaking to endlessly search this region, never returning to another region of the graph which contains a solution.
+Note that this holds in general regardless of whether $h$-based tiebreaking is applied prior to $\lifo$ tiebreaking, since all nodes in such a trap would have the same $h$-value of zero if $h$ is admissible.
+The randomized, $\ro$ tiebreaking method is probabilistically complete for solvable problems in the presence of such traps -- since $\ro$ will expand nodes outside the trap with some non-zero probability, it will eventually (in the limit) find the solution.
 
