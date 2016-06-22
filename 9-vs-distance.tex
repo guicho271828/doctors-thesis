@@ -20,7 +20,7 @@ using inadmissible \emph{distance-to-go} estimates (heuristics) as a tiebreaking
 % estimates in the plateau.  
 Distance-to-go estimates are a class of
 heuristics which treat all actions as if they have the unit cost. Even under
-the presence of zero-cost actions, those estimates can predict the
+the presence of 0-cost actions, those estimates can predict the
 number of operations required to reach a goal.
 In general, the estimates are inadmissible (unless the estimates are guaranteed to underestimate the number of required actions and all actions in the original domain have unit cost).
 Previous work on distance-to-go-heuristics has focused on 
@@ -299,7 +299,7 @@ Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}
 
 In practice, the performance degradation when using multi-heuristic strategy in domains with only positive cost actions does not pose a problem.
 We can easily avoid the overhead incurred by the distance-to-go heuristics in those domains by applying the following simple policy:
-If there are any zero-cost actions, use a multi-heuristic strategy; Otherwise, use a single-heuristic strategy.
+If there are any 0-cost actions, use a multi-heuristic strategy; Otherwise, use a single-heuristic strategy.
 
 Since such a check has negligible impact on the total runtime, we can extrapolate the result of applying this rule based on the previously obtained results.
 Coverage results in \reftbl{tbl:dtg-summary-sum} show the total coverage of
@@ -318,8 +318,8 @@ are the extrapolated results when the switching policy is applied -- this dynami
  \label{tbl:dtg-summary-sum}
 \end{table}
 
-When the configuration rule is applied to standard IPC instances, the domains with zero-cost actions are \pddl{Cybersec} and \pddl{Openstacks} only. They are solved using a multi-heuristic strategy while other domains are solved in the best performing single-heuristic strategy. In Zerocost instances, all domains are solved using the multi-heuristic strategy.
-\todo*{Maybe we should show dynamic configuration results in the detailed per-domain tables, just so that it's obvious that we can get ``dominant'', state-of-the-art  behavior --- results are simulated, not actually implemented. Thus the total results should be fine. However, I added exactly which domains were zero-cost.}
+When the configuration rule is applied to standard IPC instances, the domains with 0-cost actions are \pddl{Cybersec} and \pddl{Openstacks} only. They are solved using a multi-heuristic strategy while other domains are solved in the best performing single-heuristic strategy. In Zerocost instances, all domains are solved using the multi-heuristic strategy.
+\todo*{Maybe we should show dynamic configuration results in the detailed per-domain tables, just so that it's obvious that we can get ``dominant'', state-of-the-art  behavior --- results are simulated, not actually implemented. Thus the total results should be fine. However, I added exactly which domains were 0-cost.}
 
 % While these multi-heuristic strategies did not improve the perfomance in
 % the positive cost domains because the final plateaus are small, a simple

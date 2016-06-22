@@ -17,7 +17,7 @@ Our contributions are as follows:
        search effort is spent in the final plateau with $f=f^*$.
 
  We then showed that  the commonly used tie-breaking policy based on $h$ value fails to
-       provide guidance in the plateau when problem instances have zero-cost
+       provide guidance in the plateau when problem instances have 0-cost
        actions and have large plateaus with regard to $h$.
        We empirically showed that most of the search effort can be spent in
        the final plateau with $f=f^*, h=0$ in some domains, and noted that in such
@@ -25,7 +25,7 @@ Our contributions are as follows:
        default tiebreaking \fifo, \lifo or \ro.
 
  We proposed and empirically analyzed a new set of benchmark instances for cost-optimal planning, called Zerocost
- domains, which contains many zero-cost actions which makes the cost-optimal planning strictly harder than without.
+ domains, which contains many 0-cost actions which makes the cost-optimal planning strictly harder than without.
        We showed that they tend to have larger final plateaus with $f=f^*, h=0$ and pose a new challenge to the traditional search algorithms.
        % I do not cite the meysam's paper here because I want to make my contribution clear.
 
@@ -45,7 +45,7 @@ This perspective led to another, novel approach for effective tie-breaking in Ze
        inadmissible distance-to-go estimates as part of a multi-heuristics tiebreaking strategy.
        Combination of depth diversification and distance-to-go estimates results in the best overall performance. Although there is an additional cost to compute
        multiple heuristic values, the overhead can be eliminated by a simple
-       case-based configuration which only uses multiple heuristics when zero-cost actions are present in the problem instance.
+       case-based configuration which only uses multiple heuristics when 0-cost actions are present in the problem instance.
 
 Our reformulation of \astar as a sequence of satisficing searches  points to  an interesting direction for future work.
 Although we evaluated only one relatively simple, satisficing configuration ($\ffo$) in

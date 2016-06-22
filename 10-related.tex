@@ -37,12 +37,12 @@ how tiebreaking enables the efficient search on the plateau created by the earli
 % The PLUSONE %\footnote{This term is used on the Fast Downward website.} XXfootnote takes too much space
 % cost-type (or distance-to-go) is a non-admissible search technique in the Fast Downward/LAMA planner
 % \cite{richter2010lama} which increases all action costs by 1.
-% % By eliminating zero-cost actions, this behaves similar to our $[f,h,\fd,\ro]$ tiebreaking.
+% % By eliminating 0-cost actions, this behaves similar to our $[f,h,\fd,\ro]$ tiebreaking.
 % %Using PLUSONE, three successive
-% %applications of zero-cost operators have cost 3, and two
+% %applications of 0-cost operators have cost 3, and two
 % %applications have cost 2, and smaller cost is preferred, just as
 % %\astar always expands the node with smaller $f$-value.
-% This technique explicitly targeted zero-cost actions,
+% This technique explicitly targeted 0-cost actions,
 % and resulted in significantly better performance in the IPC-6
 % satisficing track \cite[p.137, Sec. 3.3.2]{richter2010lama}.
 % %\todo*{citation}
@@ -92,8 +92,8 @@ Second, $AL^*$ propagates the maximum and the minimum $f$ values found in the lo
 % wrong, see AAAI10 paper that ``recitify this''
 % Finally, when $k>0$ the search becomes inadmissible because it alters the best-first expansion order.
 
-Another relevant line of work, similar spirit to Zerocost domains, is the Preference Track in the deterministic
-part of IPC4 \cite{gerevini2009automatically}. One difference between our zero-cost domains and these domains is
+Another relevant line of work, in similar spirit to Zerocost domains, is the Preference Track in the deterministic
+part of IPC4 \cite{gerevini2009automatically}. One difference between our Zerocost domains and these domains is
 that the latter allows a more complex semantics such as multiplication.
 % 
 More recently, \shortciteauthor{wray2015multi} \citeyear{wray2015multi} proposed a model called \emph{conditional lexicographic preferences with slack} in the context of planning under uncertainty. 

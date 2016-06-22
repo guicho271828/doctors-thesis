@@ -4,7 +4,7 @@
 
 So far, we have shown that by carefully analyzing search within an $f$-cost plateau,
 we were able to develop an effective
-{\it knowledge-free}, depth-based tiebreaking method which can significantly improve search performance on domains with zero-cost actions.
+{\it knowledge-free}, depth-based tiebreaking method which can significantly improve search performance on domains with 0-cost actions.
 We now propose a more general framework which underscores the importance of tiebreaking in \astar.
 \textbf{Cost-optimal search
 can be seen as a series of satisficing searches on each plateau}. In this framework, the problem of tiebreaking can be
@@ -102,7 +102,7 @@ However, ``\astar-as a sequence of satisficing search'' differs from IDA* in tha
 
 \subsection{Depth Diversification as Satisficing Search}
 \label{sec:depth-vs-types}
-Within this framework, the implementation of depth diversification can be viewed as a variant of Type-based diversification approach \cite{xie14type} which is specifically tailored toward zero-cost domains.
+Within this framework, the implementation of depth diversification can be viewed as a variant of Type-based diversification approach \cite{xie14type} which is specifically tailored toward Zerocost domains.
 
 \citeauthor{xie14type} proposed \emph{type based buckets}, an implementation of the OPEN list which partitions the nodes into buckets according to some set of key values (\emph{types}). They proposed several types, for example $\brackets{1}$, $\brackets{g}$, $\brackets{h}$ or $\brackets{g,h}$. In type-based expansion, at each expansion, a randomly selected node from a randomly selected single bucket is selected. For example, with type $\brackets{g,h}$, a node with $g=5$ and $h=3$ is put into a bucket  $\brackets{5,3}$. This mechanism diversifies the search so that it tries to expand the nodes with various distances from the initial state and various distances from a goal state.
 
@@ -119,7 +119,7 @@ Thus, Xie et al adopted a unit-cost domain model: All action costs are ignored a
 
 In our framework of \astar as a sequence of satisficing searches, depth diversification after $h$-tiebreaking ($[f,h,\depth]$) can be viewed as the combination of (1) an implicit transformation of all edge costs within a single $\plateau{f,h}$ to unit-costs, and (2) a pure type-based exploration within that plateau (unlike type-GBFS, which alternates GBFS and type-based buckets).
  
-The notion of \emph{depth} counts the number of zero-cost actions, which does not change the $f$ value and $h$
+The notion of \emph{depth} counts the number of 0-cost actions, which does not change the $f$ value and $h$
 value, on the path from the entrance to the current plateau to the current node.  Thus, 
 depth-diversification treats  the problem of finding an exit from a particular plateau as a unit-cost satisficing search problem
 -- the depth is analogous to a $g$-value which is calculated with unit costs and is restricted to a particular plateau.
@@ -132,7 +132,7 @@ depth-diversification treats  the problem of finding an exit from a particular p
 
 Depth diversification for tiebreaking in admissible \astar has a different purpose and context from Type-GBFS for satisficing search,
 and differs as follows.
-First, depth diversification  is focused on finding a satisficing plan \emph{within a single plateau} and on solving \emph{domains with zero-cost actions} % which is strictly harder than those without them. %worst-case complexity results for problem classes don't necessarily apply to specific instances, so using this ``strictly harder'' complexity result as justification is dangerous.
+First, depth diversification  is focused on finding a satisficing plan \emph{within a single plateau} and on solving \emph{domains with 0-cost actions} % which is strictly harder than those without them. %worst-case complexity results for problem classes don't necessarily apply to specific instances, so using this ``strictly harder'' complexity result as justification is dangerous.
 Therefore, depth diversification is applied after the sorting by $h$.
 %Also, the role is limited to each plateau with the same $f$ and $h$ because nodes are put in the depth buckets only after being sorted by $f$ and $h$, 
 In contrast, type buckets are global --- type buckets have no preceding sorting criteria, and all open nodes are stored in these buckets. Type-GBFS then alternates type buckets and sorting by $h$, not applying them in a cascade manner.

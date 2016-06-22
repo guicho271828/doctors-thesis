@@ -1,14 +1,14 @@
-\section{Domains with Zero-Cost Actions}
+\section{Domains with 0-Cost Actions}
 \label{sec:zerocost-domains}
 %% best to put openstacks here, considering the connection to the
 %% previous section
 \pddl{Openstacks}  is a cost
 minimization domain introduced in IPC-2006, where the objective is to 
 minimize the number of stacks used.
-One characteristic of \pddl{Openstacks} is the presence of many  actions which have zero cost because they do not increase the number of stacks. These zero-cost actions create the problem depicted in \refig{fig:plateau-1}.
+One characteristic of \pddl{Openstacks} is the presence of many  actions which have zero cost because they do not increase the number of stacks. These 0-cost actions create the problem depicted in \refig{fig:plateau-1}.
 % Since 0-cost actions corresponds to 0-cost search edges.
 % If such actions are present, the neighbors of the goal nodes could be surrounded by the 0-cost edges.
-Since zero-cost actions (edges) allow ``free'' transitions between many neighboring nodes,
+Since 0-cost actions (edges) allow ``free'' transitions between many neighboring nodes,
 the number of neighboring nodes sharing the same $h$ also becomes quite large.
 This creates huge plateaus that share the same $h$-value, and the standard $h$-based tiebreaking criterion can not provide informative guidance for search within a plateau.\todo*{why mention $f=f^*$ specifically here, instead of ``final plateau'' (f*,0) or just in general all plateaus?}
 
@@ -35,7 +35,7 @@ This creates huge plateaus that share the same $h$-value, and the standard $h$-b
 % necessary for this AAAI submission. 
 % (2) It's better if this paper is not so strongly associated with the ICAPS community only -- this work applies in general to search with A*, and is not strongly tied to almost-perfect heuristics, lmcut, m&s, etc.
 
-Although most traditional benchmark problems in the planning community and the combinatorial search community do not have zero-cost actions,
+Although most traditional benchmark problems in the planning community and the combinatorial search community do not have 0-cost actions,
 we argue that such domains are of an important class of models for cost-minimization problems, i.e.,
 assigning zero costs makes sense from a practical, modeling perspective.
 For example, consider the \pddl{driverlog} domain, where the task is to move packages between locations using trucks.
@@ -53,7 +53,7 @@ assigning cost 0 to all actions except \pddl{drive-truck} -- we believe that for
 %% every actions are supposed to consume a fraction of time.
 %% However, such formulation is not suitable for general optimization
 %% problems.  For example, when you try to minimize the energy consumption
-%% by the elevators in \pddl{Elevators} domain, many actions would have zero-cost
+%% by the elevators in \pddl{Elevators} domain, many actions would have 0-cost
 %% --- it does not consume electricity for either boarding or leaving the
 %% passenger, or moving the elevator down.
 %% % 
@@ -67,7 +67,7 @@ Similarly, for many practical applications, a natural objective is to
 optimize the usage of one key consumable resource, e.g., fuel/energy
 minimization.  In fact, two of the IPC domains, \pddl{Openstacks} and
 \pddl{Cybersec}, which were shown to be difficult for standard tiebreaking
-methods in the previous section, both contain many zero-cost actions
+methods in the previous section, both contain many 0-cost actions
 and are based on industrial applications: %no textbf here because both \pddl{Cybersec} and \pddl{Openstacks} are highly simplified models, let's not exaggerate their importance
 \pddl{Openstacks} models
 production planning \cite{fink1999applications} and \pddl{Cybersec}
@@ -75,13 +75,13 @@ models Behavioral Adversary Modeling System \cite[minimizing decryption,
 data transfer, etc.]{boddy2005course}.
 
 Furthermore, it has recently been shown using parameterized complexity analysis that  planning problems with
-zero-cost actions are strictly harder (para-\textbf{NP}-complete) than the planning problems with strictly positive
+0-cost actions are strictly harder (para-\textbf{NP}-complete) than the planning problems with strictly positive
 costs (\textbf{W}[2] complete) \cite{aghighi2015}. This indicates the inherent difficulty of optimally solving
-planning problems with zero-cost actions.
+planning problems with 0-cost actions.
 
 Therefore, in this paper, we modified various standard domains
-into cost minimization domains with many zero-cost actions.
-Specifically, each of our ``zero-cost domains'' is a standard domain which has been modified so that all action schema are assigned
+into cost minimization domains with many 0-cost actions.
+Specifically, each of our ``Zerocost domains'' is a standard domain which has been modified so that all action schema are assigned
 cost 0 except for a few (usually one) action schema which consumes some key resource.
 The suffixes in the names of these domains indicate the actions with non-zero costs, 
 %e.g., \pddl{elevator-up} is a modified elevator
@@ -95,7 +95,7 @@ energy usage (\pddl{logistics-fuel}, \pddl{elevator-up} etc.), and  assembly-typ
 (\pddl{Woodworking-cut} minimizes wood usage, etc.).
 
 We did not
-include domains which have only a single action schema, or which already had many zero-cost actions.
+include domains which have only a single action schema, or which already had many 0-cost actions.
 We refer to these 28 new domains as \emph{Zerocost domains}.
 In detail, they are:
 \pddl{airport-fuel} (20), \pddl{blocks-stack} (20), \pddl{depot-fuel} (22), \pddl{driverlog-fuel} (20),
@@ -125,7 +125,7 @@ The previous study on the parameterized complexity of planning domains \cite{agh
 that there would be significant practical performance differences when a domain independent planner solves the original IPC instances and our Zerocost instances.
 However, to our knowledge, an empirical study on such differences over wide range of IPC domains is missing in the literature.
 Existing empirical analyses mainly focus on the performance difference caused by using a plan length metric for inadmissible heuristic search (further discussed in \refsec{sec:distance-to-go}), not the performance difference caused by the target cost function in cost-optimal search.
-% Such a performance difference is primarily regarded as a ``special case'' simply because there are only a few zero-cost action domains.
+% Such a performance difference is primarily regarded as a ``special case'' simply because there are only a few 0-cost action domains.
 % As a result, the number of domains used for evaluations is usually below 8 \cite{}
 % Also, 
 
@@ -136,7 +136,7 @@ heuristics are shown in \reftbl{tbl:lmcut-zerocost-std} and
 the left-hand side shows the results in the original domains, and the right-hand side
 shows the Zerocost domains modified from the same
 instances on the left-hand side. We did not exclude domains whose
-number of instances in the standard domain differs from the number of instances in the zero-cost version.
+number of instances in the standard domain differs from the number of instances in the 0-cost version.
 
 For both \lmcut and \mands heuristics, we observed a significant
 performance difference between the original IPC domains and the Zerocost
@@ -145,7 +145,7 @@ was lower in 11 domains while more instances were solved
 in 5 domains. With \mands, the coverage in Zerocost domains was lower in 10 domains while
 more instances were solved in 3 domains.
 \todo*{Can we consolidate the lmcut table mands table comparing the 0-cost vs standard domains?  Doesn't seem important enough for 2 tables --- not critical}
-The coverage increase in some domains is not surprising, considering that zero-cost actions also make some suboptimal paths into cost-optimal paths.
+The coverage increase in some domains is not surprising, considering that 0-cost actions also make some suboptimal paths into cost-optimal paths.
 
 Also, \refig{fig:plateau-zerocost} plots the size of the final plateau of the
 Zerocost instances, with \lmcut heuristics and $h$-tiebreaking. In this plot,
@@ -161,7 +161,7 @@ in determining search performance.
  \centering
  \input{tables/5-std-zero-comparison-lmcut}
  \caption{
- Assessment of the relative difficulty of zero-cost domains vs. their corresponding standard domains, for the standard $[f,h,\fifo]$ strategy.
+ Assessment of the relative difficulty of Zerocost domains vs. their corresponding standard domains, for the standard $[f,h,\fifo]$ strategy.
  Coverage comparison (the number of instances solved) 
  between the original IPC domains and the modified Zerocost domains are shown, 
  using the same planner configuration and experimental setting (5min, 4GB, \lmcut heuristics).
@@ -214,7 +214,7 @@ there is clearly no room for improving the heuristic estimate; Any positive
 value causes the heuristics to be inadmissible.
 
 One approach to improving the search performance in such plateaus
-produced by Zerocost domains is to perform an efficient
+produced by 0-cost edges is to perform an efficient
 \emph{knowledge-free} search within plateau; It may reuse the effort
 that is already spent to guide the search but without requiring 
 additional effort to compute multiple heuristics.
@@ -225,12 +225,12 @@ provide a good  understanding of the behavior of standard tiebreaking strategies
 
 \subsection{Completeness of Tiebreaking Strategies on Zerocost Domains}
 
-The presence of zero-cost edges in the search space affects the completeness of tiebreaking strategies for \astar. 
+The presence of 0-cost edges in the search space affects the completeness of tiebreaking strategies for \astar. 
 As long as the search graph is finite, \astar is complete regardless of the tiebreaking strategy.
 If the search graph is infinite, and the branching factor is finite, then 
 \fifo will always return a solution if one exists.
 
-However, some solvable, infinite search graphs with finite branching factors can contain traps for a \lifo tiebreaking policy -- there may be infinite regions of the search space consisting of nodes connected by zero-cost edges which cause \astar with \lifo tiebreaking to endlessly search this region, never returning to another region of the graph which contains a solution.
+However, some solvable, infinite search graphs with finite branching factors can contain traps for a \lifo tiebreaking policy -- there may be infinite regions of the search space consisting of nodes connected by 0-cost edges which cause \astar with \lifo tiebreaking to endlessly search this region, never returning to another region of the graph which contains a solution.
 Note that this holds in general regardless of whether $h$-based tiebreaking is applied prior to $\lifo$ tiebreaking, since all nodes in such a trap would have the same $h$-value of zero if $h$ is admissible.
 The randomized, $\ro$ tiebreaking method is probabilistically complete for solvable problems in the presence of such traps -- since $\ro$ will expand nodes outside the trap with some non-zero probability, it will eventually (in the limit) find the solution.
 
