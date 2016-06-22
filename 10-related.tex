@@ -6,7 +6,7 @@ non-admissible search.  DBFS \cite{imai2011novel} % is a technique which
 adds stochastic backtracking to Greedy Best First Search (GBFS) to avoid
 being misdirected by the heuristic function. Type based buckets
 \cite{xie14type} classify plateaus in GBFS according to the
-$[g,h]$ pair and distributes the effort.  Marvin \cite{Coles07} learns plateau-escaping macros
+$[g,h]$ pair and distributes the effort.\footnote{The relationship between Type-GBFS and our work is discussed in detail in \refsec{sec:depth-vs-types}.}  Marvin \cite{Coles07} learns plateau-escaping macros
 from the Enhanced Hill Climbing phase of the FF planner
 \cite{Hoffmann01} (note that use of macros makes the search inadmissible in general).
 \citeauthor{Hoffmann05} \citeyear{Hoffmann05,Hoffmann11} gives a detailed analysis of the
@@ -110,5 +110,5 @@ the first optimization objective is the amount of fuel usage, allowing a slack u
 the second optimization target is the makespan of the plan.
 In this case, a plan with 100 liters of fuel usage and a plan with 105 liters of fuel usage are considered equally preferable in the first criterion, and the better plan is the one with a shorter makespan.
 % 
-Since a slack allows multiple values (e.g. 100 and 105) to have the same preference, it should introduce larger plateaus.
+Since slack allows multiple values (e.g. 100 and 105) to have the same preference, it should introduce larger plateaus.
 Applying our techniques to problems with slack is an avenue of future work.

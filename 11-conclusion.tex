@@ -16,11 +16,11 @@ Our contributions are as follows:
        benchmark have large plateaus with regard to $f$, and most of the
        search effort is spent in the final plateau with $f=f^*$.
 
- We then showed that  the commonly used tie-breaking policy based on $h$ value was shown to fail to
-       provide guidance in the plateau when the instances have zero-cost
+ We then showed that  the commonly used tie-breaking policy based on $h$ value fails to
+       provide guidance in the plateau when problem instances have zero-cost
        actions and have large plateaus with regard to $h$.
        We empirically showed that most of the search effort can be spent in
-       the final plateau with $f=f^*, h=0$ in some domains. We pointed out that in such
+       the final plateau with $f=f^*, h=0$ in some domains, and noted that in such
        a plateau, the search is controlled solely by the
        default tiebreaking \fifo, \lifo or \ro.
 
@@ -42,13 +42,12 @@ We then introduced a new interpretation of cost-optimal \astar search as a serie
 %many techniques which have been developed for 
 %       satisficing search can be directly applied to plateau search in   cost-optimal search.
 This perspective led to another, novel approach for effective tie-breaking in Zerocost domains, the use of
-       inadmissible heuristics as part of a multi-heuristics tiebreaking strategy.
-       Depth metric further improves the performance of those
-       heuristics. Although there is an additional cost to compute
-       multiple heuristic values, the cost can be eliminated by a simple
-       case-based configuration which checks for zero-cost actions.
+       inadmissible distance-to-go estimates as part of a multi-heuristics tiebreaking strategy.
+       Combination of depth diversification and distance-to-go estimates results in the best overall performance. Although there is an additional cost to compute
+       multiple heuristic values, the overhead can be eliminated by a simple
+       case-based configuration which only uses multiple heuristics when zero-cost actions are present in the problem instance.
 
-Our reformulating of \astar as a sequence of satisficing searches  points to  an interesting direction for future work.
+Our reformulation of \astar as a sequence of satisficing searches  points to  an interesting direction for future work.
 Although we evaluated only one relatively simple, satisficing configuration ($\ffo$) in
 the experiments, many techniques which have previously been developed for satisficing planning can be applied to enhance tiebreaking (plateau-search) in cost-optimal search, including
 lazy evaluation \cite{richter2010lama}, alternating/Pareto open

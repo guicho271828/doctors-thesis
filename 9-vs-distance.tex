@@ -33,8 +33,8 @@ the earliest algorithms that combines distance-to-go estimates with the cost est
 search which expands from the \emph{focal} list, the set of nodes with $f(n)\leq w\cdot f_{\mit{min}}$ where weight $w$ serves as a suboptimality bound, similar to weighted \astar, 
  and $f_{\mit{min}}$ is the minimum $f$ value in the OPEN list.  While $f$
 is based on an admissible heuristic function, the nodes in the focal list are expanded in increasing order of
-an inadmissible distance-to-go estimates $\hh$. Thus, the search does not follow the best-first order of $f$ and is
-not admissible, being only $w$-admissible. One exception is the case of $w=1$ where the focal list is equivalent
+an inadmissible distance-to-go estimate $\hh$. Since the search does not follow the best-first order according to $f$, it is 
+not admissible, and is instead $w$-admissible. One exception is the case of $w=1$ where the focal list is equivalent
 to the $f$ plateau and the expansion order in the focal list corresponds to the tiebreaking on plateaus. In our
 notation, this algorithm can be written\footnote{
 However, an actual implementation may differ due to dynamic updates to $f_{\mit{min}}$.}
@@ -62,10 +62,10 @@ framework \cite{richter2011lama}. The first iteration of LAMA uses distance-to-g
 search enhancements.
 
 In temporal planning, \shortciteauthor{benton2010g} proposed an inadmissible technique where short actions are
-hidden behind long actions and do not increase makespan \cite{benton2010g}. Such actions cause so-called ``g-value
-plateau'', a similar situation caused by 0-cost actions in sequential planning.  They implemented an inadmissible
+hidden behind long actions and do not increase makespan \cite{benton2010g}. Such actions cause a``g-value
+plateaus'', which are similar to the large plateaus caused by 0-cost actions in sequential planning.  They implemented an inadmissible
 heuristic function combined with distance-to-go estimates on top of Temporal Fast Downward system
-\cite{eyerich2009using}.  As stated, their method is not applicable to the cost-optimal search.
+\cite{eyerich2009using}.  % As stated, their method is not applicable to the cost-optimal search.%true, but they might claim that adapting their technique to admissible search is ``trivial'', so let's just leave this out.
 
 %% I couldnt find this in the paper now... 
 %  and showing that (non-admissibly) treating all actions as unit cost sometimes finds an optimal plan quickly.
@@ -74,7 +74,7 @@ heuristic function combined with distance-to-go estimates on top of Temporal Fas
 \subsection{Embedding Distance-to-Go Estimates in Admissible Search}
 
 Although previous work on distance-to-go estimates assume a satisficing context,
-there is still a possibility to use the same techniques for cost-optimal search.
+we show that distance-to-go estimates can be useful for cost-optimal search.
 Since the admissibility of the sorting strategy and the optimality of the solution are not affected by the
 second or later levels of sorting criteria, it is possible to use an inadmissible distance-to-go estimate
 in these subsequent sorting criteria without sacrificing the optimality of the solution found.
@@ -100,7 +100,7 @@ When the inadmissible heuristic for tiebreaking is $\hat{h}$, i.e. a distance-to
 
 Tiebreaking using distance-to-go estimates can still leave a set of nodes which are equivalent up to the distance-to-go criterion (multiple nodes can have the same $f$, $h$, and $\hh$ values), so additional level(s) of tiebreaking are necessary in order to select a single node. By adding a standard default criterion such as \fifo, \lifo, \ro, we obtain a sorting strategy that imposes a total order. For example, 
 $[f^{\lmcut},\ffo,\fifo]$
- applies \fifo after the distance-to-go estimate $\hh$.
+ applies \fifo after the distance-to-go estimate $\ffo$.
 
 Furthermore, it is possible to combine depth diversity based tiebreaking with distance-to-go estimates by applying the depth-diversity criterion after the distance-to-go estimate. For example, 
 $[f^{\lmcut},\ffo,\depth,\fifo]$ applies depth diversification criterion after the $\ffo$ distance-to-go estimate.
@@ -213,7 +213,7 @@ additional heuristics, and the best result using \mands
 was $[f,h,\lifo]$ which imposes no overhead including the depth.
 
 If we look further into the detail, we observed the following:
-In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) improve upon the standard strategy (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:3), but does not improve upon depth (e.g. $[f,h,\depth,\lifo]$: 12). When $h=h^\mands$, all coverages are zero. Overheads by $\ffo$ also slightly degrade the performance in \pddl{Openstacks} (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:18, $[f^\lmcut,\ffo,\lifo]$:17, $[f^\lmcut,h^\lmcut,\depth,\lifo]$: 18; Also, $[f^\mands,h^\mands,\lifo]$:19, $[f^\mands,\ffo,\lifo]$:18, $[f^\mands,h^\mands,\depth,\lifo]$: 19). Thus, in these two domains, although there are some improvements in search efficiency due to the guidance by $\ffo$ or $\hh$, the runtime overhead of computing the  distance-to-go heuristics outweighed the merit.
+In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) improve upon the standard strategy (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:3), but does not improve upon depth (e.g. $[f,h,\depth,\lifo]$: 12). When $h=h^\mands$, all coverages are zero. Overheads by $\ffo$ also slightly degrade the performance in \pddl{Openstacks} (e.g. $[f^\lmcut,h^\lmcut,\lifo]$:18, $[f^\lmcut,\ffo,\lifo]$:17, $[f^\lmcut,h^\lmcut,\depth,\lifo]$: 18; Also, $[f^\mands,h^\mands,\lifo]$:19, $[f^\mands,\ffo,\lifo]$:18, $[f^\mands,h^\mands,\depth,\lifo]$: 19). Thus, in these two domains, although there are some improvements in search efficiency due to the guidance by $\ffo$ or $\hh$, the runtime overhead of computing the  distance-to-go heuristics outweighed the benefit.
  
 In the domains with only positive cost actions (all IPC domains except \pddl{Openstacks} and \pddl{Cybersec}), $\hat{h}$ or $\ffo$
 only harm the overall performance due to the overhead.
@@ -224,7 +224,7 @@ When the primary heuristic is  \mands, $[f^\mands,h^\mands,\lifo]$ performs slig
 \subsubsection{Summary of the Evaluation}
 % \pagebreak[3]
 
-Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}. We conclude that, although the performance gain by depth and distance-to-go heuristics depend on the domain characteristics, they provide a promising overall performance enhancement.
+Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}. We conclude that, although the performance gain by depth diversification and distance-to-go heuristics depend on the domain characteristics, they provide a promising overall performance enhancement.
 
 \begin{table}[htb]
 \centering

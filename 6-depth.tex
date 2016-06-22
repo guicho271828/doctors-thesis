@@ -139,7 +139,7 @@ Let a node $n$ is a child of a node $m$. Depending on whether $n$ is already eva
 \end{enumerate}
 
 Since cases 1 and 2 always hold and case 3 holds at the beginning of the search,
-by induction, the case 3 always holds during the search.
+by induction, case 3 always holds during the search.
 Thus, the depths of nodes in positive cost domains are always 0.
 
 \subsection{Tiebreaking within Depth Buckets}
@@ -168,7 +168,7 @@ Moreover, the \ro default tiebreaking is supposed to be unaffected by such an ac
 Thus, the experimental results we show in this paper is not a product of some piece of luck.
 
 % ``breadth direction'' example was not well defined, replaced with vague discussion of symmetry (combined with the next par); also removing ``non-trivial'' because trivial/nontrivial is not obvious and undefined.
-Aside from accidental biases, there may other nontrivial biases such as some form of symmetry among states which can be removed using some tiebreaking criterion $X$.
+In addition to accidental biases, there may be other nontrivial biases such as some form of symmetry among states which can be removed using some tiebreaking criterion $X$.
 Such a criterion can be applied after the depth criterion but before the default criterion,
 resulting in a sorting strategy $[f,h,\depth,X,\fifo]$. 
 Candidates for $X$ may
@@ -179,7 +179,7 @@ it can be rephrased as ``removing the bias to a set of similar/same nodes'' beca
 they both aim to prune the redundant nodes.
 Note that redundancy causes a biased search effort. For example, imagine we have a
 set of nodes $S=\{a_1, a_2, a_3, a_4, b, c, d\}$ where
-$A=\{a_1, a_2, a_3, a_4\}$ are ``redundant'' in some measure (e.g. by Symmetry,
+$A=\{a_1, a_2, a_3, a_4\}$ are ``redundant'' according to some measure (e.g. by Symmetry,
 Partial-Order). 
 If a search algorithm expands $S$ by random selection, it favors the
 group $A$ by giving 4 times larger chance of expansion than $b$,
@@ -227,7 +227,7 @@ In the discussion below, we assume the following.
 First, we assume that the plateau region forms a forest of a fixed branching factor
 $w\geq 2$ (\emph{forest assumption}), rather than a graph with an indefinite number of successor nodes.
 In the later experiments, we show this assumption is not much distant from the real situations.
-Also, we assume that no depth bucket exhausts due to the expansion (\emph{no-exhaust assumption}).
+Also, we assume that no depth bucket exhausts due to the expansion (\emph{no-exhaustion assumption}).
 We provide a condition for this assumption to hold within this section.
 % Finally, we assume that the sorting strategy performs a \ro default tiebreaking
 % after the depth-based diversification is applied.
@@ -242,18 +242,18 @@ in each iteration the largest depth is increased by 1.
 Therefore, at the end of the $D$'th iteration, each depth $d$ has been expanded exactly $D-d$ times, with $D(D-1)$
 expansions in total.
 
-It also means that the minimum condition for the \emph{no-exhaust assumption} to hold until the end of the $D$'th
+It also means that a sufficient condition for the \emph{no-exhaustion assumption} to hold until the end of the $D$'th
 iteration is that the initial number of nodes in depth 0 is at least $D$.  If there are at least $D$ nodes in depth
-0, depth 0 trivially never exhausts until $D$'th iteration. Also, no depth buckets in depth $d>0$ will exhaust
+0, depth 0 is trivially never exhausted until the $D$'th iteration. Also, no depth buckets in depth $d>0$ will be exhausted 
 because each bucket has $w(D-d+1)$ generated nodes in total (i.e. OPEN+CLOSED) while the expansion has
 happened only $D-d$ times.
-$w(D-d+1)$ follows from the fact that the depth $d-1$ is expanded $D-(d-1)$ times in the preceding $D$ iterations.
+The number of nodes in each bucket ($w(D-d+1)$) follows from the fact that  depth $d-1$ is expanded $D-(d-1)$ times in the preceding $D$ iterations.
 Since $w\geq 2$, $w(D-d+1)\geq 2(D-d)+2>D-d$.
 % For simplicity, let us also assume that the depth 0 initially have exactly $D$ nodes and
 % no nodes will be added to depth 0 during the search.
 % Also let $N=w(D-d+1)$ for readability.
 
-The important point of this characteristics is that this distribution is maintained at any point of the search
+Under our assumptions,  this distribution is an invariant which holds at any point of the search
 until the solution is found. In fact, every depth-selection criterion, including the least depth selection (\fifo) or
 the largest depth selection (\lifo), expands the same set of nodes if there are no solutions (each depth
 $d$ is expanded $Dw^d$ times) and results in the same distribution.
