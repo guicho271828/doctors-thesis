@@ -3,14 +3,14 @@
 
 \label{sec:distance-to-go}
 In the previous section, we proposed a framework which views cost-optimal \astar search as a series of satisficing searches on each $f$-cost plateau, and argued that 
-the problem of tiebreaking can be reduced to a satisficing search.
-We showed that the depth diversification tiebreaking criterion which is highly effective on Zerocost domains is in fact a case where a previously studied technique for satisficing search (type-based exploration) turns out to be highly effective when applied to tiebreaking.
+the problem of tie-breaking can be reduced to a satisficing search.
+We showed that the depth diversification tie-breaking criterion which is highly effective on Zerocost domains is in fact a case where a previously studied technique for satisficing search (type-based exploration) turns out to be highly effective when applied to tie-breaking.
 In this section, we push this insight further and propose a more general approach to improving the
 search performance in plateaus produced by Zerocost domains --
-using inadmissible \emph{distance-to-go} estimates (heuristics) as a tiebreaking criterion within an admissible \astar search.
+using inadmissible \emph{distance-to-go} estimates (heuristics) as a tie-breaking criterion within an admissible \astar search.
 
 % ; This allows the heuristics to be
-% inadmissible when it is only used for tiebreaking strategy.
+% inadmissible when it is only used for tie-breaking strategy.
 
 % The obvious
 % drawback of this strategy is the cost of additional heuristic
@@ -35,7 +35,7 @@ search which expands from the \emph{focal} list, the set of nodes with $f(n)\leq
 is based on an admissible heuristic function, the nodes in the focal list are expanded in increasing order of
 an inadmissible distance-to-go estimate $\hh$. Since the search does not follow the best-first order according to $f$, it is 
 not admissible, and is instead $w$-admissible. One exception is the case of $w=1$ where the focal list is equivalent
-to the $f$ plateau and the expansion order in the focal list corresponds to the tiebreaking on plateaus. In our
+to the $f$ plateau and the expansion order in the focal list corresponds to the tie-breaking on plateaus. In our
 notation, this algorithm can be written\footnote{
 However, an actual implementation may differ due to dynamic updates to $f_{\mit{min}}$.}
 as a BFS with
@@ -51,7 +51,7 @@ Continuing this line of work, \shortciteauthor{thayer2009using} \citeyear{thayer
 evaluated various distance-to-go configurations of Weighted
 \astar, Dynamically Weighted \astar \cite{pohl1973avoidance} and $A^*_\epsilon$.
 Some configurations use distance-to-go as part of
-tiebreaking while they focus on bounded-suboptimal search rather than cost-optimal search.
+tie-breaking while they focus on bounded-suboptimal search rather than cost-optimal search.
 % 
 \shortciteauthor{cushing2010cost} \citeyear{cushing2010cost} pointed out the danger of relying  % neutral tone
 on cost estimates in a satisficing search by investigating ``$\varepsilon$-cost traps'' and other pitfalls caused by
@@ -78,7 +78,7 @@ we show that distance-to-go estimates can be useful for cost-optimal search.
 Since the admissibility of the sorting strategy and the optimality of the solution are not affected by the
 second or later levels of sorting criteria, it is possible to use an inadmissible distance-to-go estimate
 in these subsequent sorting criteria without sacrificing the optimality of the solution found.
-This means inadmissible heuristics can be used for tiebreaking.
+This means inadmissible heuristics can be used for tie-breaking.
 
 
 Let $h$ be an admissible heuristic function, and
@@ -86,32 +86,32 @@ $\hat{h}$ be a distance-to-go variation of $h$, i.e., $\hat{h}$ uses essentially
 Since $h$ is admissible, multi-heuristic sorting strategies such as $[g+h,h,\hat{h}]$ or $[g+h,\hat{h}]$
 are admissible.
 
-Moreover, we can even use a multi-heuristic strategy which uses an inadmissible heuristic for tiebreaking which is unrelated to the primary, admissible heuristic $h$.
+Moreover, we can even use a multi-heuristic strategy which uses an inadmissible heuristic for tie-breaking which is unrelated to the primary, admissible heuristic $h$.
  For example, $[g+h^{\lmcut},\ffo]$ is an admissible sorting strategy
 because the first sorting criterion $f=g+h^{\lmcut}$ uses an admissible
 \lmcut heuristic. Its second sorting criterion, the distance-to-go FF
 heuristic \cite{Hoffmann01}, does not affect the admissibility of this entire sorting strategy.
 
 A potential problem with sorting strategies which use multiple heuristics is the cost of computing additional
-heuristic estimates. For example, $[g+h^{\lmcut},\ffo]$ requires more time to evaluate each node compared to a standard tiebreaking strategy such as $[g+h^{\lmcut},h^{\lmcut}]$ because computing the $\ffo$ heuristic incurs significant overhead per node while the results of $h^{\lmcut}$ can be reused by a caching mechanism.
-When the inadmissible heuristic for tiebreaking is $\hat{h}$, i.e. a distance-to-go (unit cost) variant of the primary, admissible heuristic $h$, it may be possible to reduce this overhead to some extent by implementing $h$ and $\hat{h}$ so that they share some of the computation  -- this is a direction for future work.
+heuristic estimates. For example, $[g+h^{\lmcut},\ffo]$ requires more time to evaluate each node compared to a standard tie-breaking strategy such as $[g+h^{\lmcut},h^{\lmcut}]$ because computing the $\ffo$ heuristic incurs significant overhead per node while the results of $h^{\lmcut}$ can be reused by a caching mechanism.
+When the inadmissible heuristic for tie-breaking is $\hat{h}$, i.e. a distance-to-go (unit cost) variant of the primary, admissible heuristic $h$, it may be possible to reduce this overhead to some extent by implementing $h$ and $\hat{h}$ so that they share some of the computation  -- this is a direction for future work.
 
-\subsubsection{Combining Distance-to-go Estimates with Default Tiebreaking and Depth Diversification} % added subsection to highlight the new combination of depth + d2go
+\subsubsection{Combining Distance-to-go Estimates with Default Tie-Breaking and Depth Diversification} % added subsection to highlight the new combination of depth + d2go
 
-Tiebreaking using distance-to-go estimates can still leave a set of nodes which are equivalent up to the distance-to-go criterion (multiple nodes can have the same $f$, $h$, and $\hh$ values), so additional level(s) of tiebreaking are necessary in order to select a single node. By adding a standard default criterion such as \fifo, \lifo, \ro, we obtain a sorting strategy that imposes a total order. For example, 
+Tie-breaking using distance-to-go estimates can still leave a set of nodes which are equivalent up to the distance-to-go criterion (multiple nodes can have the same $f$, $h$, and $\hh$ values), so additional level(s) of tie-breaking are necessary in order to select a single node. By adding a standard default criterion such as \fifo, \lifo, \ro, we obtain a sorting strategy that imposes a total order. For example, 
 $[f^{\lmcut},\ffo,\fifo]$
  applies \fifo after the distance-to-go estimate $\ffo$.
 
-Furthermore, it is possible to combine depth diversity based tiebreaking with distance-to-go estimates by applying the depth-diversity criterion after the distance-to-go estimate. For example, 
+Furthermore, it is possible to combine depth diversity based tie-breaking with distance-to-go estimates by applying the depth-diversity criterion after the distance-to-go estimate. For example, 
 $[f^{\lmcut},\ffo,\depth,\fifo]$ applies depth diversification criterion after the $\ffo$ distance-to-go estimate.
-As we shall see below, a sorting strategy which performs tiebreaking using both distance-to-go estimates and depth diversity results in the best performance overall.
+As we shall see below, a sorting strategy which performs tie-breaking using both distance-to-go estimates and depth diversity results in the best performance overall.
 
 
 
-\subsection{Evaluation of Distance-to-go Estimates as Tiebreaking Criteria for Admissible Search}
+\subsection{Evaluation of Distance-to-go Estimates as Tie-Breaking Criteria for Admissible Search}
 
 We tested various admissible sorting strategies on IPC domains and Zerocost domains.
-% on Zerocost domains  where tiebreaking strategies have the large impact.
+% on Zerocost domains  where tie-breaking strategies have the large impact.
 The configurations are listed in \reftbl{list:distance-configs}. 
 In all configurations, the first sorting criterion is the $f=g+h$ value
 where $h$ is an admissible heuristic (either \lmcut or \mands) using the actual action-cost based  cost calculation.
@@ -144,7 +144,7 @@ Detailed per-domain results are shown in \reftbls{tbl:dtg-lmcut-zero}{tbl:dtg-ma
  \vspace{-3em}
  \caption{Configurations compared in this section. $h$ is
  either \lmcut or \mands, and $\mit{default}$ is one of the default
- tiebreaking strategies $\fifo,\lifo,$ or $\ro$. }
+ tie-breaking strategies $\fifo,\lifo,$ or $\ro$. }
  \label{list:distance-configs}
 \end{table}
 
@@ -161,7 +161,7 @@ Detailed per-domain results are shown in \reftbls{tbl:dtg-lmcut-zero}{tbl:dtg-ma
 
 \subsubsection{Evaluation in Zerocost Domains}
 
-In Zerocost domains, we see that $\hat{h}$-tiebreaking outperforms $h$-tiebreaking for both \lmcut (e.g. $256\rightarrow 295$ with \fifo) and \mands (e.g. $280\rightarrow 308$ with \fifo).
+In Zerocost domains, we see that $\hat{h}$-tie-breaking outperforms $h$-tie-breaking for both \lmcut (e.g. $256\rightarrow 295$ with \fifo) and \mands (e.g. $280\rightarrow 308$ with \fifo).
 Also, combining $h$ and $\hat{h}$ can further improve performance when the heuristic is \lmcut (e.g. $295\rightarrow 305$ with \fifo).
 The results of combining $h$ and $\hh$ was comparable to $\hh$ when the main heuristic function $h$ is \mands.
 % 
@@ -198,7 +198,7 @@ Improvement was observed in the following domains:
  \item \textbf{\lmcut}: \pddl{mprime-succumb} (\lifo, \ro), \pddl{storage-lift} (\ro), \pddl{tidybot-motion} (\fifo), \pddl{tpp-fuel} (\fifo, \ro).
  \item \textbf{\mands}: \pddl{mprime-succumb} (\lifo, \ro), \pddl{tpp-fuel} (\fifo).
 \end{itemize}
-When the default tiebreaking was \ro and the heuristic is \mands, $[f,\ffo,\depth,\ro]$ performed slightly worse than 
+When the default tie-breaking was \ro and the heuristic is \mands, $[f,\ffo,\depth,\ro]$ performed slightly worse than 
 $[f,\ffo,\ro]$, but the difference was very small  ($337.9\rightarrow 337.6$) and $\depth$ made the performance slightly more robust (smaller standard deviation: $2.1\rightarrow 1.3$).
 
 \subsubsection{Evaluation in Standard IPC Domains}
@@ -218,7 +218,7 @@ In \pddl{Cybersec}, distance-to-go variants (e.g. $[f^\lmcut,\ffo,\lifo]$:5) imp
 In the domains with only positive cost actions (all IPC domains except \pddl{Openstacks} and \pddl{Cybersec}), $\hat{h}$ or $\ffo$
 only harm the overall performance due to the overhead.
 When the primary heuristics is \lmcut, we do not observe a significant difference between single-heuristics strategies except for the fractional difference in the configurations using \ro.
-When the primary heuristic is  \mands, $[f^\mands,h^\mands,\lifo]$ performs slightly better than  other default tiebreaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
+When the primary heuristic is  \mands, $[f^\mands,h^\mands,\lifo]$ performs slightly better than  other default tie-breaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
 %  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
 
 \subsubsection{Summary of the Evaluation}
@@ -236,14 +236,14 @@ Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}
 \hline
 \lmcut & $[f,\ffo,\depth,\ro]$
        & $[f,h,\depth,\lifo]$
-       & $[f,h, \mit{default}]$ or $[f,h, \depth, \mit{default}]$ (any \textit{default} tiebreaking) \\[0.1em]
+       & $[f,h, \mit{default}]$ or $[f,h, \depth, \mit{default}]$ (any \textit{default} tie-breaking) \\[0.1em]
 \hline
 \mands & $[f,\ffo,\ro]$ or $[f,\ffo,\depth,\ro]$, but the latter has a smaller variance. 
-       & $[f,h,\lifo]$ or $[f,h,\depth,\mit{default}]$ (any \textit{default} tiebreaking)
+       & $[f,h,\lifo]$ or $[f,h,\depth,\mit{default}]$ (any \textit{default} tie-breaking)
        & $[f,h,\lifo]$ \\
 \hline
 \end{tabular}
-\caption{Summary of the performance evaluation: Best tiebreaking strategy for each group of domains and each primary heuristic function.}
+\caption{Summary of the performance evaluation: Best tie-breaking strategy for each group of domains and each primary heuristic function.}
 \label{tbl:summary}
 \end{table}
 
@@ -256,7 +256,7 @@ Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}
  \centering
  \input{tables/8-zero-lmcut}
  \caption{
- Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 Zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:lmcut-zerocost-full}}.
+ Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tie-breaking, on 620 Zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:lmcut-zerocost-full}}.
  }
  \label{tbl:dtg-lmcut-zero}
  }
@@ -266,7 +266,7 @@ Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}
  \centering
  \input{tables/8-zero-mands}
  \caption{
- Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 620 Zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:mands-zerocost-full}}.
+ Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tie-breaking, on 620 Zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, \emph{including \refig{tbl:mands-zerocost-full}}.
  }
  \label{tbl:dtg-mands-zero}
  }
@@ -277,7 +277,7 @@ Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}
  \centering
  \input{tables/8-ipc-lmcut}
  \caption{
- Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}.
+ Coverage results with \textbf{ \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tie-breaking, on 1104 standard IPC benchmark instances}.
  }
  \label{tbl:dtg-lmcut-ipc}
  }
@@ -287,7 +287,7 @@ Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}
  \centering
  \input{tables/8-ipc-mands}
  \caption{
- Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tiebreaking, on 1104 standard IPC benchmark instances}.
+ Coverage results with \textbf{ \mands for computing $f$ and inadmissible distance-to-go heuristics for tie-breaking, on 1104 standard IPC benchmark instances}.
  }
  \label{tbl:dtg-mands-ipc} }
 \end{table}
@@ -327,8 +327,8 @@ When the configuration rule is applied to standard IPC instances, the domains wi
 
 
 Overall, these results also strengthen our claim that one should not necessarily rely upon $h$-based
-tiebreaking in some
+tie-breaking in some
 domains, as already discussed in \refsec{sec:noh}. In Zerocost domains,
 using a distance-to-go version of an inadmissible heuristic function for
-tiebreaking is more effective. Also, combining the depth metric with
+tie-breaking is more effective. Also, combining the depth metric with
 such an inadmissible heuristics is also effective.

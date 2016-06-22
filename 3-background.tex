@@ -1,4 +1,4 @@
-\section{Background: Tiebreaking Strategies for \astar}
+\section{Background: Tie-Breaking Strategies for \astar}
 
 \label{sec:astar-background}
 
@@ -22,20 +22,20 @@ expands \emph{some} of the nodes with $f(n) = f^*$, and
 never expands the nodes with $f(n) > f^*$.
 
 If there are multiple nodes with the same $f$-cost, \astar
-must implement some tiebreaking strategy (either
+must implement some tie-breaking strategy (either
 explicitly or implicitly) which selects from among these nodes.
-The early literature on heuristic search seems to have been mostly agnostic regarding tiebreaking.
+The early literature on heuristic search seems to have been mostly agnostic regarding tie-breaking.
 The original \astar paper, as well as Nilsson's subsequent textbook 
 states: ``Select the open node $n$ whose value $f$
 is smallest. Resolve ties arbitrarily, but always in favor of any [goal
 node]'' \cite[p.102 Step 2]{hart1968formal}, \cite[p.69]{Nilsson71}.
-% Although it is possible to interpret this to imply $h$-based tiebreaking
+% Although it is possible to interpret this to imply $h$-based tie-breaking
 % since goal nodes are the special case where $h=0$,
-% they make no further mention of tiebreaking.
-Pearl's textbook on heuristic search specifies that best-first search should ``break ties arbitrarily'' (\citeyear{pearl1984heuristics}, p.48, Step 3), and does not specifically mention tiebreaking for \astar.
-To the best of our knowledge, the first explicit mention of a tiebreaking strategy that considers node generation order is by Korf in his analysis of IDA*: ``If \astar employs the tiebreaking rule of 'most-recently generated', it must also expand the same nodes [as IDA*]'', i.e., a \lifo ordering.
+% they make no further mention of tie-breaking.
+Pearl's textbook on heuristic search specifies that best-first search should ``break ties arbitrarily'' (\citeyear{pearl1984heuristics}, p.48, Step 3), and does not specifically mention tie-breaking for \astar.
+To the best of our knowledge, the first explicit mention of a tie-breaking strategy that considers node generation order is by Korf in his analysis of IDA*: ``If \astar employs the tie-breaking rule of 'most-recently generated', it must also expand the same nodes [as IDA*]'', i.e., a \lifo ordering.
 
-In recent years, tiebreaking according to $h$-values has become ``folklore'' in the search community.
+In recent years, tie-breaking according to $h$-values has become ``folklore'' in the search community.
 \citeauthor{hansen2007anytime} state that ``[i]t is well-known 
 that \astar achieves best performance when it breaks ties
 in favor of nodes with least h-cost'' \cite{hansen2007anytime}.
@@ -50,34 +50,34 @@ also break ties ``preferring high $g$'' (equivalent to low $h$).
 %% this could be moved to later analysis
 % They further write: ``The reasoning is that the goal can be found more
 % quickly in the final $f$ layer of search''.
-Thus, tiebreaking according to $h$-values appears
+Thus, tie-breaking according to $h$-values appears
 to be ubiquitous in practice while,
-to our knowledge, an in-depth experimental analysis of tiebreaking strategies for \astar is lacking in the literature.
+to our knowledge, an in-depth experimental analysis of tie-breaking strategies for \astar is lacking in the literature.
 
-Although the standard practice of tiebreaking according to $h$ might be
-sufficient in some domains, further levels of tiebreaking (explicit or
+Although the standard practice of tie-breaking according to $h$ might be
+sufficient in some domains, further levels of tie-breaking (explicit or
 implicit) are required if multiple nodes have the same $f$ as well as
 the same $h$ values. To date, the effect of such \emph{default}
-tiebreaking was not investigated in depth.
+tie-breaking was not investigated in depth.
 % 
 For example, the survey of efficient \astar implementation techniques in
 \cite{burns2012implementing} did not explicitly mention the default
-tiebreaking, while their library
+tie-breaking, while their library
 code\footnote{https://github.com/eaburns/search} uses \lifo
-default tiebreaking.
+default tie-breaking.
 % 
 It first breaks ties according to $h$, and then
 breaks remaining ties according to a \lifo criterion (most recently
 generated nodes first), i.e., $[f,h,\lifo]$.
 % 
-Although not documented, their choice of a \lifo 2nd-level tiebreaking
+Although not documented, their choice of a \lifo 2nd-level tie-breaking
 criterion appears to be a natural consequence of the fact it can be
 trivially and efficiently implemented in their two-level bucket (vector)
 implementation of OPEN.
 % 
 In contrast, the current implementation of the \sota \astar based planner Fast
 Downward \cite{Helmert2006}, as well as the work by \cite{RogerH10} uses
-a $[f,h,\fifo]$ tiebreaking strategy.
+a $[f,h,\fifo]$ tie-breaking strategy.
 % 
 Although we could not find an explanation in the publication nor in the
 website, this choice is most likely due to their use of alternating OPEN
@@ -85,4 +85,4 @@ lists, in which case the \fifo second-level criterion serves to provide a
 limited form of fairness.
 % 
 %Such lack of explanation suggests that this topic has long been out
-%of focus of the heuristic search literature. % unnecessary - already stated above that default tiebreaking has not been investigated in-depth; and before that, we already said that there's ``folklore'', and that the erly literature was agnostic.
+%of focus of the heuristic search literature. % unnecessary - already stated above that default tie-breaking has not been investigated in-depth; and before that, we already said that there's ``folklore'', and that the erly literature was agnostic.

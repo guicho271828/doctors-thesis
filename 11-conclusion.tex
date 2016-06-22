@@ -1,17 +1,17 @@
 
 \section{Conclusions and Future Work}
 
-In this paper, we investigated the tiebreaking strategies for cost-optimal search using \astar.  
+In this paper, we investigated the tie-breaking strategies for cost-optimal search using \astar.  
 \begin{comment} % the goals are unimportant
-We sought to (1) shed some light on the importance of tiebreaking in \astar,  %one of the most popular best-first search algorithms, 
+We sought to (1) shed some light on the importance of tie-breaking in \astar,  %one of the most popular best-first search algorithms, 
 (2) improve \astar without modifying its main heuristic function at all, and (3) to
 improve \astar by introducing inadmissible techniques. We reached all of these goals successfully: We sought
-various possible enhancements and achieved significant performance improvements solely by the tiebreaking
+various possible enhancements and achieved significant performance improvements solely by the tie-breaking
 techniques. In detail, the contributions in this paper are the following:
 \end{comment}
 Our contributions are as follows:
 % \begin{enumerate} % It looks bad when an entire section is just an enumerated list, 
- First, we showed that tiebreaking has a significant role in cost-optimal
+ First, we showed that tie-breaking has a significant role in cost-optimal
        search using \astar. We empirically showed that most instances in the IPC
        benchmark have large plateaus with regard to $f$, and most of the
        search effort is spent in the final plateau with $f=f^*$.
@@ -22,7 +22,7 @@ Our contributions are as follows:
        We empirically showed that most of the search effort can be spent in
        the final plateau with $f=f^*, h=0$ in some domains, and noted that in such
        a plateau, the search is controlled solely by the
-       default tiebreaking \fifo, \lifo or \ro.
+       default tie-breaking \fifo, \lifo or \ro.
 
  We proposed and empirically analyzed a new set of benchmark instances for cost-optimal planning, called Zerocost
  domains, which contains many 0-cost actions which makes the cost-optimal planning strictly harder than without.
@@ -42,14 +42,14 @@ We then introduced a new interpretation of cost-optimal \astar search as a serie
 %many techniques which have been developed for 
 %       satisficing search can be directly applied to plateau search in   cost-optimal search.
 This perspective led to another, novel approach for effective tie-breaking in Zerocost domains, the use of
-       inadmissible distance-to-go estimates as part of a multi-heuristics tiebreaking strategy.
+       inadmissible distance-to-go estimates as part of a multi-heuristics tie-breaking strategy.
        Combination of depth diversification and distance-to-go estimates results in the best overall performance. Although there is an additional cost to compute
        multiple heuristic values, the overhead can be eliminated by a simple
        case-based configuration which only uses multiple heuristics when 0-cost actions are present in the problem instance.
 
 Our reformulation of \astar as a sequence of satisficing searches  points to  an interesting direction for future work.
 Although we evaluated only one relatively simple, satisficing configuration ($\ffo$) in
-the experiments, many techniques which have previously been developed for satisficing planning can be applied to enhance tiebreaking (plateau-search) in cost-optimal search, including
+the experiments, many techniques which have previously been developed for satisficing planning can be applied to enhance tie-breaking (plateau-search) in cost-optimal search, including
 lazy evaluation \cite{richter2010lama}, alternating/Pareto open
 list \cite{RogerH10}, helpful actions (preferred operators) \cite{Hoffmann01},
 random walk local search \cite{nakhost2009monte}, macro operators
@@ -58,10 +58,10 @@ random walk local search \cite{nakhost2009monte}, macro operators
 exploration-based search enhancements
 \cite{valenzano2014comparison,xie14type,Valenzano2016}.
 
-% Another direction for future work is implementing tiebreaking strategies for IDA* and similar linear-space
+% Another direction for future work is implementing tie-breaking strategies for IDA* and similar linear-space
 % strategies like RBFS.
-% For example, how do we implement or simulate depth-based tiebreaking with a linear space usage?
+% For example, how do we implement or simulate depth-based tie-breaking with a linear space usage?
 % \todo*{In fact, exploring the application of ``IDA* = series of satisficing seraches'' seems like an interesting
-% direction for future work, e.g., how to simulate depth-based tiebreaking (node ordering) in IDA*? IDA* is useful
+% direction for future work, e.g., how to simulate depth-based tie-breaking (node ordering) in IDA*? IDA* is useful
 % for domains where memory limitations are the bottleneck, so keeping the depth buckets in memory may not be
 % possible. More broadly, linear space, best-first search including RBFS}

@@ -22,22 +22,22 @@ Inadmissible search can skip or escape plateaus whenever possible, while
 admissible search cannot, unless it is the plateau with $f=f^*$ where the goals can immediately be found.
 
 In their work on combining multiple inadmissible heuristics in a planner,
-\citeauthor{RogerH10} \citeyear{RogerH10} considered a tiebreaking approach which works as follows:
+\citeauthor{RogerH10} \citeyear{RogerH10} considered a tie-breaking approach which works as follows:
 When combining two heuristics $h_1$ and $h_2$, $h_1$ is used as the primary criterion,
 and $h_2$ is used to break ties among nodes with the same $h_1$ --- $[h_1,h_2,\fifo]$.
 This did not perform well in their work on satisficing planning compared to the approaches based on alternation queues and Pareto-optimal queue selection.
 % 
 Since their focus is on how to combine multiple heuristics,
-this tiebreaking-based approach is just one instance of various implementations of OPEN lists.
-In contrast, this paper provides a focused, in-depth investigation of various tiebreaking strategies,
+this tie-breaking-based approach is just one instance of various implementations of OPEN lists.
+In contrast, this paper provides a focused, in-depth investigation of various tie-breaking strategies,
 and shows 
-how tiebreaking enables the efficient search on the plateau created by the earlier levels of sorting criteria.
+how tie-breaking enables the efficient search on the plateau created by the earlier levels of sorting criteria.
 
 %% already mentioned in the earlier section.
 % The PLUSONE %\footnote{This term is used on the Fast Downward website.} XXfootnote takes too much space
 % cost-type (or distance-to-go) is a non-admissible search technique in the Fast Downward/LAMA planner
 % \cite{richter2010lama} which increases all action costs by 1.
-% % By eliminating 0-cost actions, this behaves similar to our $[f,h,\fd,\ro]$ tiebreaking.
+% % By eliminating 0-cost actions, this behaves similar to our $[f,h,\fd,\ro]$ tie-breaking.
 % %Using PLUSONE, three successive
 % %applications of 0-cost operators have cost 3, and two
 % %applications have cost 2, and smaller cost is preferred, just as
@@ -78,7 +78,7 @@ how tiebreaking enables the efficient search on the plateau created by the earli
 %% % Although in some particular
 %% % case they may be able to return a perfect heuristics, they are still not
 %% % always a perfect heuristics, implying that the plateau is unavoidable.
-%% In contrast, our tiebreaking techniques aims specifically at the case
+%% In contrast, our tie-breaking techniques aims specifically at the case
 %% where the plateau is encountered and the planners are forced to run a
 %% knowledge-free search.
 
@@ -87,7 +87,7 @@ how tiebreaking enables the efficient search on the plateau created by the earli
 % In terms of commonality, 
 $AL^*$, or $AL^*_0$ in particular, is similar to $[f,\lifo]$ in that the lookahead is a depth-first search.
 However, there are both conceptual and algorithmic differences: 
-First of all, $AL^*_0$ does not specify the intermediate tiebreaking (such as $h$-based tiebreaking) for its main \astar, and depth-first lookahead does not perform best-first expansion, so the tiebreaking is irrelevant. Thus, the problems and the solutions addressed in these approaches are different.
+First of all, $AL^*_0$ does not specify the intermediate tie-breaking (such as $h$-based tie-breaking) for its main \astar, and depth-first lookahead does not perform best-first expansion, so the tie-breaking is irrelevant. Thus, the problems and the solutions addressed in these approaches are different.
 Second, $AL^*$ propagates the maximum and the minimum $f$ values found in the lookahead search, which allows for more pruning.
 % wrong, see AAAI10 paper that ``recitify this''
 % Finally, when $k>0$ the search becomes inadmissible because it alters the best-first expansion order.

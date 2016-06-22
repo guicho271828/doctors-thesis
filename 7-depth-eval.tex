@@ -1,17 +1,17 @@
-\section{Evaluating Depth-Based Tiebreaking}
+\section{Evaluating Depth-Based Tie-Breaking}
 \label{sec:depth-based-evaluation}
 
 % this text is mostly repeated below, so deleted this and promoted the subsection below up 1 level.
-%% We evaluated our depth-based diversifying tiebreaking strategies against standard
-%% tiebreaking strategies.
+%% We evaluated our depth-based diversifying tie-breaking strategies against standard
+%% tie-breaking strategies.
 %% In addition to the 35 IPC benchmark domains with 1104 instances used in
 %% the previous set of experiments, we used 28 Zerocost domains with 620
 %% instances.  
 
-%\subsection{Evaluating Depth-Based Tiebreaking with $h$-tiebreaking}
+%\subsection{Evaluating Depth-Based Tie-Breaking with $h$-tie-breaking}
 
-We compared the performance of standard tiebreaking methods to depth-based tiebreaking methods. These all use $h$
-as the first-level tiebreaking and either \fifo, \lifo or \ro (random order) as the default tiebreaking criterion
+We compared the performance of standard tie-breaking methods to depth-based tie-breaking methods. These all use $h$
+as the first-level tie-breaking and either \fifo, \lifo or \ro (random order) as the default tie-breaking criterion
 and the only difference is the presence of the third, depth-diversification criteria.
 
 Experiments are conducted on \textbf{1104 standard IPC benchmark
@@ -21,8 +21,8 @@ Each experiment uses Fast Downward planner using \astar search and either the \l
 Each experiment is run for 5 minutes excluding SAS translation time, with 4GB memory constraints.
 
 We first show the summary results of these experiments (\reftbl{tbl:depth-summary}).
-Overall, depth-based tiebreaking tends to show larger coverages than the
-standard tiebreaking strategies.
+Overall, depth-based tie-breaking tends to show larger coverages than the
+standard tie-breaking strategies.
 
 \begin{table}[htb]
  {
@@ -31,7 +31,7 @@ standard tiebreaking strategies.
  \input{tables/7-1-summary.tex}
  \caption{
  Main summary results: Coverage comparison (number of instances solved in 5min, 4GB, \lmcut/\mands
- heuristics) between standard tiebreaking and depth-based tiebreaking
+ heuristics) between standard tie-breaking and depth-based tie-breaking
  ($\depth$). When \lmcut is used, $\depth$ outperforms standard strategies both in IPC
  instances (1104 problems total) and Zerocost instances (620 problems
  total). When \mands is used, $\depth$ outperforms standard strategies
@@ -49,7 +49,7 @@ In the following, we describe and discuss each experiment.
 
 \reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full} shows the number of \textbf{620 Zerocost
 instances} solved by \lmcut and \mands heuristics. In these
-Zerocost domains, our proposed method outperforms the traditional tiebreaking methods in both heuristics.
+Zerocost domains, our proposed method outperforms the traditional tie-breaking methods in both heuristics.
 Significant improvements were observed in 10 domains when using \lmcut, and in 7 domains when using \mands.
 In detail,
 \begin{itemize}
@@ -88,13 +88,13 @@ In detail,
 \end{table}
 
 \reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard IPC benchmark instances} solved by the configuration using \lmcut
-heuristics. Depth-based tiebreaking ($\depth$) shows impressive results on \pddl{Openstacks} ($\fifo:2\to 8,\ \lifo:3\to 12,\  \ro:3.9\to 10$) and \pddl{Cybersec} ($\fifo: 11\to 18,\ \ro: 11.7\to 18$) because these
+heuristics. Depth-based tie-breaking ($\depth$) shows impressive results on \pddl{Openstacks} ($\fifo:2\to 8,\ \lifo:3\to 12,\  \ro:3.9\to 10$) and \pddl{Cybersec} ($\fifo: 11\to 18,\ \ro: 11.7\to 18$) because these
 domains contain many instances of 0-cost edges (See
-\refig{fig:plateau}).  Most other instances are unaffected by depth-based tiebreaking.  Thus, depth-based
+\refig{fig:plateau}).  Most other instances are unaffected by depth-based tie-breaking.  Thus, depth-based
 tie-breaking yields better performance in the domains with 0-cost actions, without sacrificing performance in
 other domains.
 
-In contrast, \reftbl{tbl:mands-ipc-full} shows that depth-based tiebreaking negatively affects the performance of
+In contrast, \reftbl{tbl:mands-ipc-full} shows that depth-based tie-breaking negatively affects the performance of
 the configuration using \mands when applied to \textbf{1104 standard IPC benchmark instances}. Our justification to this result is
 the following.
 % 
@@ -104,7 +104,7 @@ While it did not happen to \pddl{Cybersec}, this is due to the poor performance 
 The coverage of \pddl{Cybersec} is 0 in all configurations and even depth could not improve it. Thus, the positive
 effect of depth diversification to the overall score was limited.
 % 
-Second, we observed a performance degradation across a wide range of domains which is caused by the low-level overhead of depth-based tiebreaking (i.e., updates to the depth-based bucket data structures).
+Second, we observed a performance degradation across a wide range of domains which is caused by the low-level overhead of depth-based tie-breaking (i.e., updates to the depth-based bucket data structures).
 As shown in \refig{fig:expansion-ratio}, the number of evaluation of \mands heuristics per seconds has significantly decreased across a wide range of domains, while such an effect is limited in \lmcut.
 This is because the evaluation of \mands heuristics is implemented
 as an efficient table lookup, and it is able to evaluate an order of magnitude larger number of nodes compared to \lmcut heuristics.
@@ -127,20 +127,20 @@ and the low-level overhead became negligible.
  %  \hline
  % \end{tabular}
  % \caption{Comparison of the average node expansion ratio (node/sec) between
- % standard tiebreaking and depth-based tiebreaking on \lmcut and \mands
+ % standard tie-breaking and depth-based tie-breaking on \lmcut and \mands
  % heuristics. Numbers are averaged over the problem instances solved by
  % all 4 configurations. Since the node evaluation of \mands is an order of
  % magnitude faster than \lmcut, the overhead of managing depth-based
- % tiebreaking queue is non-negligible on \mands.}
+ % tie-breaking queue is non-negligible on \mands.}
  \includegraphics{img/node-sec/lmhiF-lmh_F.pdf}
  % \includegraphics{img/node-sec/lmhiL-lmh_L.pdf}
  \includegraphics{img/node-sec/mnhiF-mnh_F.pdf}
  % \includegraphics{img/node-sec/mnhiL-mnh_L.pdf}
  % 
- \caption{Comparison of the node evaluation ratio (node/sec) between standard tiebreaking ($y$-axis) and
- depth-based tiebreaking ($x$-axis) on \lmcut and \mands heuristics. On \mands, compared to \lmcut, node evaluation rate more often becomes
+ \caption{Comparison of the node evaluation ratio (node/sec) between standard tie-breaking ($y$-axis) and
+ depth-based tie-breaking ($x$-axis) on \lmcut and \mands heuristics. On \mands, compared to \lmcut, node evaluation rate more often becomes
  twice as slower when depth is enabled. This is because the node evaluation of \mands is an order of
- magnitude faster than \lmcut, and the overhead of managing depth-based tiebreaking queue becomes significant. Same results were obtained with \lifo default tiebreaking. }
+ magnitude faster than \lmcut, and the overhead of managing depth-based tie-breaking queue becomes significant. Same results were obtained with \lifo default tie-breaking. }
  % 
  \label{fig:expansion-ratio}
 \end{figure}
@@ -173,9 +173,9 @@ and the low-level overhead became negligible.
 
 % \reftbl{tbl:mands-evaluations} shows that if we instead compare the
 % number of evaluations on problems solved by both, depth-based
-% tiebreaking significantly outperforms the standard tiebreaking
+% tie-breaking significantly outperforms the standard tie-breaking
 % strategies. Moreover, in the next \textbf{Zerocost} domain experiments,
-% depth-based tiebreaking ourperforms the standard tiebreaking
+% depth-based tie-breaking ourperforms the standard tie-breaking
 % overall. Besides, the coverages by \mands is less than that of \lmcut.
 
 % \begin{figure}[htb]
@@ -183,7 +183,7 @@ and the low-level overhead became negligible.
 %  \caption{
 %  Comparison of the total number of nodes generated
 %  by \mands heuristics until
-%  the goal is found, with vs without depth-based tiebreaking.
+%  the goal is found, with vs without depth-based tie-breaking.
 %  } \label{tbl:mands-evaluations}
 % \end{figure}
 
@@ -192,13 +192,13 @@ and the low-level overhead became negligible.
 \subsection{Search Behavior Within a Plateau}
 
 To understand the behavior of depth-based policies, we plotted 
-histograms of the depths of search nodes evaluated by several tiebreaking
+histograms of the depths of search nodes evaluated by several tie-breaking
 strategies in the final plateau $\plateau{f^*,0}$ until the solution is
 found.  We plotted a depth-based strategy
 $[f,h,\depth,\fifo]$, as well as the standard strategies $[f,h,\fifo]$,
 $[f,h,\lifo]$ and a single run of randomized strategy $[f,h,\ro]$.
 
-In order to obtain the data for the plot, we added some instrumentation to the strategies which do not use depth-based tiebreaking ($[f,h,\fifo]$, $[f,h,\lifo]$, $[f,h,\ro]$). As these strategies run, the depth of each of the expanded nodes is computed, although they do not affect the search behavior.
+In order to obtain the data for the plot, we added some instrumentation to the strategies which do not use depth-based tie-breaking ($[f,h,\fifo]$, $[f,h,\lifo]$, $[f,h,\ro]$). As these strategies run, the depth of each of the expanded nodes is computed, although they do not affect the search behavior.
 Note that this instrumentation, which adds some runtime overhead, was \emph{not}
 used in the performance comparison experiments above, and were only used for this experiment, which analyzes search behavior.
 
@@ -207,7 +207,7 @@ used in the performance comparison experiments above, and were only used for thi
 various Zerocost domains.  We do not show some domains where we did not observe any depths more than 3, in which case
 the depth metric has only a negligible impact on the search performance.
 We observed very similar results across a wide range of domains as shown in the figures.
-It indicates that the depth metric accurately describes the behavior of each tiebreaking criterion.
+It indicates that the depth metric accurately describes the behavior of each tie-breaking criterion.
 
 For example, look at the first figure which is plotting the result of \pddl{depot-fuel}, p07.
 \todo*{...Instead of only general trends ... mention specific domains to add some ``color''}
@@ -242,8 +242,8 @@ Next, \refig{fig:depth-histogram4} shows the same results on the standard IPC
 The result in \pddl{Openstacks} was similar to those of the Zerocost domains.
 In \pddl{Cybersec},
 % while the depth has improved the overall performance,
-we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because all tiebreaking strategies have generated only a small number of such nodes before the solution was found.
-Instead, we observed a large difference in the depth distributions in non-final plateaus $\plateau{f^*,h}, h\not=0$ caused by the difference of tiebreaking.
+we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because all tie-breaking strategies have generated only a small number of such nodes before the solution was found.
+Instead, we observed a large difference in the depth distributions in non-final plateaus $\plateau{f^*,h}, h\not=0$ caused by the difference of tie-breaking.
 Note that depth diversification is always applied regardless of $f$ value or $h$ value.
 This suggests that most children of the nodes in $\plateau{f^*,h}$ have $f$ value larger than $f^*$ or stays in $\plateau{f^*,h}$, and the planner is struggling to find nodes with better $h$.
 Due to the unbiased search, the depth-based strategy has a better chance of improving $h$ values, finding a node in $\plateau{f^*,0}$ more quickly.
@@ -252,7 +252,7 @@ Similar phenomena were observed in several other instances and domains (\refig{f
 \todo*{might as well say which domains...}
 
 Note that the small number of nodes in $\plateau{f^*,0}$ in this experiment does not contradict the results in \refig{fig:plateau},  which shows that  the number of such nodes is quite large.
-This is because \refig{fig:plateau} uses a modified Fast Downward which continues the search until expanding all nodes in the final plateau while in this experiment the planner immediately stops the search after the first solution. These figures are intended to serve different experimental purposes: \refig{fig:plateau} was intended to show the size of the entire final plateau, while \refigs{fig:depth-histogram}{fig:depth-histogram4} were meant to show the actual search behavior. If we were to continue the search after the first solution, all tiebreaking strategies will expand the same set of nodes (in different orders), so we would obtain plots similar to \refig{fig:plateau} regardless of the tiebreaking strategy.
+This is because \refig{fig:plateau} uses a modified Fast Downward which continues the search until expanding all nodes in the final plateau while in this experiment the planner immediately stops the search after the first solution. These figures are intended to serve different experimental purposes: \refig{fig:plateau} was intended to show the size of the entire final plateau, while \refigs{fig:depth-histogram}{fig:depth-histogram4} were meant to show the actual search behavior. If we were to continue the search after the first solution, all tie-breaking strategies will expand the same set of nodes (in different orders), so we would obtain plots similar to \refig{fig:plateau} regardless of the tie-breaking strategy.
 
 \begin{figure}[htbp]
 % \includegraphics{img/output-lmcut/ged-opt14-strips/p17-0.pdf}
@@ -263,7 +263,7 @@ This is because \refig{fig:plateau} uses a modified Fast Downward which continue
 \includegraphics{img/output-lmcut/gripper-move/p07-0.pdf}
 \includegraphics{img/output-lmcut/logistics00-fuel/p016-0.pdf}
  \caption{(Page 1/5) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
- the final plateau with different tiebreaking strategies. Both axes are in logarithmic scale.
+ the final plateau with different tie-breaking strategies. Both axes are in logarithmic scale.
  }
  \label{fig:depth-histogram}
 \end{figure}
@@ -276,7 +276,7 @@ This is because \refig{fig:plateau} uses a modified Fast Downward which continue
 \includegraphics{img/output-lmcut/psr-small-open/p46-0.pdf}
 \includegraphics{img/output-lmcut/rovers-fuel/p07-0.pdf}
  \caption{(Page 2/5) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
- the final plateau with different tiebreaking strategies. Both axes are in logarithmic scale.
+ the final plateau with different tie-breaking strategies. Both axes are in logarithmic scale.
  }
  \label{fig:depth-histogram2}
 \end{figure}
@@ -289,7 +289,7 @@ This is because \refig{fig:plateau} uses a modified Fast Downward which continue
 \includegraphics{img/output-lmcut/woodworking-cut/p04-0.pdf}
 \includegraphics{img/output-lmcut/zenotravel-fuel/p07-0.pdf}
  \caption{(Page 3/5) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
- the final plateau with different tiebreaking strategies. Both axes are in logarithmic scale.
+ the final plateau with different tie-breaking strategies. Both axes are in logarithmic scale.
  }
  \label{fig:depth-histogram3}
 \end{figure}

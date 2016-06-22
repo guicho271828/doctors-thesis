@@ -10,12 +10,12 @@ One characteristic of \pddl{Openstacks} is the presence of many  actions which h
 % If such actions are present, the neighbors of the goal nodes could be surrounded by the 0-cost edges.
 Since 0-cost actions (edges) allow ``free'' transitions between many neighboring nodes,
 the number of neighboring nodes sharing the same $h$ also becomes quite large.
-This creates huge plateaus that share the same $h$-value, and the standard $h$-based tiebreaking criterion can not provide informative guidance for search within a plateau.\todo*{why mention $f=f^*$ specifically here, instead of ``final plateau'' (f*,0) or just in general all plateaus?}
+This creates huge plateaus that share the same $h$-value, and the standard $h$-based tie-breaking criterion can not provide informative guidance for search within a plateau.\todo*{why mention $f=f^*$ specifically here, instead of ``final plateau'' (f*,0) or just in general all plateaus?}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics{img/astar/plateau-1.pdf}
- \caption{Search space of \astar and its contour according to admissible heuristic $h$. (\textbf{Right}) In domains with only positive-cost actions, $h$-based tiebreaking provides meaningful guidance. (\textbf{Left}) In domains with 0-cost actions, applying an action may not increase the cost of the path and the region with $h=0$ could be quite large. With the same mechanism, other heuristic plateaus (e.g. $h=1$) also become larger. Thus, $h$-based tiebreaking fails to provide meaningful guidance in this space.
+ \caption{Search space of \astar and its contour according to admissible heuristic $h$. (\textbf{Right}) In domains with only positive-cost actions, $h$-based tie-breaking provides meaningful guidance. (\textbf{Left}) In domains with 0-cost actions, applying an action may not increase the cost of the path and the region with $h=0$ could be quite large. With the same mechanism, other heuristic plateaus (e.g. $h=1$) also become larger. Thus, $h$-based tie-breaking fails to provide meaningful guidance in this space.
   }
  \label{fig:plateau-1}
 \end{figure}
@@ -66,7 +66,7 @@ assigning cost 0 to all actions except \pddl{drive-truck} -- we believe that for
 Similarly, for many practical applications, a natural objective is to
 optimize the usage of one key consumable resource, e.g., fuel/energy
 minimization.  In fact, two of the IPC domains, \pddl{Openstacks} and
-\pddl{Cybersec}, which were shown to be difficult for standard tiebreaking
+\pddl{Cybersec}, which were shown to be difficult for standard tie-breaking
 methods in the previous section, both contain many 0-cost actions
 and are based on industrial applications: %no textbf here because both \pddl{Cybersec} and \pddl{Openstacks} are highly simplified models, let's not exaggerate their importance
 \pddl{Openstacks} models
@@ -130,7 +130,7 @@ Existing empirical analyses mainly focus on the performance difference caused by
 % Also, 
 
 Thus, we tested if these new domains actually pose a new type of challenge to the
-standard tiebreaking strategies through experiments. Results using \lmcut and \mands
+standard tie-breaking strategies through experiments. Results using \lmcut and \mands
 heuristics are shown in \reftbl{tbl:lmcut-zerocost-std} and
 \reftbl{tbl:mands-zerocost-std}, respectively. In each table,
 the left-hand side shows the results in the original domains, and the right-hand side
@@ -148,12 +148,12 @@ more instances were solved in 3 domains.
 The coverage increase in some domains is not surprising, considering that 0-cost actions also make some suboptimal paths into cost-optimal paths.
 
 Also, \refig{fig:plateau-zerocost} plots the size of the final plateau of the
-Zerocost instances, with \lmcut heuristics and $h$-tiebreaking. In this plot,
+Zerocost instances, with \lmcut heuristics and $h$-tie-breaking. In this plot,
 each point shows the total number of nodes in $\plateau{f^*,0}$ vs the
 total number of nodes with $f\leq f^*$. Compared to \refig{fig:plateau},
 most Zerocost instances have larger plateaus even with the help of
-$h$-tiebreaking.  Thus, in these cost-minimization problems, the search
-strategy within plateaus, i.e., tiebreaking, becomes a even more critical
+$h$-tie-breaking.  Thus, in these cost-minimization problems, the search
+strategy within plateaus, i.e., tie-breaking, becomes a even more critical
 in determining search performance.
 
 
@@ -190,7 +190,7 @@ in determining search performance.
   \includegraphics{tables/aaai16-frontier/zerocost/lmcut_frontier-front.pdf}
   \caption{
  The number of nodes with $f=f^*, h=0$ (y-axis), which form
-  the final plateau when $h$-based tiebreaking is enabled, compared to
+  the final plateau when $h$-based tie-breaking is enabled, compared to
  the total number of nodes in the search space (x-axis) with
  $f\leq f^*$ on 620 instances in our \emph{Zerocost domains}.
  The size of final plateaus tends to account for larger portion of the
@@ -221,16 +221,16 @@ additional effort to compute multiple heuristics.
 In the next section, we propose and evaluate an implementation of
 such a technique. It turns out that introducing a notion of \emph{depth} within a plateau can have
 a significant impact on the performance of knowledge-free search, and can also 
-provide a good  understanding of the behavior of standard tiebreaking strategies.
+provide a good  understanding of the behavior of standard tie-breaking strategies.
 
-\subsection{Completeness of Tiebreaking Strategies on Zerocost Domains}
+\subsection{Completeness of Tie-Breaking Strategies on Zerocost Domains}
 
-The presence of 0-cost edges in the search space affects the completeness of tiebreaking strategies for \astar. 
-As long as the search graph is finite, \astar is complete regardless of the tiebreaking strategy.
+The presence of 0-cost edges in the search space affects the completeness of tie-breaking strategies for \astar. 
+As long as the search graph is finite, \astar is complete regardless of the tie-breaking strategy.
 If the search graph is infinite, and the branching factor is finite, then 
 \fifo will always return a solution if one exists.
 
-However, some solvable, infinite search graphs with finite branching factors can contain traps for a \lifo tiebreaking policy -- there may be infinite regions of the search space consisting of nodes connected by 0-cost edges which cause \astar with \lifo tiebreaking to endlessly search this region, never returning to another region of the graph which contains a solution.
-Note that this holds in general regardless of whether $h$-based tiebreaking is applied prior to $\lifo$ tiebreaking, since all nodes in such a trap would have the same $h$-value of zero if $h$ is admissible.
-The randomized, $\ro$ tiebreaking method is probabilistically complete for solvable problems in the presence of such traps -- since $\ro$ will expand nodes outside the trap with some non-zero probability, it will eventually (in the limit) find the solution.
+However, some solvable, infinite search graphs with finite branching factors can contain traps for a \lifo tie-breaking policy -- there may be infinite regions of the search space consisting of nodes connected by 0-cost edges which cause \astar with \lifo tie-breaking to endlessly search this region, never returning to another region of the graph which contains a solution.
+Note that this holds in general regardless of whether $h$-based tie-breaking is applied prior to $\lifo$ tie-breaking, since all nodes in such a trap would have the same $h$-value of zero if $h$ is admissible.
+The randomized, $\ro$ tie-breaking method is probabilistically complete for solvable problems in the presence of such traps -- since $\ro$ will expand nodes outside the trap with some non-zero probability, it will eventually (in the limit) find the solution.
 

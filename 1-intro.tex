@@ -2,15 +2,15 @@
 \section{Introduction}
 \label{sec:introduction}
 
-In this paper, we investigate \emph{tiebreaking strategies} for cost-optimal \astar.
-% In optimal search, tiebreaking strategies does not affect the optimality
+In this paper, we investigate \emph{tie-breaking strategies} for cost-optimal \astar.
+% In optimal search, tie-breaking strategies does not affect the optimality
 % of the search algorithms because they only affect the node expansion
 % order among the nodes with the same $f$-cost.
-% \subsection{Tiebreaking for \astar}
+% \subsection{Tie-Breaking for \astar}
 % This paper is organized as follows.
 % After defining some notations in \refsec{sec:preliminaries}, 
 % We first investigate the conventional
-% tiebreaking strategies for the optimal search using \astar.
+% tie-breaking strategies for the optimal search using \astar.
 \astar is the standard search algorithm for finding an optimal cost path from an initial state $s$ to some goal
 state $g \in G$ in a search space represented as a graph \cite{hart1968formal}.
 It expands the nodes in the best-first order of $f(n)$ until up to $f^*$,
@@ -66,28 +66,28 @@ Classical planning problems in IPC benchmarks are clearly the instances of such 
 
 In the majority of such IPC problem domains where
 the last layer ($f(n)=f^*$) accounts for a significant fraction of the effective search space, a
-\emph{tiebreaking strategy}, which determines which node to expand among nodes with the same $f$-cost,
+\emph{tie-breaking strategy}, which determines which node to expand among nodes with the same $f$-cost,
 can have a significant impact on the performance of \astar.
 It is widely believed that among nodes with the same $f$-cost,
 ties should be broken according to $h(n)$, i.e.,
 nodes with smaller $h$-values should be expanded first.  While this is a
-useful rule of thumb in many domains, it turns out that tiebreaking
+useful rule of thumb in many domains, it turns out that tie-breaking
 requires more careful consideration, particularly for problems where
 most or all of the nodes in the last layer have the same $h$-value.
 
 We empirically evaluate the existing, commonly used, standard
-tiebreaking strategies for \astar (\refsec{sec:eval-common-strategies}).
+tie-breaking strategies for \astar (\refsec{sec:eval-common-strategies}).
 We show that:
 
 \begin{enumerate}
  \item A Last-In-First-Out (\lifo) criterion tends to be more efficient
        than a First-In-First-Out (\fifo) criterion.
- \item Tiebreaking according to the heuristic value $h$, which
+ \item Tie-breaking according to the heuristic value $h$, which
        frequently appears in the heuristic search literature, has little
        impact on the performance as long as \lifo default criterion is used 
-       --  in other words, a \lifo tiebreaking policy is sufficient for most IPC domains.
- \item There are significant performance differences among tiebreaking strategies
-       when domains include 0-cost actions. This is true even when $h$-based tiebreaking is used.
+       --  in other words, a \lifo tie-breaking policy is sufficient for most IPC domains.
+ \item There are significant performance differences among tie-breaking strategies
+       when domains include 0-cost actions. This is true even when $h$-based tie-breaking is used.
 \end{enumerate}
 
 While there are currently relatively few standard benchmark domains with 0-cost actions,
@@ -101,27 +101,27 @@ Zerocost domains have a different search space structure and different practical
 
 In order to solve such problems more efficiently, we propose and
 evaluate \emph{depth diversification}, a new
-tiebreaking method based on the notion of a node's \emph{depth} within a plateau,
+tie-breaking method based on the notion of a node's \emph{depth} within a plateau,
 which corresponds to the number of steps from the ``entrance'' to
 the plateau (\refsec{sec:depth},
 \refsec{sec:depth-based-evaluation}). 
 Our new depth-based diversification strategy significantly improves upon the 
-standard tiebreaking strategies.
+standard tie-breaking strategies.
 
 We then propose a new framework which considers cost-optimal search using \astar 
 as a series of satisficing searches on each plateau,
-which allows the problem of tiebreaking to be reduced to satisficing search within a plateau (\refsec{sec:discussion}).
+which allows the problem of tie-breaking to be reduced to satisficing search within a plateau (\refsec{sec:discussion}).
 Based on this insight, we then investigate an
-admissible tiebreaking strategy which uses the distance-to-go estimate, a heuristic function which treats every action
+admissible tie-breaking strategy which uses the distance-to-go estimate, a heuristic function which treats every action
 to have the unit costs (\refsec{sec:distance-to-go}).
 Although distance-to-go estimates are inadmissible,
-it does not harm the admissibility of entire search as long as it is used only for tiebreaking.
+it does not harm the admissibility of entire search as long as it is used only for tie-breaking.
 % 
 We empirically show that:
 \begin{enumerate}
- \item Tiebreaking using distance-to-go variations of \lmcut, \mands and \ff heuristics,
+ \item Tie-breaking using distance-to-go variations of \lmcut, \mands and \ff heuristics,
        with \lmcut or \mands as a primary heuristics for computing $f$ value (for maintaining admissibility),
-       significantly improves the standard tiebreaking strategies.
+       significantly improves the standard tie-breaking strategies.
        \todo*{listing 3 points regarding d2go might give the wrong impression that this paper is about d2go. combine some of the d2go bullets, or add another depth-related bullet?}
  % \item Distance-to-go variations of \emph{inadmissible} heuristics
  %       (\ff) further improves the performance by an order of magnitude.
@@ -132,9 +132,9 @@ We empirically show that:
 % 
 
 \begin{comment} % exclude if you want to submit a AAAI/ICAPS paper on satisficing 
-In order to strengthen the connection between tiebreaking and satisficing search,
+In order to strengthen the connection between tie-breaking and satisficing search,
 we also show a preliminary result that the depth diversification,
-which was shown to improve tiebreaking performance,
+which was shown to improve tie-breaking performance,
 also improves satisficing search using Greedy Best First Search (GBFS).
 \end{comment}
 
@@ -152,7 +152,7 @@ the same authors. The additions to the conference paper are the following:
        \refsec{sec:distance-to-go}.  
 %Also, we included an empirical
 %       evaluation of the use of inadmissible FF heuristics as part of
-%       tiebreaking criterion, and its combination with the
+%       tie-breaking criterion, and its combination with the
 %       depths metric thereof.
 \end{enumerate}
 Thus, over 60\% of \refsec{sec:depth} and \refsec{sec:depth-based-evaluation}, as well as 100\% of \refsecs{sec:discussion}{sec:distance-to-go} are new.

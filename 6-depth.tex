@@ -1,10 +1,10 @@
-\section{Depth-Based Tiebreaking for A*}
+\section{Depth-Based Tie-Breaking for A*}
 
 \label{sec:depth}
 
 As shown in the previous section, the search spaces of Zerocost domains have many 0-cost edges,
 resulting in a large final plateau ($\plateau{f^*,0}$). In a final plateau,
-all nodes have $h=0$, so $h$-based tiebreaking cannot provide
+all nodes have $h=0$, so $h$-based tie-breaking cannot provide
 useful guidance toward a goal. Thus, we need a new metric for discriminating among nodes
 in the plateau so that the search algorithm can make progress in the plateau.
 
@@ -19,9 +19,9 @@ initial node. These notions are depicted in
   \centering
   \includegraphics{img/astar/plateau-2.pdf}
  \caption{(\textbf{Subfigure 1}) The nodes in a plateau are divided into several layers, and each layer has the corresponding depth. Since all nodes have $f=f^*$, depth does not affect optimality. The goals in both shallower or deeper region yield cost-optimal solutions.
- (\textbf{Subfigure 2}) \lifo tiebreaking strategy results in depth-first behavior in a
+ (\textbf{Subfigure 2}) \lifo tie-breaking strategy results in depth-first behavior in a
  plateau, which could miss solutions if they are concentrated near the entrance.
- (\textbf{Subfigure 3}) \fifo tiebreaking strategy results in  breadth-first behavior in a
+ (\textbf{Subfigure 3}) \fifo tie-breaking strategy results in  breadth-first behavior in a
  plateau, which could fail to reach solutions in deeper layers within the time limit.
  (\textbf{Subfigure 4}) Depth-based diversification allows \astar to search the plateau space
  in a less biased manner. This balances exploration and exploitation, avoiding the problems with both \lifo (depth-first) and \fifo (breadth-first) behavior.
@@ -32,13 +32,13 @@ initial node. These notions are depicted in
 The depth $d(n)$ of a
 node $n$ is 0 when $n$ and the parent node $m$ have different key
 values for a sorting strategy, and $d(n)=d(m)+1$ when they have the same
-key values: For example, in \astar with $h$-based tiebreaking, the key
+key values: For example, in \astar with $h$-based tie-breaking, the key
 values of a node are represented as a vector $[f,h]$, and they are same
 when they are pairwise equivalent (i.e. $f(n) = f(m) \land h(n) =
 h(m)$).  Having the same key values means that $n$ and $m$ are on the
 same plateau.
 
-The traditional \lifo and \fifo tiebreaking strategy 
+The traditional \lifo and \fifo tie-breaking strategy 
 search the plateau region in a decreasing and increasing order of the depth, respectively.
 The \lifo strategy always selects the most recently generated node
 within $\plateau{f,h}$, and the behavior in the plateau is equivalent to depth-first search.
@@ -69,7 +69,7 @@ the shallower depths can result in not finding any solutions within
 the time limit because \fifo may never reach the depth where the goals
 exist.  On the other hand, \lifo behaves in a depth-fist manner, so it
 may reach solutions at deeper depths quickly, but risks missing
-solutions at shallower depths.  Thus, both \fifo and \lifo tiebreaking
+solutions at shallower depths.  Thus, both \fifo and \lifo tie-breaking
 are prone to failures due to pathological cases.
 
 In order to avoid focusing the search at the wrong depths (too shallow/deep), 
@@ -85,7 +85,7 @@ We denote this depth diversification criterion as $\depth$.
 For example, $[f,h,\depth]$ first breaks ties according to $h$ values,
 then uses the $\depth$ criterion to break ties in $\plateau{f,h}$.
 %We denote such a diversification family of
-%tiebreaking strategies by enclosing it in brackets such as $[f,h,\depth]$.
+%tie-breaking strategies by enclosing it in brackets such as $[f,h,\depth]$.
 
 In order to diversify the expansion among depths, we simply
 iterate over the depth buckets. An index $d_c$,
@@ -101,7 +101,7 @@ implementation here because it eliminates the possibility of results being influ
 and also facilitates the  theoretical analysis below in \refsec{sec:theoretical-characteristics}.
 
 Depth-based diversification is significantly different from \ro the strategy which simply selects a random node from the OPEN list.
-The uniform sampling behavior of  \ro behaves very similar to \fifo, and is insufficient to achieve the level of diversity provided by our depth diversification tiebreaking.
+The uniform sampling behavior of  \ro behaves very similar to \fifo, and is insufficient to achieve the level of diversity provided by our depth diversification tie-breaking.
 This is because at any given point in the search, more nodes will tend to have shallower depth than deeper depth, and a uniform, random selection will therefore be biased to select a node with shallow depth.
 For example, imagine we have 100 nodes at depth $d=1$ and a single node at depth $d=2$.
 Since \ro does not consider the depth, the chance of expanding $d=2$ is only $1/101$.
@@ -113,12 +113,12 @@ In contrast, our depth diversification policy expands nodes at $d=1$ and $d=2$ w
 % \fifo and \lifo strategies are incomplete when the size of the plateau
 % region is inifinite, while our \id is probabilistically complete.
 
-%\subsection{The Scope Captured by Depth-Based Tiebreaking}
-\subsection{When Does Depth-Based Tiebreaking Affect Node Expansion Order?}
+%\subsection{The Scope Captured by Depth-Based Tie-Breaking}
+\subsection{When Does Depth-Based Tie-Breaking Affect Node Expansion Order?}
 
 % ``no effect'' is ambiguous, reviewers may complain that we are trying to claim there is no overhead, including the low level overhead. Thus I reworded from ``no effect'' to ``does not affect the order of expansion''.
-Depth-based tiebreaking does not affect the order of node expansion when there are no remaining ties after the
-higher priority tiebreaking criteria, in which case all nodes have depth 0. \todo*{mentioning ``keys'' seems
+Depth-based tie-breaking does not affect the order of node expansion when there are no remaining ties after the
+higher priority tie-breaking criteria, in which case all nodes have depth 0. \todo*{mentioning ``keys'' seems
 unnecessarily complicated, so remove it}
 % 
 This happens when the target problem only has operators with positive cost.
@@ -142,18 +142,18 @@ Since cases 1 and 2 always hold and case 3 holds at the beginning of the search,
 by induction, case 3 always holds during the search.
 Thus, the depths of nodes in positive cost domains are always 0.
 
-\subsection{Tiebreaking within Depth Buckets}
+\subsection{Tie-Breaking within Depth Buckets}
 
-Depth diversification cannot be a default tiebreaking by itself.
-Consider a tiebreaking strategy such as $[f,h,\depth]$ which applies a depth-diversification tiebreaking.
+Depth diversification cannot be a default tie-breaking by itself.
+Consider a tie-breaking strategy such as $[f,h,\depth]$ which applies a depth-diversification tie-breaking.
 After the $\depth$ criterion is applied, 
 there may be multiple nodes within the same depth bucket, so a
-default tiebreaking criterion is still necessary to break ties among them.
+default tie-breaking criterion is still necessary to break ties among them.
 Thus, we should, for example, apply one of \lifo, \fifo or \ro (random order) criteria
 after the $\depth$ criterion.
 
-There are two concerns about this default tiebreaking criteria.
-First, the default tiebreaking behavior is more prone to be
+There are two concerns about this default tie-breaking criteria.
+First, the default tie-breaking behavior is more prone to be
 affected by the accidental biases, e.g., names/orders of action schema in the PDDL domain definition.
 Second, in addition to accidental biases, there may be some nontrivial biases that require 
 sophisticated algorithms to be removed.
@@ -164,11 +164,11 @@ However, the conference version of this paper \cite{Asai2016} showed that
 the effect of such an accidental bias is not statistically significant in cost-optimal search,
 by comparing the performance on
 several sets of randomly ``mangled'' domains whose action names are replaced with random strings.
-Moreover, the \ro default tiebreaking is supposed to be unaffected by such an accidental bias.
+Moreover, the \ro default tie-breaking is supposed to be unaffected by such an accidental bias.
 Thus, the experimental results we show in this paper is not a product of some piece of luck.
 
 % ``breadth direction'' example was not well defined, replaced with vague discussion of symmetry (combined with the next par); also removing ``non-trivial'' because trivial/nontrivial is not obvious and undefined.
-In addition to accidental biases, there may be other nontrivial biases such as some form of symmetry among states which can be removed using some tiebreaking criterion $X$.
+In addition to accidental biases, there may be other nontrivial biases such as some form of symmetry among states which can be removed using some tie-breaking criterion $X$.
 Such a criterion can be applied after the depth criterion but before the default criterion,
 resulting in a sorting strategy $[f,h,\depth,X,\fifo]$. 
 Candidates for $X$ may
@@ -205,8 +205,8 @@ we can analyze the number of expansions in a particular depth
 can be represented by a simple formula. 
 % Although the notion of
 % probability does not fit well with deterministic \fifo or \lifo
-% default tiebreaking, it is still meaningful in the case of \ro (random
-% order) default tiebreaking.
+% default tie-breaking, it is still meaningful in the case of \ro (random
+% order) default tie-breaking.
 
 %% danger!!
 % \begin{theo}[Uniformness of the search]
@@ -229,7 +229,7 @@ $w\geq 2$ (\emph{forest assumption}), rather than a graph with an indefinite num
 In the later experiments, we show this assumption is not much distant from the real situations.
 Also, we assume that no depth bucket exhausts due to the expansion (\emph{no-exhaustion assumption}).
 We provide a condition for this assumption to hold within this section.
-% Finally, we assume that the sorting strategy performs a \ro default tiebreaking
+% Finally, we assume that the sorting strategy performs a \ro default tie-breaking
 % after the depth-based diversification is applied.
 
 Let $D\geq 0$ be the current largest depth of the nodes found in the plateau so far. An expansion of a node in
