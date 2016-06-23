@@ -137,7 +137,7 @@ Let a node $n$ is a child of a node $m$. Depending on whether $n$ is already eva
        $g(m)+\mit{cost}(m,n) \geq g(m') + \mit{cost}(m',n) = g(n)$, then the parent of $n$ remains $m'$. If the
        depth of $n$ is 0 at this moment, then it remains 0 because the parent is unchanged.
 \end{enumerate}
-
+% 
 Since cases 1 and 2 always hold and case 3 holds at the beginning of the search,
 by induction, case 3 always holds during the search.
 Thus, the depths of nodes in positive cost domains are always 0.
