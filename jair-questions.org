@@ -52,8 +52,8 @@ zero-cost edges and is more focused on the search algorithm improvement.
 # please state where and explain how the current paper differs. If you answer positively, please state where and
 # explain how the current paper differs.
 
-This paper is a significantly extended version of the AAAI-16 paper by the same authors. The addition to the
-conference paper is the following:
+This paper is a significantly extended version of the AAAI-16 paper by the same authors. Over 50% of the paper is new material.
+The additions to the conference paper are the following:
 
 1. Introduction of deterministic depth-based diversification strategy (as opposed to the randomized version in
    the conference paper), and its theoretical analysis in Section 6.
@@ -65,20 +65,25 @@ conference paper is the following:
 4. Based on the new framework, we propose and evaluate tie-breaking strategies which incorporates distance-to-go estimates (Section 9)
 
 * abstract
+ In this paper, we investigate and improve tie-breaking strategies for
+ cost-optimal search using A*.
+ We first experimentally analyze the performance of common tie-breaking
+ strategies that break ties according to the heuristic value of the
+ nodes.  We find that tie-breaking strategy has a significant impact on search
+ algorithm performance when there are 0-cost operators that induce
+ large plateau regions in the search space. With this in mind, we
+ develop two new classes of tie-breaking strategy.
+ The first class of strategy we propose is based on a depth metric which
+ measures the distance from the entrance to the plateau. We  proposes a
+ new, depth diversification strategy which significantly outperforms standard
+ strategies on domains with 0-cost actions.
+ We provide both a theoretical analysis and an empirical analysis
+ supporting these results.
+ We propose a new framework for interpreting \astar search as a series of satisficing searches within plateaus consisting of nodes with the same f-cost.
+ Based on this framework, we investigate a second class of tie-breaking strategy 
+ which is a  multi-heuristic tie-breaking strategy
+ which embeds inadmissible, distance-to-go variations of various heuristics within an admissible search.
+ This is shown to further improve the performance
+ in combination with the depth metric.
 
-In this paper, we investigate and improve tiebreaking strategies for cost-optimal search using A*. We first
-experimentally analyze the performance of common tiebreaking strategies that break ties according to the
-heuristic value of the nodes. We find that tiebreaking strategy has a significant impact on search algorithm
-performance when there are zero-cost operators that induce large plateau regions in the search space. With
-this in mind, we develop two new kinds of tiebreaking strategy. The first one is based on a depth metric which
-measures the distance from the entrance to the plateau and proposes a new, diversifying strategy which
-significantly outperforms standard strategies on domains with zero-cost actions. We give both a theoretical
-analysis and an empirical analysis supporting this. Another one is an admissible multi-heuristic tiebreaking
-strategy based on the inadmissible distance-to-go variations of various heuristics. It is shown to further
-improve the performance in combination with the depth metric. Finally, we open a new interpretation to the
-cost-optimal search by pointing out that the multi-heuristic strategy is a rare attempt to apply a satisficing
-technique to cost-optimal search. This new interpretation is additionally supported by the empirical results
-of the satisficing search using GBFS enhanced by the depth diversification. Note to Reviewers: This paper is
-a significantly extended version of the AAAI-16 paper by the same authors. Additions are summarized at the end
-of Section 1.
 
