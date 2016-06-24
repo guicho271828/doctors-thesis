@@ -26,14 +26,17 @@ $f^*$.
 
 \refig{fig:plateau-0} depicts the conceptual view of this phenomenon.
 % 
-One natural  % avoiding ``naive'' here because we don't want to Frontier Search people to misunderstand and belive that we're calling them naive.
-view of the search space (left) would consider the space searched by \astar as
-a large number of closed nodes with $f<f^*$, surrounded by a
+In the left, we show 
+one natural  % avoiding ``naive'' here because we don't want to Frontier Search people to misunderstand and belive that we're calling them naive.
+view of the search space that considers the space searched by \astar as
+a large number of closed nodes with $f<f^*$, surrounded by
 a thin layer of final plateau $f(n)=f^*$.  This intuitive view
 may accurately describe some real, practical search spaces such as 2D pathfinding on an explicit
-graph. This view has also served as the algorithms such as Frontier Search
-\cite{korf1999divide,korf2000divide}, which tries to reduce the memory requirement by discarding the information associated with states with 
-$f<f^*$, which can be effective when the number of states with $f<f^*$ accounts for a large fraction of the search effort.
+graph.
+% 
+It has also served as a model for some algorithms such as Frontier Search \cite{korf1999divide,korf2000divide},
+which tries to reduce the memory requirement by discarding the information associated with states with $f<f^*$.
+It can be effective when the number of such states accounts for a large fraction of the memory usage.
 % 
 However, for many other classes of combinatorial search problems, e.g., the IPC Planning Competition Benchmarks, 
 the figure on the right is a more accurate depiction -- here, the  search space has a large plateau for $f=f^*$.
