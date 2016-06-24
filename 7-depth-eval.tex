@@ -221,14 +221,14 @@ Also, we noticed that the node distribution by the global randomization $[f,h,\r
 This shows that \ro actually behaves very similar to \fifo, which is consistent with the previous performance comparisons in \refsec{sec:eval-common-strategies} and our observation to \ro in \refsec{sec:depth}.
 Thus, overall behavior of \ro tends to be similar to \fifo, and naive randomization does not solve the problem of heavy bias for shallower depth nodes.
 
-In contrast, $[f,h,\depth,\ro]$ is balancing the search at various depths.
-The yellow curve representing $[f,h,\depth,\ro]$ tends to be  almost flat in the shallow depth while gradually decreasing the number of nodes in larger depth.
+In contrast, $[f,h,\depth,\fifo]$ is balancing the search at various depths.
+The yellow curve representing $[f,h,\depth,\fifo]$ tends to be almost flat in the shallow depth while gradually decreasing the number of nodes in larger depth.
 Moreover, its node distribution almost accurately follows $D-d$, a theoretical model from \refsec{sec:theoretical-characteristics} which assumes a simplified
-condition that the plateau forms a tree of fixed branching factor.
+condition that the plateau forms a forest of fixed branching factor.
 $D$ means the largest depth of the unexpanded nodes in the final plateau, which is
 larger than the largest depth of the expanded nodes by 1.
 
-The discrepancy of the $[f,h,\depth,\ro]$ curve from the theoretical prediction $D-d$ can be caused by the 
+The discrepancy of the $[f,h,\depth,\fifo]$ curve from the theoretical prediction $D-d$ can be caused by the 
 following factors: First, the branching factor of the graph may not be
 uniform across the search space. Second, some depth buckets could be
 exhausted, as is depicted in the line by $[f,h,\fifo]$ which
