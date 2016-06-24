@@ -21,7 +21,7 @@ However, the later sorting criteria used for tie-breaking are not necessarily ad
 This means that the search within the same $f$ plateau can be an arbitrary  satisficing search\footnote{This refers to any algorithm which seeks a satisficing solution, as opposed to the ``satisficing'' track setting in IPC which also seeks to minimize the plan cost with anytime algorithms} without any cost minimization requirement. For example,
 if we ignore the first sorting criterion in the standard admissible strategy
 $[f,h,\fifo]$, we have $[h,\fifo]$, which is exactly
-the same configuration as a GBFS using \fifo default tie-breaking. This 
+the same configuration as a Greedy Best First Search (GBFS) using \fifo default tie-breaking. This 
 means that within a particular $f$-cost plateau, $[f,h,\fifo]$ is
 performing a satisficing GBFS.
 As another example, the reason for the poor performance of $[f,\fifo]$
