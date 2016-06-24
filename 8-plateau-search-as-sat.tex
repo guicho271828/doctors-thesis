@@ -117,7 +117,7 @@ Thus, Xie et al adopted a unit-cost domain model: All action costs are ignored a
 
 % (i.e., finding either a goal node or exhausting the plateau)
 
-In our framework of \astar as a sequence of satisficing searches, depth diversification after $h$-tie-breaking ($[f,h,\depth]$) can be viewed as the combination of (1) an implicit transformation of all edge costs within a single $\plateau{f,h}$ to unit-costs, and (2) a pure type-based exploration within that plateau (unlike type-GBFS, which alternates GBFS and type-based buckets).
+In our framework of \astar as a sequence of satisficing searches, depth diversification after $h$ tie-breaking ($[f,h,\depth]$) can be viewed as the combination of (1) an implicit transformation of all edge costs within a single $\plateau{f,h}$ to unit-costs, and (2) a pure type-based exploration within that plateau (unlike type-GBFS, which alternates GBFS and type-based buckets).
  
 The notion of \emph{depth} counts the number of 0-cost actions, which does not change the $f$ value and $h$
 value, on the path from the entrance to the current plateau to the current node.  Thus, 
