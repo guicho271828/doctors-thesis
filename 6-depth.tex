@@ -38,7 +38,7 @@ when they are pairwise equivalent (i.e. $f(n) = f(m) \land h(n) =
 h(m)$).  Having the same key values means that $n$ and $m$ are on the
 same plateau.
 
-The traditional \lifo and \fifo tie-breaking strategy 
+The traditional \lifo and \fifo tie-breaking strategies
 search the plateau region in a decreasing and increasing order of the depth, respectively.
 The \lifo strategy always selects the most recently generated node
 within $\plateau{f,h}$, and the behavior in the plateau is equivalent to depth-first search.
@@ -46,7 +46,7 @@ Thus, \lifo always selects the largest depth
 buckets, as depicted in \refig{fig:plateau-depiction} (subfigure 2).
 Similarly, the behavior of the \fifo strategy 
 in a plateau is equivalent to breadth-first search. Thus \fifo 
-always selects the nodes with least depth (subfigure 3).
+always selects the nodes with the least depth (subfigure 3).
 Note that  $[f,h,\lifo]$ is equivalent to $[f,h,-d,\lifo]$ and
 $[f,h,\fifo]$ is equivalent to $[f,h,d,\fifo]$.
 
@@ -100,8 +100,9 @@ randomized implementation of this idea \cite{Asai2016}, but we use a determinist
 implementation here because it eliminates the possibility of results being influenced by random seeds,
 and also facilitates the  theoretical analysis below in \refsec{sec:theoretical-characteristics}.
 
-Depth-based diversification is significantly different from \ro the strategy which simply selects a random node from the OPEN list.
-The uniform sampling behavior of  \ro behaves very similar to \fifo, and is insufficient to achieve the level of diversity provided by our depth diversification tie-breaking.
+Depth-based diversification is significantly different from \ro strategy which simply selects a random node from the OPEN list.
+The uniform sampling behavior of  \ro behaves very similar to \fifo, and is insufficient to achieve the level of diversity provided by our depth diversification tie-breaking,
+which is also already evidenced by the performance similarity between \fifo and \ro-based tiebreaking strategies (\reftbl{tbl:summary-std}).
 This is because at any given point in the search, more nodes will tend to have shallower depth than deeper depth, and a uniform, random selection will therefore be biased to select a node with shallow depth.
 For example, imagine we have 100 nodes at depth $d=1$ and a single node at depth $d=2$.
 Since \ro does not consider the depth, the chance of expanding $d=2$ is only $1/101$.
@@ -182,7 +183,7 @@ set of nodes $S=\{a_1, a_2, a_3, a_4, b, c, d\}$ where
 $A=\{a_1, a_2, a_3, a_4\}$ are ``redundant'' according to some measure (e.g. by Symmetry,
 Partial-Order). 
 If a search algorithm expands $S$ by random selection, it favors the
-group $A$ by giving 4 times larger chance of expansion than $b$,
+group $A$ by giving 4 times larger chance of expansion than each of $b$,
 $c$ or $d$.
 Methods for addressing such biases is an avenue for future work.
 
