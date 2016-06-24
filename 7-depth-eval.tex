@@ -11,8 +11,8 @@
 %\subsection{Evaluating Depth-Based Tie-Breaking with $h$ tie-breaking}
 
 We compared the performance of standard tie-breaking methods to depth-based tie-breaking methods. These all use $h$
-as the first-level tie-breaking and either \fifo, \lifo or \ro (random order) as the default tie-breaking criterion
-and the only difference is the presence of the third, depth-diversification criteria.
+as the first-level tie-breaking and either \fifo, \lifo or \ro (random order) default tie-breaking criterion.
+The only difference is the presence of the third, depth-diversification criteria.
 
 Experiments are conducted on \textbf{1104 standard IPC benchmark
 instances} from 35 domains  and \textbf{620 Zerocost instances} from 28 domains (see \refsec{sec:eval-common-strategies} and \refsec{sec:zerocost-domains} for full lists of these domains). 
@@ -23,6 +23,12 @@ Each experiment is run for 5 minutes excluding SAS translation time, with 4GB me
 We first show the summary results of these experiments (\reftbl{tbl:depth-summary}).
 Overall, depth-based tie-breaking tends to show larger coverages than the
 standard tie-breaking strategies.
+Interestingly, when the depth diversity criterion $\depth$ is used, 
+the performance relationship between \lifo and \fifo seems to become the opposite:
+\fifo tends to perform better than \lifo in Zerocost domains for both
+\lmcut and \mands heuristics (299 vs 279 for \lmcut, 317 vs 303 for \mands).
+Also, \ro (random order) outperforms both \fifo and \lifo.
+In the following, we describe and discuss each experiment.
 
 \begin{table}[htb]
  {
@@ -39,13 +45,6 @@ standard tie-breaking strategies.
  \label{tbl:depth-summary}
  }
 \end{table}
-
-Interestingly, when the depth diversity criterion $\depth$ is used, 
-the performance relationship between \lifo and \fifo seems to become the opposite:
-\fifo tends to perform better than \lifo in Zerocost domains for both
-\lmcut and \mands heuristics (299 vs 279 for \lmcut, 317 vs 303 for \mands).
-Also, \ro (random order) outperforms both \fifo and \lifo.
-In the following, we describe and discuss each experiment.
 
 \reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full} shows the number of \textbf{620 Zerocost
 instances} solved by \lmcut and \mands heuristics. In these
