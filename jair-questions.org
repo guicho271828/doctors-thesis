@@ -79,7 +79,7 @@ The additions to the conference paper are the following:
  strategies on domains with 0-cost actions.
  We provide both a theoretical analysis and an empirical analysis
  supporting these results.
- We propose a new framework for interpreting \astar search as a series of satisficing searches within plateaus consisting of nodes with the same f-cost.
+ Next, we propose a new framework for interpreting \astar search as a series of satisficing searches within plateaus consisting of nodes with the same f-cost.
  Based on this framework, we investigate a second class of tie-breaking strategy 
  which is a  multi-heuristic tie-breaking strategy
  which embeds inadmissible, distance-to-go variations of various heuristics within an admissible search.
