@@ -159,7 +159,7 @@ Detailed per-domain results are shown in \reftbls{tbl:dtg-lmcut-zero}{tbl:dtg-ma
  \label{tbl:dtg-summary}
 \end{table}
 
-\subsubsection{Evaluation in Zerocost Domains}
+\subsubsection{Evaluation on Zerocost Domains}
 
 In Zerocost domains, we see that $\hat{h}$ tie-breaking outperforms $h$ tie-breaking for both \lmcut (e.g. $256\rightarrow 295$ with \fifo) and \mands (e.g. $280\rightarrow 308$ with \fifo).
 Also, combining $h$ and $\hat{h}$ can further improve performance when the heuristic is \lmcut (e.g. $295\rightarrow 305$ with \fifo).
@@ -201,7 +201,7 @@ Improvement was observed in the following domains:
 When the default tie-breaking was \ro and the heuristic is \mands, $[f,\ffo,\depth,\ro]$ performed slightly worse than 
 $[f,\ffo,\ro]$, but the difference was very small  ($337.9\rightarrow 337.6$) and $\depth$ made the performance slightly more robust (smaller standard deviation: $2.1\rightarrow 1.3$).
 
-\subsubsection{Evaluation in Standard IPC Domains}
+\subsubsection{Evaluation on Standard IPC Domains}
 
 For the standard IPC benchmark instances, the overhead due to the additional computation of
 $\hat{h}$ or $\ffo$ tends to harm the overall performance.
