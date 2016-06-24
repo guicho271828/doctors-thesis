@@ -41,7 +41,7 @@ assigning 0-costs makes sense from a practical, modeling perspective.
 For example, consider the \pddl{driverlog} domain, where the task is to move packages between locations using trucks.
 The IPC version of this domain assigns unit costs to all actions. Thus, cost-optimal planning on this domain seeks to minimize the number of steps in the plan.
 However, another natural objective function would be the one which minimizes the amount of fuel spent by driving the trucks,
-assigning cost 0 to all actions except \pddl{drive-truck} -- we believe that for cost-optimal planning, this is at least as natural as the current IPC model in which all actions are unit cost.
+assigning cost 0 to all actions except \pddl{drive-truck} -- we believe that for cost-optimal planning, this is at least as natural as the current IPC model of \pddl{driverlog} in which all actions are unit cost.
 
 % While I agree with the point you're trying to make,
 % There is an ugly issue when arguing that current models try to  optimize plan-execution time (i.e., makespan), 
