@@ -1,0 +1,128 @@
+This work investigates the impact of tie-breaking in cost-optimal
+search (like A*), and
+
+i) shows that tie-breaking can significantly impact the performance of
+search especially for domains that have 0-cost actions, and ii)
+proposes two strategies for better tie-breaking, depth-diversification
+and multi-heuristic approach with distance-to-go estimates,
+demonstrating noticeable performance improvement. The paper also
+argues that 0-cost domains are important in real life scenarios and
+develops a benchmark suite of such problems (Zerocost).
+
+Overall, I think this is an interesting work. Understanding of the
+impacts of cost plateaus is important in my opinion, and i also agree
+with the author that 0-cost domains may be important to model
+real-life problems where we care about some resources and not for
+others. However, I think the paper needs significant improvement both
+in terms of content and presentation to be publishable in JAIR.
+Therefore, my recommendation is for a major revision. I would like to
+read it again after revision.
+
+
+Major Comments
+--------------
+
+1) Maxim Likhachev's ARA* paper [1] presents an elegant solution to
+avoid the final plateau problem for non zero-cost domains. His
+algorithm notes the cost of the goal, whenever a new path to goal is
+discovered, and concludes the search when the minimum cost of any
+state in OPEN becomes greater than or equal to the current goal cost
+(f = f*). While this approach is not applicable for 0-cost domains, I
+think this merits a discussion and probable inclusion of results in
+case of other domains used.
+
+2) While I appreciate the in-depth experimental investigation
+presented in this work, i think the amount of data is a bit too much.
+For example, 26 plots for number of nodes vs depth is rather
+confusing. I like the summarization done for most tables, which points
+to the key take-aways. I think the experimental results should be
+presented in a more compact fashion, and if needed the detailed
+results can be pushed to an appendix (even there, i believe some
+compaction will be good). This will also help to reduce the length of
+the paper. Currently, it seems too long for the content.
+
+3) While the paper presents experimental results in detail, the theory
+and analysis part looks weak in my opinion. Most of the analytical
+results are presented in an informal manner. For example, 5.3
+discusses the completeness of search strategies on ZeroCost domains. I
+would suggest that such results should be presented using formal
+statements with proofs. Similarly, the analysis in 6.1 can be more
+precise, results in 6.1 can be presented in terms of theorems.
+
+4) In the last paragraph of section 6, it is stated that "more nodes
+will tend to have shallower depth than deeper depth" whereas the
+analysis in 6.3 assumes a disjoint forest model which i guess
+increases the number of nodes with depth. These two assumptions seems
+to be in contrast to each other. I think a more formal treatment of
+the analysis can allay such confusions for a reader.
+
+5) All the strategies proposed are explained in text only. I think it
+will be helpful if the authors include pseudocodes for their
+algorithms. In fact, i think it will be helpful if the authors present
+a basic A* algorithm with default tie-breaking and build upon that for
+their strategies. It will create a nice flow in my opinion, and use of
+pseudocode will also remove any chance of mis-interpreting the
+strategies.
+
+6) Tied to point 6, i think it would be good to state/prove the
+properties of each of these algorithms/strategies, especially
+important ones like completeness. The current format leaves a lot of
+un-answered questions like does depth-diversification ensure
+completeness (for infinite spaces). The answers may be obvious in many
+cases, however, i would still prefer if they are explicitly
+stated/proved.
+
+7) I like the idea of representing A* as a series of satisficing
+search. Here also, i would suggest inclusion of pseudocode. For
+example, A* exhausts an f-plateau before moving on to the next one.
+While this is expressed in text, highlighting such properties through
+pseudocode may improve a reader's understanding. Similar to earlier
+cases, here also the authors can start with a basic pseudocode (for A*
+as a series of satisficing searches), and present their strategies on
+top of that with formal discussion about the properties.
+
+8) I think it will be interesting to find out what is distribution of
+goal depth in the final frontier. I believe there will be a strong
+correlation between the goal depth and the relative performance of the
+strategies (which the authors mention), and it would be good to
+analyze this statistically. Similarly, for strategies in section 9, it
+would be interesting to find out the correlation between the
+performance of different strategies with the accuracy of the
+distance-to-go estimates.
+
+9) Finally, I think it would be nice if we have some infinite spaces
+in the ZeroCost domains, and understand the impact of different
+strategies on them. My hunch is that in many cases people use
+fifo/breadth-first exploration to avoid completeness problems, i
+believe inclusion of such graphs (or some domains that closely
+approximate such behavior) will enhance the analysis.
+
+Minor Comments
+--------------
+
+These comments are mostly about the writing style. I think the writing
+can be significantly improved, however, English is not my native
+language, so my suggestions may not be correct in cases.
+
+1) I think the abstract needs to be re-written to precisely state the
+contribution. In particular i would suggest changing the sentences
+after "With this in mind, ..". Somehow it seems that the depth
+diversification is the second strategy, which is not the case. Also,
+"We proposes" -> "We propose".
+
+2) page 27, claim 1 "A Last-In-First-Out ..". Is this a general claim,
+or is it tied to the domains you tested on. I think this should be
+made clear.
+
+3) Section 2, the 4th paragraph can probably be combined with the
+second. Also, may be it would be better if you present exact formal
+definitions of the terms.
+
+4) I would suggest that you include some pictorial representation of
+your analysis in section 6.3. There are several illustrations of A*
+layers in other places that are helpful, some such illustration of
+your model would be nice.
+
+5) There are a number of typos and grammar mistakes, please correct
+them. For example, "did not modified" -> "did not modify", "new
+current parent" -> "current parent", and others.

@@ -1,0 +1,128 @@
+Overall assessment:
+==================
+
+The topic of the paper is tie breaking strategies in A* search. The
+paper covers previous work rather well and further contributes by
+adding its new diversify-depth strategy. The paper has a very large
+set of experiments comparing many variants of its new strategy to
+other variants and discusses the pros and cons in a rather satisfying
+way. It is generally correct and rather easy to follow (exceptions
+below).
+
+All in all, the diversify-depth strategy is in fact the only really
+new technical contribution of this paper which by itself is not very
+deep or very complicated; this is not necessarily a negative comment.
+But, is this paper significant enough to warrant a publication in a
+top-tier journal such as JAIR?
+
+After some thoughts I tend to answer - yes it does. As pointed by the
+authors tie braking is usually treated as not-very-important and many
+authors just overlook their tie-breaking rules. Therefore, having this
+paper in the literature will increase the attention researchers give
+to tie-breaking. So, my vote is to accept this paper.
+
+I do have a number of comments that I think the authors should address
+before the final version. I do not think that another round of reviews
+would be needed as I trust that the authors will do a good job their
+revision. In JAIR's terminology I would not vote for a revise and
+resubmit but rather for accept with revisions.
+
+Here are a number of general comments:
+
+A) Length and structure. The paper is very long; 53 pages. For the
+sake of the public, I strongly recommend that the paper should be
+shortened. There are many places where rather simple (even trivial)
+issues are deeply discussed and they can be significantly shortened.
+I'll substantiate this below.
+
+B) There is a a very large set of experimental results in this paper.
+I think that the authors will increase the readability of their paper
+if they drop some of their tables and move others to an appendix. In
+fact, in many cases you deeply discuss a rather simple issue and then
+give a few pages of experiments and all this can be significantly
+shortened and the experimental results can be omitted without losing
+any critical issue of this paper.
+
+To summarize, try to shorten the paper focus on the new/non-simple
+issues only in order to reduce its length.
+
+C) On the other hand, some issues need better clarification as I list
+below.
+
+All the comments below are instantiations of one of these general
+comments.
+
+1) The definition of plateau can be improved. The formal definition of
+a plateau should include a plateau with respect to some cost
+functions. So, you have a plateau with respect to f, plateau(f), a
+plateau with respect both g and h, plateau(g,h) etc. This should be
+defined at the beginning and this terminology should be later used all
+over. Currently, you are not fully formal and consistent on this. As
+you say on page 18. a plateau is related to a sorting strategy. Define
+this in the beginning. In fact you write the following sentence which
+is in fact a definition: "Having the same key values means that n and
+m are on the same plateau". Move this to be a definition in one of the
+first sections.
+
+2) page 18: "In order to diversify the expansion... " --> This
+paragraph is very hard to understand but it is a very important
+paragraph as it gives the pseudo code for your new technique. Please
+rewrite it. What is Dc? Is this a counter? Is there one Dc or one for
+each depth? Please clarify. Maybe even give an example.
+
+page 20: "round-robin sampling from the available depth buckets as
+described above." --> This is a key sentence that might help
+understanding what exactly is the diversifying method. I think you
+mean you that do a round robin from the deepest available depth to the
+shallowest available depth. You must clarify this.
+
+3) (C) page 22: Table 7.5. It will be very interesting to see what
+happens if you factor away the constant time per node. Just compare
+the number of nodes expanded for a set of instances that can be solved
+by all methods (as you did in the 4.1-4.5 tables). This will tell you
+if indeed this is the reason for the negative behavior. This is a
+rather major comment. You do not always have to use the 30 minutes
+limit in your experiments.
+
+4) Section 5: Zerocost domains. I buy all your arguments on zero cost
+domains. You spend too much effort to validate them. I suggest to
+shorten this entire section and the related tables. All your claims
+seem reasonable and you do not have to necessarily show all the
+numbers. The claims about FIFO in infinite graphs (section 5.3) is
+trivial. You can shorten it or even delete it.
+
+5) Section 6.1 is trivial. It is easy to see that different "depth"
+values only occur in zero domains. I would shorten it or even omit it.
+
+6) Section 7.1: this section repeats what you said above and I was
+convinced when you said it. You can just report that you observed this
+in your experiments and I do not need to see all the exact results.
+Consider to omit these experiments and just mention that you have
+results that support this trend.
+
+7) The beginning of Section 8 is also rather trivial. This is the main
+rational behind IDA* as you say in the end. I would significantly
+shorten it but it should get a subsection index if it stays. It is not
+an introduction to your later section 8.1 which I find quite
+interesting and more deep and should certainly be kept.
+
+Other minor comments:
+
+page 4: "g(n) is the current shortest path cost from the initial node
+to the current node." -- should be "current shortest known path"
+
+page 5: "Holte, 2010, note that since f = g+h....) I did not like this
+syntax. Give the reference and then give your comment but not in the
+same parenthesis.
+
+page 21: "the third, depth-diversification criteria." Calling it the
+third is misleading. It is actually the second which comes before the
+default criterion.
+
+The first sections are very short. Maybe they can be one large section
+with different subsections.
+
+Section 9. Indeed distance-to-go is a term that was used by other and
+coined Ruml et al. which should be cited and credited for that. But I
+think the correct term should be something like
+"number-of-hops-to-go". Distance is ambiguous.
