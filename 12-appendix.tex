@@ -2,3 +2,102 @@
 
 \section*{Appendix: Detailed Data}
 
+
+\subsection{Detailed Data for \reftbl{tbl:summary-std}}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/4-ipc-lmcut.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
+ heuristics) among
+ the standard baseline tie-breaking algorithms. We highlight the
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-ipc-std}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/4-ipc-mands.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 4GB, M\&S heuristics) among
+ the standard baseline tie-breaking algorithms. We highlight the
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
+ }
+ \label{tbl:mands-ipc-std}
+ }
+\end{table}
+
+\subsection{\mands Data for \reftbl{tbl:lmcut-zerocost-std}}
+
+\begin{table}[htbp]
+ \centering
+ \input{tables/5-std-zero-comparison-mands}
+ \caption{
+ Coverage comparison (the number of instances solved) 
+ between the original IPC instances and the modified Zerocost instances,
+ using the same configuration and experimental setting (5min, 4GB, \mands heuristics).
+ This table does not include domains where the total number of instances
+ differ in the Zerocost domain and the original IPC domain. The results in
+ those domains are available in the later sections.
+ }
+ \label{tbl:mands-zerocost-std}
+\end{table}
+
+\subsection{Detailed Data for \reftbl{tbl:summary-std}}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/7-zero-lmcut}
+ % 
+  \caption{ Coverage comparison (the number of instances solved in 5min, 4GB, \lmcut heuristics) on \textbf{620
+ Zerocost instances}.  We highlight the best results when the difference between the best and the worst coverages
+ is greater than 2.  }
+ % 
+ \label{tbl:lmcut-zerocost-full}}
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/7-zero-mands}
+  \caption{
+ Coverage comparison (the number of instances solved in 5min, 4GB, \mands heuristics)
+ on \textbf{620 Zerocost instances}. We highlight the
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
+ }
+ \label{tbl:mands-zerocost-full}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/7-ipc-lmcut}
+  \caption{
+ Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-ipc-full}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/7-ipc-mands}
+  \caption{
+ Coverage comparison (the number of instances solved in 5min, 4GB, M\&S
+ heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
+ }
+ \label{tbl:mands-ipc-full}
+ }
+\end{table}
+

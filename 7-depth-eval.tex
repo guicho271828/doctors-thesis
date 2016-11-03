@@ -60,32 +60,6 @@ In detail,
        \pddl{tpp-fuel} (\fifo,\ro), \pddl{woodworking-cut} (\fifo,\ro).
 \end{itemize}
 
-
-\begin{table}[htbp]
- {
- \centering
- \input{tables/7-zero-lmcut}
- % 
-  \caption{ Coverage comparison (the number of instances solved in 5min, 4GB, \lmcut heuristics) on \textbf{620
- Zerocost instances}.  We highlight the best results when the difference between the best and the worst coverages
- is greater than 2.  }
- % 
- \label{tbl:lmcut-zerocost-full}}
-\end{table}
-
-\begin{table}[htbp]
- {
- \centering
- \input{tables/7-zero-mands}
-  \caption{
- Coverage comparison (the number of instances solved in 5min, 4GB, \mands heuristics)
- on \textbf{620 Zerocost instances}. We highlight the
- best results when the difference between the maximum and the minimum coverage exceeds 2.
- }
- \label{tbl:mands-zerocost-full}
- }
-\end{table}
-
 \reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard IPC benchmark instances} solved by the configuration using \lmcut
 heuristics. Depth-based tie-breaking ($\depth$) shows impressive results on \pddl{Openstacks} ($\fifo:2\to 8,\ \lifo:3\to 12,\  \ro:3.9\to 10$) and \pddl{Cybersec} ($\fifo: 11\to 18,\ \ro: 11.7\to 18$) because these
 domains contain many instances of 0-cost edges (See
@@ -144,31 +118,6 @@ and the low-level overhead became negligible.
  \label{fig:expansion-ratio}
 \end{figure}
 
-\begin{table}[htbp]
- {
- \centering
- \input{tables/7-ipc-lmcut}
-  \caption{
- Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
- heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
- best results when the difference between the maximum and the minimum coverage exceeds 2.
- }
- \label{tbl:lmcut-ipc-full}
- }
-\end{table}
-
-\begin{table}[htbp]
- {
- \centering
- \input{tables/7-ipc-mands}
-  \caption{
- Coverage comparison (the number of instances solved in 5min, 4GB, M\&S
- heuristics) on \textbf{1104 standard IPC benchmark instances}. We highlight the
- best results when the difference between the maximum and the minimum coverage exceeds 2.
- }
- \label{tbl:mands-ipc-full}
- }
-\end{table}
 
 % \reftbl{tbl:mands-evaluations} shows that if we instead compare the
 % number of evaluations on problems solved by both, depth-based
