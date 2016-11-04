@@ -93,10 +93,11 @@ Most of the transportation-type domains are modified to optimize
 energy usage (\pddl{logistics-fuel}, \pddl{elevator-up} etc.), and  assembly-type domains are modified to minimize resource usage
 %% \pddl{floortile-ink} is not shown, so better not to mention it
 (\pddl{Woodworking-cut} minimizes wood usage, etc.).
-
+When no action makes sense from practical point of view, we chose an action schema arbitrarily (e.g. \pddl{mprime-succumb}).
 We did not
 include domains which have only a single action schema, or which already had many 0-cost actions.
-We refer to these 28 new domains as \emph{Zerocost domains}.
+
+We refer to such 28 new domains as \emph{Zerocost domains}.
 In detail, they are:
 \pddl{airport-fuel} (20), \pddl{blocks-stack} (20), \pddl{depot-fuel} (22), \pddl{driverlog-fuel} (20),
 \pddl{elevators-up} (20), \pddl{floortile-ink} (20), \pddl{freecell-move} (20), \pddl{grid-fuel} (5),
