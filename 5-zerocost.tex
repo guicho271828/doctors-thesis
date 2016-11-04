@@ -81,7 +81,7 @@ planning problems with 0-cost actions.
 
 Therefore, in this paper, we modified various standard domains
 into cost minimization domains with many 0-cost actions.
-Specifically, each of our ``Zerocost domains'' is a standard domain which has been modified so that all action schema are assigned
+Specifically, each of our ``Zerocost domains'' is same as the standard domain except that all action schema are assigned
 cost 0 except for a few (usually one) action schema which consumes some key resource.
 The suffixes in the names of these domains indicate the actions with non-zero costs, 
 %e.g., \pddl{elevator-up} is a modified elevator
@@ -153,7 +153,7 @@ each point shows the total number of nodes in $\plateau{f^*,0}$ vs the
 total number of nodes with $f\leq f^*$. Compared to \refig{fig:plateau},
 most Zerocost instances have larger plateaus even with the help of
 $h$ tie-breaking.  Thus, in these cost-minimization problems, the search
-strategy within plateaus, i.e., tie-breaking, becomes a even more critical
+strategy within plateaus, i.e., tie-breaking, becomes even more critical
 in determining search performance.
 
 % summary data ?
