@@ -151,9 +151,9 @@ Note that this instrumentation, which adds some runtime overhead, was \emph{not}
 used in the performance comparison experiments above, and were only used for this experiment, which analyzes search behavior.
 
 
-\refigs{fig:depth-histogram}{fig:depth-histogram3} show the results on exemplary instances from 
+\refig{fig:depth-histogram} (as well as \refigs{fig:depth-histogram2}{fig:depth-histogram3} in the Appendix) show the results on exemplary instances from 
 various Zerocost domains.  We do not show some domains where we did not observe any depths more than 3, in which case
-the depth metric has only a negligible impact on the search performance.
+the depth metric nor $\lifo/\fifo/\ro$ has only a negligible impact on the search performance.
 We observed very similar results across a wide range of domains as shown in the figures.
 It indicates that the depth metric accurately describes the behavior of each tie-breaking criterion.
 
@@ -162,7 +162,7 @@ For example, look at the first figure which is plotting the result of \pddl{depo
 % 
 We observed that in the plot of $[f,h,\lifo]$, the depth-first behavior results in deeper search ($\approx 10^3$), while
 only a handful of nodes are expanded in the intermediate depth, most often once. Thus,  \lifo's depth-first
-behavior has a high possibility of missing the key branch at intermediate depths that may lead to shorter solutions.
+behavior has a high possibility of missing the key branch at intermediate depths that may lead to solutions earlier.
 On the other hand, the breadth-first behavior of $[f,h,\fifo]$ often gets stuck spending an excessive amount of
 time searching around the plateau entrance (expanding $\approx 10^3$ nodes at depth 10).
 
@@ -181,7 +181,7 @@ The discrepancy of the $[f,h,\depth,\fifo]$ curve from the theoretical predictio
 following factors: First, the branching factor of the graph may not be
 uniform across the search space. Second, some depth buckets could be
 exhausted, as is depicted in the line by $[f,h,\fifo]$ which
-shows all nodes in the shallower depths are expanded and the line can be below $D-d$.
+shows all nodes in the shallower depths are expanded while the line is still below $D-d$.
 Since $[f,h,\fifo]$ exhaustively expands the nodes in shallower depth,
 the number of expansion by $[f,h,\fifo]$ in the shallower depths constitutes an upper bound, which may be below $D-d$.
 
@@ -196,7 +196,7 @@ Note that depth diversification is always applied regardless of $f$ value or $h$
 This suggests that most children of the nodes in $\plateau{f^*,h}$ have $f$ value larger than $f^*$ or stays in $\plateau{f^*,h}$, and the planner is struggling to find nodes with better $h$.
 Due to the unbiased search, the depth-based strategy has a better chance of improving $h$ values, finding a node in $\plateau{f^*,0}$ more quickly.
 This shows that the depth can also enhance the search in non-final plateaus to find the nodes in the next plateau.
-Similar phenomena were observed in several other instances and domains (\refig{fig:depth-histogram5}). To list a few, they are the following: \pddl{depot-fuel}, \pddl{driverlog-fuel}, \pddl{zenotravel-fuel}, \pddl{floortile-ink}, \pddl{mprime-succumb}, \pddl{storage-lift}.
+Similar phenomena were observed in several other instances and domains (\refig{fig:depth-histogram5} in Appendix). To list a few, they are the following: \pddl{depot-fuel}, \pddl{driverlog-fuel}, \pddl{zenotravel-fuel}, \pddl{floortile-ink}, \pddl{mprime-succumb}, \pddl{storage-lift}.
 \todo*{might as well say which domains...}
 
 Note that the small number of nodes in $\plateau{f^*,0}$ in this experiment does not contradict the results in \refig{fig:plateau},  which shows that  the number of such nodes is quite large.
