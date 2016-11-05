@@ -37,7 +37,7 @@ graph.
 It has also served as a model for some algorithms such as Frontier Search \cite{korf1999divide,korf2000divide},
 which tries to reduce the memory requirement by discarding the information associated with states with $f<f^*$.
 It can be effective when the number of such states accounts for a large fraction of the memory usage.
-% 
+ 
 However, for many other classes of combinatorial search problems, e.g., the IPC Planning Competition Benchmarks, 
 the figure on the right is a more accurate depiction -- here, the  search space has a large plateau for $f=f^*$.
 In fact, Iterative Deepening approaches \cite{korf1985depth} assume this type of search space
@@ -135,19 +135,19 @@ We empirically show that:
 
 % 
 
-\textbf{
-Note for reviewers:
-This paper is a significantly extended version of the AAAI-16 paper by
-the same authors. The additions to the conference paper are the following:
-\begin{enumerate}
- \item Introduction of deterministic depth-based diversification
-       strategy (as opposed to the randomized version in the conference
-       paper), and its theoretical analysis in \refsec{sec:depth}. 
- \item A new, thorough empirical analysis of the behavior of depth-based diversification in 
-       \refsec{sec:depth-based-evaluation}.
- \item We propose a framework for treating \astar as a sequence of satisficing searches on a set of $f$-cost plateaus (\refsec{sec:discussion}), and based on this framework, we propose and evaluate tie-breaking strategies which incorporates distance-to-go estimates
-       \refsec{sec:distance-to-go}.  
-\end{enumerate}
-Thus, over 60\% of \refsec{sec:depth} and \refsec{sec:depth-based-evaluation}, as well as 100\% of \refsecs{sec:discussion}{sec:distance-to-go} are new.
-}
+% \textbf{
+% Note for reviewers:
+% This paper is a significantly extended version of the AAAI-16 paper by
+% the same authors. The additions to the conference paper are the following:
+% \begin{enumerate}
+%  \item Introduction of deterministic depth-based diversification
+%        strategy (as opposed to the randomized version in the conference
+%        paper), and its theoretical analysis in \refsec{sec:depth}. 
+%  \item A new, thorough empirical analysis of the behavior of depth-based diversification in 
+%        \refsec{sec:depth-based-evaluation}.
+%  \item We propose a framework for treating \astar as a sequence of satisficing searches on a set of $f$-cost plateaus (\refsec{sec:discussion}), and based on this framework, we propose and evaluate tie-breaking strategies which incorporates distance-to-go estimates
+%        \refsec{sec:distance-to-go}.  
+% \end{enumerate}
+% Thus, over 60\% of \refsec{sec:depth} and \refsec{sec:depth-based-evaluation}, as well as 100\% of \refsecs{sec:discussion}{sec:distance-to-go} are new.
+% }
 
