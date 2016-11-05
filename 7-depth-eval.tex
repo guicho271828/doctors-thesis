@@ -105,15 +105,22 @@ and the low-level overhead became negligible.
  % all 4 configurations. Since the node evaluation of \mands is an order of
  % magnitude faster than \lmcut, the overhead of managing depth-based
  % tie-breaking queue is non-negligible on \mands.}
- \includegraphics{img/node-sec/lmhiF-lmh_F.pdf}
- % \includegraphics{img/node-sec/lmhiL-lmh_L.pdf}
- \includegraphics{img/node-sec/mnhiF-mnh_F.pdf}
- % \includegraphics{img/node-sec/mnhiL-mnh_L.pdf}
+ % \includegraphics{img/node-sec/lmhiF-lmh_F.pdf}
+ % % \includegraphics{img/node-sec/lmhiL-lmh_L.pdf}
+ % \includegraphics{img/node-sec/mnhiF-mnh_F.pdf}
+ % % \includegraphics{img/node-sec/mnhiL-mnh_L.pdf}
+ \includegraphics{img/node-sec/lmhiF-lmh_F-hist.pdf}
+ % \includegraphics{img/node-sec/lmhiL-lmh_L-hist.pdf}
+ \includegraphics{img/node-sec/mnhiF-mnh_F-hist.pdf}
+ % \includegraphics{img/node-sec/mnhiL-mnh_L-hist.pdf}
  % 
- \caption{Comparison of the node evaluation ratio (node/sec) between standard tie-breaking ($y$-axis) and
- depth-based tie-breaking ($x$-axis) on \lmcut and \mands heuristics. On \mands, compared to \lmcut, node evaluation rate more often becomes
- twice as slower when depth is enabled. This is because the node evaluation of \mands is an order of
- magnitude faster than \lmcut, and the overhead of managing depth-based tie-breaking queue becomes significant. Same results were obtained with \lifo and \ro default tie-breaking. }
+ \caption{Histogram comparing the node evaluation ratio (node/sec) between standard tie-breaking ($[f,h,\fifo]$) and
+ depth-based tie-breaking ($[f,h,\depth,\fifo]$) on \lmcut and \mands heuristics.
+ (See Appendix \reftbl{fig:expansion-ratio-lifo} for the data on $[f,h,\lifo]$ vs. $[f,h,\depth,\lifo]$.)
+ On \mands, compared to \lmcut, node evaluation rate more often becomes
+ slower when depth is enabled. This is because the node evaluation of \mands is an order of
+ magnitude faster than \lmcut, and the overhead of managing depth-based tie-breaking queue becomes significant.
+ }
  % 
  \label{fig:expansion-ratio}
 \end{figure}

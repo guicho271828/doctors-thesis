@@ -106,6 +106,47 @@
 \end{table}
 
 \clearpage
+\subsection{Additional Figures for \refig{fig:expansion-ratio}: $\lifo$ Default Tiebreaking}
+
+\begin{figure}[htbp]
+ \centering
+ % \begin{tabular}{cccc}
+ %  nodes/sec                  & LMcut      & M\&S       & M\&S slowdown\\
+ %  \hline
+ %  $[f,h,\lifo]$              & 8.86$\times 10^3$ & 1.37$\times 10^5$ & 100\%\\
+ %  $[f,h,\depth,\lifo]$ & 9.37$\times 10^3$ & 1.13$\times 10^5$ & 82\%\\
+ %  \hline
+ %  $[f,h,\fifo]$              & 9.65$\times 10^3$ & 1.41$\times 10^5$ & 100\%\\
+ %  $[f,h,\depth,\fifo]$ & 9.62$\times 10^3$ & 1.24$\times 10^5$ & 87\%\\
+ %  \hline
+ % \end{tabular}
+ % \caption{Comparison of the average node expansion ratio (node/sec) between
+ % standard tie-breaking and depth-based tie-breaking on \lmcut and \mands
+ % heuristics. Numbers are averaged over the problem instances solved by
+ % all 4 configurations. Since the node evaluation of \mands is an order of
+ % magnitude faster than \lmcut, the overhead of managing depth-based
+ % tie-breaking queue is non-negligible on \mands.}
+ % \includegraphics{img/node-sec/lmhiF-lmh_F.pdf}
+ % % \includegraphics{img/node-sec/lmhiL-lmh_L.pdf}
+ % \includegraphics{img/node-sec/mnhiF-mnh_F.pdf}
+ % % \includegraphics{img/node-sec/mnhiL-mnh_L.pdf}
+ % \includegraphics{img/node-sec/lmhiF-lmh_F-hist.pdf}
+ \includegraphics{img/node-sec/lmhiL-lmh_L-hist.pdf}
+ % \includegraphics{img/node-sec/mnhiF-mnh_F-hist.pdf}
+ \includegraphics{img/node-sec/mnhiL-mnh_L-hist.pdf}
+ % 
+ \caption{Histogram comparing the node evaluation ratio (node/sec) between standard tie-breaking ($[f,h,\lifo]$) and
+ depth-based tie-breaking ($[f,h,\depth,\lifo]$) on \lmcut and \mands heuristics.
+ On \mands, compared to \lmcut, node evaluation rate more often becomes
+ slower when depth is enabled. This is because the node evaluation of \mands is an order of
+ magnitude faster than \lmcut, and the overhead of managing depth-based tie-breaking queue becomes significant.
+ }
+ % 
+ \label{fig:expansion-ratio-lifo}
+\end{figure}
+
+
+\clearpage
 \subsection{Additional Figures for \refig{fig:depth-histogram}: More Histograms for the Size of Final Plateaus}
 
 These includes 12 additional histograms for the size of final plateaus on
