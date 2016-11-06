@@ -55,8 +55,7 @@ This is explained by the fact that
 For any child $n'$, 
 if the heuristic function is admissible and $f(n') = f(n)$, there are only 2 possibilities :
 (1) $g(n') > g(n)$ and $h(n') < h(n)$, or
-(2) $g(n') = g(n)$ and $h(n') = h(n)$,
-because $g(n)+h(n)=g(n')+h(n')$.
+(2) $g(n') = g(n)$ and $h(n') = h(n)$.
 Thus, as \lifo expands nodes in a ``depth-first'' manner,
 the nodes that continue to be expanded in the plateau by \lifo usually   %added ``usually' because usually true, but not always true because LIFO/DFS has to periodically ``back up'' to nodes with h > h(n)  after exhausiting  nodes with h=h(n).
 have non-increasing $h$-values,
