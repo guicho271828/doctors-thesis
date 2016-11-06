@@ -76,16 +76,16 @@ When the default criterion is irrelevant to the discussion,
 we use a wildcard * e.g. $[f,h,*]$ or sometimes omit it.
 
 Given a search algorithm with a sorting strategy, 
-a \emph{plateau(criterion...)} is a set of nodes in OPEN whose elements share
+a $\plateau{\text{criterion}\ldots}$ is a set of nodes in OPEN whose elements share
 the same sort keys according to non-default sorting criteria and therefore
 are indistinguishable. In a case of \astar
 using tie-breaking with $h$ (sorting strategy $[f,h,*]$), the plateaus are denoted as
 $\plateau{f,h}$, the set of nodes with the same $f$ cost and the same $h$ cost.
 We can also refer to a specific plateau with $f=f_p$ and $h=h_p$ by $\plateau{f_p,h_p}$.
 
-An \emph{entrance} to a $\plateau{f,h}$ is a node $n \in
-\plateau{f,h}$, whose current parent is not a member of
-$\plateau{f,h}$.  The \emph{final plateau} is the plateau
+An \emph{entrance} to a $\plateau{\text{criterion}\ldots}=P$ is
+a node $n \in P$, whose current parent is not in
+$P$. The \emph{final plateau} is the plateau
 containing the solution found by the search algorithm.  In \astar using
 admissible heuristics, the final plateau is $\plateau{f^*}$ (without
 tie-breaking), or $\plateau{f^*,0}$ (with $h$-based tie-breaking).
