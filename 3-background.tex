@@ -33,7 +33,7 @@ node]'' \cite[p.102 Step 2]{hart1968formal}, \cite[p.69]{Nilsson71}.
 % Although it is possible to interpret this to imply $h$-based tie-breaking
 % since goal nodes are the special case where $h=0$,
 % they make no further mention of tie-breaking.
-Pearl's textbook on heuristic search specifies that best-first search should ``break ties arbitrarily'' (\citeyear{pearl1984heuristics}, p.48, Step 3), and does not specifically mention tie-breaking for \astar.
+Pearl's textbook on heuristic search specifies that best-first search should ``break ties arbitrarily'' \cite[p.48, Step 3]{pearl1984heuristics}, and does not specifically mention tie-breaking for \astar.
 To the best of our knowledge, the first explicit mention of a tie-breaking strategy that considers node generation order is by Korf in his analysis of IDA*: ``If \astar employs the tie-breaking rule of 'most-recently generated', it must also expand the same nodes [as IDA*]'', i.e., a \lifo ordering.
 
 In recent years, tie-breaking according to $h$-values has become ``folklore'' in the search community.
@@ -41,8 +41,8 @@ In recent years, tie-breaking according to $h$-values has become ``folklore'' in
 that \astar achieves best performance when it breaks ties
 in favor of nodes with least h-cost'' \cite{hansen2007anytime}.
 \citeauthor{holte2010common} writes ``\astar breaks ties in favor
-of larger $g$-values, as is most often done'' \cite[note that since $f=g+h$,
-preferring large $g$ is equivalent to preferring smaller $h$]{holte2010common}.
+of larger $g$-values, as is most often done'' \cite{holte2010common}.
+Note that since $f=g+h$, preferring large $g$ is equivalent to preferring smaller $h$.
 \shortciteauthor{felner2011inconsistent} also assume ``ties are broken in
 favor of low h-values'' in describing Bidirectional Pathmax for \astar \citeyear{felner2011inconsistent}.
 In their detailed survey/tutorial on efficient \astar implementations,
