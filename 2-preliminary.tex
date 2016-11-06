@@ -65,15 +65,17 @@ i.e., the sorting strategy may fail to select a single node because some nodes
 may share the same sorting keys.
 For such cases, a BFS algorithm must
 decide which node to expand by a \emph{default} tie-breaking
-strategy $\text{criterion}_k$ such as  \fifo (oldest node first: first-in-first-out), \lifo
+criterion $\text{criterion}_k$ such as  \fifo (oldest node first: first-in-first-out), \lifo
 (most recently inserted first: last-in-first-out) or \ro (random ordering).
-For example, an \astar using $h$ and \fifo default tie-breaking is denoted as $[f,h,\fifo]$.
-By definition, there is only 1 node which satisfies these default criteria, so these
-strategies are able to select a single node from the set of nodes.
-When the default strategy is irrelevant to the discussion,
+For example, an \astar using $h$ tie-breaking and \fifo default tie-breaking
+ is denoted as $[f,h,\fifo]$.
+By definition, there is only 1 node which satisfies the default criterion, so
+strategies with a default criterion guarantee the total order and
+are able to select a single node from the set of nodes.
+When the default criterion is irrelevant to the discussion,
 we use a wildcard * e.g. $[f,h,*]$ or sometimes omit it.
 
-Given a search algorithm which uses a particular sorting strategy, 
+Given a search algorithm with a sorting strategy, 
 a \emph{plateau(criterion...)} is a set of nodes in OPEN whose elements share
 the same sort keys according to non-default sorting criteria and therefore
 are indistinguishable. In a case of \astar
