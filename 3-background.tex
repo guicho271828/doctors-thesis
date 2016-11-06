@@ -4,11 +4,12 @@
 
 \astar is a standard search algorithm for finding an optimal cost path
 on a graph.
-Starting from the single initial node, in each iteration, \astar
-selects and expands a node $n$ with the lowest $f$-cost in the OPEN
-priority queue. The successor nodes are inserted back to OPEN, and $n$
-is marked as CLOSED, in order to avoid duplicated evaluations.
-\astar returns a cost-optimal solution when $h$ is admissible, i.e., when
+It can be defined as a subclass of BFS which uses $f$-value as the first sorting criterion
+% Starting from the single initial node, in each iteration, \astar
+% selects and expands a node $n$ with the lowest $f$-cost in the OPEN
+% priority queue. The successor nodes are inserted back to OPEN, and $n$
+% is marked as CLOSED, in order to avoid duplicated evaluations.
+and returns a cost-optimal solution when $h$ is admissible, i.e., when
 $\forall n; h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
 the nearest goal.
 
