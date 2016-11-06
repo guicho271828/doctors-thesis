@@ -62,7 +62,7 @@ framework \cite{richter2011lama}. The first iteration of LAMA uses distance-to-g
 search enhancements.
 
 In temporal planning, \shortciteauthor{benton2010g} proposed an inadmissible technique where short actions are
-hidden behind long actions and do not increase makespan \cite{benton2010g}. Such actions cause a``g-value
+hidden behind long actions and do not increase makespan \cite{benton2010g}. Such actions cause a ``g-value
 plateaus'', which are similar to the large plateaus caused by 0-cost actions in sequential planning.  They implemented an inadmissible
 heuristic function combined with distance-to-go estimates on top of Temporal Fast Downward system
 \cite{eyerich2009using}.  % As stated, their method is not applicable to the cost-optimal search.%true, but they might claim that adapting their technique to admissible search is ``trivial'', so let's just leave this out.
@@ -285,3 +285,6 @@ domains, as already discussed in \refsec{sec:noh}. In Zerocost domains,
 using a distance-to-go version of an inadmissible heuristic function for
 tie-breaking is more effective. Also, combining the depth metric with
 such an inadmissible heuristics is also effective.
+
+We only tested this relatively simple dynamic configuration that switches between two strategies based on the presence of 0-cost operators. However, as noted in \refsec{sec:depth-based-evaluation}, domain-specific solvers (compared to domain-independent solver, which is our main interest) can benefit from fine-tuning the tiebreaking strategy so that it is most suited to the target domain.
+
