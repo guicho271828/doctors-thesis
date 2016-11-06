@@ -83,8 +83,11 @@ As shown in \refig{fig:expansion-ratio}, the number of evaluation of \mands heur
 This is because the evaluation of \mands heuristics is implemented
 as an efficient table lookup, and it is able to evaluate an order of magnitude larger number of nodes compared to \lmcut heuristics.
 Thus, even the relatively small overhead incurred by the management of depth buckets decreases the node evaluation rate to noticeably degrade performance.
-In contrast, \mands did not have such problems in Zerocost domains. This shows that the search efficiency offered by depth based diversification becomes much more important,
+In contrast, Zerocost domains did no cause such problems to \mands. This shows that the search efficiency offered by depth based diversification becomes much more important,
 and the low-level overhead became negligible.
+
+Finally, we note that $\depth$ can cause performance degradation if we look at the 
+per-domain results. This is natural considering that the aim of diversifying the depth is to choose the \emph{safest} practice in a domain-independent manner. Depending on the domain, the \emph{best} practice may vary --- for example, \fifo is the best in \pddl{airport-fuel} with \lmcut, while \lifo is the best in \pddl{freecell-move} with \lmcut. However, $\depth$ is the best practice for a domain-independent planner which should avoid pathological behavior in the general cases. Moreover, since this does not change the fact that tie-breaking is important, one possibility for a domain-specific solver is to choose the right tie-breaking method. Automating such an adaptive tie-breaking is discussed in \refsec{sec:dynamic-configuration}.
 
 % , which is less interesting when tackling an intractable combinatorial problems.
 
