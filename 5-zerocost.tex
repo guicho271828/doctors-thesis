@@ -122,15 +122,16 @@ Thus, we did not modified the problem definitions at all, only modifying the act
 
 \subsection{Difference in Problem Characteristics between IPC and Zerocost Domains}
 
-The previous study on the parameterized complexity of planning domains \cite{aghighi2015} suggests % can't extrapolate too strongly from problem class complexity results to specific instances 
-that there would be significant practical performance differences when a domain independent planner solves the original IPC instances and our Zerocost instances.
-However, to our knowledge, an empirical study on such differences over wide range of IPC domains is missing in the literature.
-Existing empirical analyses mainly focus on the performance difference caused by using a plan length heuristic vs plan cost heuristic for inadmissible heuristic search \cite{thayer2009using,thayer2011bounded,cushing2010cost,richter2011lama}, not the performance difference caused by the target cost function in cost-optimal search. The use of plan length heuristics is further discussed in \refsec{sec:distance-to-go}.
-% Such a performance difference is primarily regarded as a ``special case'' simply because there are only a few 0-cost action domains.
-% As a result, the number of domains used for evaluations is usually below 8 \cite{}
-% Also, 
+Domains containing 0-cost operators are known to be difficult for traditional planners \cite{thayer2009using,cushing2010cost,wilt2011cost,thayer2011bounded,richter2011lama}.
+Both \citeauthor{cushing2010cost} \citeyear{cushing2010cost} and \citeauthor{wilt2011cost} \citeyear{wilt2011cost} discussed the large ratio between maximum and minimum operator costs can pose challenge to existing planners. However, the common conclusion is the use of plan-length heuristics instead of plan-cost heuristics, which harm the optimality of the solution. The use of plan length heuristics is further discussed in \refsec{sec:distance-to-go}.
 
-Thus, we tested if these new domains actually pose a new type of challenge to the
+While above literature also show some theories on why this happens, \citeauthor{aghighi2015} \citeyear{aghighi2015,aghighi2016} fully complemented the full theory behind this, using the parameterized complexity of planning domains, showing % can't extrapolate too strongly from problem class complexity results to specific instances 
+that domains with 0-cost operators form another complexity class that is harder than the domains with strictly positive-cost operators.
+
+Thus it is expected that there would be significant practical performance differences when a domain independent planner solves the original IPC instances and our Zerocost instances.
+To our knowledge, an empirical study on such differences over wide range of IPC domains is missing in the literature, while their evaluation took place mainly on a few puzzle domains: Grid Path Planning, Blastlands, Zenotravel \cite{thayer2009using}, Zenotravel \cite{cushing2010cost}, Sliding Puzzle, Pancake Puzzle, Sliding Puzzle \cite{wilt2011cost}, Dock Robot, Vacuum World, Robot Navigation, Sliding Puzzle\cite{thayer2011bounded}.
+
+Therefore we tested if Zerocost domains actually pose a new challenge to the
 standard tie-breaking strategies through experiments. Results using \lmcut and \mands
 heuristics are shown in \reftbl{tbl:lmcut-zerocost-std} and
 \reftbl{tbl:mands-zerocost-std} (Appendix), respectively. In each table,
@@ -146,9 +147,9 @@ was lower in 11 domains while more instances were solved
 in 5 domains. With \mands, the coverage in Zerocost domains was lower in 10 domains while
 more instances were solved in 3 domains.
 \todo*{Can we consolidate the lmcut table mands table comparing the 0-cost vs standard domains?  Doesn't seem important enough for 2 tables --- not critical}
-The coverage increase in some domains is not surprising, considering that 0-cost actions also make some suboptimal paths into cost-optimal paths.
+The coverage increase in some domains is not surprising, considering that 0-cost actions also make some suboptimal paths into cost-optimal paths. However, the coverage decreased overall, supporting the literature.
 
-Also, \refig{fig:plateau-zerocost} plots the size of the final plateau of the
+\refig{fig:plateau-zerocost} plots the size of the final plateau of the
 Zerocost instances, with \lmcut heuristics and $h$ tie-breaking. In this plot,
 each point shows the total number of nodes in $\plateau{f^*,0}$ vs the
 total number of nodes with $f\leq f^*$. Compared to \refig{fig:plateau},
