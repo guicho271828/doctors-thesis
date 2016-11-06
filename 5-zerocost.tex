@@ -125,7 +125,7 @@ Thus, we did not modified the problem definitions at all, only modifying the act
 Domains containing 0-cost operators are known to be difficult for traditional planners \cite{thayer2009using,cushing2010cost,wilt2011cost,thayer2011bounded,richter2011lama}.
 Both \citeauthor{cushing2010cost} \citeyear{cushing2010cost} and \citeauthor{wilt2011cost} \citeyear{wilt2011cost} discussed the large ratio between maximum and minimum operator costs can pose challenge to existing planners. However, the common conclusion is the use of plan-length heuristics instead of plan-cost heuristics, which harm the optimality of the solution. The use of plan length heuristics is further discussed in \refsec{sec:distance-to-go}.
 
-While above literature also show some theories on why this happens, \citeauthor{aghighi2015} \citeyear{aghighi2015,aghighi2016} fully complemented the full theory behind this, using the parameterized complexity of planning domains, showing % can't extrapolate too strongly from problem class complexity results to specific instances 
+While above literature also show some theories on the origin of difficulties, \citeauthor{aghighi2015} \citeyear{aghighi2015,aghighi2016} fully complemented the full theory behind this, using the parameterized complexity analysis of planning domains. It is shown % can't extrapolate too strongly from problem class complexity results to specific instances 
 that domains with 0-cost operators form another complexity class that is harder than the domains with strictly positive-cost operators.
 
 Thus it is expected that there would be significant practical performance differences when a domain independent planner solves the original IPC instances and our Zerocost instances.
