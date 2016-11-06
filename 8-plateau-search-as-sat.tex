@@ -28,13 +28,28 @@ As another example, the reason for the poor performance of $[f,\fifo]$
 is clearly that it is running $[\fifo]$,
 an uninformed satisficing breadth-first search in the plateau.
 
-From this perspective, we can reinterpret \astar as follows: \astar expands the nodes in best-first order of $f$ value. When the
+From this perspective, we can reinterpret \astar as in \refalgo{alg:astar-sat}: \astar expands the nodes in best-first order of $f$ value. When the
 heuristic function is admissible, the $f$ values of the nodes expanded by \astar never decreases during the
 search process.
 Thus, the entire process of \astar can be considered as a series of search episodes on each $\plateau{f}$.
 The search on each plateau terminates when the plateau is proven to contain no goal nodes (UNSAT), or when a goal is found (SAT).
 When the plateau is UNSAT, then the search continues to the plateau with the next smallest $f$ value.
-\refig{fig:astar-sat} illustrates this framework.
+\refig{fig:astar-sat} also illustrates this framework.
+
+\begin{algorithm}
+ \begin{algorithmic}
+  \LOOP
+  \STATE Search $\plateau{f}$ for any goal state, using satisficing search algorithm
+  \IF{$\plateau{f}$ contains some goal (Plateau is SAT)}
+  \RETURN solution
+  \ELSE
+  \STATE Increase $f$ 
+  \ENDIF
+  \ENDLOOP
+ \end{algorithmic}
+ \caption{Reinterpretation of \astar as iterations of satisficing search on plateaus}
+ \label{alg:astar-sat}
+\end{algorithm}
 
 \begin{figure}[htbp]
  \centering
@@ -58,14 +73,11 @@ which acts as a common parent of all initial nodes. We can thus reformulate the 
 
 This is also somewhat similar to the standard approach to model-based sequential / temporal planning using SAT/IP/CP solvers \cite{kautz1992planning,van2005optiplan}.
 % \cite{rintanen2012planning,   Rintanen is state-of-the-art but not a good exemplar for this point, because his solver jumps around various horizons. van2005optiplan} in a slightly different sense.  
-In model-based planning, a
-planning problem is converted to a corresponding constraint satisfaction problem with a finite horizon $t$ (plan
-length / makespan). The search starts from the horizon 0 and tests if the problem is satisfiable. If not, then it
-increases the horizon and retests the same problem with additional constraints for a new horizon $t+1$. 
-The strategy of iterative search over a sequence of horizons in model-based planning is somewhat analogous to our view of \astar as a sequence of satisficing search over a set of plateaus.
+In model-based planning, a planning problem is converted to a corresponding constraint satisfaction problem with a finite horizon $t$ (plan length / makespan). The search starts from the horizon 0 and tests if the problem is satisfiable. If not, then it increases the horizon, add constraints excluding solutions below $t$, and retests the same problem with additional constraints for a new horizon $t+1$.
+
+% The strategy of iterative search over a sequence of horizons in model-based planning is somewhat analogous to our view of \astar as a sequence of satisficing search over a set of plateaus.
 
 %In forward heuristic search algorithms such as \astar, the concept of horizon corresponds to the $f$ value, which is a lower bound of the solution cost.
-
 
 % XXX it's not a correct/safe to say that model-based methods solves from scratch on each iteration. In a model-based planners, at iteration  t, a constraint is added to exclude solutions with <t steps/layers (depending on whether layers are sequential/parallel) so that only possible solutions for that horizon are tested, so on the t't hiteration no search effort is wasted searching for solutions <t. This is different from the way IDA* repeats all work on each iteration.
 
@@ -91,15 +103,31 @@ The strategy of iterative search over a sequence of horizons in model-based plan
 %doing iterated deepening, where each iteration seeks a satisficing solution, like IDA*. }
 % 
 
+It is also reminiscent of the behavior of iterative deepening \astar \cite{korf1985depth}, which executes a series of satisficing searches with a $f$-cost limit which increases on each iteration. However, ``\astar-as a sequence of satisficing search'' differs from IDA* in that IDA*, in order to achieve linear memory usage, repeats previous work on each iteration. Instead of searching a particular plateau in each iteration, IDA* searches through the union of several plateaus. Unsurprisingly, this can also be modeled as sequence of satisficing searches (\refalgo{alg:idastar-sat}).
+
+\begin{algorithm}
+ \begin{algorithmic}
+  \LOOP
+  \STATE Search $S=\bigcup_{0\leq f \leq F} \plateau{f}$ for any goal state
+  \IF{$S$ contains some goal}
+  \RETURN solution
+  \ELSE
+  \STATE Reset the internal state of the planner, increase $F$
+  \ENDIF
+  \ENDLOOP
+ \end{algorithmic}
+ \caption{IDA* as iterations of satisficing search on unions of plateaus}
+ \label{alg:idastar-sat}
+\end{algorithm}
+
 %% \begin{figure}[htbp]
 %%  \includegraphics{img/astar/plateau-6.pdf}
 %%  \caption{The concept of IDA* and model-based planning as a sequence of satisficing searches.}
 %%  \label{fig:idastar-sat}
 %% \end{figure}
 
-This view of \astar search as a series of satisficing searches also reminiscent of the behavior of 
-iterative deepening \astar \cite{korf1985depth}, which executes a series of satisficing searches with a $f$-cost limit which increases on each iteration. 
-However, ``\astar-as a sequence of satisficing search'' differs from IDA* in that IDA*, in order to achieve linear memory usage, repeats previous work on each iteration.
+
+
 
 \subsection{Depth Diversification as Satisficing Search}
 \label{sec:depth-vs-types}
