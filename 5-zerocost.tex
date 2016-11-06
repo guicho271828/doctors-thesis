@@ -201,6 +201,10 @@ existence of 0-cost edges, some non-goal neighbors of a goal node
 have $h^*=0$. For those nodes,
 there is clearly no room for improving the heuristic estimate; Any positive
 value causes the heuristics to be inadmissible.
+Thus it would be safe to say that this is another instance that
+``further improvements in run-time require
+changes to other parts of the search algorithm than the heuristic estimator''
+ \cite{helmert2008good}.
 
 One approach to improving the search performance in such plateaus
 produced by 0-cost edges is to perform an efficient
