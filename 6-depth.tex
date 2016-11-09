@@ -29,14 +29,15 @@ initial node. These notions are depicted in
  \label{fig:plateau-depiction}
 \end{figure}
 
-The depth $d(n)$ of a
-node $n$ is 0 when $n$ and the parent node $m$ have different key
-values for a sorting strategy, and $d(n)=d(m)+1$ when they have the same
-key values: For example, in \astar with $h$-based tie-breaking, the key
-values of a node are represented as a vector $[f,h]$, and they are same
-when they are pairwise equivalent (i.e. $f(n) = f(m) \land h(n) =
-h(m)$).  Having the same key values means that $n$ and $m$ are on the
-same plateau.
+The depth $d(n)$ of a node $n$ is 0 when $n$ and
+the parent node $m$ are in the different plateaus,
+and $d(n)=d(m)+1$ when they are in the same plateau.
+As defined in \refsec{sec:preliminaries}, two nodes being in the same plateau
+means that they share the same key values for the sorting strategy.
+For example, when the strategy is $[f,h,*]$,
+ % and $n$ and $m$ are on the same plateau,
+it means $\plateau{f(n),h(n)}=\plateau{f(m),h(m)}$, therefore
+$f(n) = f(m) \land h(n) = h(m)$.
 
 The traditional \lifo and \fifo tie-breaking strategies
 search the plateau region in a decreasing and increasing order of the depth, respectively.
@@ -113,11 +114,11 @@ then uses the $\depth$ criterion to break ties in $\plateau{f,h}$.
 
 In order to diversify the expansion among depths, we simply
 iterate over the depth buckets (\refalgo{alg:depth}).
-There is one Depth-Diversified Node Selector instance per each plateau (either being $\plateau{f}$ or $\plateau{f,h}$) which is responsible for this behavior.
+This iteration is managed by a Depth-Diversified Node Selector instance associated per each plateau (e.g. each of $\plateau{1,0}, \plateau{2,0}, \plateau{2,1}\ldots$).
 In order to select a single node from the OPEN list for expansion,
 we first selects the plateau with the smallest key value, such as $\plateau{f=5,h=1}$, as usual.
-Each plateau is now represented by a selector instance.
-Then we simply call $\text{pop}(\text{selector})$ method on this instance which returns a node.
+This plateau is now represented by a selector instance, and
+we call $\text{pop}(\text{selector})$ method on this instance in order to obtain a node.
 Each instance holds
 an index $d_c$,
 the current depth (bucket index) selected in the last expansion,
