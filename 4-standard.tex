@@ -142,11 +142,11 @@ Counterintuitively, the $\plateau{f^*, 0}$ region can be large enough to
 cause a significant performance difference -- in fact, this final plateau can even account for \emph{most} of the
 search effort required by \astar.
 \refig{fig:plateau} plots the size of the final plateau on 1104 IPC
-benchmark instances.  The $y$-axis represents the number of nodes within
-the final plateau ($f=f^*, h=0$), and the $x$-axis represents the total
+benchmark instances.  The $y$-axis represents the number of nodes in
+the final plateau ($\plateau{f^*, 0}$), and the $x$-axis represents the total
 number of nodes expanded so far. This figure suggests that in some
 domains such as \pddl{Openstacks} and \pddl{Cybersec}, the planner
-spends most of the runtime searching the final plateau for a solution,
+spends most of the runtime searching $\plateau{f^*, 0}$ for a solution,
 even with the help of $h$ tie-breaking.
 \todo{maybe we need a statistics on (\#goal)/(\#states) ?}
 
@@ -158,10 +158,10 @@ which have much smaller final plateaus?
    \centering
   \includegraphics[width=\linewidth]{tables/aaai16-frontier/aaai16prelim3/lmcut_frontier-front.pdf}
   \caption{
- The number of nodes with $f=f^*, h=0$ (y-axis), which form
-  the final plateau when 1st-level tie-breaking is according to $h$, compared to
-  the total number of nodes in the search space (x-axis) with $f\leq
-  f^*$ on 1104 IPC benchmark problems.  Note that \pddl{Openstacks}
+ The number of nodes in $\plateau{f^*, 0}$ (y-axis), which form
+  the final plateau of sorting strategy $[f,h]$, compared to
+  the total number of nodes in the search space with $f\leq f^*$
+ (x-axis) on 1104 IPC benchmark problems.  Note that \pddl{Openstacks}
   and \pddl{Cybersec} instances are near the $y=x$ line.
   These statistics are obtained by running a modified Fast Downward with
  \lmcut which continues searching after the solution is found

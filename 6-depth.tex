@@ -40,12 +40,13 @@ it means $\plateau{f(n),h(n)}=\plateau{f(m),h(m)}$, therefore
 $f(n) = f(m) \land h(n) = h(m)$.
 
 The traditional \lifo and \fifo tie-breaking strategies
-search the plateau region in a decreasing and increasing order of the depth, respectively.
+search each plateau in a decreasing and increasing order of the depth, respectively.
+Let us assume we are using $[f,h,*]$ sorting strategy.
 The \lifo strategy always selects the most recently generated node
 within $\plateau{f,h}$, and the behavior in the plateau is equivalent to depth-first search.
-Thus, \lifo always selects the largest depth
-buckets, as depicted in \refig{fig:plateau-depiction} (subfigure 2).
-Similarly, the behavior of the \fifo strategy 
+Thus, \lifo always selects a node in the largest depth,
+as depicted in \refig{fig:plateau-depiction} (subfigure 2).
+Similarly, the behavior of \fifo strategy 
 in a plateau is equivalent to breadth-first search. Thus \fifo 
 always selects the nodes with the least depth (subfigure 3).
 Note that  $[f,h,\lifo]$ is equivalent to $[f,h,-d,\lifo]$ and
