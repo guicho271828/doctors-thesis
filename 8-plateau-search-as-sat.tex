@@ -103,22 +103,24 @@ In model-based planning, a planning problem is converted to a corresponding cons
 %doing iterated deepening, where each iteration seeks a satisficing solution, like IDA*. }
 % 
 
-It is also reminiscent of the behavior of iterative deepening \astar \cite{korf1985depth}, which executes a series of satisficing searches with a $f$-cost limit which increases on each iteration. However, ``\astar-as a sequence of satisficing search'' differs from IDA* in that IDA*, in order to achieve linear memory usage, repeats previous work on each iteration. Instead of searching a particular plateau in each iteration, IDA* searches through the union of several plateaus. Unsurprisingly, this can also be modeled as sequence of satisficing searches (\refalgo{alg:idastar-sat}).
+It is also reminiscent of the behavior of iterative deepening \astar \cite{korf1985depth}, which executes a series of satisficing searches with a $f$-cost limit which increases on each iteration. However, ``\astar-as a sequence of satisficing search'' differs from IDA* in that IDA*, in order to achieve linear memory usage, repeats previous work on each iteration. Instead of searching a particular plateau in each iteration, IDA* searches through the union of several plateaus.
 
-\begin{algorithm}
- \begin{algorithmic}
-  \LOOP
-  \STATE Search $S=\bigcup_{0\leq f \leq F} \plateau{f}$ for any goal state
-  \IF{$S$ contains some goal}
-  \RETURN solution
-  \ELSE
-  \STATE Reset the internal state of the planner, increase $F$
-  \ENDIF
-  \ENDLOOP
- \end{algorithmic}
- \caption{IDA* as iterations of satisficing search on unions of plateaus}
- \label{alg:idastar-sat}
-\end{algorithm}
+% Unsurprisingly, this can also be modeled as sequence of satisficing searches (\refalgo{alg:idastar-sat}).
+% 
+% \begin{algorithm}
+%  \begin{algorithmic}
+%   \LOOP
+%   \STATE Search $S=\bigcup_{0\leq f \leq F} \plateau{f}$ for any goal state
+%   \IF{$S$ contains some goal}
+%   \RETURN solution
+%   \ELSE
+%   \STATE Reset the internal state of the planner, increase $F$
+%   \ENDIF
+%   \ENDLOOP
+%  \end{algorithmic}
+%  \caption{IDA* as iterations of satisficing search on unions of plateaus}
+%  \label{alg:idastar-sat}
+% \end{algorithm}
 
 %% \begin{figure}[htbp]
 %%  \includegraphics{img/astar/plateau-6.pdf}
