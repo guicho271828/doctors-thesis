@@ -71,25 +71,20 @@ other domains.
 In contrast, \reftbl{tbl:mands-ipc-full} shows that depth-based tie-breaking negatively affects the performance of
 the configuration using \mands when applied to \textbf{1104 standard IPC benchmark instances}. Our justification to this result is
 the following.
-% 
+ 
 First, the coverage of \pddl{Openstacks} is improved in \fifo ($15\to 19$) and \ro ($15.4\to 19$), so we have achieved the same expected behavior as in the case of \lmcut.
 %
 While it did not happen to \pddl{Cybersec}, this is due to the poor performance of \mands in \pddl{Cybersec}.
 The coverage of \pddl{Cybersec} is 0 in all configurations and even depth could not improve it. Thus, the positive
 effect of depth diversification to the overall score was limited.
-% 
+ 
 Second, we observed a performance degradation across a wide range of domains which is caused by the low-level overhead of depth-based tie-breaking (i.e., updates to the depth-based bucket data structures).
-As shown in \refig{fig:expansion-ratio}, the number of evaluation of \mands heuristics per seconds has significantly decreased across a wide range of domains, while such an effect is limited in \lmcut.
+As shown in \refig{fig:expansion-ratio}, the number of evaluation of \mands heuristics per seconds has significantly decreased,
+% across a wide range of domains
+while such an effect is limited in \lmcut.
 This is because the evaluation of \mands heuristics is implemented
-as an efficient table lookup, and it is able to evaluate an order of magnitude larger number of nodes compared to \lmcut heuristics.
+as an efficient table lookup, and \mands is able to evaluate an order of magnitude larger number of nodes compared to \lmcut heuristics.
 Thus, even the relatively small overhead incurred by the management of depth buckets decreases the node evaluation rate to noticeably degrade performance.
-In contrast, Zerocost domains did no cause such problems to \mands. This shows that the search efficiency offered by depth based diversification becomes much more important,
-and the low-level overhead became negligible.
-
-Finally, we note that $\depth$ can cause performance degradation if we look at the 
-per-domain results. This is natural considering that the aim of diversifying the depth is to choose the \emph{safest} practice in a domain-independent manner. Depending on the domain, the \emph{best} practice may vary --- for example, \fifo is the best in \pddl{airport-fuel} with \lmcut, while \lifo is the best in \pddl{freecell-move} with \lmcut. However, $\depth$ is the best practice for a domain-independent planner which should avoid pathological behavior in the general cases. Moreover, since this does not change the fact that tie-breaking is important, one possibility for a domain-specific solver is to choose the right tie-breaking method. Automating such an adaptive tie-breaking is discussed in \refsec{sec:dynamic-configuration}.
-
-% , which is less interesting when tackling an intractable combinatorial problems.
 
 \begin{figure}[htbp]
  \centering
@@ -120,6 +115,7 @@ per-domain results. This is natural considering that the aim of diversifying the
  % 
  \caption{Histogram comparing the node evaluation ratio (node/sec) between standard tie-breaking ($[f,h,\fifo]$) and
  depth-based tie-breaking ($[f,h,\depth,\fifo]$) on \lmcut and \mands heuristics.
+ This plot includes both IPC and Zerocost instances.
  (See Appendix \refig{fig:expansion-ratio-lifo} for the data on $[f,h,\lifo]$ vs. $[f,h,\depth,\lifo]$.)
  On \mands, compared to \lmcut, node evaluation rate more often becomes
  slower when depth is enabled. This is because the node evaluation of \mands is an order of
@@ -129,6 +125,84 @@ per-domain results. This is natural considering that the aim of diversifying the
  \label{fig:expansion-ratio}
 \end{figure}
 
+To further verify that the performance degradation of \mands in IPC instances is due to the low-level overhead,
+we made a cumulative coverage plot which shows the number of node evaluations
+required to solve IPC instances.
+% 
+According to \refig{fig:eval-comparison}, the number of evaluations required to solve IPC instances
+was almost identical between $[f,h,*]$ and $[f,h,\depth,*]$
+because IPC instances mostly consist of positive-cost actions and depth do not play much role.
+We observed differences in \pddl{Openstacks} as expected, because \pddl{Openstacks} contains 0-cost actions.
+(No \pddl{Cybersec} instances were successfully solved using \mands.)
+It shows that the degradation in the coverage of IPC track observed by depth diversification is purely caused by the low-level overhead.
+% According to \refig{fig:eval-comparison}, the depth diversification does not
+% affect the node evaluation in positive-cost domains while it reduced the number of evaluations in Openstacks
+% (contains 0-cost operators). Since Cybersec instances were not solved at all, the results are not included. This
+% shows that the degradation in the coverage of IPC track observed by depth diversification is purely caused by the
+% low-level overhead.
+% 
+It also supports our analysis in \refsec{sec:depth-and-nonzero-cost} that depth diversification
+does not affect the expansion ordering when all edge costs are positive.
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics{img/node-sec/mnhiF-mnh_F-benchmark-cumulative.pdf}
+ \includegraphics{img/node-sec/mnhiL-mnh_L-benchmark-cumulative.pdf}
+ % \includegraphics{img/node-sec/lmhiF-lmh_F-eval.pdf}
+ % \includegraphics{img/node-sec/lmhiL-lmh_L-eval.pdf}
+ % \includegraphics{img/node-sec/mnhiF-mnh_F-eval.pdf}
+ % \includegraphics{img/node-sec/mnhiL-mnh_L-eval.pdf}
+ % 
+ \caption{
+ Cumulative coverage ($y$-axis) vs the number of evaluated nodes ($x$-axis),
+ on IPC instances solved by both $[f,h,*]$ and $[f,h,\depth,*]$ where $h=\mands$.
+ Left: \fifo, Right: \lifo.
+ % See \refig{fig:eval-comparison-lifo} for the similar comparison using $\lifo$ default tiebreaking (Appendix).
+ % \pddl{Cybersec}(\lmcut only) and \pddl{Openstacks} shows that the evaluation is reduced by depth, \pddl{pegsol-opt11} is slightly affected, but the rest of the domains are while the. For \pddl{Cybersec}, only 2 instances are shown because they are th only instances solved by $[f,h,\fifo]$.
+ % There are also slight effect on \pddl{pegsol-opt11} because it also contains zero-cost actions. However, the two 0-cost actions (\pddl{jump-continue-move, end-move}) are the necessary ``finalization'' actions that should always be executed after the unit-cost action (\pddl{jump-start-move}).
+ % Due to this domain-specific characteristics, the effect of depth diversification on 0-cost actions are limited on \pddl{pegsol-opt11}.
+ }
+ % 
+ \label{fig:eval-comparison}
+\end{figure}
+
+% In contrast, Zerocost domains did not cause such problems to \mands.
+% \refig{fig:eval-comparison-zero} shows that the evaluation is significantly decreased on Zerocost domains.
+% This shows that the search efficiency offered by depth based diversification becomes much more important, and the low-level overhead became negligible.
+% 
+% \begin{figure}[htbp]
+%  \centering
+%  \includegraphics{img/node-sec/mnhiF-mnh_F-zerocost-cumulative.pdf}
+%  \includegraphics{img/node-sec/mnhiL-mnh_L-zerocost-cumulative.pdf}
+%  % \includegraphics{img/node-sec/lmhiF-lmh_F-eval.pdf}
+%  % \includegraphics{img/node-sec/lmhiL-lmh_L-eval.pdf}
+%  % \includegraphics{img/node-sec/mnhiF-mnh_F-eval.pdf}
+%  % \includegraphics{img/node-sec/mnhiL-mnh_L-eval.pdf}
+%  % 
+%  \caption{
+%  Cumulative coverage ($y$-axis) vs the number of evaluated nodes ($x$-axis),
+%  on Zerocost instances solved by both $[f,h,*]$ and $[f,h,\depth,*]$ where $h=\mands$.
+%  % See \refig{fig:eval-comparison-lifo} for the similar comparison using $\lifo$ default tiebreaking (Appendix).
+%  % \pddl{Cybersec}(\lmcut only) and \pddl{Openstacks} shows that the evaluation is reduced by depth, \pddl{pegsol-opt11} is slightly affected, but the rest of the domains are while the. For \pddl{Cybersec}, only 2 instances are shown because they are th only instances solved by $[f,h,\fifo]$.
+%  % There are also slight effect on \pddl{pegsol-opt11} because it also contains zero-cost actions. However, the two 0-cost actions (\pddl{jump-continue-move, end-move}) are the necessary ``finalization'' actions that should always be executed after the unit-cost action (\pddl{jump-start-move}).
+%  % Due to this domain-specific characteristics, the effect of depth diversification on 0-cost actions are limited on \pddl{pegsol-opt11}.
+%  }
+%  % 
+%  \label{fig:eval-comparison-zero}
+% \end{figure}
+
+Finally we note that, if we look at the per-domain results in Zerocost domains,
+$\depth$ can cause both improvement and degradation (despite the total coverage improvement).
+This is natural considering that the aim of diversifying the depth is to choose the \emph{safest} practice in a domain-independent manner.
+Depending on the domain, the \emph{best} practice may vary --- for example,
+ \fifo is the best in \pddl{airport-fuel} with \lmcut, while
+ \lifo is the best in \pddl{freecell-move} with \lmcut.
+ However, $\depth$ is the best practice for a domain-independent planner which should avoid pathological behavior in the general cases.
+ Moreover, since this does not change the fact that tie-breaking is important,
+ one possibility for a domain-specific solver is to choose the right tie-breaking method.
+ An adaptive tie-breaking is discussed in \refsec{sec:dynamic-configuration}.
+
+% , which is less interesting when tackling an intractable combinatorial problems.
 
 % \reftbl{tbl:mands-evaluations} shows that if we instead compare the
 % number of evaluations on problems solved by both, depth-based
