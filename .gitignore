@@ -33,3 +33,4 @@ nohup.out
 !img/static/*.jpg
 /org-mode/
 tables/.#*
+/rebuttal/responses.tex

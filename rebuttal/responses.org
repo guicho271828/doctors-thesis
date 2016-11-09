@@ -33,6 +33,266 @@ As a result, the numbering of the tables/figures are changed from the orignal ma
 In this response, we use [Renumbered:X] to indicate that we refer to those figures using
 the new numbering system, and [Original:X] to indicate the numbers in the original manuscript.
 
-* abra broihfhaf;oi;ofhslfs
+* Reviewer 1
 
+** 1) The definition of plateau can be improved.
+
+We had formal definition of a plateau in the original version in the bottom of Section 2, Preliminaries.
+In the revised version, we increased the use of notation like "plateau(h,f)" throughout the paper.
+
+** 2) page 18: "In order to diversify the expansion... " --> This paragraph is very hard to understand
+
+We rewrote the description with a pseudo code in Section 6.
+d_c is a counter assigned to each plateau.
+
+** 3) It will be very interesting to see what happens if you factor away the constant time per node.
+
+In order to factor away the constant low-level overhead of depth bucket
+which is degrading the performance of M&S in IPC domains,
+we compared the number of node evaluations between the depth-diversified and standard search method.
+We newly added Figure [Renumbered:7.2] comparing the cumulative coverage over the number of evaluations.
+We limited the instances to those successfully solved by both.
+The result shows that the evaluations are almost identical for most IPC instances.
+There were differences in Openstacks, as expected.
+
+** TODO 4) Section 5: Zerocost domains. I buy all your arguments on zero cost
+
+We moved one of the table to appendix. We also shortened the section.
+
+** TODO 5) Section 6.1 is trivial.
+
+** TODO 6) Section 7.1: this section repeats what you said above and ...
+
+We shortened and moved the discussion to appendix.
+
+** TODO 7) The beginning of Section 8 is also rather trivial.
+
+We shortened and moved the discussion to appendix.
+
+** minor 1) -- should be "current shortest known path"
+
+Fixed as you suggested.
+
+** minor 2) -- I did not like this syntax. Give the reference and...
+
+Fixed as you suggested.
+
+** minor 3) -- Calling it the  third is misleading...
+
+Fixed as you suggested.
+
+** TODO minor 4) -- The first sections are very short. Maybe they can be one large section...
+
+?? Fixed as you suggested.
+
+** TODO minor 5) -- Indeed distance-to-go is a term that was used by other...
+
+?? Fixed as you suggested.
+
+* Reviewer 2
+
+** 1) Maxim Likhachev's ARA* paper...
+
+We added a paragraph describing the relationship to ARA* in Related Work.
+
+ARA* could largely avoid the problem of final plateau if the previous suboptimal searches happen to
+have found the optimal solution already (and thus pruning most nodes on f=f*). However, this applies only to the iterated, real-time
+search algorithms.
+
+** 2) the amount of data is a bit too much...
+
+We moved some tables to appendix.
+
+** TODO 3) the theory and analysis part... Section 5.3
+
+we are in conflict 
+
+** TODO 3) the theory and analysis part... Section 6.1
+
+** 4) Sec6, "more nodes will tend to have shallower depth" vs disjoint forest model
+
+We clarify this here as well as in the paper.
+We also added some figures for better understanding.
+
+The /no-exhaustion assumption/ assumes that no depth bucket exhausts due to the expansion.
+This implies that there are sufficiently large number of nodes in depth $d=0$ so that
+ depth 0 does not exhaust as a result of expansion.
+If FIFO default tiebreaking is used,
+it tries to expand all those nodes in depth 0 before expanding any nodes in depth d >= 1.
+Similar situation happens at every depth.
+Thus, even if the entire graph is a forest model, FIFO causes a heavy bias to the shallow depth.
+
+Indeed, if entire nodes are expanded, there are surely more nodes in larger depth.
+However, the set of nodes actually expanded are biased to the shallower region.
+
+In practice,
+the nodes in depth 0 are the nodes that were generated as a result of expansind earlier nodes,
+i.e. the entire set of frontier nodes whose number is sufficiently large for FIFO
+ to cause pathological behavior.
+
+** 5) I think it will be helpful if the authors include pseudocodes for...
+
+Added pseudo code for Best-First search, Depth diversification and A*-as-sequence-of-SAT-search,
+as you suggested.
+
+** 6) state/prove the properties of each of these algorithms, especially important ones like completeness
+
+** 7) I like the idea of representing A* as a series of satisficing search. Here also, i would suggest inclusion of pseudocode.
+
+Added pseudo code for Best-First search, Depth diversification and A*-as-sequence-of-SAT-search,
+as you suggested.
+
+** 8) I think it will be interesting to find out what is distribution of goal depth in the final frontier
+
+** 9) Finally, I think it would be nice if we have some infinite spaces in the ZeroCost domains
+
+** minor comments
+
+Thank you for the detailed comments, they are all fixed according to your suggestions.
+
+** 1) I think the abstract needs to be re-written to precisely state the :noexport:
+** 2) page 27, claim 1 "A Last-In-First-Out ..". Is this a general claim, :noexport:
+** 3) Section 2, the 4th paragraph can probably be combined with the :noexport:
+** 4) I would suggest that you include some pictorial representation of :noexport:
+** 5) There are a number of typos and grammar mistakes, please correct :noexport:
+* Reviewer 3
+
+** 1) There are a large number of colourful scatterplots in the paper, most of which would probably be better presented in a different form.
+
+The figure [Original,Renumbered:4.1] and [Original,Renumbered:4.2] should be in the present form.
+The role of these figures is to identify which domain is affected by the different default criteria.
+
+The figure [Original,Renumbered:1.1] is paired with [Original,Renumbered:4.2].
+If we change the format of [Original,Renumbered:1.1] from the current one to the histogram,
+then it loses the consistency with [Original,Renumbered:4.2].
+
+Separating the figure into per-domain analyses would further increase the paper length.
+
+# For
+# example, the data in Figure 1.1 is essentially 1-dimensional: what we
+# are interested in is the distribution or frequency of ratios between
+# the size of the final plateau and the search space; a histogram or a
+# cumulative distribution would show this more clearly. Whether colour-
+# coding it for domains is useful is questionable; there's only a few
+# points that can be distinguished well enough to identify what domain
+# they belong to (and even those do not tell the full story, since there
+# is no way to see where other instances from the same domain fall).
+
+However, we indeed benefit from converting [Original,Renumbered:7.1] into a histograms
+comparing the node evaluation ratio, because the domain charactersitics is not important
+in this figure. Thank you for the suggestion.
+
+** TODO 2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search
+
+# in particular in the presence of zero cost transitions, or attempts to
+# address it. There are a number of relevant related works, for example,
+# those by Benton et al., and Cushing et al., which are cited somewhere
+# in the paper, but do not appear anywhere in the initial discussion nor
+# in the related works section. (The SoCS 2011 paper "Cost-Based
+# Heuristic Search Is Sensitive to the Ratio of Operator Costs", by
+# Christopher Wilt and Wheeler Ruml, may also be relevant.) This should
+# be rectified; the previous state of knowledge should be clearly
+# established early in the paper.
+
+Fixed as you suggested.
+
+** TODO 3) This applies also to the summary of the authors earlier conference paper.
+
+# Rather than the "note" at the end of the introduction (which I
+# assume the authors intend to remove from the published version of the
+# paper), the summary of that paper, and the novel contributions this
+# article makes over it, should be integrated in the presentation.
+
+Fixed as you suggested.
+
+
+** 4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.
+
+The analyses from which these instances are excluded are Section 5.1 only.
+Those domains are still evaluated in the later sections.
+
+# First, the authors say
+# they selected subsets of instances of some domains in order to avoid
+# skewing the results by uneven instance set sizes; but then, these
+# domains are excluded from the following analysis.
+
+** 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy
+
+# , given that the experiment in Section 4 showed
+# tie-breaking using "lifo" to be much more efficient?
+
+The aim of this experiment is to show that there can be some performance difference for some planner,
+and we consider this is sufficient.
+Being the planner Fast Downward, which is currently the most successful state-of-the-art planner
+and by default uses the FIFO default tiebreaking,
+we consider using FIFO as a representative would be a reasonable choise.
+
+Also, you can extract the numbers for [f,h,lifo] experiments from
+Table [Original:7.2, Renumbered:12.3] and Table [Original:7.4, Renumbered:12.5].
+Furthermore, we obtained the same results using these numbers.
+The coverages in the original and Zerocost domains are similarly different.
+
+** 6) In Section 6.2, the authors argue that ... pruning methods ... are somehow equivalent to tie-breaking. This is not accurate.
+
+# Although a bias towards some
+# states may be created by the presence of, for example, symmetries, as
+# the authors argue, pruning the symmetric states does _more_ than just
+# "remove the bias". If the states in question have f-values that are
+# less than the cost of the optimal solution, no form of tie-breaking
+# will prevent A* from expanding all of them, but symmetry pruning will.
+
+In the revised version, we clarified that pruning is a stonger technique
+than diversification.
+
+** 7) In Section 7, Table 7.1 shows that there is little consistency in the results
+
+# , particularly on the benchmark set in which only a few domains
+# have zero cost actions. Table 7.2 shows that this is the case even on
+# the Zerocost problem set, when considerd by domain. This is worth more
+# emphasis in the discussion. While the experiment shows that
+# depth-based tie-breaking *can* be advantageous, it is by no means
+# always the case.
+
+The inconsistency is natural considering
+that the aim of diversifying the depth is to choose the *safest* practice in a domain-independent
+manner. Depending on the domain, the *best* practice may vary -- for example, fifo is the best in
+airport-fuel with LMcut, while lifo is the best in freecell-move with LMcut.
+However, although these two default strategies may work well in some domains,
+it does more harm than good in many other domains,
+encountering the worst case pathological behavior.
+
+This is previously addressed in section 6 in the original version:
+
+#+BEGIN_QUOTE
+"In the former case, fifo should perform well because... However, in the latter case, exhaustively
+searching the shallower depths can result in ... because ..."
+#+END_QUOTE
+
+In the revised version,
+we added a paragraph in the end of section 7
+emphasizing and explaining the inconsistency you suggested.
+
+** TODO 8) I'm somewhat sceptical about the value of these figures...which of the examples are showing the failure of depth-based tie-breaking strategies.
+
+# They show only examples of what can happen on isolated instances. Although such
+# deep-dives may be useful to explain what is happening in different
+# cases (particularly given the variance in the results), the volume and
+# unclear selection of the examples make them less informative. (For
+# instance, it is not clear which of the examples are showing the
+# failure of depth-based tie-breaking compared to default tie-breaking
+# strategies.)
+
+The purpose of these figures is not to show the performance,
+but how depth diversification and other strategies follow the expected depth distribution.
+(Sec.7.1, "To understand the behavior of depth-based policies...")
+
+In terms of performance measured by the number of expanded nodes,
+freecell-move in Figure [original:7.2, renumbered:7.3], mid-right,
+shows that lifo solved problem p04 with much smaller expansions.
+This can also be seen as coverage difference in Table [original:7.2, renumbered:12.2].
+
+** minor comments                                                  :noexport:
+
+Section 7.1, third paragraph: Typo: "Figures 7.2 - 7.4" should be "7.2
+- 7.6".
 
