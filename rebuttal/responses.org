@@ -6,7 +6,7 @@
 #+EMAIL: guicho2.71828@gmail.com
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t c:nil creator:comment
 #+OPTIONS: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t p:nil pri:nil stat:t tags:t tasks:t
-#+OPTIONS: tex:nil timestamp:t toc:nil todo:t |:t
+#+OPTIONS: tex:t latex:t timestamp:t toc:nil todo:t |:t
 #+CREATOR: Emacs 24.5.1 (Org mode 8.2.10)
 #+DESCRIPTION:
 #+EXCLUDE_TAGS: noexport
@@ -122,8 +122,8 @@ it tries to expand all those nodes in depth 0 before expanding any nodes in dept
 Similar situation happens at every depth.
 Thus, even if the entire graph is a forest model, FIFO causes a heavy bias to the shallow depth.
 
-Indeed, if entire nodes are expanded, there are surely more nodes in larger depth.
-However, the set of nodes actually expanded are biased to the shallower region.
+Indeed, if all nodes in the entire graph are expanded, there are surely more nodes in larger depth.
+However, the nodes expanded during the search process are biased to the shallower region.
 
 In practice,
 the nodes in depth 0 are the nodes that were generated as a result of expansind earlier nodes,
