@@ -209,12 +209,11 @@ Thus, the experimental results we show in this paper is not a product of some pi
 In addition to accidental biases, there may be other nontrivial biases such as some form of symmetry among states which can be removed using some tie-breaking criterion $X$.
 Such a criterion can be applied after the depth criterion but before the default criterion,
 resulting in a sorting strategy $[f,h,\depth,X,\fifo]$. 
-Candidates for $X$ may
-include pruning techniques such as Symmetry Breaking \cite{Fox1998,pochter2011exploiting,domshlak2013symmetry} or
+Candidates for $X$ may be related to pruning techniques such as Symmetry Breaking \cite{Fox1998,pochter2011exploiting,domshlak2013symmetry} or
 Partial Order Reduction \cite{hall2013faster,wehrle2013relative}.
 While they are usually described as ``pruning techniques'',
-it can be rephrased as ``removing the bias to a set of similar/same nodes'' because
-they both aim to prune the redundant nodes.
+they are the stronger form of ``removing the bias'' because
+their target of pruning is the redundant nodes.
 Note that redundancy causes a biased search effort. For example, imagine we have a
 set of nodes $S=\{a_1, a_2, a_3, a_4, b, c, d\}$ where
 $A=\{a_1, a_2, a_3, a_4\}$ are ``redundant'' according to some measure (e.g. by Symmetry,
@@ -222,8 +221,9 @@ Partial-Order).
 If a search algorithm expands $S$ by random selection, it favors the
 group $A$ by giving 4 times larger chance of expansion than each of $b$,
 $c$ or $d$.
-Methods for addressing such biases is an avenue for future work.
 
+Despite the similarity, search diversification is weaker than pruning methods because diversification can only \emph{delay} the expansion of nodes sharing the similar attributes (such as depth), not \emph{prune} the nodes.
+Developing a diversification method addressing biases similar to those by pruning techniques is an avenue for future work.
 
 
 \subsection{Theoretical Characteristics of the Depth Distribution}
@@ -321,8 +321,8 @@ while all nodes in depths $d \in [k+1,D_\mit{max}]$ are expanded. In this case, 
   \centering
   \includegraphics{img/depth-distribution-analysis-fifolifo.png}
  \label{fig:depth-distribution-analysis-fifolifo}
- \caption{FIFO and LIFO applied to a plateau 
-with forest assumption and no-exhaustion asssumption.}
+ \caption{FIFO and LIFO applied to a plateau
+ with forest assumption and no-exhaustion asssumption.}
 \end{figure}
 
 
