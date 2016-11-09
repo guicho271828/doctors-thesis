@@ -127,9 +127,9 @@ initialized to 0.
 On each call to $\text{pop}(\text{selector})$,
 % At each expansion, 
 the counter is decremented ($d_c\leftarrow d_c-1$) and
-a node is further popped from $d_c$-th bucket. When $d_c$ reaches below 0, then $d_c$
+a node is further popped from $d_c$-th bucket, which can be a \lifo, \fifo or \ro queue.
+When $d_c$ reaches below 0, then $d_c$
 is reset to the current largest depth in the plateau.
-
 
 In an earlier, conference paper, we used a non-deterministic,
 randomized implementation of this idea \cite{Asai2016}, which does not have this counter and pops a node from a randomly selected bucket ($B_{\texttt{random}()}$), but we use a deterministic
