@@ -1,11 +1,11 @@
 
 
-#+TITLE: responses
-#+DATE: <2016-11-03 木>
+#+TITLE: Responses
+#+DATE: 2016-11-03
 #+AUTHOR: Masataro Asai
 #+EMAIL: guicho2.71828@gmail.com
-#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t c:nil creator:comment
-#+OPTIONS: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t p:nil pri:nil stat:t tags:t tasks:t
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t c:nil creator:nil
+#+OPTIONS: d:(not "LOGBOOK") date:nil e:t email:nil f:t inline:t num:t p:nil pri:nil stat:t tags:t tasks:t
 #+OPTIONS: tex:t latex:t timestamp:t toc:nil todo:t |:t
 #+CREATOR: Emacs 24.5.1 (Org mode 8.2.10)
 #+DESCRIPTION:
@@ -14,12 +14,10 @@
 #+LANGUAGE: en
 #+SELECT_TAGS: export
 
-
-#+DATE: <2016-11-03 木>
 #+OPTIONS: texht:nil
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS:
-#+LATEX_HEADER:
+#+LATEX_HEADER: \usepackage[margin=20mm]{geometry}
 #+LATEX_HEADER_EXTRA:
 
 
@@ -126,35 +124,35 @@ Indeed, if all nodes in the entire graph are expanded, there are surely more nod
 However, the nodes expanded during the search process are biased to the shallower region.
 
 In practice,
-the nodes in depth 0 are the nodes that were generated as a result of expansind earlier nodes,
+the nodes in depth 0 are the nodes that were generated as a result of expanding earlier plateaus,
 i.e. the entire set of frontier nodes whose number is sufficiently large for FIFO
- to cause pathological behavior.
+to cause pathological behavior.
 
 ** 5) I think it will be helpful if the authors include pseudocodes for...
 
 Added pseudo code for Best-First search, Depth diversification and A*-as-sequence-of-SAT-search,
 as you suggested.
 
-** 6) state/prove the properties of each of these algorithms, especially important ones like completeness
+** TODO 6) state/prove the properties of each of these algorithms, especially important ones like completeness
 
 ** 7) I like the idea of representing A* as a series of satisficing search. Here also, i would suggest inclusion of pseudocode.
 
 Added pseudo code for Best-First search, Depth diversification and A*-as-sequence-of-SAT-search,
 as you suggested.
 
-** 8) I think it will be interesting to find out what is distribution of goal depth in the final frontier
+** TODO 8) I think it will be interesting to find out what is distribution of goal depth in the final frontier
 
-** 9) Finally, I think it would be nice if we have some infinite spaces in the ZeroCost domains
+** TODO 9) Finally, I think it would be nice if we have some infinite spaces in the ZeroCost domains
 
 ** minor comments
 
 Thank you for the detailed comments, they are all fixed according to your suggestions.
 
-** 1) I think the abstract needs to be re-written to precisely state the :noexport:
-** 2) page 27, claim 1 "A Last-In-First-Out ..". Is this a general claim, :noexport:
-** 3) Section 2, the 4th paragraph can probably be combined with the :noexport:
-** 4) I would suggest that you include some pictorial representation of :noexport:
-** 5) There are a number of typos and grammar mistakes, please correct :noexport:
+** TODO 1) I think the abstract needs to be re-written to precisely state the :noexport:
+** TODO 2) page 27, claim 1 "A Last-In-First-Out ..". Is this a general claim, :noexport:
+** TODO 3) Section 2, the 4th paragraph can probably be combined with the :noexport:
+** TODO 4) I would suggest that you include some pictorial representation of :noexport:
+** TODO 5) There are a number of typos and grammar mistakes, please correct :noexport:
 * Reviewer 3
 
 ** 1) There are a large number of colourful scatterplots in the paper, most of which would probably be better presented in a different form.
