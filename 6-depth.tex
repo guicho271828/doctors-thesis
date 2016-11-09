@@ -87,18 +87,51 @@ then uses the $\depth$ criterion to break ties in $\plateau{f,h}$.
 %We denote such a diversification family of
 %tie-breaking strategies by enclosing it in brackets such as $[f,h,\depth]$.
 
+\begin{algorithm}
+ \textbf{Initialization of Instance Variables:}
+\begin{algorithmic}
+ \STATE Counter $d_c\leftarrow 0$, Buckets $B=\braces{B_0, B_1,\ \ldots}$, $\forall d; B_d=\emptyset$ (instantiated on-demand)
+\end{algorithmic}
+ \textbf{Method} $\textbf{push}(\text{node}\ n,\text{selector})$:
+\begin{algorithmic}
+ \STATE Instantiate $B_{d(n)}$ if it does not exist
+ \STATE $\text{push}(n, B_{d(n)})$
+\end{algorithmic}
+ \textbf{Method} $\textbf{pop}(\text{selector})$:
+\begin{algorithmic}
+ \LOOP
+ \STATE $d_c\leftarrow d_c-1$
+ \STATE $d_c\leftarrow \bars{B}-1$ \textbf{if} $d_c<0$
+ \IF{$B_{d_c} \not= \emptyset$}
+ \RETURN $\text{pop}(B_{d_c})$ --- Note: Actual ``pop'' method is subject to default tiebreaking.
+ \ENDIF
+ \ENDLOOP
+\end{algorithmic}
+\caption{Class Definition of Depth-Diversified Node Selector}
+\label{alg:depth}
+\end{algorithm}
+
 In order to diversify the expansion among depths, we simply
-iterate over the depth buckets. An index $d_c$,
- which stores the depth (bucket index)  which was selected in the last expansion,
-is initialized to 0.
-At each expansion, the counter is decremented ($d_c\leftarrow d_c-1$) and
-a node from  bucket $d_c$ is expanded. When $d_c$ reaches below 0, then $d_c$
+iterate over the depth buckets (\refalgo{alg:depth}).
+There is one Depth-Diversified Node Selector instance per each plateau (either being $\plateau{f}$ or $\plateau{f,h}$) which is responsible for this behavior.
+In order to select a single node from the OPEN list for expansion,
+we first selects the plateau with the smallest key value, such as $\plateau{f=5,h=1}$, as usual.
+Each plateau is now represented by a selector instance.
+Then we simply call $\text{pop}(\text{selector})$ method on this instance which returns a node.
+Each instance holds
+an index $d_c$,
+the current depth (bucket index) selected in the last expansion,
+initialized to 0.
+On each call to $\text{pop}(\text{selector})$,
+% At each expansion, 
+the counter is decremented ($d_c\leftarrow d_c-1$) and
+a node is further popped from $d_c$-th bucket. When $d_c$ reaches below 0, then $d_c$
 is reset to the current largest depth in the plateau.
 
+
 In an earlier, conference paper, we used a non-deterministic,
-randomized implementation of this idea \cite{Asai2016}, but we use a deterministic
-implementation here because it eliminates the possibility of results being influenced by random seeds,
-and also facilitates the  theoretical analysis below in \refsec{sec:theoretical-characteristics}.
+randomized implementation of this idea \cite{Asai2016}, which does not have this counter and pops a node from a randomly selected bucket ($B_{\texttt{random}()}$), but we use a deterministic
+implementation here because it facilitates the theoretical analysis below in \refsec{sec:theoretical-characteristics}. It also eliminates the possibility of results being influenced by random seeds.
 
 Depth-based diversification is significantly different from \ro strategy which simply selects a random node from the OPEN list.
 The uniform sampling behavior of  \ro behaves very similar to \fifo, and is insufficient to achieve the level of diversity provided by our depth diversification tie-breaking,
