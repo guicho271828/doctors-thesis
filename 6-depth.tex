@@ -115,7 +115,7 @@ then uses the $\depth$ criterion to break ties in $\plateau{f,h}$.
 
 In order to diversify the expansion among depths, we simply
 iterate over the depth buckets (\refalgo{alg:depth}).
-This iteration is managed by a Depth-Diversified Node Selector instance associated per each plateau (e.g. each of $\plateau{1,0}, \plateau{2,0}, \plateau{2,1}\ldots$).
+This iteration is managed by a Depth-Diversified Node Selector instance associated with each plateau (e.g. each of $\plateau{1,0}, \plateau{2,0}, \plateau{2,1}\ldots$).
 In order to select a single node from the OPEN list for expansion,
 we first selects the plateau with the smallest key value, such as $\plateau{f=5,h=1}$, as usual.
 This plateau is now represented by a selector instance, and
