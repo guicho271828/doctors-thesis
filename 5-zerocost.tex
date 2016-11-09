@@ -74,12 +74,8 @@ production planning \cite{fink1999applications} and \pddl{Cybersec}
 models Behavioral Adversary Modeling System \cite[minimizing decryption,
 data transfer, etc.]{boddy2005course}.
 
-Furthermore, it has recently been shown using parameterized complexity analysis that  planning problems with
-0-cost actions are harder (para-\textbf{NP}-hard) than the planning problems with strictly positive
-costs (\textbf{W}[2] complete) \cite{aghighi2015}. This indicates the inherent difficulty of optimally solving
-planning problems with 0-cost actions.
-
-Therefore, in this paper, we modified various standard domains
+In order to create a benchmark set that better addresses practical interest,
+in this paper, we modified various standard domains
 into cost minimization domains with many 0-cost actions.
 Specifically, each of our ``Zerocost domains'' is same as the standard domain except that all action schema are assigned
 cost 0 except for a few (usually one) action schema which consumes some key resource.
@@ -126,10 +122,12 @@ Domains containing 0-cost operators are known to be difficult for traditional pl
 Both \citeauthor{cushing2010cost} \citeyear{cushing2010cost} and \citeauthor{wilt2011cost} \citeyear{wilt2011cost} discussed the large ratio between maximum and minimum operator costs can pose challenge to existing planners. However, the common conclusion is the use of plan-length heuristics instead of plan-cost heuristics, which harm the optimality of the solution. The use of plan length heuristics is further discussed in \refsec{sec:distance-to-go}.
 
 While above literature also show some theories on the origin of difficulties, \citeauthor{aghighi2015} \citeyear{aghighi2015,aghighi2016} fully complemented the full theory behind this, using the parameterized complexity analysis of planning domains. It is shown % can't extrapolate too strongly from problem class complexity results to specific instances 
-that domains with 0-cost operators form another complexity class that is harder than the domains with strictly positive-cost operators.
+that domains with 0-cost operators form another complexity class that is harder (para-\textbf{NP}-hard) than the domains with strictly positive-cost operators (\textbf{W}[2] complete).
+This indicates the inherent difficulty of optimally solving planning problems with 0-cost actions.
 
 Thus it is expected that there would be significant practical performance differences when a domain independent planner solves the original IPC instances and our Zerocost instances.
-To our knowledge, an empirical study on such differences over wide range of IPC domains is missing in the literature, while their evaluation took place mainly on a few puzzle domains: Grid Path Planning, Blastlands, Zenotravel \cite{thayer2009using}, Zenotravel \cite{cushing2010cost}, Sliding Puzzle, Pancake Puzzle, Sliding Puzzle \cite{wilt2011cost}, Dock Robot, Vacuum World, Robot Navigation, Sliding Puzzle\cite{thayer2011bounded}.
+To our knowledge, an empirical study on such differences over wide range of IPC domains is missing in the literature, while their evaluation took place mainly on % a few %% insulting
+puzzle domains: Grid Path Planning, Blastlands, Zenotravel \cite{thayer2009using}, Zenotravel \cite{cushing2010cost}, Sliding Puzzle, Pancake Puzzle, Sliding Puzzle \cite{wilt2011cost}, Dock Robot, Vacuum World, Robot Navigation, Sliding Puzzle\cite{thayer2011bounded}.
 
 Therefore we tested if Zerocost domains actually pose a new challenge to the
 standard tie-breaking strategies through experiments. Results using \lmcut and \mands
