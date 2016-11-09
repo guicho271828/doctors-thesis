@@ -231,14 +231,17 @@ Methods for addressing such biases is an avenue for future work.
 
 We give further insight into the search behavior of our implementation of depth-based diversification.
 In the diversification, although the random selection from the depth buckets is possible,
-our implementation performs a deterministic, round-robin sampling from the available depth buckets as described above.
+our implementation performs a deterministic, round-robin sampling from the available depth buckets as described in \refalgo{alg:depth}.
 %iterates from the largest depth to 0.
 % 
 %We are particularly interested in how the expansions happen among the
 %various depths in the plateau region.
 We are particularly interested in how the nodes selected for expansion are distributed 
 among the various depths in a plateau region.
-Using a simplified model where the plateau region forms a forest (a set of disjoint trees),
+Let's first assume that a search algorithm is searching on a plateau $P$.
+The definition of $P$ could change depending on the higher-level sorting strategy e.g. $[f,h,\depth]$ or $[f,\depth]$.
+% 
+Using a simplified model where this $P$ forms a forest (a set of disjoint trees),
 we can analyze the number of expansions in a particular depth
 can be represented by a simple formula. 
 % Although the notion of
@@ -262,25 +265,39 @@ can be represented by a simple formula.
 % 
 \todo*{Introduced the forest assumption in the beginning.}
 In the discussion below, we assume the following.
-First, we assume that the plateau region forms a forest of a fixed branching factor
+First, we assume that $P$ forms a forest of a fixed branching factor
 $w\geq 2$ (\emph{forest assumption}), rather than a graph with an indefinite number of successor nodes.
 In the later experiments, we show this assumption is not much distant from the real situations.
-Also, we assume that no depth bucket exhausts due to the expansion (\emph{no-exhaustion assumption}).
+Also, we assume that no depth bucket exhausts due to the expansion (\emph{no-exhaustion assumption}). This implies that there are sufficiently large number of nodes in depth $d=0$ so that depth 0 does not exhaust, which may cause \fifo default tiebreaking to fail due to the heavy bias to the shallow depth.
 We provide a condition for this assumption to hold within this section.
 % Finally, we assume that the sorting strategy performs a \ro default tie-breaking
 % after the depth-based diversification is applied.
+An example of running depth diversification with $w=3$ is depicted in \refig{fig:depth-distribution-analysis}.
 
-Let $D\geq 0$ be the current largest depth of the nodes found in the plateau so far. An expansion of a node in
-depth $D$ results in more nodes on the same plateau, which have depth $D+1$.  Due to the forest
-assumption, these children are all newly generated. Since the expansion is
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{img/depth-distribution-analysis.png}
+ \label{fig:depth-distribution-analysis}
+ \caption{Depth Diversification applied to a plateau 
+with forest assumption and no-exhaustion asssumption.}
+\end{figure}
+
+Let $D\geq 0$ be the current largest depth of the nodes found in $P$ so far.
+This is equal to $\bars{B}-1$ in \refalgo{alg:depth},
+the size of the buckets in Depth-Diversified Node Selector instance.
+An expansion of a node in depth $D$ results in $w$ more nodes with depth $D+1$ on the same plateau $P$.
+These children are all newly generated because the forest assumption says each child has a single incoming edge.
+Since the expansion is
 diversified by a sequence of iterations from the current largest depth to 0, when the current
 largest depth of the plateau is $D$, the number of iteration executed so far is also $D$ because
-in each iteration the largest depth is increased by 1.
+in the beginning of each iteration the largest depth is increased by 1.
 % Under the forest assumption, each expansion of depth $d$ results in $w$ new nodes in depth $d+1$. 
-Therefore, at the end of the $D$'th iteration, each depth $d$ has been expanded exactly $D-d$ times, with $D(D-1)$
-expansions in total.
+Therefore, at the end of the $D$'th iteration,
+each depth $d$ has been expanded exactly $D-d$ times, with $D(D-1)$ expansions in total.
+In \refig{fig:depth-distribution-analysis},
+after iteration 2, depth $d=0$ is expanded twice and depth $d=1$ is expanded once.
 
-It also means that a sufficient condition for the \emph{no-exhaustion assumption} to hold until the end of the $D$'th
+It also means that the sufficient condition for \emph{no-exhaustion assumption} to hold until the end of the $D$'th
 iteration is that the initial number of nodes in depth 0 is at least $D$.  If there are at least $D$ nodes in depth
 0, depth 0 is trivially never exhausted until the $D$'th iteration. Also, no depth buckets in depth $d>0$ will be exhausted 
 because each bucket has $w(D-d+1)$ generated nodes in total (i.e. OPEN+CLOSED) while the expansion has
@@ -291,14 +308,23 @@ Since $w\geq 2$, $w(D-d+1)\geq 2(D-d)+2>D-d$.
 % no nodes will be added to depth 0 during the search.
 % Also let $N=w(D-d+1)$ for readability.
 
-Under our assumptions,  this distribution is an invariant which holds at any point of the search
-until the solution is found. In fact, every depth-selection criterion, including the least depth selection (\fifo) or
-the largest depth selection (\lifo), expands the same set of nodes if there are no solutions (each depth
-$d$ is expanded $Dw^d$ times) and results in the same distribution.
+If there are no solutions, every depth-selection criterion, including the least depth selection (\fifo) or the largest depth selection (\lifo), expands the same set of nodes and results in the same distribution as depth diversification.
+For example, if the number of nodes in depth 0 is $D$, each $d$ is expanded $Dw^d$ times.
 However, their online characteristics are different.
-For example, in \fifo, all nodes with $d<D-1$ are expanded while depth $d=D-1$ can take an arbitrary number of expansions $e \in [0, Dw^{D-1}]$ and depth $d=D$ is not expanded at all.
-Also, in \lifo, for some $k\in [1,D_\mit{max}]$ (assuming the forest has a finite maximum depth $D_\mit{max}$), there can be a situation where all depths $d \in [0,k]$ gets only 1 expansion
-while all nodes in depths $d \in [k+1,D_\mit{max}]$ are expanded. In this case, the number of expansions in $d \in [k,D_\mit{max}]$ is exponential to $D_\mit{max}-k$ ($\sum_{i=k}^{i=D\mit{max}}w^{i-k}=\frac{1-w^{D\mit{max}-k+1}}{1-w}$) while the number of expansions in $d \in [0,k-1]$ is linear to $k$ ($k-1$). Such an imbalance during the search causes the pathological behavior mentioned above.
+Under our assumptions, the $D-d$ distribution of depth diversification is an invariant which holds at any point of the search until the solution is found.
+In contrast, in \fifo, all nodes with $d<D-1$ are expanded, depth $d=D-1$ can take an arbitrary number of expansions $e \in [0, Dw^{D-1}]$ and $d\geq D$ are not expanded at all.
+In \lifo, for some $k\in [0,D_\mit{max}]$ (assuming the forest has a finite maximum depth $D_\mit{max}$), there can be a situation where all depths $d \in [0,k]$ get only 1 expansion each
+while all nodes in depths $d \in [k+1,D_\mit{max}]$ are expanded. In this case, the number of expansions in $d \in [k,D_\mit{max}]$ is exponential to $D_\mit{max}-k$ ($\sum_{i=k}^{i=D\mit{max}}w^{i-k}=\frac{1-w^{D\mit{max}-k+1}}{1-w}$) while the number of expansions in $d \in [0,k-1]$ is linear to $k$ (i.e. $k-1$). Such an imbalance during the search causes the pathological behavior mentioned above.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{img/depth-distribution-analysis-fifolifo.png}
+ \label{fig:depth-distribution-analysis-fifolifo}
+ \caption{FIFO and LIFO applied to a plateau 
+with forest assumption and no-exhaustion asssumption.}
+\end{figure}
+
 
 \todo*{maybe \lifo and \fifo should be analyzed wrto this forest model and compared directly to each other as well as
 $\depth$?}
