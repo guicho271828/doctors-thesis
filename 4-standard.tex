@@ -57,7 +57,7 @@ if the heuristic function is admissible and $f(n') = f(n)$, there are only 2 pos
 (1) $g(n') > g(n)$ and $h(n') < h(n)$, or
 (2) $g(n') = g(n)$ and $h(n') = h(n)$.
 Thus, as \lifo expands nodes in a ``depth-first'' manner,
-the nodes that continue to be expanded in the plateau by \lifo usually   %added ``usually' because usually true, but not always true because LIFO/DFS has to periodically ``back up'' to nodes with h > h(n)  after exhausiting  nodes with h=h(n).
+the nodes that continue to be expanded in $\plateau{f}$ by \lifo usually   %added ``usually' because usually true, but not always true because LIFO/DFS has to periodically ``back up'' to nodes with h > h(n)  after exhausiting  nodes with h=h(n).
 have non-increasing $h$-values,
 much like in $h$-based tie-breaking which always searches toward the least $h$ cost.
 Thus, although the expansion order of $[f,\lifo]$ is not exactly the same as that of $h$-based tie-breaking strategies,
