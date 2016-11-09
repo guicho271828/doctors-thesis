@@ -10,8 +10,10 @@ $f(n)=g(n)+h(n)$ is the estimate of the resulting cost of the path to a goal
 containing the current node.
 We omit the argument $(n)$ unless necessary.
 
-Below, we first present a very basic graph search algorithm that generalizes \astar, Dijkstra \cite{dijkstra1959note}, GBFS and others.
-It is built upon two sets, OPEN and CLOSED, where unexpanded nodes are stored in OPEN and expanded nodes are stored in CLOSED. When operations pop$(S)$, push$(n,S)$, remove$(n,S)$ is defined for a node $n$ and a set $S$, it is defined as follows:
+Below, we first present a \emph{Best First Search} (BFS) algorithm that generalizes \astar, Dijkstra \cite{dijkstra1959note}, GBFS and others.
+It is built upon two sets, OPEN and CLOSED, where unexpanded nodes are stored in OPEN and expanded nodes are stored in CLOSED. Three operations, pop$(S)$, push$(n,S)$ and remove$(n,S)$, are assumed for a node $n$ and a set $S$.
+pop$(S)$ operation tries to select a single node from $S$,
+push$(n,S)$ stores the node $n$ into $S$ and remove$(n,S)$ removes $n$ from $S$ if $n$ is already stored.
 
 \begin{algorithm}                      
 \begin{algorithmic}
@@ -30,11 +32,11 @@ It is built upon two sets, OPEN and CLOSED, where unexpanded nodes are stored in
  \ENDFOR
  \ENDWHILE
 \end{algorithmic}
-\caption{Graph Search Algorithm using OPEN/CLOSED list}
+\caption{Best-First Search Algorithm using OPEN/CLOSED list}
 \label{alg:ocl}
 \end{algorithm}
 
-\emph{Best First Search} (BFS) is a subclass of this algorithm where OPEN is sorted according to a \emph{sorting strategy} and pop$(S)$ operation tries to select a single node from the OPEN list following the strategy.
+OPEN is sorted according to a \emph{sorting strategy} and the node selected by pop$(S)$ always returns the best node according to the strategy.
 Each sorting strategy is denoted as a vector of several \emph{sorting criteria}, such as
 [$\text{criterion}_1$, $\text{criterion}_2$, $\ldots$,
 $\text{criterion}_k$], which defines a lexicographic ordering ---
