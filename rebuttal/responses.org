@@ -69,7 +69,11 @@ We shortened and moved the discussion to appendix.
 
 ** 7) The beginning of Section 8 is also rather trivial.
 
-We shortened and moved the discussion to appendix.
+We shortened the beginning of Section 8.
+
+** minor coments)                                                  :noexport:
+
+We all changed the points being suggested. Thank you very much.
 
 ** minor 1) -- should be "current shortest known path"
 
