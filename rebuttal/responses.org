@@ -57,7 +57,7 @@ We limited the instances to those successfully solved by both.
 The result shows that the evaluations are almost identical for most IPC instances.
 There were differences in Openstacks, as expected.
 
-** TODO 4) Section 5: Zerocost domains. I buy all your arguments on zero cost
+** TODO 4) Section 5: Zerocost domains. I buy all your arguments on zero cost :5.3: :section:5.3:
 
 We moved one of the table to appendix. We also shortened the section.
 
