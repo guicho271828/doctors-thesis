@@ -19,8 +19,8 @@ using inadmissible \emph{distance-to-go} estimates (heuristics) as a tie-breakin
 % We next compare our depth diversification to the distance-to-go
 % estimates in the plateau.  
 Distance-to-go estimates are a class of
-heuristics which treat all actions as if they have the unit cost. Even under
-the presence of 0-cost actions, those estimates can predict the
+heuristics which treat all actions as if they have unit cost. Even 
+when 0-cost actions are present, these estimates can predict the
 number of operations required to reach a goal.
 In general, the estimates are inadmissible (unless the estimates are guaranteed to underestimate the number of required actions and all actions in the original domain have unit cost).
 Previous work on distance-to-go-heuristics has focused on 
@@ -30,7 +30,7 @@ their use for satisficing planning.
 % Except for cases where the target domains are unit-cost by origin (e.g. puzzle domains), in which case \astar is already using unit cost estimates without any modification anyways,
 $A^*_\epsilon$ \cite{pearl1982studies} is one of
 the earliest algorithms that combines distance-to-go estimates with the cost estimates. It is a bounded-suboptimal
-search which expands from the \emph{focal} list, the set of nodes with $f(n)\leq w\cdot f_{\mit{min}}$ where weight $w$ serves as a suboptimality bound, similar to weighted \astar, 
+search which expands nodes from the \emph{focal} list, the set of nodes with $f(n)\leq w\cdot f_{\mit{min}}$ where weight $w$ serves as a suboptimality bound, similar to weighted \astar, 
  and $f_{\mit{min}}$ is the minimum $f$ value in the OPEN list.  While $f$
 is based on an admissible heuristic function, the nodes in the focal list are expanded in increasing order of
 an inadmissible distance-to-go estimate $\hh$. Since the search does not follow the best-first order according to $f$, it is 
@@ -43,26 +43,27 @@ as a BFS with
  [ \lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil, \hh, \mit{default}]
 \]
 where \textit{default} is one of \fifo, \lifo or \ro.
-This notation derives from the fact that the focal list ``blur''s $f$ up to $w\cdot f_{\mit{min}}$.
+This notation is derived from the fact that the focal list ``blur''s $f$ up to $w\cdot f_{\mit{min}}$.
 For example, when $w=2, f_{\mit{min}}=5$ and
 $f(n)=5,9,11$, then $\lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil=1,1,2$ respectively. 
 
 Continuing this line of work, \shortciteauthor{thayer2009using} \citeyear{thayer2009using,thayer2011bounded}
 evaluated various distance-to-go configurations of Weighted
-\astar, Dynamically Weighted \astar \cite{pohl1973avoidance} and $A^*_\epsilon$.
-Some configurations use distance-to-go as part of
-tie-breaking while they focus on bounded-suboptimal search rather than cost-optimal search.
+\astar, Dynamically Weighted \astar \cite{pohl1973avoidance} and $A^*_\epsilon$, where
+some configurations use distance-to-go as part of
+tie-breaking. This work focused on bounded-suboptimal search rather than cost-optimal search.
 % 
 \shortciteauthor{cushing2010cost} \citeyear{cushing2010cost} pointed out the danger of relying  % neutral tone
 on cost estimates in a satisficing search by investigating ``$\varepsilon$-cost traps'' and other pitfalls caused by
 cost estimators for search guidance. % Again, this work targets satisficing search. %''satisficing search'' appears in previous sentence.
 % 
-Finally, a \sota satisficing planner FD/LAMA2011 incorporates distance-to-go estimates in its iterated search
+Finally, % a \sota satisficing planner 
+the FD/LAMA2011 satisficing planner incorporates distance-to-go estimates in its iterated search
 framework \cite{richter2011lama}. The first iteration of LAMA uses distance-to-go estimates combined with various satisficing
 search enhancements.
 
-In temporal planning, \shortciteauthor{benton2010g} proposed an inadmissible technique where short actions are
-hidden behind long actions and do not increase makespan \cite{benton2010g}. Such actions cause a ``g-value
+\shortciteauthor{benton2010g} proposed an inadmissible technique for temporal planning where short actions are
+hidden behind long actions and do not increase makespan \cite{benton2010g}. Such actions cause  ``g-value
 plateaus'', which are similar to the large plateaus caused by 0-cost actions in sequential planning.  They implemented an inadmissible
 heuristic function combined with distance-to-go estimates on top of Temporal Fast Downward system
 \cite{eyerich2009using}.  % As stated, their method is not applicable to the cost-optimal search.%true, but they might claim that adapting their technique to admissible search is ``trivial'', so let's just leave this out.
