@@ -10,14 +10,17 @@ We now propose a more general framework which underscores the importance of tie-
 can be seen as a series of satisficing searches on each plateau}. In this framework, the problem of tie-breaking can be
 reduced to a satisficing search.
 
-First, for the ease of discussion, 
-we say that a sorting strategy is an \emph{admissible sorting strategy}
-when Best First Search using the strategy is guaranteed to return a cost-optimal solution.
-Clearly, a sorting strategy for \astar is admissible if % and only if
-% note: globally admissible heuristics are not admissible but returns optimal solutions
-the first sorting criterion $f$ is admissible (since $f=g+h$, $h$ must also be an admissible heuristic).
-However, the later sorting criteria used for tie-breaking are not necessarily admissible.
+%% Reduced as a result of compression; also it sounds too trivial
+% First, for the ease of discussion, 
+% we say that a sorting strategy is an \emph{admissible sorting strategy}
+% when Best First Search using the strategy is guaranteed to return a cost-optimal solution.
+% Clearly, a sorting strategy for \astar is admissible if % and only if
+% % note: globally admissible heuristics are not admissible but returns optimal solutions
+% the first sorting criterion $f$ is admissible (since $f=g+h$, $h$ must also be an admissible heuristic).
+% However, the later sorting criteria used for tie-breaking are not necessarily admissible.
 
+While \astar requires the first sorting criterion $f$ to use an admissible heuristic in order to find an optimal solution,
+there are no requirements on the second or later sorting criterion.
 This means that the search within the same $f$ plateau can be an arbitrary  satisficing search\footnote{This refers to any algorithm which seeks a satisficing solution, as opposed to the ``satisficing'' track setting in IPC which also seeks to minimize the plan cost with anytime algorithms} without any cost minimization requirement. For example,
 if we ignore the first sorting criterion in the standard admissible strategy
 $[f,h,\fifo]$, we have $[h,\fifo]$, which is exactly
@@ -58,20 +61,21 @@ When the plateau is UNSAT, then the search continues to the plateau with the nex
  \label{fig:astar-sat}
 \end{figure}
 
-One may notice the difference between the satisficing search and the search on a plateau.
-The former starts from a single initial node while the latter may start from multiple initial nodes.
-For example, in satisficing planning, the search space contains a single start node which corresponds to an initial state.
-% 
-In contrast, when \astar starts expanding a new current $f$ value $f_{\mit{cur}}$ after expanding all nodes with $f<f_\mit{cur}$,
-there may be multiple nodes with $f=f_\mit{cur}$ in the open list.
-These nodes are generated as a result of expansions of the parent nodes with $f<f_\mit{cur}$.
-% The search in this plateau terminates when the plateau is proven to contain no goal nodes (UNSAT), or some goal is found (SAT).
-% When the plateau is UNSAT, then the search continues to the next plateau.
-% 
-However, the difference is superficial: The latter can be reduced to the former case by introducing a dummy node
-which acts as a common parent of all initial nodes. We can thus reformulate the plateau search problem as a satisficing search from the single dummy node.
+%% Reduced as a result of compression
+% One may notice the difference between the satisficing search and the search on a plateau.
+% The former starts from a single initial node while the latter may start from multiple initial nodes.
+% For example, in satisficing planning, the search space contains a single start node which corresponds to an initial state.
+% % 
+% In contrast, when \astar starts expanding a new current $f$ value $f_{\mit{cur}}$ after expanding all nodes with $f<f_\mit{cur}$,
+% there may be multiple nodes with $f=f_\mit{cur}$ in the open list.
+% These nodes are generated as a result of expansions of the parent nodes with $f<f_\mit{cur}$.
+% % The search in this plateau terminates when the plateau is proven to contain no goal nodes (UNSAT), or some goal is found (SAT).
+% % When the plateau is UNSAT, then the search continues to the next plateau.
+% % 
+% However, the difference is superficial: The latter can be reduced to the former case by introducing a dummy node
+% which acts as a common parent of all initial nodes. We can thus reformulate the plateau search problem as a satisficing search from the single dummy node.
 
-This is also somewhat similar to the standard approach to model-based sequential / temporal planning using SAT/IP/CP solvers \cite{kautz1992planning,van2005optiplan}.
+This is somewhat similar to the standard approach to model-based sequential / temporal planning using SAT/IP/CP solvers \cite{kautz1992planning,van2005optiplan}.
 % \cite{rintanen2012planning,   Rintanen is state-of-the-art but not a good exemplar for this point, because his solver jumps around various horizons. van2005optiplan} in a slightly different sense.  
 In model-based planning, a planning problem is converted to a corresponding constraint satisfaction problem with a finite horizon $t$ (plan length / makespan). The search starts from the horizon 0 and tests if the problem is satisfiable. If not, then it increases the horizon, add constraints excluding solutions below $t$, and retests the same problem with additional constraints for a new horizon $t+1$.
 
