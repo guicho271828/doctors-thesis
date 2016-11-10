@@ -83,11 +83,11 @@ Fixed as you suggested.
 
 Fixed as you suggested.
 
-** TODO minor 4) -- The first sections are very short. Maybe they can be one large section...
+** minor 4) -- The first sections are very short. Maybe they can be one large section...
 
-?? Fixed as you suggested.
+We merged the section 3 into section 2.
 
-** TODO minor 5) -- Indeed distance-to-go is a term that was used by other...
+** TODO minor 5) -- Indeed distance-to-go is a term that was used by other... :noexport:
 
 ?? Fixed as you suggested.
 
