@@ -228,7 +228,7 @@ we consider using FIFO as a representative would be a reasonable choise.
 
 Also, you can extract the numbers for [f,h,lifo] experiments from
 Table [Original:7.2, Renumbered:12.3] and Table [Original:7.4, Renumbered:12.5].
-Furthermore, we obtained the same results using these numbers.
+We obtained the same results using these numbers:
 The coverages in the original and Zerocost domains are similarly different.
 
 ** 6) In Section 6.2, the authors argue that ... pruning methods ... are somehow equivalent to tie-breaking. This is not accurate.
@@ -271,7 +271,7 @@ In the revised version,
 we added a paragraph in the end of section 7
 emphasizing and explaining the inconsistency you suggested.
 
-** TODO 8) I'm somewhat sceptical about the value of these figures...which of the examples are showing the failure of depth-based tie-breaking strategies.
+** 8) I'm somewhat sceptical about the value of these figures...which of the examples are showing the failure of depth-based tie-breaking strategies.
 
 # They show only examples of what can happen on isolated instances. Although such
 # deep-dives may be useful to explain what is happening in different
@@ -286,9 +286,10 @@ but how depth diversification and other strategies follow the expected depth dis
 (Sec.7.1, "To understand the behavior of depth-based policies...")
 
 In terms of performance measured by the number of expanded nodes,
-freecell-move in Figure [original:7.2, renumbered:7.3], mid-right,
-shows that lifo solved problem p04 with much smaller expansions.
-This can also be seen as coverage difference in Table [original:7.2, renumbered:12.2].
+freecell-move p04 in Figure [original:7.2, renumbered:7.3], mid-right,
+is an instance on which lifo solved the problem
+with much smaller expansions than depth diversification.
+This can also be seen as the coverage difference in Table [original:7.2, renumbered:12.2].
 
 ** minor comments                                                  :noexport:
 
