@@ -23,11 +23,14 @@
 
 
 First, thanks very much to all of the reviewers for their detailed and helpful comments.
-We examined those comments seriously and significantly improved the quality of the paper
-in ways that are addressed below.
+We examined those comments seriously and 
+# removed because this could be interpreted as a significantly new material/expaerimental resutls
+# significantly
+improved the quality of the paper in ways that are addressed below.
 
-We reduced the number of tables but we also added a few tables, Algorithm sections, proofs in
-order to address the concern by the reviewers.
+We reduced the number of tables, converted a few figures and we also added a few figures, Algorithm sections,
+# ??
+proofs in order to address the concern by the reviewers.
 As a result, the numbering of the tables/figures are changed from the orignal manuscript.
 In this response, we use [Renumbered:X] to indicate that we refer to those figures using
 the new numbering system, and [Original:X] to indicate the numbers in the original manuscript.
