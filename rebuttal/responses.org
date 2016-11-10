@@ -64,7 +64,7 @@ We moved one of the table to appendix. We also shortened the section.
 
 We shortened and moved the discussion to appendix.
 
-** TODO 7) The beginning of Section 8 is also rather trivial.
+** 7) The beginning of Section 8 is also rather trivial.
 
 We shortened and moved the discussion to appendix.
 
