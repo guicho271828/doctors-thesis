@@ -141,10 +141,10 @@
      inkscape:snap-bbox="false"
      inkscape:snap-bbox-midpoints="false"
      inkscape:snap-object-midpoints="true"
-     inkscape:window-width="1440"
-     inkscape:window-height="819"
-     inkscape:window-x="768"
-     inkscape:window-y="25"
+     inkscape:window-width="1024"
+     inkscape:window-height="705"
+     inkscape:window-x="1080"
+     inkscape:window-y="1172"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -164,7 +164,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -647,5 +647,20 @@
          d="m 13.89262,284.40191 31.819798,0"
          style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-8)" />
     </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="72.085571"
+       y="260.03348"
+       id="text3612"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3614"
+         x="72.085571"
+         y="260.03348">two nodes</tspan><tspan
+         sodipodi:role="line"
+         x="72.085571"
+         y="272.53348"
+         id="tspan3616">are expanded</tspan></text>
   </g>
 </svg>
