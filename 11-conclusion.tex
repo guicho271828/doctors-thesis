@@ -1,7 +1,7 @@
 
 \section{Conclusions and Future Work}
 
-In this paper, we investigated the tie-breaking strategies for cost-optimal search using \astar.  
+In this paper, we investigated tie-breaking strategies for cost-optimal search using \astar.  
 \begin{comment} % the goals are unimportant
 We sought to (1) shed some light on the importance of tie-breaking in \astar,  %one of the most popular best-first search algorithms, 
 (2) improve \astar without modifying its main heuristic function at all, and (3) to
@@ -12,8 +12,8 @@ techniques. In detail, the contributions in this paper are the following:
 Our contributions are as follows:
 % \begin{enumerate} % It looks bad when an entire section is just an enumerated list, 
  First, we showed that tie-breaking has a significant role in cost-optimal
-       search using \astar. We empirically showed that most instances in the IPC
-       benchmark have large plateaus with regard to $f$, and most of the
+       search using \astar. We empirically showed that most  IPC
+       benchmark instances have large plateaus with regard to $f$, and most of the
        search effort is spent in the final plateau with $f=f^*$.
 
  We then showed that  the commonly used tie-breaking policy based on $h$ value fails to
@@ -24,9 +24,9 @@ Our contributions are as follows:
        a plateau, the search is controlled solely by the
        default tie-breaking \fifo, \lifo or \ro.
 
- We proposed and empirically analyzed a new set of benchmark instances for cost-optimal planning, called Zerocost
- domains, which contains many 0-cost actions which makes the cost-optimal planning strictly harder than without.
-       We showed that they tend to have larger final plateaus with $f=f^*, h=0$ and pose a new challenge to the traditional search algorithms.
+ We proposed  a new set of benchmark instances for cost-optimal planning, called Zerocost
+ domains, which contain many 0-cost actions.
+         We showed that Zerocost versions of IPC benchmark domains tend to have larger final plateaus with $f=f^*, h=0$ and pose a new challenge to traditional search algorithms.  % removed ``strictly harder than'' because ``strictly harder'' has a formal connotation, which is not our contribution.
        % I do not cite the meysam's paper here because I want to make my contribution clear.
 
  As one approach to improving search performance in Zerocost domains, we proposed a depth metric
