@@ -51,15 +51,17 @@ Detailed data tables are in the Appendix (\refsec{sec:appendix}).
 instances} solved by \lmcut and \mands heuristics. In these
 Zerocost domains, our proposed method outperforms the traditional tie-breaking methods in both heuristics.
 Significant improvements were observed in 10 domains when using \lmcut, and in 7 domains when using \mands.
-In detail,
-\begin{itemize}
- \item \textbf{10 Domains improved by depth on Zerocost, using \lmcut,} are \pddl{elevators-up} (\ro), \pddl{freecell-move} (\fifo,\ro),
-       \pddl{miconic-up} (all), \pddl{mprime-succumb} (\fifo,\ro), \pddl{pipesnt-pushstart} (\ro), \pddl{pipesworld-pushend} (\ro),
-       \pddl{scanalyzer-analyze} (\lifo), \pddl{storage-lift} (\fifo), \pddl{tpp-fuel} (\fifo,\ro), \pddl{woodworking-cut} (\fifo,\ro).
- \item \textbf{7 Domains improved by depth on Zerocost, using \mands,} are \pddl{elevators-up} (\ro), \pddl{freecell-move} (\fifo,\ro),
-       \pddl{mprime-succumb} (\fifo,\ro), \pddl{pipesnt-pushstart} (\fifo, \ro), \pddl{pipesworld-pushend} (\ro),
-       \pddl{tpp-fuel} (\fifo,\ro), \pddl{woodworking-cut} (\fifo,\ro).
-\end{itemize}
+
+%% Removed in order to reduce the paper length
+% In detail,
+% \begin{itemize}
+%  \item \textbf{10 Domains improved by depth on Zerocost, using \lmcut,} are \pddl{elevators-up} (\ro), \pddl{freecell-move} (\fifo,\ro),
+%        \pddl{miconic-up} (all), \pddl{mprime-succumb} (\fifo,\ro), \pddl{pipesnt-pushstart} (\ro), \pddl{pipesworld-pushend} (\ro),
+%        \pddl{scanalyzer-analyze} (\lifo), \pddl{storage-lift} (\fifo), \pddl{tpp-fuel} (\fifo,\ro), \pddl{woodworking-cut} (\fifo,\ro).
+%  \item \textbf{7 Domains improved by depth on Zerocost, using \mands,} are \pddl{elevators-up} (\ro), \pddl{freecell-move} (\fifo,\ro),
+%        \pddl{mprime-succumb} (\fifo,\ro), \pddl{pipesnt-pushstart} (\fifo, \ro), \pddl{pipesworld-pushend} (\ro),
+%        \pddl{tpp-fuel} (\fifo,\ro), \pddl{woodworking-cut} (\fifo,\ro).
+% \end{itemize}
 
 \reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard IPC benchmark instances} solved by the configuration using \lmcut
 heuristics. Depth-based tie-breaking ($\depth$) shows impressive results on \pddl{Openstacks} ($\fifo:2\to 8,\ \lifo:3\to 12,\  \ro:3.9\to 10$) and \pddl{Cybersec} ($\fifo: 11\to 18,\ \ro: 11.7\to 18$) because these
