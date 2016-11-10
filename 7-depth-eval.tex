@@ -89,7 +89,7 @@ Thus, even the relatively small overhead incurred by depth bucket updates decrea
 required to solve IPC instances.
 % 
 According to \refig{fig:eval-comparison}, the number of evaluations required to solve IPC instances
-for  $[f,h,*]$ and $[f,h,\depth,*]$ were almost identical, which is as expected because
+for  $[f,h,*]$ and $[f,h,\depth,*]$ were almost identical, which is expected because
 IPC instances mostly consist of instances with only positive-cost actions which are unaffected by depth-based tie-breaking (as predicted by our analysis in \refsec{sec:depth-and-nonzero-cost}).
 %We observed differences in \pddl{Openstacks} as expected, because \pddl{Openstacks} contains 0-cost actions.
 %(No \pddl{Cybersec} instances were successfully solved using \mands.)
@@ -188,7 +188,7 @@ This shows that the degradation in coverage on IPC instances when using depth di
 %  \label{fig:eval-comparison-zero}
 % \end{figure}
 
-Finally we note that, if we look at the per-domain results in Zerocost domains,\todo{reftables}
+Finally we note that, if we look at the per-domain results in Zerocost domains (\reftbls{tbl:lmcut-zerocost-full}{tbl:mands-zerocost-full}\todo*{reftables}),
 $\depth$ can cause both improvement and degradation (despite the total coverage improvement).
 This is natural considering that the aim of diversifying the depth is to choose the \emph{safest} practice in a domain-independent manner.
 Depending on the domain, the \emph{best} practice may vary --- for example,
