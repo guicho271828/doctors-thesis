@@ -253,7 +253,9 @@ the paper. Currently, it seems too long for the content.
 
 We moved some tables to appendix.
 
-** TODO 3) the theory and analysis part... Section 5.3
+** 3) the theory and analysis part... Section 5.3
+
+<<R2Q3>>
 
 #+BEGIN_QUOTE
  While the paper presents experimental results in detail, the theory
@@ -330,7 +332,7 @@ strategies.
 Added pseudo code for Best-First search, Depth diversification and A*-as-sequence-of-SAT-search,
 as you suggested.
 
-** TODO 6) state/prove the properties of each of these algorithms, especially important ones like completeness
+** 6) state/prove the properties of each of these algorithms, especially important ones like completeness
 
 #+BEGIN_QUOTE
  Tied to point 6, i think it would be good to state/prove the
@@ -341,6 +343,8 @@ completeness (for infinite spaces). The answers may be obvious in many
 cases, however, i would still prefer if they are explicitly
 stated/proved.
 #+END_QUOTE
+
+We proved the completeness and its conditions as requested. See Question [[#R2Q3]] also.
 
 ** 7) I like the idea of representing A* as a series of satisficing search. Here also, i would suggest inclusion of pseudocode.
 
