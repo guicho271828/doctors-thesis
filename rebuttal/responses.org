@@ -100,18 +100,34 @@ We limited the instances to those successfully solved by both.
 The result shows that the evaluations are almost identical for most IPC instances.
 There were differences in Openstacks, as expected.
 
-** TODO 4) Section 5: Zerocost domains. I buy all your arguments on zero cost
+** 4) Section 5: Zerocost domains. I buy all your arguments on zero cost
 
 #+BEGIN_QUOTE
 Section 5: Zerocost domains. I buy all your arguments on zero cost
 domains. You spend too much effort to validate them. I suggest to
 shorten this entire section and the related tables. All your claims
 seem reasonable and you do not have to necessarily show all the
-numbers. The claims about FIFO in infinite graphs (section 5.3) is
-trivial. You can shorten it or even delete it.
+numbers.
 #+END_QUOTE
 
-We moved one of the table to appendix. We also shortened the section.
+We moved one of the tables to Appendix. We also shortened the section.
+
+** [continue] 4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.
+
+#+BEGIN_QUOTE
+The claims about FIFO in infinite graphs (section 5.3) is trivial. You can shorten it or even delete it.
+#+END_QUOTE
+
+In the revised version, we moved the section to the end of Section [Revised:7,Original:8]
+and added more proofs, in order to satisfy the requests from Reviewer 2.
+Although the proofs are still mostly trivial, the new section improves the flow of the story
+and strengthen the significance of A*-as-sequence-of-SAT.
+
+It is no longer in section [revised:4,original:5] because we noticed that
+infinite search space is irrelevant to having 0-cost edges.
+# None of our experiments include infinite search space,
+We had/gave false impression that 0-cost edges induces an infinite graph, which is not the case.
+Trivially, just changing the cost of edges does not make finite graphs infinite.
 
 ** TODO 5) Section 6.1 is trivial.
 
@@ -119,6 +135,8 @@ We moved one of the table to appendix. We also shortened the section.
 Section 6.1 is trivial. It is easy to see that different "depth"
 values only occur in zero domains. I would shorten it or even omit it.
 #+END_QUOTE
+
+We shortened the section as requested.
 
 ** TODO 6) Section 7.1: this section repeats what you said above and ...
 
@@ -130,7 +148,7 @@ Consider to omit these experiments and just mention that you have
 results that support this trend.
 #+END_QUOTE
 
-We shortened and moved the discussion to appendix.
+We shortened the section and moved the tables to appendix.
 
 ** 7) The beginning of Section 8 is also rather trivial.
 
@@ -142,7 +160,7 @@ an introduction to your later section 8.1 which I find quite
 interesting and more deep and should certainly be kept.
 #+END_QUOTE
 
-We shortened the beginning of Section 8.
+We shortened the beginning of Section [original:8,revised:7].
 
 ** minor coments)                                                  :noexport:
 
@@ -246,7 +264,19 @@ would suggest that such results should be presented using formal
 statements with proofs.
 #+END_QUOTE
 
-we are in conflict 
+In the revised version, we moved Section [original:5.3]
+to the end of Section [Revised:7,Original:8] and added more theorems/proofs.
+Although the proofs are mostly trivial, the new section improves the flow of the story
+and strengthen the significance of A*-as-sequence-of-SAT.
+
+It is no longer in section [revised:4,original:5] because we noticed that
+infinite search space is irrelevant to having 0-cost edges.
+# None of our experiments include infinite search space,
+We had/gave a false impression that 0-cost edges induces an infinite graph, which is not the case.
+Trivially, just changing the cost of edges does not make finite graphs infinite.
+
+# Still, the new theorems/proofs prove both pedagogical and practical usefullness of the idea
+# in Section 8.
 
 ** TODO 3) the theory and analysis part... Section 6.1
 
@@ -351,6 +381,21 @@ fifo/breadth-first exploration to avoid completeness problems, i
 believe inclusion of such graphs (or some domains that closely
 approximate such behavior) will enhance the analysis.
 #+END_QUOTE
+
+Although we added proofs of the completeness of each tiebreaking algorithms
+on infinite search spaces, infinite search space and 0-cost edges are irrelevant.
+As we already noted,
+just changing the cost of edges does not make finite graphs infinite.
+Also, infinite graphs includes some continuous search problems,
+which is clearly beyond the scope of this paper.
+
+The main topic of this paper is 0-cost edges and not infinite search space.
+We initially had/gave a false impression that 0-cost edges induces an infinite graph,
+but it was not the case.
+
+Now, given that the main topic is 0-cost edges and not infinite search space,
+experimental results for infinite search space is out of scope of this paper,
+despite being an interesting avenue of future work.
 
 ** minor comments
 
