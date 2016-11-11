@@ -38,7 +38,13 @@ the new numbering system, and [Original:X] to indicate the numbers in the origin
 * Reviewer 1
 
 ** 1) The definition of plateau can be improved.
-** [Don't abbreviate the reviewer's comment, as that forces the editor to open the review file and go back-and-forth betwen the response and the review files.  Minimize the editor's work by quoting the entire, relevant comment to which we're replying] -- 1) The definition of plateau can be improved. The formal definition of
+
+# [Don't abbreviate the reviewer's comment, as that forces the editor to open the review file and go
+# back-and-forth betwen the response and the review files.  Minimize the editor's work by quoting the entire,
+# relevant comment to which we're replying]
+
+#+BEGIN_QUOTE
+The definition of plateau can be improved. The formal definition of
 a plateau should include a plateau with respect to some cost
 functions. So, you have a plateau with respect to f, plateau(f), a
 plateau with respect both g and h, plateau(g,h) etc. This should be
@@ -49,17 +55,42 @@ this in the beginning. In fact you write the following sentence which
 is in fact a definition: "Having the same key values means that n and
 m are on the same plateau". Move this to be a definition in one of the
 first sections."
+#+END_QUOTE
 
 Plateaus are formally defined in the 2nd-to-last paragraph of Section 2, Preliminaries.
 However, as the reviewer noted, there were some informal usages of the term plateau througout the paper.
-In the revision, we increased the usage of the more precise notation "plateau(h,f)" throughout the paper.
+In the revision, we increased the usage of the more precise notation "plateau(f,h)" throughout the paper.
 
 ** 2) page 18: "In order to diversify the expansion... " --> This paragraph is very hard to understand
+
+#+BEGIN_QUOTE
+2) page 18: "In order to diversify the expansion... " --> This
+paragraph is very hard to understand but it is a very important
+paragraph as it gives the pseudo code for your new technique. Please
+rewrite it. What is Dc? Is this a counter? Is there one Dc or one for
+each depth? Please clarify. Maybe even give an example.
+
+page 20: "round-robin sampling from the available depth buckets as
+described above." --> This is a key sentence that might help
+understanding what exactly is the diversifying method. I think you
+mean you that do a round robin from the deepest available depth to the
+shallowest available depth. You must clarify this.
+#+END_QUOTE
 
 We rewrote the description and added a with a pseudo code in Section 6.
 d_c is a counter assigned to each plateau.
 
 ** 3) It will be very interesting to see what happens if you factor away the constant time per node.
+
+#+BEGIN_QUOTE
+page 22: Table 7.5. It will be very interesting to see what
+happens if you factor away the constant time per node. Just compare
+the number of nodes expanded for a set of instances that can be solved
+by all methods (as you did in the 4.1-4.5 tables). This will tell you
+if indeed this is the reason for the negative behavior. This is a
+rather major comment. You do not always have to use the 30 minutes
+limit in your experiments.
+#+END_QUOTE
 
 In order to factor away the constant low-level overhead of depth bucket
 which is degrading the performance of M&S in IPC domains,
@@ -71,15 +102,45 @@ There were differences in Openstacks, as expected.
 
 ** TODO 4) Section 5: Zerocost domains. I buy all your arguments on zero cost :5.3: :section:5.3:
 
+#+BEGIN_QUOTE
+Section 5: Zerocost domains. I buy all your arguments on zero cost
+domains. You spend too much effort to validate them. I suggest to
+shorten this entire section and the related tables. All your claims
+seem reasonable and you do not have to necessarily show all the
+numbers. The claims about FIFO in infinite graphs (section 5.3) is
+trivial. You can shorten it or even delete it.
+#+END_QUOTE
+
 We moved one of the table to appendix. We also shortened the section.
 
 ** TODO 5) Section 6.1 is trivial.
 
+#+BEGIN_QUOTE
+Section 6.1 is trivial. It is easy to see that different "depth"
+values only occur in zero domains. I would shorten it or even omit it.
+#+END_QUOTE
+
 ** TODO 6) Section 7.1: this section repeats what you said above and ...
+
+#+BEGIN_QUOTE
+Section 7.1: this section repeats what you said above and I was
+convinced when you said it. You can just report that you observed this
+in your experiments and I do not need to see all the exact results.
+Consider to omit these experiments and just mention that you have
+results that support this trend.
+#+END_QUOTE
 
 We shortened and moved the discussion to appendix.
 
 ** 7) The beginning of Section 8 is also rather trivial.
+
+#+BEGIN_QUOTE
+The beginning of Section 8 is also rather trivial. This is the main
+rational behind IDA* as you say in the end. I would significantly
+shorten it but it should get a subsection index if it stays. It is not
+an introduction to your later section 8.1 which I find quite
+interesting and more deep and should certainly be kept.
+#+END_QUOTE
 
 We shortened the beginning of Section 8.
 
@@ -89,27 +150,68 @@ We all changed the points being suggested. Thank you very much.
 
 ** minor 1) -- should be "current shortest known path"
 
+#+BEGIN_QUOTE
+page 4: "g(n) is the current shortest path cost from the initial node
+to the current node." -- should be "current shortest known path"
+#+END_QUOTE
+
 Fixed as you suggested.
 
 ** minor 2) -- I did not like this syntax. Give the reference and...
+
+#+BEGIN_QUOTE
+page 5: "Holte, 2010, note that since f = g+h....) I did not like this
+syntax. Give the reference and then give your comment but not in the
+same parenthesis.
+#+END_QUOTE
+
 
 Fixed as you suggested.
 
 ** minor 3) -- Calling it the  third is misleading...
 
+#+BEGIN_QUOTE
+page 21: "the third, depth-diversification criteria." Calling it the
+third is misleading. It is actually the second which comes before the
+default criterion.
+#+END_QUOTE
+
 Fixed as you suggested.
 
 ** minor 4) -- The first sections are very short. Maybe they can be one large section...
 
+#+BEGIN_QUOTE
+The first sections are very short. Maybe they can be one large section
+with different subsections.
+#+END_QUOTE
+
 We merged the section 3 into section 2.
 
 ** TODO minor 5) -- Indeed distance-to-go is a term that was used by other... :noexport:
+
+#+BEGIN_QUOTE
+Section 9. Indeed distance-to-go is a term that was used by other and
+coined Ruml et al. which should be cited and credited for that. But I
+think the correct term should be something like
+"number-of-hops-to-go". Distance is ambiguous.
+#+END_QUOTE
 
 ?? Fixed as you suggested.
 
 * Reviewer 2
 
 ** 1) Maxim Likhachev's ARA* paper...
+
+#+BEGIN_QUOTE
+ Maxim Likhachev's ARA* paper [1] presents an elegant solution to
+avoid the final plateau problem for non zero-cost domains. His
+algorithm notes the cost of the goal, whenever a new path to goal is
+discovered, and concludes the search when the minimum cost of any
+state in OPEN becomes greater than or equal to the current goal cost
+(f = f*). While this approach is not applicable for 0-cost domains, I
+think this merits a discussion and probable inclusion of results in
+case of other domains used.
+#+END_QUOTE
 
 We added a paragraph describing the relationship to ARA* in Related Work.
 
@@ -119,15 +221,50 @@ search algorithms.
 
 ** 2) the amount of data is a bit too much...
 
+#+BEGIN_QUOTE
+ While I appreciate the in-depth experimental investigation
+presented in this work, i think the amount of data is a bit too much.
+For example, 26 plots for number of nodes vs depth is rather
+confusing. I like the summarization done for most tables, which points
+to the key take-aways. I think the experimental results should be
+presented in a more compact fashion, and if needed the detailed
+results can be pushed to an appendix (even there, i believe some
+compaction will be good). This will also help to reduce the length of
+the paper. Currently, it seems too long for the content.
+#+END_QUOTE
+
 We moved some tables to appendix.
 
 ** TODO 3) the theory and analysis part... Section 5.3
+
+#+BEGIN_QUOTE
+ While the paper presents experimental results in detail, the theory
+and analysis part looks weak in my opinion. Most of the analytical
+results are presented in an informal manner. For example, 5.3
+discusses the completeness of search strategies on ZeroCost domains. I
+would suggest that such results should be presented using formal
+statements with proofs.
+#+END_QUOTE
 
 we are in conflict 
 
 ** TODO 3) the theory and analysis part... Section 6.1
 
+#+BEGIN_QUOTE
+Similarly, the analysis in 6.1 can be more
+precise, results in 6.1 can be presented in terms of theorems.
+#+END_QUOTE
+
 ** 4) Sec6, "more nodes will tend to have shallower depth" vs disjoint forest model
+
+#+BEGIN_QUOTE
+ In the last paragraph of section 6, it is stated that "more nodes
+will tend to have shallower depth than deeper depth" whereas the
+analysis in 6.3 assumes a disjoint forest model which i guess
+increases the number of nodes with depth. These two assumptions seems
+to be in contrast to each other. I think a more formal treatment of
+the analysis can allay such confusions for a reader.
+#+END_QUOTE
 
 We clarify this here as well as in the paper.
 We also added some figures for better understanding.
@@ -150,21 +287,105 @@ to cause pathological behavior.
 
 ** 5) I think it will be helpful if the authors include pseudocodes for...
 
+#+BEGIN_QUOTE
+ All the strategies proposed are explained in text only. I think it
+will be helpful if the authors include pseudocodes for their
+algorithms. In fact, i think it will be helpful if the authors present
+a basic A* algorithm with default tie-breaking and build upon that for
+their strategies. It will create a nice flow in my opinion, and use of
+pseudocode will also remove any chance of mis-interpreting the
+strategies.
+#+END_QUOTE
+
 Added pseudo code for Best-First search, Depth diversification and A*-as-sequence-of-SAT-search,
 as you suggested.
 
 ** TODO 6) state/prove the properties of each of these algorithms, especially important ones like completeness
 
+#+BEGIN_QUOTE
+ Tied to point 6, i think it would be good to state/prove the
+properties of each of these algorithms/strategies, especially
+important ones like completeness. The current format leaves a lot of
+un-answered questions like does depth-diversification ensure
+completeness (for infinite spaces). The answers may be obvious in many
+cases, however, i would still prefer if they are explicitly
+stated/proved.
+#+END_QUOTE
+
 ** 7) I like the idea of representing A* as a series of satisficing search. Here also, i would suggest inclusion of pseudocode.
+
+#+BEGIN_QUOTE
+ I like the idea of representing A* as a series of satisficing
+search. Here also, i would suggest inclusion of pseudocode. For
+example, A* exhausts an f-plateau before moving on to the next one.
+While this is expressed in text, highlighting such properties through
+pseudocode may improve a reader's understanding. Similar to earlier
+cases, here also the authors can start with a basic pseudocode (for A*
+as a series of satisficing searches), and present their strategies on
+top of that with formal discussion about the properties.
+#+END_QUOTE
 
 Added pseudo code for Best-First search, Depth diversification and A*-as-sequence-of-SAT-search,
 as you suggested.
 
 ** TODO 8) I think it will be interesting to find out what is distribution of goal depth in the final frontier
 
+#+BEGIN_QUOTE
+ I think it will be interesting to find out what is distribution of
+goal depth in the final frontier. I believe there will be a strong
+correlation between the goal depth and the relative performance of the
+strategies (which the authors mention), and it would be good to
+analyze this statistically. Similarly, for strategies in section 9, it
+would be interesting to find out the correlation between the
+performance of different strategies with the accuracy of the
+distance-to-go estimates.
+#+END_QUOTE
+
 ** TODO 9) Finally, I think it would be nice if we have some infinite spaces in the ZeroCost domains
 
+#+BEGIN_QUOTE
+ Finally, I think it would be nice if we have some infinite spaces
+in the ZeroCost domains, and understand the impact of different
+strategies on them. My hunch is that in many cases people use
+fifo/breadth-first exploration to avoid completeness problems, i
+believe inclusion of such graphs (or some domains that closely
+approximate such behavior) will enhance the analysis.
+#+END_QUOTE
+
 ** minor comments
+
+#+BEGIN_QUOTE
+ I think the abstract needs to be re-written to precisely state the
+contribution. In particular i would suggest changing the sentences
+after "With this in mind, ..". Somehow it seems that the depth
+diversification is the second strategy, which is not the case. Also,
+"We proposes" -> "We propose".
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+ page 27, claim 1 "A Last-In-First-Out ..". Is this a general claim,
+or is it tied to the domains you tested on. I think this should be
+made clear.
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+ Section 2, the 4th paragraph can probably be combined with the
+second. Also, may be it would be better if you present exact formal
+definitions of the terms.
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+ I would suggest that you include some pictorial representation of
+your analysis in section 6.3. There are several illustrations of A*
+layers in other places that are helpful, some such illustration of
+your model would be nice.
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+ There are a number of typos and grammar mistakes, please correct
+them. For example, "did not modified" -> "did not modify", "new
+current parent" -> "current parent", and others.
+#+END_QUOTE
 
 Thank you for the detailed comments, they are all fixed according to your suggestions.
 
@@ -177,6 +398,22 @@ Thank you for the detailed comments, they are all fixed according to your sugges
 
 ** 1) There are a large number of colourful scatterplots in the paper, most of which would probably be better presented in a different form.
 
+#+BEGIN_QUOTE
+ There are a large number of colourful scatterplots in the paper, most
+of which would probably be better presented in a different form. For
+example, the data in Figure 1.1 is essentially 1-dimensional: what we
+are interested in is the distribution or frequency of ratios between
+the size of the final plateau and the search space; a histogram or a
+cumulative distribution would show this more clearly. Whether colour-
+coding it for domains is useful is questionable; there's only a few
+points that can be distinguished well enough to identify what domain
+they belong to (and even those do not tell the full story, since there
+is no way to see where other instances from the same domain fall).
+
+The data in Figures in 4.1, 4.2, 5.2 and 7.1 would similarly benefit
+from a more thought-through visual presentation.
+#+END_QUOTE
+
 The figure [Original,Renumbered:4.1] and [Original,Renumbered:4.2] should be in the present form.
 The role of these figures is to identify which domain is affected by the different default criteria.
 
@@ -186,58 +423,62 @@ then it loses the consistency with [Original,Renumbered:4.2].
 
 Separating the figure into per-domain analyses would further increase the paper length.
 
-# For
-# example, the data in Figure 1.1 is essentially 1-dimensional: what we
-# are interested in is the distribution or frequency of ratios between
-# the size of the final plateau and the search space; a histogram or a
-# cumulative distribution would show this more clearly. Whether colour-
-# coding it for domains is useful is questionable; there's only a few
-# points that can be distinguished well enough to identify what domain
-# they belong to (and even those do not tell the full story, since there
-# is no way to see where other instances from the same domain fall).
-
 However, we indeed benefit from converting [Original,Renumbered:7.1] into a histograms
 comparing the node evaluation ratio, because the domain charactersitics is not important
 in this figure. Thank you for the suggestion.
 
 ** TODO 2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search
 
-# in particular in the presence of zero cost transitions, or attempts to
-# address it. There are a number of relevant related works, for example,
-# those by Benton et al., and Cushing et al., which are cited somewhere
-# in the paper, but do not appear anywhere in the initial discussion nor
-# in the related works section. (The SoCS 2011 paper "Cost-Based
-# Heuristic Search Is Sensitive to the Ratio of Operator Costs", by
-# Christopher Wilt and Wheeler Ruml, may also be relevant.) This should
-# be rectified; the previous state of knowledge should be clearly
-# established early in the paper.
+#+BEGIN_QUOTE
+ The description in the early part of the paper (Sections 1, 3, 4, 5)
+somewhat convey the false impression that there has been no previous
+recognition of the challenge that plateaus can create for A* search,
+in particular in the presence of zero cost transitions, or attempts to
+address it. There are a number of relevant related works, for example,
+those by Benton et al., and Cushing et al., which are cited somewhere
+in the paper, but do not appear anywhere in the initial discussion nor
+in the related works section. (The SoCS 2011 paper "Cost-Based
+Heuristic Search Is Sensitive to the Ratio of Operator Costs", by
+Christopher Wilt and Wheeler Ruml, may also be relevant.) This should
+be rectified; the previous state of knowledge should be clearly
+established early in the paper.
+#+END_QUOTE
 
 Fixed as you suggested.
 
 ** TODO 3) This applies also to the summary of the authors earlier conference paper.
 
-# Rather than the "note" at the end of the introduction (which I
-# assume the authors intend to remove from the published version of the
-# paper), the summary of that paper, and the novel contributions this
-# article makes over it, should be integrated in the presentation.
+#+BEGIN_QUOTE
+ This applies also to the summary of the authors earlier conference
+paper. Rather than the "note" at the end of the introduction (which I
+assume the authors intend to remove from the published version of the
+paper), the summary of that paper, and the novel contributions this
+article makes over it, should be integrated in the presentation.
+#+END_QUOTE
 
 Fixed as you suggested.
 
 
 ** 4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.
 
+#+BEGIN_QUOTE
+ The argument in the last paragraph before Section 5.1 and the second
+paragraph of Section 5.1 do not make sense. First, the authors say
+they selected subsets of instances of some domains in order to avoid
+skewing the results by uneven instance set sizes; but then, these
+domains are excluded from the following analysis.
+#+END_QUOTE
+
 The analyses from which these instances are excluded are Section 5.1 only.
 Those domains are still evaluated in the later sections.
 
-# First, the authors say
-# they selected subsets of instances of some domains in order to avoid
-# skewing the results by uneven instance set sizes; but then, these
-# domains are excluded from the following analysis.
-
 ** 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy
 
-# , given that the experiment in Section 4 showed
-# tie-breaking using "lifo" to be much more efficient?
+#+BEGIN_QUOTE
+ Furthermore in Section 5.1, why is the comparison done using the
+[f,h,fifo] strategy, given that the experiment in Section 4 showed
+tie-breaking using "lifo" to be much more efficient?
+#+END_QUOTE
 
 The aim of this experiment is to show that there can be some performance difference for some planner,
 and we consider this is sufficient.
@@ -252,24 +493,31 @@ The coverages in the original and Zerocost domains are similarly different.
 
 ** 6) In Section 6.2, the authors argue that ... pruning methods ... are somehow equivalent to tie-breaking. This is not accurate.
 
-# Although a bias towards some
-# states may be created by the presence of, for example, symmetries, as
-# the authors argue, pruning the symmetric states does _more_ than just
-# "remove the bias". If the states in question have f-values that are
-# less than the cost of the optimal solution, no form of tie-breaking
-# will prevent A* from expanding all of them, but symmetry pruning will.
+#+BEGIN_QUOTE
+ In Section 6.2, the authors argue that pruning methods such as
+symmetry or partial order reduction are somehow equivalent to
+tie-breaking. This is not accurate. Although a bias towards some
+states may be created by the presence of, for example, symmetries, as
+the authors argue, pruning the symmetric states does _more_ than just
+"remove the bias". If the states in question have f-values that are
+less than the cost of the optimal solution, no form of tie-breaking
+will prevent A* from expanding all of them, but symmetry pruning will.
+#+END_QUOTE
 
 In the revised version, we clarified that pruning is a stonger technique
 than diversification.
 
 ** 7) In Section 7, Table 7.1 shows that there is little consistency in the results
 
-# , particularly on the benchmark set in which only a few domains
-# have zero cost actions. Table 7.2 shows that this is the case even on
-# the Zerocost problem set, when considerd by domain. This is worth more
-# emphasis in the discussion. While the experiment shows that
-# depth-based tie-breaking *can* be advantageous, it is by no means
-# always the case.
+#+BEGIN_QUOTE
+ In Section 7, Table 7.1 shows that there is little consistency in the
+results, particularly on the benchmark set in which only a few domains
+have zero cost actions. Table 7.2 shows that this is the case even on
+the Zerocost problem set, when considerd by domain. This is worth more
+emphasis in the discussion. While the experiment shows that
+depth-based tie-breaking *can* be advantageous, it is by no means
+always the case.
+#+END_QUOTE
 
 The inconsistency is natural considering
 that the aim of diversifying the depth is to choose the *safest* practice in a domain-independent
@@ -292,13 +540,16 @@ emphasizing and explaining the inconsistency you suggested.
 
 ** 8) I'm somewhat sceptical about the value of these figures...which of the examples are showing the failure of depth-based tie-breaking strategies.
 
-# They show only examples of what can happen on isolated instances. Although such
-# deep-dives may be useful to explain what is happening in different
-# cases (particularly given the variance in the results), the volume and
-# unclear selection of the examples make them less informative. (For
-# instance, it is not clear which of the examples are showing the
-# failure of depth-based tie-breaking compared to default tie-breaking
-# strategies.)
+#+BEGIN_QUOTE
+ I'm somewhat sceptical about the value of these figures. They show
+only examples of what can happen on isolated instances. Although such
+deep-dives may be useful to explain what is happening in different
+cases (particularly given the variance in the results), the volume and
+unclear selection of the examples make them less informative. (For
+instance, it is not clear which of the examples are showing the
+failure of depth-based tie-breaking compared to default tie-breaking
+strategies.)
+#+END_QUOTE
 
 The purpose of these figures is not to show the performance,
 but how depth diversification and other strategies follow the expected depth distribution.
