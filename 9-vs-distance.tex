@@ -179,26 +179,32 @@ $\ffo$ is by itself known to be a powerful inadmissible heuristic
 function for satisficing GBFS, and 
 if we ignore the first sorting criterion, $[f^{\lmcut},\ffo,\mit{default}]$ is a GBFS with $[\ffo,\mit{default}]$.
 
-In detail, following domains are improved by each change:
-\begin{itemize}
+\begin{comment}
+ In detail, following domains are improved by each change:
+ \begin{itemize}
  \item \textbf{$h^\lmcut \to \hh^\lmcut$}: \pddl{elevator-up} (all), \pddl{freecell-move} (\fifo,\ro), \pddl{mprime-succumb} (all), \pddl{mystery-feast} (\lifo,\ro) \pddl{parking-movecc} (all), \pddl{pipesworld-pushend} (all), \pddl{scanalyzer-analyze} (\lifo,\ro), \pddl{wood\-working-cut} (all). (Compare \reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:dtg-lmcut-zero}.)
  \item \textbf{$h^\mands \to \hh^\mands$}: elevator-up (all), \pddl{freecell-move} (\fifo,\ro), \pddl{mprime-succumb} (\ro), \pddl{mystery-feast} (\fifo,\lifo) \pddl{parking-movecc} (all), \pddl{pipesworld-pushend} (all), \pddl{scanalyzer-analyze} (all), wood\-working-cut (all), \pddl{zenotravel-fuel} (\lifo,\ro). (Compare \reftbl{tbl:mands-zerocost-full} and \reftbl{tbl:dtg-mands-zero}.)
  \item \textbf{$\hh^\lmcut \to h^\lmcut,\hh^\lmcut$}: \pddl{airport-fuel} (\fifo,\ro), \pddl{mprime-succumb} (\fifo,\ro), \pddl{parking-movecc} (\lifo), \pddl{pipesworld-pushend} (\fifo), \pddl{scanalyzer-analyze} (all). (See \reftbl{tbl:dtg-lmcut-zero}.)
  \item \textbf{$\hh^\mands \to h^\mands,\hh^\mands$}: comparable. (See \reftbl{tbl:dtg-mands-zero}.)
  \item \textbf{$h^\lmcut,\hh^\lmcut \to \ffo$}: \pddl{blocks-stack} (all), \pddl{freecell-move} (all), \pddl{hiking-fuel} (all), \pddl{miconic-up} (all), \pddl{mprime-succumb} (all), \pddl{parking-movecc} (all), \pddl{pipesworld-pushend} (all), \pddl{sokoban-pushgoal} (all), \pddl{tidybot-motion} (all), \pddl{tpp-fuel} (\ro). (See \reftbl{tbl:dtg-lmcut-zero}.)
  \item \textbf{$h^\mands,\hh^\mands \to \ffo$}: \pddl{airport-fuel} (all), elevator-up (all), \pddl{freecell-move} (all), \pddl{miconic-up} (all), \pddl{mprime-succumb} (all), \pddl{parking-movecc} (all), \pddl{pipesnt-pushstart} (all), \pddl{scanalyzer-analyze} (all), \pddl{sokoban-pushgoal} (all), \pddl{tpp-fuel} (\ro). (See \reftbl{tbl:dtg-mands-zero}.)
-\end{itemize}
- 
+ \end{itemize}
+\end{comment} 
+
 Adding the depth diversity criterion further improves the performance of the $\ffo$-based strategies,
  although the impact was small.
 The coverage increased in both
  $h=h^\lmcut$ (\fifo: $337\rightarrow 340$, \lifo: $340\rightarrow 342$, \ro: $341\rightarrow 344.3$) and
  $h=h^\mands$ (\fifo: $336\rightarrow 337$, \lifo: $331\rightarrow 333$).
-Improvement was observed in the following domains:
+ % 
+\begin{comment}
+ Improvement was observed in the following domains:
 \begin{itemize}
  \item \textbf{\lmcut}: \pddl{mprime-succumb} (\lifo, \ro), \pddl{storage-lift} (\ro), \pddl{tidybot-motion} (\fifo), \pddl{tpp-fuel} (\fifo, \ro). (See \reftbl{tbl:dtg-lmcut-zero}.)
  \item \textbf{\mands}: \pddl{mprime-succumb} (\lifo, \ro), \pddl{tpp-fuel} (\fifo). (See \reftbl{tbl:dtg-mands-zero}.)
 \end{itemize}
+\end{comment}
+% 
 When the default tie-breaking was \ro and the heuristic is \mands, $[f,\ffo,\depth,\ro]$ performed slightly worse than 
 $[f,\ffo,\ro]$, but the difference was very small  ($337.9\rightarrow 337.6$) and $\depth$ made the performance slightly more robust (smaller standard deviation: $2.1\rightarrow 1.3$).
 
