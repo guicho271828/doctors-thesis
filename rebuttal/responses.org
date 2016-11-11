@@ -24,15 +24,15 @@
 
 First, thanks very much to all of the reviewers for their detailed and helpful comments.
 To address the reviewers' comments, we have modified the paper as described below.
-# removed because this could be interpreted as a significantly new material/expaerimental resutls
+# removed because this could be interpreted as a significantly new material/experimental results
 # significantly
 
-To reduce the length of the main portion of thepaper, we moved many tables to the Appendix, 
+To reduce the length of the main portion of the paper, we moved many tables to the Appendix, 
 eliminated some tables and consolidated some figures. We also added a few figures, Algorithms,
 # ??
 proofs in order to address the concern by the reviewers.
-As a result, the numbering of the tables/figures are changed from the orignal manuscript.
-In this response, we use [Renumbered:X] to indicate that we refer to those figures using
+As a result, the numbering of the tables/figures are changed from the original manuscript.
+In this response, we use [Revised:X] to indicate that we refer to those figures using
 the new numbering system, and [Original:X] to indicate the numbers in the original manuscript.
 
 * Reviewer 1
@@ -40,7 +40,7 @@ the new numbering system, and [Original:X] to indicate the numbers in the origin
 ** 1) The definition of plateau can be improved.
 
 # [Don't abbreviate the reviewer's comment, as that forces the editor to open the review file and go
-# back-and-forth betwen the response and the review files.  Minimize the editor's work by quoting the entire,
+# back-and-forth between the response and the review files.  Minimize the editor's work by quoting the entire,
 # relevant comment to which we're replying]
 
 #+BEGIN_QUOTE
@@ -58,7 +58,7 @@ first sections."
 #+END_QUOTE
 
 Plateaus are formally defined in the 2nd-to-last paragraph of Section 2, Preliminaries.
-However, as the reviewer noted, there were some informal usages of the term plateau througout the paper.
+However, as the reviewer noted, there were some informal usages of the term plateau throughout the paper.
 In the revision, we increased the usage of the more precise notation "plateau(f,h)" throughout the paper.
 
 ** 2) page 18: "In order to diversify the expansion... " --> This paragraph is very hard to understand
@@ -77,7 +77,7 @@ mean you that do a round robin from the deepest available depth to the
 shallowest available depth. You must clarify this.
 #+END_QUOTE
 
-We rewrote the description and added a with a pseudo code in Section 6.
+We rewrote the description and added a pseudo code in Section [Original:6,Revised:5].
 d_c is a counter assigned to each plateau.
 
 ** 3) It will be very interesting to see what happens if you factor away the constant time per node.
@@ -95,7 +95,7 @@ limit in your experiments.
 In order to factor away the constant low-level overhead of depth bucket
 which is degrading the performance of M&S in IPC domains,
 we compared the number of node evaluations between the depth-diversified and standard search method.
-We newly added Figure [Renumbered:7.2] comparing the cumulative coverage over the number of evaluations.
+We newly added Figure [Revised:7.2] comparing the cumulative coverage over the number of evaluations.
 We limited the instances to those successfully solved by both.
 The result shows that the evaluations are almost identical for most IPC instances.
 There were differences in Openstacks, as expected.
@@ -118,12 +118,12 @@ We moved one of the tables to Appendix. We also shortened the section.
 The claims about FIFO in infinite graphs (section 5.3) is trivial. You can shorten it or even delete it.
 #+END_QUOTE
 
-In the revised version, we moved the section to the end of Section [Revised:7,Original:8]
+In the revised version, we moved the section to the end of Section [Original:8,Revised:7]
 and added more proofs, in order to satisfy the requests from Reviewer 2.
 Although the proofs are still mostly trivial, the new section improves the flow of the story
 and strengthen the significance of A*-as-sequence-of-SAT.
 
-It is no longer in section [revised:4,original:5] because we noticed that
+It is no longer in section [Original:5,Revised:4] because we noticed that
 infinite search space is irrelevant to having 0-cost edges.
 # None of our experiments include infinite search space,
 We had/gave false impression that 0-cost edges induces an infinite graph, which is not the case.
@@ -160,9 +160,9 @@ an introduction to your later section 8.1 which I find quite
 interesting and more deep and should certainly be kept.
 #+END_QUOTE
 
-We shortened the beginning of Section [original:8,revised:7].
+We shortened the beginning of Section [Original:8,Revised:7].
 
-** minor coments)                                                  :noexport:
+** minor comments)                                                  :noexport:
 
 We all changed the points being suggested. Thank you very much.
 
@@ -266,12 +266,12 @@ would suggest that such results should be presented using formal
 statements with proofs.
 #+END_QUOTE
 
-In the revised version, we moved Section [original:5.3]
-to the end of Section [Revised:7,Original:8] and added more theorems/proofs.
+In the revised version, we moved Section [Original:5.3]
+to the end of Section [Original:8,Revised:7] and added more theorems/proofs.
 Although the proofs are mostly trivial, the new section improves the flow of the story
 and strengthen the significance of A*-as-sequence-of-SAT.
 
-It is no longer in section [revised:4,original:5] because we noticed that
+It is no longer in section [Original:5,Revised:4] because we noticed that
 infinite search space is irrelevant to having 0-cost edges.
 # None of our experiments include infinite search space,
 We had/gave a false impression that 0-cost edges induces an infinite graph, which is not the case.
@@ -463,17 +463,17 @@ The data in Figures in 4.1, 4.2, 5.2 and 7.1 would similarly benefit
 from a more thought-through visual presentation.
 #+END_QUOTE
 
-The figure [Original,Renumbered:4.1] and [Original,Renumbered:4.2] should be in the present form.
+The figure [Original,Revised:4.1] and [Original,Revised:4.2] should be in the present form.
 The role of these figures is to identify which domain is affected by the different default criteria.
 
-The figure [Original,Renumbered:1.1] is paired with [Original,Renumbered:4.2].
-If we change the format of [Original,Renumbered:1.1] from the current one to the histogram,
-then it loses the consistency with [Original,Renumbered:4.2].
+The figure [Original,Revised:1.1] is paired with [Original,Revised:4.2].
+If we change the format of [Original,Revised:1.1] from the current one to the histogram,
+then it loses the consistency with [Original,Revised:4.2].
 
 Separating the figure into per-domain analyses would further increase the paper length.
 
-However, we indeed benefit from converting [Original,Renumbered:7.1] into a histograms
-comparing the node evaluation ratio, because the domain charactersitics is not important
+However, we indeed benefit from converting [Original,Revised:7.1] into a histograms
+comparing the node evaluation ratio, because the domain characteristics is not important
 in this figure. Thank you for the suggestion.
 
 ** 2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search
@@ -526,8 +526,8 @@ skewing the results by uneven instance set sizes; but then, these
 domains are excluded from the following analysis.
 #+END_QUOTE
 
-The analyses from which these instances are excluded are Section 5.1 only.
-Those domains are still evaluated in the later sections.
+The analyses from which these instances are excluded are Section [Original:5.1,Revised:4.1] only.
+They are still evaluated in the later sections.
 
 ** 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy
 
@@ -544,7 +544,7 @@ and by default uses the FIFO default tiebreaking,
 we consider using FIFO as a representative would be a reasonable choice.
 
 Also, you can extract the numbers for [f,h,lifo] experiments from
-Table [Original:7.2, Renumbered:12.3] and Table [Original:7.4, Renumbered:12.5].
+Table [Original:7.2, Revised:12.3] and Table [Original:7.4, Revised:12.5].
 We obtained the same results using these numbers:
 The coverages in the original and Zerocost domains are similarly different.
 
@@ -561,7 +561,7 @@ less than the cost of the optimal solution, no form of tie-breaking
 will prevent A* from expanding all of them, but symmetry pruning will.
 #+END_QUOTE
 
-In the revised version, we clarified that pruning is a stonger technique
+In the revised version, we clarified that pruning is a stronger technique
 than diversification.
 
 ** 7) In Section 7, Table 7.1 shows that there is little consistency in the results
@@ -613,10 +613,10 @@ but how depth diversification and other strategies follow the expected depth dis
 (Sec.7.1, "To understand the behavior of depth-based policies...")
 
 In terms of performance measured by the number of expanded nodes,
-freecell-move p04 in Figure [original:7.2, renumbered:7.3], mid-right,
+freecell-move p04 in Figure [Original:7.2, Revised:7.3], mid-right,
 is an instance on which lifo solved the problem
 with much smaller expansions than depth diversification.
-This can also be seen as the coverage difference in Table [original:7.2, renumbered:12.2].
+This can also be seen as the coverage difference in Table [Original:7.2, Revised:12.2].
 
 ** minor comments                                                  :noexport:
 
