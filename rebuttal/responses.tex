@@ -1,4 +1,4 @@
-% Created 2016-11-11 金 23:06
+% Created 2016-11-11 金 23:45
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -69,7 +69,8 @@ mean you that do a round robin from the deepest available depth to the
 shallowest available depth. You must clarify this.
 \end{quote}
 
-We rewrote the description and added a pseudo code in Section [Original:6,Revised:5].
+We rewrote the description and added a pseudo code of depth diversification
+in Section [Original:6,Revised:5].
 d\(_{\text{c}}\) is a counter assigned to each plateau.
 
 \subsection{3) It will be very interesting to see what happens if you factor away the constant time per node.}
@@ -88,7 +89,7 @@ limit in your experiments.
 In order to factor away the constant low-level overhead of depth bucket
 which is degrading the performance of M\&S in IPC domains,
 we compared the number of node evaluations between the depth-diversified and standard search method.
-We newly added Figure [Revised:7.2] comparing the cumulative coverage over the number of evaluations.
+We newly added Figure [Revised:6.2] comparing the cumulative coverage over the number of evaluations.
 We limited the instances to those successfully solved by both.
 The result shows that the evaluations are almost identical for most IPC instances.
 There were differences in Openstacks, as expected.
@@ -120,7 +121,6 @@ and strengthen the significance of A*-as-sequence-of-SAT.
 
 It is no longer in section [Original:5,Revised:4] because we noticed that
 infinite search space is irrelevant to having 0-cost edges.
-
 We had/gave false impression that 0-cost edges induces an infinite graph, which is not the case.
 Trivially, just changing the cost of edges does not make finite graphs infinite.
 
@@ -134,7 +134,7 @@ values only occur in zero domains. I would shorten it or even omit it.
 
 We shortened the section as requested.
 
-\subsection{{\bfseries\sffamily TODO} 6) Section 7.1: this section repeats what you said above and \ldots{}}
+\subsection{6) Section 7.1: this section repeats what you said above and \ldots{}}
 \label{sec:orgheadline7}
 
 \begin{quote}
@@ -145,7 +145,7 @@ Consider to omit these experiments and just mention that you have
 results that support this trend.
 \end{quote}
 
-We shortened the section and moved the tables to appendix.
+We moved several non-critical figures to the appendix.
 
 \subsection{7) The beginning of Section 8 is also rather trivial.}
 \label{sec:orgheadline8}
@@ -262,7 +262,6 @@ and strengthen the significance of A*-as-sequence-of-SAT.
 
 It is no longer in section [Original:5,Revised:4] because we noticed that
 infinite search space is irrelevant to having 0-cost edges.
-
 We had/gave a false impression that 0-cost edges induces an infinite graph, which is not the case.
 Trivially, just changing the cost of edges does not make finite graphs infinite.
 
@@ -318,8 +317,7 @@ pseudocode will also remove any chance of mis-interpreting the
 strategies.
 \end{quote}
 
-Added pseudo code for Best-First search, Depth diversification and A*-as-sequence-of-SAT-search,
-as you suggested.
+Added pseudo code of Best-First search, as you suggested.
 
 \subsection{6) state/prove the properties of each of these algorithms, especially important ones like completeness}
 \label{sec:orgheadline20}
@@ -350,8 +348,7 @@ as a series of satisficing searches), and present their strategies on
 top of that with formal discussion about the properties.
 \end{quote}
 
-Added pseudo code for Best-First search, Depth diversification and A*-as-sequence-of-SAT-search,
-as you suggested.
+Added pseudo code of A*-as-sequence-of-SAT-search, as you suggested.
 
 \subsection{{\bfseries\sffamily TODO} 9) Finally, I think it would be nice if we have some infinite spaces in the ZeroCost domains}
 \label{sec:orgheadline22}
