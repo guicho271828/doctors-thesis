@@ -202,6 +202,12 @@ in determining search performance.
 
 \subsection{Discussion on Zerocost Domains}
 
+Trivially, changing the edge costs does not make a finite graph infinite.
+Thus, the Zerocost versions of the instances with finite search graphs, remains finite after modification.
+This is the case with domain-independent planning under PDDL semantics (closed world assumption).
+Since on a finite graph \astar is complete regardless of the tie-breaking strategy,
+Zerocost domains do not affect the completeness of the search.
+
 Note that the difficulty posed by these domains sometimes \emph{cannot}
 be tackled by improving the heuristic estimates, or reducing the
 underestimation of an admissible heuristic function.  Due to the
