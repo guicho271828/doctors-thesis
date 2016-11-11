@@ -504,7 +504,7 @@ in this figure. Thank you for the suggestion.
  inserting additional section around the beginning that discuss the suboptimal search
  would be out of place and unnatural.
 
-** TODO 3) This applies also to the summary of the authors earlier conference paper.
+** 3) This applies also to the summary of the authors earlier conference paper.
 
 #+BEGIN_QUOTE
  This applies also to the summary of the authors earlier conference

@@ -137,17 +137,24 @@ We empirically show that:
 
 % \textbf{
 % Note for reviewers:
-% This paper is a significantly extended version of the AAAI-16 paper by
-% the same authors. The additions to the conference paper are the following:
-% \begin{enumerate}
-%  \item Introduction of deterministic depth-based diversification
-%        strategy (as opposed to the randomized version in the conference
-%        paper), and its theoretical analysis in \refsec{sec:depth}. 
-%  \item A new, thorough empirical analysis of the behavior of depth-based diversification in 
-%        \refsec{sec:depth-based-evaluation}.
-%  \item We propose a framework for treating \astar as a sequence of satisficing searches on a set of $f$-cost plateaus (\refsec{sec:discussion}), and based on this framework, we propose and evaluate tie-breaking strategies which incorporates distance-to-go estimates
-%        \refsec{sec:distance-to-go}.  
-% \end{enumerate}
+This paper is a significantly extended version of the AAAI-16 paper by
+the same authors \cite{Asai2016}. The additions to the conference paper are the following:
+\begin{enumerate}
+ \item Introduction of deterministic depth-based diversification
+       strategy (as opposed to the randomized version in the conference
+       paper), and its theoretical analysis in \refsec{sec:depth}. 
+ \item A new, thorough empirical analysis of the behavior of depth-based diversification
+       (\refsec{sec:depth-based-evaluation}).
+ \item We propose a framework for treating \astar as a sequence of satisficing searches on a set of $f$-cost plateaus (\refsec{sec:discussion}), and based on this framework, 
+       \begin{enumerate}
+        \item We identify the relationship between depth diversification and Type-GBFS
+              \refsec{sec:depth-vs-types}.
+        \item We demonstrated some of the theories in satisficing search literature
+              can be effectively used for proving the completeness of \astar on infinite graph
+              \refsec{sec:completeness-on-infinite-space}
+        \item We propose and evaluate tie-breaking strategies which incorporates distance-to-go estimates \refsec{sec:distance-to-go}.
+       \end{enumerate}
+\end{enumerate}
 % Thus, over 60\% of \refsec{sec:depth} and \refsec{sec:depth-based-evaluation}, as well as 100\% of \refsecs{sec:discussion}{sec:distance-to-go} are new.
 % }
 
