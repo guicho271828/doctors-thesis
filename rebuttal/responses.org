@@ -362,7 +362,7 @@ top of that with formal discussion about the properties.
 Added pseudo code for Best-First search, Depth diversification and A*-as-sequence-of-SAT-search,
 as you suggested.
 
-** TODO 8) I think it will be interesting to find out what is distribution of goal depth in the final frontier
+** TODO 8) distribution of goal depth in the final frontier :noexport:
 
 #+BEGIN_QUOTE
  I think it will be interesting to find out what is distribution of
