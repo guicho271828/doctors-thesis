@@ -38,11 +38,10 @@ not admissible, and is instead $w$-admissible. One exception is the case of $w=1
 to the $f$ plateau and the expansion order in the focal list corresponds to the tie-breaking on plateaus. In our
 notation, this algorithm can be written\footnote{
 However, an actual implementation may differ due to dynamic updates to $f_{\mit{min}}$.}
-as a BFS with
+as a BFS with the following sorting criteria:
 \[
- [ \lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil, \hh, \mit{default}]
+ [ \lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil, \hh, *]
 \]
-where \textit{default} is one of \fifo, \lifo or \ro.
 This notation is derived from the fact that the focal list ``blur''s $f$ up to $w\cdot f_{\mit{min}}$.
 For example, when $w=2, f_{\mit{min}}=5$ and
 $f(n)=5,9,11$, then $\lceil \frac{f}{w\cdot f_{\mit{min}}} \rceil=1,1,2$ respectively. 
@@ -132,20 +131,18 @@ Detailed per-domain results are shown in \reftbls{tbl:dtg-lmcut-zero}{tbl:dtg-ma
  \centering
  \[
  \begin{array}{lcllcllcl}
-  (1)\, [h+g, & h,                      &\mit{default}] & % \\\relax
-  (2)\, [h+g, & h,     \quad   \hat{h}, &\mit{default}] & % \\\relax
-  (3)\, [h+g, & \hat{h},                &\mit{default}]     \\\relax
-  (4)\, [h+g, & \hat{h}^{\ff},          &\mit{default}] & % \\\relax
+  (1)\, [h+g, & h,                      &*] & % \\\relax
+  (2)\, [h+g, & h,     \quad   \hat{h}, &*] & % \\\relax
+  (3)\, [h+g, & \hat{h},                &*]     \\\relax
+  (4)\, [h+g, & \hat{h}^{\ff},          &*] & % \\\relax
   % not include it unless the reviewer complained. 
-  % (5)\, [h+g, & \hat{h}^{\text{GoalCount}},  &\mit{default}]     \\\relax
-  (5)\, [h+g,   & h, \depth,                   &\mit{default}] & % \\\relax
-  (6)\, [h+g,   & \hat{h}^{\text{FF}}, \depth, &\mit{default}]     \\\relax
+  % (5)\, [h+g, & \hat{h}^{\text{GoalCount}},  &*]     \\\relax
+  (5)\, [h+g,   & h, \depth,                   &*] & % \\\relax
+  (6)\, [h+g,   & \hat{h}^{\text{FF}}, \depth, &*]     \\\relax
  \end{array}
  \]
  \vspace{-3em}
- \caption{Configurations compared in this section. $h$ is
- either \lmcut or \mands, and $\mit{default}$ is one of the default
- tie-breaking strategies $\fifo,\lifo,$ or $\ro$. }
+ \caption{Configurations compared in this section. $h$ is either \lmcut or \mands.}
  \label{list:distance-configs}
 \end{table}
 
@@ -174,10 +171,10 @@ Thus, when the depth diversity criterion  is not used, the best configurations a
 which use $\ffo$.
 
 % let's avoid using \sota to describe relatively ``old'' heuristics like ff (where ``relatively old'': 10yrs).
-The reason for the good performance of $[f^{\lmcut},\ffo,\mit{default}]$ is not surprising:
+The reason for the good performance of $[f^{\lmcut},\ffo,*]$ is not surprising:
 $\ffo$ is by itself known to be a powerful inadmissible heuristic
 function for satisficing GBFS, and 
-if we ignore the first sorting criterion, $[f^{\lmcut},\ffo,\mit{default}]$ is a GBFS with $[\ffo,\mit{default}]$.
+if we ignore the first sorting criterion, $[f^{\lmcut},\ffo,*]$ is a GBFS with $[\ffo,*]$.
 
 \begin{comment}
  In detail, following domains are improved by each change:
@@ -243,10 +240,10 @@ Thus, to recapitulate, our conclusions can be summarized in \reftbl{tbl:summary}
 \hline
 \lmcut & $[f,\ffo,\depth,\ro]$
        & $[f,h,\depth,\lifo]$
-       & $[f,h, \mit{default}]$ or $[f,h, \depth, \mit{default}]$ (any \textit{default} tie-breaking) \\[0.1em]
+       & $[f,h, *]$ or $[f,h, \depth, *]$ (any \textit{default} tie-breaking) \\[0.1em]
 \hline
 \mands & $[f,\ffo,\ro]$ or $[f,\ffo,\depth,\ro]$, but the latter has a smaller variance. 
-       & $[f,h,\lifo]$ or $[f,h,\depth,\mit{default}]$ (any \textit{default} tie-breaking)
+       & $[f,h,\lifo]$ or $[f,h,\depth,*]$ (any \textit{default} tie-breaking)
        & $[f,h,\lifo]$ \\
 \hline
 \end{tabular}
@@ -272,7 +269,7 @@ are the extrapolated results when the switching policy is applied -- this dynami
  % 
  Summary Results: Coverage comparison, the total of IPC domains and Zerocost domains (the number of instances
  solved in 5min, 4GB) between several sorting strategies, plus a dynamic configuration strategy.  $[f,h,\fifo],
- [f,h,\ro], [f,\hh,\mit{default}], [f,h, \hh,\mit{default}], [f,\ffo,\mit{default}]$ are not shown because they achieve smaller coverage.
+ [f,h,\ro], [f,\hh,*], [f,h, \hh,*], [f,\ffo,*]$ are not shown because they achieve smaller coverage.
  % 
  }
  \label{tbl:dtg-summary-sum}
