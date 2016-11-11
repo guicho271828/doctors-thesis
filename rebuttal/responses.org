@@ -505,8 +505,7 @@ paper), the summary of that paper, and the novel contributions this
 article makes over it, should be integrated in the presentation.
 #+END_QUOTE
 
-Fixed as you suggested.
-
+We fixed it as you suggested.
 
 ** 4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.
 
