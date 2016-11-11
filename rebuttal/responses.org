@@ -100,7 +100,7 @@ We limited the instances to those successfully solved by both.
 The result shows that the evaluations are almost identical for most IPC instances.
 There were differences in Openstacks, as expected.
 
-** TODO 4) Section 5: Zerocost domains. I buy all your arguments on zero cost :5.3: :section:5.3:
+** TODO 4) Section 5: Zerocost domains. I buy all your arguments on zero cost
 
 #+BEGIN_QUOTE
 Section 5: Zerocost domains. I buy all your arguments on zero cost
@@ -203,7 +203,7 @@ think the correct term should be something like
 ** 1) Maxim Likhachev's ARA* paper...
 
 #+BEGIN_QUOTE
- Maxim Likhachev's ARA* paper [1] presents an elegant solution to
+ Maxim Likhachev's ARA* paper presents an elegant solution to
 avoid the final plateau problem for non zero-cost domains. His
 algorithm notes the cost of the goal, whenever a new path to goal is
 discovered, and concludes the search when the minimum cost of any
