@@ -23,12 +23,12 @@
 
 
 First, thanks very much to all of the reviewers for their detailed and helpful comments.
-We examined those comments seriously and 
+To address the reviewers' comments, we have modified the paper as described below.
 # removed because this could be interpreted as a significantly new material/expaerimental resutls
 # significantly
-improved the quality of the paper in ways that are addressed below.
 
-We reduced the number of tables, converted a few figures and we also added a few figures, Algorithm sections,
+To reduce the length of the main portion of thepaper, we moved many tables to the Appendix, 
+eliminated some tables and consolidated some figures. We also added a few figures, Algorithms,
 # ??
 proofs in order to address the concern by the reviewers.
 As a result, the numbering of the tables/figures are changed from the orignal manuscript.
@@ -38,13 +38,25 @@ the new numbering system, and [Original:X] to indicate the numbers in the origin
 * Reviewer 1
 
 ** 1) The definition of plateau can be improved.
+** [Don't abbreviate the reviewer's comment, as that forces the editor to open the review file and go back-and-forth betwen the response and the review files.  Minimize the editor's work by quoting the entire, relevant comment to which we're replying] -- 1) The definition of plateau can be improved. The formal definition of
+a plateau should include a plateau with respect to some cost
+functions. So, you have a plateau with respect to f, plateau(f), a
+plateau with respect both g and h, plateau(g,h) etc. This should be
+defined at the beginning and this terminology should be later used all
+over. Currently, you are not fully formal and consistent on this. As
+you say on page 18. a plateau is related to a sorting strategy. Define
+this in the beginning. In fact you write the following sentence which
+is in fact a definition: "Having the same key values means that n and
+m are on the same plateau". Move this to be a definition in one of the
+first sections."
 
-We had formal definition of a plateau in the original version in the bottom of Section 2, Preliminaries.
-In the revised version, we increased the use of notation like "plateau(h,f)" throughout the paper.
+Plateaus are formally defined in the 2nd-to-last paragraph of Section 2, Preliminaries.
+However, as the reviewer noted, there were some informal usages of the term plateau througout the paper.
+In the revision, we increased the usage of the more precise notation "plateau(h,f)" throughout the paper.
 
 ** 2) page 18: "In order to diversify the expansion... " --> This paragraph is very hard to understand
 
-We rewrote the description with a pseudo code in Section 6.
+We rewrote the description and added a with a pseudo code in Section 6.
 d_c is a counter assigned to each plateau.
 
 ** 3) It will be very interesting to see what happens if you factor away the constant time per node.
