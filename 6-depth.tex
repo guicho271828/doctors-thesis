@@ -211,10 +211,10 @@ Such a criterion can be applied after the depth criterion but before the default
 resulting in a sorting strategy $[f,h,\depth,X,\fifo]$. 
 Candidates for $X$ may be related to pruning techniques such as Symmetry Breaking \cite{Fox1998,pochter2011exploiting,domshlak2013symmetry} or
 Partial Order Reduction \cite{hall2013faster,wehrle2013relative}.
-While they are usually described as ``pruning techniques'',
-they are the stronger form of ``removing the bias'' because
-their target of pruning is the redundant nodes.
-Note that redundancy causes a biased search effort. For example, imagine we have a
+While these are usually described as ``pruning techniques'',
+they can also be interpreted as strong bias removal mechanisms because
+they seek to prune redundant nodes, and 
+redundancy causes a biased search effort. For example, imagine we have a
 set of nodes $S=\{a_1, a_2, a_3, a_4, b, c, d\}$ where
 $A=\{a_1, a_2, a_3, a_4\}$ are ``redundant'' according to some measure (e.g. by Symmetry,
 Partial-Order). 
@@ -264,11 +264,11 @@ can be represented by a simple formula.
 
 % 
 \todo*{Introduced the forest assumption in the beginning.}
-In the discussion below, we assume the following.
-First, we assume that $P$ forms a forest of a fixed branching factor
+In the discussion below, 
+we first assume that $P$ forms a forest of a fixed branching factor
 $w\geq 2$ (\emph{forest assumption}), rather than a graph with an indefinite number of successor nodes.
 In the later experiments, we show this assumption is not much distant from the real situations.
-Also, we assume that no depth bucket exhausts due to the expansion (\emph{no-exhaustion assumption}). This implies that there are sufficiently large number of nodes in depth $d=0$ so that depth 0 does not exhaust, which may cause \fifo default tiebreaking to fail due to the heavy bias to the shallow depth.
+We also assume that no depth bucket exhausts due to the expansion (\emph{no-exhaustion assumption}). This implies that there are sufficiently large number of nodes in depth $d=0$ so that depth 0 does not exhaust, which may cause \fifo default tiebreaking to fail due to the heavy bias to the shallow depth.
 We provide a condition for this assumption to hold within this section.
 % Finally, we assume that the sorting strategy performs a \ro default tie-breaking
 % after the depth-based diversification is applied.
