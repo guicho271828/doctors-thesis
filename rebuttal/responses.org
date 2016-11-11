@@ -533,7 +533,7 @@ The aim of this experiment is to show that there can be some performance differe
 and we consider this is sufficient.
 Being the planner Fast Downward, which is currently the most successful state-of-the-art planner
 and by default uses the FIFO default tiebreaking,
-we consider using FIFO as a representative would be a reasonable choise.
+we consider using FIFO as a representative would be a reasonable choice.
 
 Also, you can extract the numbers for [f,h,lifo] experiments from
 Table [Original:7.2, Renumbered:12.3] and Table [Original:7.4, Renumbered:12.5].
