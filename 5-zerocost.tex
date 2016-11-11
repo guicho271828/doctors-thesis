@@ -226,14 +226,3 @@ such a technique. It turns out that introducing a notion of \emph{depth} within 
 a significant impact on the performance of knowledge-free search, and can also 
 provide a good  understanding of the behavior of standard tie-breaking strategies.
 
-\subsection{Completeness of Tie-Breaking Strategies on Zerocost Domains}
-
-The presence of 0-cost edges in the search space affects the completeness of tie-breaking strategies for \astar. 
-As long as the search graph is finite, \astar is complete regardless of the tie-breaking strategy.
-If the search graph is infinite, and the branching factor is finite, then 
-\fifo will always return a solution if one exists.
-
-However, some solvable, infinite search graphs with finite branching factors can contain traps for a \lifo tie-breaking policy -- there may be infinite regions of the search space consisting of nodes connected by 0-cost edges which cause \astar with \lifo tie-breaking to endlessly search this region, never returning to another region of the graph which contains a solution.
-Note that this holds in general regardless of whether $h$-based tie-breaking is applied prior to $\lifo$ tie-breaking, since all nodes in such a trap would have the same $h$-value of zero if $h$ is admissible.
-The randomized, $\ro$ tie-breaking method is probabilistically complete for solvable problems in the presence of such traps -- since $\ro$ will expand nodes outside the trap with some non-zero probability, it will eventually (in the limit) find the solution.
-
