@@ -4,6 +4,9 @@
 
 \astar is a standard search algorithm for finding an optimal cost path
 on a graph.
+On a finite graph, \astar is
+complete regardless of the tiebreaking strategy \cite{hart1968formal}.
+
 It can be defined as a subclass of BFS which uses $f$-value as the first sorting criterion
 % Starting from the single initial node, in each iteration, \astar
 % selects and expands a node $n$ with the lowest $f$-cost in the OPEN
@@ -12,7 +15,7 @@ It can be defined as a subclass of BFS which uses $f$-value as the first sorting
 and returns a cost-optimal solution when $h$ is admissible, i.e., when
 $\forall n; h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
 the nearest goal.
-
+% 
 The best-first order of the expansion is the key to guaranteeing solution optimality. 
 The first solution found by the algorithm is guaranteed to have the optimal cost $f=f^*$ because 
 all nodes with $f(n) < k$ are already expanded when it starts expanding
