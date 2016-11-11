@@ -476,24 +476,33 @@ However, we indeed benefit from converting [Original,Renumbered:7.1] into a hist
 comparing the node evaluation ratio, because the domain charactersitics is not important
 in this figure. Thank you for the suggestion.
 
-** TODO 2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search
+** 2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search
 
-#+BEGIN_QUOTE
- The description in the early part of the paper (Sections 1, 3, 4, 5)
-somewhat convey the false impression that there has been no previous
-recognition of the challenge that plateaus can create for A* search,
-in particular in the presence of zero cost transitions, or attempts to
-address it. There are a number of relevant related works, for example,
-those by Benton et al., and Cushing et al., which are cited somewhere
-in the paper, but do not appear anywhere in the initial discussion nor
-in the related works section. (The SoCS 2011 paper "Cost-Based
-Heuristic Search Is Sensitive to the Ratio of Operator Costs", by
-Christopher Wilt and Wheeler Ruml, may also be relevant.) This should
-be rectified; the previous state of knowledge should be clearly
-established early in the paper.
-#+END_QUOTE
+ #+BEGIN_QUOTE
+  The description in the early part of the paper (Sections 1, 3, 4, 5)
+ somewhat convey the false impression that there has been no previous
+ recognition of the challenge that plateaus can create for A* search,
+ in particular in the presence of zero cost transitions, or attempts to
+ address it. There are a number of relevant related works, for example,
+ those by Benton et al., and Cushing et al., which are cited somewhere
+ in the paper, but do not appear anywhere in the initial discussion nor
+ in the related works section. (The SoCS 2011 paper "Cost-Based
+ Heuristic Search Is Sensitive to the Ratio of Operator Costs", by
+ Christopher Wilt and Wheeler Ruml, may also be relevant.) This should
+ be rectified; the previous state of knowledge should be clearly
+ established early in the paper.
+ #+END_QUOTE
 
-Fixed as you suggested.
+ Previously, the issues of zero cost transitions were not directly associated with 
+ a failure in tie-breaking. Thus, previous work focused on how to modify the main 
+ evaluation functions (use of distance-to-go functions, inflating the heuristic value)
+ or to modify the expansion order (e.g. Thayer and Ruml, ICAPS08).
+
+ Considering the flow of the paper,
+ which start by examining the standard tiebreaking strategies on optimal search,
+ then proceed to identify and connect the source of the problem with 0-cost transitions,
+ inserting additional section around the beginning that discuss the suboptimal search
+ would be out of place and unnatural.
 
 ** TODO 3) This applies also to the summary of the authors earlier conference paper.
 
