@@ -396,7 +396,17 @@ performance of different strategies with the accuracy of the
 distance-to-go estimates.
 #+END_QUOTE
 
+# this is a good set of suggestions, but is a lot of work.
+# fortunately, R2 doesn't say we "must" or "should" do these. He just says "would be intersting", "would be good",
+# which can usually be safely interpreted as constructive suggestions rather than demands for addition.
 
+We agree that goal depth distribution
+and distance-to-goal heuristic accuracy might be strongly correlated with tie-breaking strategy performance.
+This poses interesting avenues for future work, 
+and may be very useful, for example, in an extension of this work which 
+seeks to automatically select tie-breaking strategy.  
+# this may not be the best example, but I'm trying to suggest "future work"  which is a sizeable chunk of work where the reviewer's suggested experiments might fit (but is obviously out of scope for this paper, thus we don't have to do the suggested experiments for this paper)
+Thanks for these suggestions. 
 
 
 ** 9) Finally, I think it would be nice if we have some infinite spaces in the ZeroCost domains
@@ -410,20 +420,26 @@ believe inclusion of such graphs (or some domains that closely
 approximate such behavior) will enhance the analysis.
 #+END_QUOTE
 
-Although we added proofs of the completeness of each tiebreaking algorithms
-on infinite search spaces, infinite search space and 0-cost edges are irrelevant.
-As we already noted,
-just changing the cost of edges does not make finite graphs infinite.
-Also, infinite graphs includes some continuous search problems,
-which is clearly beyond the scope of this paper.
 
-The main topic of this paper is 0-cost edges and not infinite search space.
-We initially had/gave a false impression that 0-cost edges induces an infinite graph,
-but it was not the case.
+# again as with R2.8, he only says "would be nice"..."will enhance", so these can just be 
+# taken as helpful comments, not demands for change.
+# This comment doesn't any negative connotation -- he doesn't say lack of infinite space experiments is a weakness of the paper. Therefore,  no need to be too defensive, and better to point out that it's out of scope
 
-Now, given that the main topic is 0-cost edges and not infinite search space,
-experimental results for infinite search space is out of scope of this paper,
-despite being an interesting avenue of future work.
+In this paper, we focused on domain-independent planning in the classical planning framework (specifically, in the STRIPS/SAS+ framework), for which the search spaces are finite.
+Zerocost domains were created as variations of standard IPC benchmarks (which are all in this finite-space framework).
+
+Empirical evaluation of tie-breaking strategies on infinite search
+spaces is an interesting avenue for future work, but 
+since infinite search spaces are beyond the scope of classical planning, this will require
+careful design of interesting/practical benchmark domains and solvers.
+
+We agree that completeness can be one good reason for choosing a  fifo tie-breaking strategy.
+However, in our survey of papers mentinoing tie-breaking strategies, we couldn't find any work 
+which specifically mentioned fifo tie-breaking and also handled infinite spaces -- 
+the use of fifo which we cite in the paper is by Fast Downward, a classical planner, and as mentioned above, 
+infinite search spaces are beyond the scope of the standard clasical planning framework, so it's unlikely that the use of FIFO
+tie-breaking in FD was motivated by completeness concerns.
+
 
 ** minor comments
 
@@ -435,11 +451,13 @@ diversification is the second strategy, which is not the case. Also,
 "We proposes" -> "We propose".
 #+END_QUOTE
 
+
 #+BEGIN_QUOTE
  page 27, claim 1 "A Last-In-First-Out ..". Is this a general claim,
 or is it tied to the domains you tested on. I think this should be
 made clear.
 #+END_QUOTE
+
 
 #+BEGIN_QUOTE
  Section 2, the 4th paragraph can probably be combined with the
