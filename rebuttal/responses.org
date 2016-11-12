@@ -376,7 +376,7 @@ performance of different strategies with the accuracy of the
 distance-to-go estimates.
 #+END_QUOTE
 
-** TODO 9) Finally, I think it would be nice if we have some infinite spaces in the ZeroCost domains
+** 9) Finally, I think it would be nice if we have some infinite spaces in the ZeroCost domains
 
 #+BEGIN_QUOTE
  Finally, I think it would be nice if we have some infinite spaces
