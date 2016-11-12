@@ -327,13 +327,17 @@ it tries to expand all those nodes with depth 0 before expanding any nodes in de
 Similar situation happens at every depth.
 Thus, even if the entire graph is a forest model, FIFO causes a heavy bias to expanding nodes with shallow depth.
 
-It's true that if all nodes in the entire graph are expanded, there are surely more nodes with larger depth.
-However, with a reasonably good heuristic, A* expands only a small fraction of nodes in the search space, an the nodes expanded by A* during the search process are biased to the shallower region 
+It's true that there are surely more nodes with larger depth if /all/ nodes in the entire plateau are expanded, which is the case for $f<f^*$.
+However, in the final plateau of A*, FIFO expands only a fraction of nodes with depth $d\leq d^*$,
+where $d^*$ is the /minimum solution depth/, the smallest depth of the solutions.
+Entire nodes above the solution depths ($d>d^*$) are not expanded due to the breadth-first behavior.
+During this process the expanded nodes are biased to the shallower region.
+# with a reasonably good heuristic, A* expands only a small fraction of nodes in the search space, and the nodes expanded by A* during the search process are biased to the shallower region 
 
-In practice,
-the nodes with depth 0 are the nodes that were generated as a result of expanding earlier plateaus,
-i.e. the entire set of frontier nodes which is sufficiently large for FIFO
-to cause pathological behavior.
+# In practice,
+# the nodes with depth 0 are the nodes that were generated as a result of expanding earlier plateaus,
+# i.e. the entire set of frontier nodes which is sufficiently large for FIFO
+# to cause pathological behavior.
 
 This has been clarified in the text (Section [Revised:5.2]), and 
 for further clarity, we also added Figures 5.2 and 5.3 which illustrate the scenarios.
@@ -383,7 +387,7 @@ top of that with formal discussion about the properties.
 
 Added pseudo code of A*-as-sequence-of-SAT-search, as you suggested.
 
-** TODO 8) distribution of goal depth in the final frontier :noexport:
+** 8) distribution of goal depth in the final frontier
 
 #+BEGIN_QUOTE
  I think it will be interesting to find out what is distribution of
@@ -467,7 +471,7 @@ made clear.
 #+END_QUOTE
 
 # "should be made clear" = "must make clear"
-
+We made clear that it was observed on IPC domains.
 
 #+BEGIN_QUOTE
  Section 2, the 4th paragraph can probably be combined with the

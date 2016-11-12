@@ -100,7 +100,7 @@ then uses the $\depth$ criterion to break ties in $\plateau{f,h}$.
  \STATE $\text{push}(n, B_{d(n)})$
 \end{algorithmic}
  \textbf{Method} $\textbf{pop}(\text{selector})$:
-\begin{algorithmic}
+\begin{algorithmic}[1]
  \LOOP
  \STATE $d_c\leftarrow d_c-1$
  \STATE $d_c\leftarrow \bars{B}-1$ \textbf{if} $d_c<0$
@@ -172,19 +172,19 @@ More formally:
 
 % expansion ordering of \astar on the plateau is not affected by depth diversification 
 
-\begin{lemma}
+\begin{lemma} 
+ \label{lemma:depth0}
   If all edge costs are positive, then
-  $depth(n) = 0$ for every node $n$ expanded by \astar $[f,h,\depth,*]$.
-  \label{lemma:depth0}
+  $d(n) = 0$ for every node $n$ expanded by \astar $[f,h,\depth,*]$.
 \end{lemma}
 \begin{proof}
 Let $n$ be a child of a node $m$.
 Regardless whether the parent $m$ of the node $n$ is newly assigned, updated, or the old parent is kept in line 10 of \refalgo{alg:ocl},
 the invariant $g(n)=g(m)+\mit{cost}(m,n) > g(m)$ holds
 %due to the positive edge cost,
-because \mit{cost}(m,n)>0,
+because $\mit{cost}(m,n)>0$,
 and therefore $f(n)-h(n) > f(m)-h(m)$.
-This means that either $f(n)\not=f(m)$ or $h(n)\not=h(m)$, so $depth(n) = 0$.
+This means that either $f(n)\not=f(m)$ or $h(n)\not=h(m)$, so $d(n) = 0$.
 \end{proof}
 
 

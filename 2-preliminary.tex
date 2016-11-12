@@ -16,7 +16,7 @@ pop$(S)$ operation tries to select a single node from $S$,
 push$(n,S)$ stores the node $n$ into $S$ and remove$(n,S)$ removes $n$ from $S$ if $n$ is already stored.
 
 \begin{algorithm}                      
-\begin{algorithmic}
+\begin{algorithmic}[1]
  \REQUIRE $n_0$, $\text{is\_goal}(\cdot)$, $\text{successors}(\cdot)$ %, strategy
  \STATE Initialize $\text{OPEN}=\emptyset$, $\text{CLOSED}=\emptyset$, $g(n_0)=0$, $\left(\forall n\not=n_0;\ g(n)=\infty\right)$
  % \STATE \textbf{Local procedure} $\text{open}(s,t,g_{new})$: $g(t) \leftarrow g_{new}$; $\text{parent}(t) \leftarrow s$; $\text{push}(t,\text{OPEN})$
