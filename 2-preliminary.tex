@@ -18,16 +18,16 @@ push$(n,S)$ stores the node $n$ into $S$ and remove$(n,S)$ removes $n$ from $S$ 
 \begin{algorithm}                      
 \begin{algorithmic}
  \REQUIRE $n_0$, $\text{is\_goal}(\cdot)$, $\text{successors}(\cdot)$ %, strategy
- \STATE Initialize $\text{OPEN}=\emptyset$, $\text{CLOSE}=\emptyset$, $g(n_0)=0$, $\left(\forall n\not=n_0;\ g(n)=\infty\right)$
+ \STATE Initialize $\text{OPEN}=\emptyset$, $\text{CLOSED}=\emptyset$, $g(n_0)=0$, $\left(\forall n\not=n_0;\ g(n)=\infty\right)$
  % \STATE \textbf{Local procedure} $\text{open}(s,t,g_{new})$: $g(t) \leftarrow g_{new}$; $\text{parent}(t) \leftarrow s$; $\text{push}(t,\text{OPEN})$
  \STATE $\text{push}(n_0,\text{OPEN})$
  \WHILE{OPEN $\not = \emptyset$}
- \STATE $n = \text{pop}(\text{OPEN}); \text{push}(n,\text{CLOSE})$
+ \STATE $n = \text{pop}(\text{OPEN}); \text{push}(n,\text{CLOSED})$
  \RETURN $n$ \  \textbf{if} \  $\text{is\_goal}(n)=\text{true}$
  \FORALL{$m \in \text{successors}(n)$}
  \STATE $g_{new} = g(n) + \text{cost}(n,m)$
  \IF{$g_{new} < g(m)$}
- \STATE $g(m) \leftarrow g_{new}$;\; $\text{parent}(m) \leftarrow n$;\; $\text{push}(m,\text{OPEN})$;\; $\text{remove}(m,\text{CLOSE})$
+ \STATE $g(m) \leftarrow g_{new}$;\; $\text{parent}(m) \leftarrow n$;\; $\text{push}(m,\text{OPEN})$;\; $\text{remove}(m,\text{CLOSED})$
  \ENDIF
  \ENDFOR
  \ENDWHILE
@@ -45,11 +45,11 @@ set of nodes using $\text{criterion}_1$, and if there are still multiple
 nodes remaining in the set, then break ties using $\text{criterion}_2$
 and so on, until a single node is selected.  The \emph{first-level
 sorting criterion} of a strategy is $\text{criterion}_1$, the
-\emph{second-level sorting criterion} is $\text{criterion}_2$, and so on.
+\emph{second-level sorting criterion} is $\text{criterion}_2$, and so on.\footnote{This notation corresponds to the command line option format of Fast
+Downward \cite{Helmert2006}.} %demoting sentence to footnote because a statement about command line arguments of a specific planner doesn't seem appropriate in the body of the text..
 %% the word frontier is no longer used in the later text.
 % \emph{final frontier} is the set of open nodes with $f^*$.
-Note that this corresponds to the command line option format of Fast
-Downward \cite{Helmert2006}.
+
 
 Using this notation, \astar without any tie-breaking strategy can be
 denoted as a BFS with $[f]$, and \astar which breaks ties according to $h$

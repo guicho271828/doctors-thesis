@@ -447,16 +447,26 @@ tie-breaking in FD was motivated by completeness concerns.
  I think the abstract needs to be re-written to precisely state the
 contribution. In particular i would suggest changing the sentences
 after "With this in mind, ..". Somehow it seems that the depth
-diversification is the second strategy, which is not the case. Also,
-"We proposes" -> "We propose".
+diversification is the second strategy, which is not the case.
 #+END_QUOTE
 
+As suggested we rewrote the sentences after "With this in mind..." to improve clarity.
+#  Not sure whether this really improved clarity, but 
+#  "Needs to be written" means  "must comply and rewrite", so...
+
+#+BEGIN_QUOTE
+ Also, "We proposes" -> "We propose".
+#+END_QUOTE
+
+Fixed.
 
 #+BEGIN_QUOTE
  page 27, claim 1 "A Last-In-First-Out ..". Is this a general claim,
 or is it tied to the domains you tested on. I think this should be
 made clear.
 #+END_QUOTE
+
+# "should be made clear" = "must make clear"
 
 
 #+BEGIN_QUOTE
@@ -465,12 +475,18 @@ second. Also, may be it would be better if you present exact formal
 definitions of the terms.
 #+END_QUOTE
 
+We have revised Section 2 to be more precise.
+We have also added pseudocode for best-first search (Algorithm 1), which should further clarify the meanings of the terms.
+# XXX hope this suffices... didn't really comply with "exact formal defs"
+
 #+BEGIN_QUOTE
  I would suggest that you include some pictorial representation of
 your analysis in section 6.3. There are several illustrations of A*
 layers in other places that are helpful, some such illustration of
 your model would be nice.
 #+END_QUOTE
+
+As suggested, we have added Figures 5.2 and 5.3 to clarify the analysis in Section [Original:6.3; Revised:5.2]
 
 #+BEGIN_QUOTE
  There are a number of typos and grammar mistakes, please correct
