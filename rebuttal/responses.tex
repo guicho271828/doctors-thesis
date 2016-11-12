@@ -1,4 +1,4 @@
-% Created 2016-11-12 土 21:24
+% Created 2016-11-12 土 23:17
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -407,10 +407,16 @@ tie-breaking in FD was motivated by completeness concerns.
  I think the abstract needs to be re-written to precisely state the
 contribution. In particular i would suggest changing the sentences
 after "With this in mind, ..". Somehow it seems that the depth
-diversification is the second strategy, which is not the case. Also,
-"We proposes" -> "We propose".
+diversification is the second strategy, which is not the case.
 \end{quote}
 
+As suggested we rewrote the sentences after "With this in mind\ldots{}" to improve clarity.
+
+\begin{quote}
+Also, "We proposes" -> "We propose".
+\end{quote}
+
+Fixed.
 
 \begin{quote}
  page 27, claim 1 "A Last-In-First-Out ..". Is this a general claim,
@@ -418,6 +424,7 @@ or is it tied to the domains you tested on. I think this should be
 made clear.
 \end{quote}
 
+We made clear that it was observed on IPC domains.
 
 \begin{quote}
  Section 2, the 4th paragraph can probably be combined with the
@@ -425,12 +432,17 @@ second. Also, may be it would be better if you present exact formal
 definitions of the terms.
 \end{quote}
 
+We have revised Section 2 to be more precise.
+We have also added pseudocode for best-first search (Algorithm 1), which should further clarify the meanings of the terms.
+
 \begin{quote}
  I would suggest that you include some pictorial representation of
 your analysis in section 6.3. There are several illustrations of A*
 layers in other places that are helpful, some such illustration of
 your model would be nice.
 \end{quote}
+
+As suggested, we have added Figures 5.2 and 5.3 to clarify the analysis in Section [Original:6.3; Revised:5.2]
 
 \begin{quote}
  There are a number of typos and grammar mistakes, please correct
@@ -503,7 +515,7 @@ then proceed to identify and connect the source of the problem with 0-cost trans
 inserting additional section around the beginning that discuss the suboptimal search
 would be out of place and unnatural.
 
-\subsection{3) This applies also to the summary of the authors earlier conference paper.}
+\subsection{[3.3-INPROGRESS] 3) This applies also to the summary of the authors earlier conference paper.}
 \label{sec:orgheadline28}
 
 \begin{quote}
@@ -514,9 +526,10 @@ paper), the summary of that paper, and the novel contributions this
 article makes over it, should be integrated in the presentation.
 \end{quote}
 
-We fixed it as you suggested.
 
-\subsection{4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.}
+We fixed it as you suggested. TODO
+
+\subsection{[3.4] 4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.}
 \label{sec:orgheadline29}
 
 \begin{quote}
@@ -527,10 +540,22 @@ skewing the results by uneven instance set sizes; but then, these
 domains are excluded from the following analysis.
 \end{quote}
 
-The analyses from which these instances are excluded are Section [Original:5.1,Revised:4.1] only.
-They are still evaluated in the later sections.
+The paragraphs in the last paragraph before Section [Original:5,Revised:4]
+define the set of 28 Zerocost
+domains used throughout the rest of the paper, and we explain why for
+some domains (specifically, blocks, freecell, pipesworld-notankage,
+miconic), we selected subsets of instances in order to avoid skewing
+coverage results.
 
-\subsection{5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy}
+Blocks, freecell, pipesworld-notankage, and miconic were NOT included in the experiment in Table [Original:5.1,Revised:4.1]
+because the purpose of that particular experiment was to compare coverages between Zerocost domains and their corresponding original IPC benchmark domains, 
+and for this particular purpose, we wanted to avoid confusion (particularly for readers familiar with the IPC instances) by only including
+domains where the number of instances in the Zerocost domains is the same as in the IPC benchmark set.
+
+However, the Zerocost versions of Blocks, freecell, pipesworld-notankage, and miconic are used in all of the other experiments in the paper involving Zerocost domains.
+(because none of the other experiments involve comparisons between coverage on Zerocost domains and coverage on standard IPC domains).
+
+\subsection{[3.5] 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy}
 \label{sec:orgheadline30}
 
 \begin{quote}
@@ -539,18 +564,17 @@ They are still evaluated in the later sections.
 tie-breaking using "lifo" to be much more efficient?
 \end{quote}
 
-The aim of this experiment is to show that there can be some performance difference for some planner,
-and we consider this is sufficient.
-Being the planner Fast Downward, which is currently the most successful state-of-the-art planner
-and by default uses the FIFO default tiebreaking,
-we consider using FIFO as a representative would be a reasonable choice.
+We used the [f,h,fifo] strategy in this experiment in Section [Original:5.1,Revised:4.1] because
+we use the Fast Downward planner, which is currently one of the the most widely used,  state-of-the-art planners,
+and Fast Downward uses the [f,h,fifo] tiebreaking strategy by default.
+Thus, we believe using the default configuration for Fast Downward is a reasonable choice, since the purpose of the experiment was to demonstrate that Zerocost domains pose a challenge for state-of-the-art planners.
 
-Also, you can extract the numbers for [f,h,lifo] experiments from
-Table [Original:7.2, Revised:12.3] and Table [Original:7.4, Revised:12.5].
-We obtained the same results using these numbers:
-The coverages in the original and Zerocost domains are similarly different.
+Although not prominently featured in Section [Original:5.1,Revised4:1], 
+the results for [f,h,lifo] can be extracted from 
+Table [Original:7.2, Revised:11.3] (Zerocost instances) and Table [Original:7.4, Revised:11.5] (IPC instances).
+Qualitiatively, the results for [f,h,lifo] are similar to that of [f,h,fifo] -- Zerocost instances are "harder" than their corresponding IPC instances.
 
-\subsection{6) In Section 6.2, the authors argue that \ldots{} pruning methods \ldots{} are somehow equivalent to tie-breaking. This is not accurate.}
+\subsection{[3.6] 6) In Section 6.2, the authors argue that \ldots{} pruning methods \ldots{} are somehow equivalent to tie-breaking. This is not accurate.}
 \label{sec:orgheadline31}
 
 \begin{quote}
@@ -564,7 +588,7 @@ less than the cost of the optimal solution, no form of tie-breaking
 will prevent A* from expanding all of them, but symmetry pruning will.
 \end{quote}
 
-In the revised version, we clarified that pruning is a stronger technique
+In Section [Original:6.2,Revised:5.1] we clarified that pruning is a stronger technique
 than diversification.
 
 \subsection{7) In Section 7, Table 7.1 shows that there is little consistency in the results}
@@ -583,7 +607,7 @@ always the case.
 The inconsistency is natural considering
 that the aim of diversifying the depth is to choose the \textbf{safest} practice in a domain-independent
 manner. Depending on the domain, the \textbf{best} practice may vary -- for example, fifo is the best in
-airport-fuel with LMcut, while lifo is the best in freecell-move with LMcut.
+airport-fuel with LMcut, while lifo is the best in freecell-move with LMcut (cf. Table [Revised:11.3]).
 However, although these two default strategies may work well in some domains,
 it does more harm than good in many other domains,
 encountering the worst case pathological behavior.
@@ -621,5 +645,5 @@ In terms of performance measured by the number of expanded nodes,
 freecell-move p04 in Figure [Original:7.2, Revised:7.3], mid-right,
 is an instance on which lifo solved the problem
 with much smaller expansions than depth diversification.
-This can also be seen as the coverage difference in Table [Original:7.2, Revised:12.2].
+This can also be seen as the coverage difference in Table [Original:7.2, Revised:11.3].
 \end{document}

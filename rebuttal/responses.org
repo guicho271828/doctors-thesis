@@ -589,7 +589,8 @@ skewing the results by uneven instance set sizes; but then, these
 domains are excluded from the following analysis.
 #+END_QUOTE
 
-The paragraphs at the start of Section 5 define the set of 28 Zerocost
+The paragraphs in the last paragraph before Section [Original:5,Revised:4]
+define the set of 28 Zerocost
 domains used throughout the rest of the paper, and we explain why for
 some domains (specifically, blocks, freecell, pipesworld-notankage,
 miconic), we selected subsets of instances in order to avoid skewing
@@ -618,8 +619,8 @@ Thus, we believe using the default configuration for Fast Downward is a reasonab
 
 Although not prominently featured in Section [Original:5.1,Revised4:1], 
 the results for [f,h,lifo] can be extracted from 
-Table [Original:7.2, Revised:12.3] (Zerocost instances) and Table [Original:7.4, Revised:12.5] (IPC instances).
-Qualitiatively, the results for [f,h,lifo] are similar to that of [f,h,fifo] -- Zerocost differences are "harder" than their corresponding IPC instances.
+Table [Original:7.2, Revised:11.3] (Zerocost instances) and Table [Original:7.4, Revised:11.5] (IPC instances).
+Qualitiatively, the results for [f,h,lifo] are similar to that of [f,h,fifo] -- Zerocost instances are "harder" than their corresponding IPC instances.
 
 ** [3.6] 6) In Section 6.2, the authors argue that ... pruning methods ... are somehow equivalent to tie-breaking. This is not accurate.
 
@@ -652,7 +653,7 @@ always the case.
 The inconsistency is natural considering
 that the aim of diversifying the depth is to choose the *safest* practice in a domain-independent
 manner. Depending on the domain, the *best* practice may vary -- for example, fifo is the best in
-airport-fuel with LMcut, while lifo is the best in freecell-move with LMcut.
+airport-fuel with LMcut, while lifo is the best in freecell-move with LMcut (cf. Table [Revised:11.3]).
 However, although these two default strategies may work well in some domains,
 it does more harm than good in many other domains,
 encountering the worst case pathological behavior.
@@ -689,7 +690,7 @@ In terms of performance measured by the number of expanded nodes,
 freecell-move p04 in Figure [Original:7.2, Revised:7.3], mid-right,
 is an instance on which lifo solved the problem
 with much smaller expansions than depth diversification.
-This can also be seen as the coverage difference in Table [Original:7.2, Revised:12.2].
+This can also be seen as the coverage difference in Table [Original:7.2, Revised:11.3].
 
 ** minor comments                                                  :noexport:
 
