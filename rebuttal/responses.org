@@ -283,30 +283,32 @@ would suggest that such results should be presented using formal
 statements with proofs.
 #+END_QUOTE
 
-In the revised version, we moved Section [Original:5.3]
-to the end of Section [Original:8,Revised:7] and added more theorems/proofs.
-Although the proofs are mostly trivial, the new section improves the flow of the story
-and strengthen the significance of A*-as-sequence-of-SAT.
+We moved Section [Original:5.3]
+to the end of Section [Original:8,Revised:7] and added more formal statements regarding the completeness 
+on infinite graphs. This material was moved because the analysis is most natural 
+using the A*-as-sequence-of-SAT framework introduced in Section [Revised:7].
 
-It is no longer in section [Original:5,Revised:4] because we noticed that
-infinite search space is irrelevant to having 0-cost edges.
-We had/gave a false impression that 0-cost edges induces an infinite graph, which is not the case.
-Trivially, just changing the cost of edges does not make finite graphs infinite.
+# same as for [1.4b] above, let's not talk about our confusion :-)
+
+# It is no longer in section [Original:5,Revised:4] because we noticed that
+# infinite search space is irrelevant to having 0-cost edges.
+# We had/gave a false impression that 0-cost edges induces an infinite graph, which is not the case.
+# Trivially, just changing the cost of edges does not make finite graphs infinite.
 # None of our experiments include infinite search space,
 
 # Still, the new theorems/proofs prove both pedagogical and practical usefullness of the idea
 # in Section 8.
 
-** 3) the theory and analysis part... Section 6.1
+** [2.3b] 3) the theory and analysis part... Section 6.1
 
 #+BEGIN_QUOTE
 Similarly, the analysis in 6.1 can be more
 precise, results in 6.1 can be presented in terms of theorems.
 #+END_QUOTE
 
-We turned it into a theorem and made the explanation more detailed.
+We have formalized the result (Theorem 1) and made it more precise.
 
-** 4) Sec6, "more nodes will tend to have shallower depth" vs disjoint forest model
+** [2.4] 4) Sec6, "more nodes will tend to have shallower depth" vs disjoint forest model
 
 #+BEGIN_QUOTE
  In the last paragraph of section 6, it is stated that "more nodes
@@ -317,26 +319,27 @@ to be in contrast to each other. I think a more formal treatment of
 the analysis can allay such confusions for a reader.
 #+END_QUOTE
 
-We clarify this here as well as in the paper.
-We also added some figures for better understanding.
-
-The /no-exhaustion assumption/ assumes that no depth bucket exhausts due to the expansion.
+To clarify: According to the /no-exhaustion assumption/ , no depth bucket exhausts due to the expansion.
 This implies that there are sufficiently large number of nodes in depth $d=0$ so that
  depth 0 does not exhaust as a result of expansion.
 If FIFO default tiebreaking is used,
-it tries to expand all those nodes in depth 0 before expanding any nodes in depth d >= 1.
+it tries to expand all those nodes with depth 0 before expanding any nodes in depth d >= 1.
 Similar situation happens at every depth.
-Thus, even if the entire graph is a forest model, FIFO causes a heavy bias to the shallow depth.
+Thus, even if the entire graph is a forest model, FIFO causes a heavy bias to expanding nodes with shallow depth.
 
-Indeed, if all nodes in the entire graph are expanded, there are surely more nodes in larger depth.
-However, the nodes expanded during the search process are biased to the shallower region.
+It's true that if all nodes in the entire graph are expanded, there are surely more nodes with larger depth.
+However, with a reasonably good heuristic, A* expands only a small fraction of nodes in the search space, an the nodes expanded by A* during the search process are biased to the shallower region 
 
 In practice,
-the nodes in depth 0 are the nodes that were generated as a result of expanding earlier plateaus,
-i.e. the entire set of frontier nodes whose number is sufficiently large for FIFO
+the nodes with depth 0 are the nodes that were generated as a result of expanding earlier plateaus,
+i.e. the entire set of frontier nodes which is sufficiently large for FIFO
 to cause pathological behavior.
 
-** 5) I think it will be helpful if the authors include pseudocodes for...
+This has been clarified in the text (Section [Revised:5.2]), and 
+for further clarity, we also added Figures 5.2 and 5.3 which illustrate the scenarios.
+
+
+** [2.5] 5) I think it will be helpful if the authors include pseudocodes for...
 
 #+BEGIN_QUOTE
  All the strategies proposed are explained in text only. I think it
@@ -348,9 +351,10 @@ pseudocode will also remove any chance of mis-interpreting the
 strategies.
 #+END_QUOTE
 
-Added pseudo code of Best-First search, as you suggested.
+As suggested, we added pseudo-code for  Best-First search (Algorithm 1), and depth-based tiebreaking (Algorithm 2).
 
-** 6) state/prove the properties of each of these algorithms, especially important ones like completeness
+
+** [2.6] 6) state/prove the properties of each of these algorithms, especially important ones like completeness
 
 #+BEGIN_QUOTE
  Tied to point 6, i think it would be good to state/prove the
@@ -362,7 +366,7 @@ cases, however, i would still prefer if they are explicitly
 stated/proved.
 #+END_QUOTE
 
-We proved the completeness and its conditions as requested. See Question [[R2Q3]] also.
+We proved the completeness and its conditions as requested in Section [Revised:8] (See also the response to Question [[R2Q3]]).
 
 ** 7) I like the idea of representing A* as a series of satisficing search. Here also, i would suggest inclusion of pseudocode.
 
@@ -391,6 +395,9 @@ would be interesting to find out the correlation between the
 performance of different strategies with the accuracy of the
 distance-to-go estimates.
 #+END_QUOTE
+
+
+
 
 ** 9) Finally, I think it would be nice if we have some infinite spaces in the ZeroCost domains
 
