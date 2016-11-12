@@ -30,16 +30,14 @@ To address the reviewers' comments, we have modified the paper as described belo
 To reduce the length of the main portion of the paper, we moved many tables to the Appendix, 
 eliminated some tables and consolidated some figures.
 Now the paper length excluding references and appendix is 39 pages.
-We also added a few figures, Algorithms,
+The numberings of the sections, figures, and tables have changed due to changes made in response to the reviewers' comments.
 # ??
-proofs in order to address the concern by the reviewers.
-As a result, the numbering of the tables/figures are changed from the original manuscript.
-In this response, we use [Revised:X] to indicate that we refer to those figures using
-the new numbering system, and [Original:X] to indicate the numbers in the original manuscript.
+In this response, when disambiguation is required, we use [Revised:X] to indicate that we refer to those figures/tables/sections using
+the new numbering system, and [Original:X] to indicate the numbers in the original submitted manuscript.
 
 * Reviewer 1
 
-** 1) The definition of plateau can be improved.
+** [1.1] 1) The definition of plateau can be improved.
 
 # [Don't abbreviate the reviewer's comment, as that forces the editor to open the review file and go
 # back-and-forth between the response and the review files.  Minimize the editor's work by quoting the entire,
@@ -63,7 +61,7 @@ Plateaus are formally defined in the 2nd-to-last paragraph of Section 2, Prelimi
 However, as the reviewer noted, there were some informal usages of the term "plateau" throughout the paper.
 In the revision, we increased the usage of the more precise notation "plateau(f,h)" throughout the paper.
 
-** 2) page 18: "In order to diversify the expansion... " --> This paragraph is very hard to understand
+** [1.2] 2) page 18: "In order to diversify the expansion... " --> This paragraph is very hard to understand
 
 #+BEGIN_QUOTE
 page 18: "In order to diversify the expansion... " --> This
@@ -79,11 +77,11 @@ mean you that do a round robin from the deepest available depth to the
 shallowest available depth. You must clarify this.
 #+END_QUOTE
 
-We rewrote the description and added a pseudo code of depth diversification
+We rewrote the description and added the pseudocode (Algorithm 2) for depth diversification
 in Section [Original:6,Revised:5].
 d_c is a counter assigned to each plateau.
 
-** 3) It will be very interesting to see what happens if you factor away the constant time per node.
+** [1.3] 3) It will be very interesting to see what happens if you factor away the constant time per node.
 
 #+BEGIN_QUOTE
 page 22: Table 7.5. It will be very interesting to see what
@@ -95,15 +93,14 @@ rather major comment. You do not always have to use the 30 minutes
 limit in your experiments.
 #+END_QUOTE
 
-In order to factor away the constant low-level overhead of depth bucket
-which is degrading the performance of M&S in IPC domains,
+Thanks for the suggestion. In order to factor away the constant low-level overhead of depth bucket management
+which degrades the performance of M&S on IPC domains,
 we compared the number of node evaluations between the depth-diversified and standard search method.
-We newly added Figure [Revised:6.2] comparing the cumulative coverage over the number of evaluations.
-We limited the instances to those successfully solved by both.
-The result shows that the evaluations are almost identical for most IPC instances.
-There were differences in Openstacks, as expected.
+We added Figure [Revised:6.2] comparing the cumulative coverage over the number of evaluations.
+This shows that the evaluations are almost identical for most IPC instances, meaning that search efficiency in positive cost domains was largely unaffected by depth diversification, as expected.
+There were differences in Openstacks (this is also as expected, since Openstacks has zero-cost actions).
 
-** 4) Section 5: Zerocost domains. I buy all your arguments on zero cost
+** [1.4a] 4) Section 5: Zerocost domains. I buy all your arguments on zero cost
 
 #+BEGIN_QUOTE
 Section 5: Zerocost domains. I buy all your arguments on zero cost
@@ -113,33 +110,49 @@ seem reasonable and you do not have to necessarily show all the
 numbers.
 #+END_QUOTE
 
-We moved one of the tables to Appendix. We also shortened the section.
+As suggested, we shortened Section [Revised:4].
+We moved one of the tables to Appendix. XXX Which table in the Appendix? -- maybe it was removed entirely?
 
-** [continue] 4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.
+** [1.4b]  4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.
 
 #+BEGIN_QUOTE
 The claims about FIFO in infinite graphs (section 5.3) is trivial. You can shorten it or even delete it.
 #+END_QUOTE
 
-In the revised version, we moved the section to the end of Section [Original:8,Revised:7]
-and added more proofs, in order to satisfy the requests from Reviewer 2.
-Although the proofs are still mostly trivial, the new section improves the flow of the story
-and strengthen the significance of A*-as-sequence-of-SAT.
+In the revised version, we moved the section [Original:5.3] to the end of Section [Original:8,Revised:7],
+where it fits better (using the A*-as-sequence-of-SAT framework)
 
-It is no longer in section [Original:5,Revised:4] because we noticed that
-infinite search space is irrelevant to having 0-cost edges.
-We had/gave false impression that 0-cost edges induces an infinite graph, which is not the case.
-Trivially, just changing the cost of edges does not make finite graphs infinite.
+In response to item [2.XXX] below from Reviewer 2, 
+we formalized some additional completeness results on infinite graphs, which was also added to this revised section [Original:5.3,Revised7.2].
+
+# Although the proofs are still mostly trivial, the new section improves the flow of the story
+# and strengthen the significance of A*-as-sequence-of-SAT.
+
+# Although the completeness material definitely fits better in the new location, 
+# the submitted section 5.3 didn't say or imply that 0-cost edges
+# induces inifinite search spaces, and I don't see any reviewer comment which suggests the
+# reviewers thought we made any such claim, so let's not go out of our
+# way to mention this (it just makes us look bad).
+
+# It is no longer in section [Original:5,Revised:4] because we noticed that
+# infinite search space is irrelevant to having 0-cost edges. 
+# We had/gave false impression that 0-cost edges induces an infinite graph, which is not the case.
+# Trivially, just changing the cost of edges does not make finite graphs infinite.
 # None of our experiments include infinite search space,
 
-** 5) Section 6.1 is trivial.
+# None of our experiments include infinite search space,
+
+
+** [1.5] 5) Section 6.1 is trivial.
 
 #+BEGIN_QUOTE
 Section 6.1 is trivial. It is easy to see that different "depth"
 values only occur in zero domains. I would shorten it or even omit it.
 #+END_QUOTE
 
-We significantly shortened the proof and now it does not have an individual section now.
+We formalized and significantly shortened the proof (Theorem 1),
+and  Section [Original:6.1] has been folded into into Section [Revised:6].
+
 
 ** 6) Section 7.1: this section repeats what you said above and ...
 

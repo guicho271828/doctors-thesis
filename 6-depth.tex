@@ -156,23 +156,45 @@ In contrast, our depth diversification policy expands nodes at $d=1$ and $d=2$ w
 Depth-based tie-breaking does not affect the order of node expansion when there are no remaining ties after the
 higher priority tie-breaking criteria, in which case all nodes have depth 0.
 \todo*{mentioning ``keys'' seems unnecessarily complicated, so remove it}
-Below, we show that the presence of 0-cost edges is the necessary condition
-for non-zero depths, which allows depth-diversification to affect the order of expansion.
+More formally:
 
-\begin{theo}
- When all edge costs are positive,
- the depth of the nodes expanded by \astar $[f,h,\depth,*]$ is always 0
- and depth diversification does not affect the expansion ordering.
-\end{theo}
+%\begin{theo}
+%  When all edge costs are positive,    
+% the depth of the nodes expanded by \astar $[f,h,\depth,*]$ is always 0
+% and depth diversification does not affect the expansion ordering.
+%\end{theo}
+%\begin{proof}
+%Let a node $n$ be a child of a node $m$.
+%Regardless whether the parent $m$ of the node $n$ is newly assigned, updated, or the old parent is kept,
+%the invariant $g(n)=g(m)+\mit{cost}(m,n) > g(m)$ holds due to the positive edge cost, and therefore $f(n)-h(n) > f(m)-h(m)$.
+%This means that either $f(n)\not=f(m)$ or $h(n)\not=h(m)$ and the depths of nodes are always 0.
+%\end{proof}
 
 % expansion ordering of \astar on the plateau is not affected by depth diversification 
 
+\begin{lemma}
+  If all edge costs are positive, then
+  $depth(n) = 0$ for every node $n$ expanded by \astar $[f,h,\depth,*]$.
+  \label{lemma:depth0}
+\end{lemma}
 \begin{proof}
-Let a node $n$ be a child of a node $m$.
-Regardless whether the parent $m$ of the node $n$ is newly assigned, updated, or the old parent is kept,
-the invariant $g(n)=g(m)+\mit{cost}(m,n) > g(m)$ holds due to the positive edge cost, and therefore $f(n)-h(n) > f(m)-h(m)$.
-This means that either $f(n)\not=f(m)$ or $h(n)\not=h(m)$ and the depths of nodes are always 0.
+Let $n$ be a child of a node $m$.
+Regardless whether the parent $m$ of the node $n$ is newly assigned, updated, or the old parent is kept in line 10 of \refalgo{alg:ocl},
+the invariant $g(n)=g(m)+\mit{cost}(m,n) > g(m)$ holds
+%due to the positive edge cost,
+because \mit{cost}(m,n)>0,
+and therefore $f(n)-h(n) > f(m)-h(m)$.
+This means that either $f(n)\not=f(m)$ or $h(n)\not=h(m)$, so $depth(n) = 0$.
 \end{proof}
+
+
+\begin{theo}
+  If all edge costs are positive, then \astar $[f,h,\depth,*]$ expands nodes in the same order as  \astar $[f,h,*]$ (where ``$*$'' is any criterion).
+\end{theo}
+\begin{proof}
+  By Lemma \ref{lemma:depth0}, all nodes expanded by \astar $[f,h,\depth,*]$ have depth 0, and all nodes are in the same depth bucket in \refalgo{alg:depth}, so \astar $[f,h,\depth,*]$ expands nodes in the same order as \astar $[f,h,*]$ regardless of the criterion $*$.
+\end{proof}
+
 
 \subsection{Tie-Breaking within Depth Buckets}
 
