@@ -149,36 +149,30 @@ In contrast, our depth diversification policy expands nodes at $d=1$ and $d=2$ w
 % \fifo and \lifo strategies are incomplete when the size of the plateau
 % region is inifinite, while our \id is probabilistically complete.
 
-%\subsection{The Scope Captured by Depth-Based Tie-Breaking}
-\subsection{When Does Depth-Based Tie-Breaking Affect Node Expansion Order?}
-\label{sec:depth-and-nonzero-cost}
+% \subsection{When Does Depth-Based Tie-Breaking Affect Node Expansion Order?}
+% \label{sec:depth-and-nonzero-cost}
 
 % ``no effect'' is ambiguous, reviewers may complain that we are trying to claim there is no overhead, including the low level overhead. Thus I reworded from ``no effect'' to ``does not affect the order of expansion''.
 Depth-based tie-breaking does not affect the order of node expansion when there are no remaining ties after the
-higher priority tie-breaking criteria, in which case all nodes have depth 0. \todo*{mentioning ``keys'' seems
-unnecessarily complicated, so remove it}
-% 
-This happens when the target problem only has operators with positive cost.
-Let a node $n$ is a child of a node $m$, and assume all actions have strictly positive costs. Depending on whether $n$ is already evaluated and whether the parent of $n$ is updated or not, there are 3 cases:
+higher priority tie-breaking criteria, in which case all nodes have depth 0.
+\todo*{mentioning ``keys'' seems unnecessarily complicated, so remove it}
+Below, we show that the presence of 0-cost edges is the necessary condition
+for non-zero depths, which allows depth-diversification to affect the order of expansion.
 
-\begin{enumerate}
- \item If $n$ is evaluated for the first time,
-       then $g(n)=g(m)+\mit{cost}(m,n) > g(m)$ and so $f(n)-h(n) > f(m)-h(m)$.
-       Therefore, $f(n)=f(m)$ and $h(n)=h(m)$ cannot hold at the same time and the depth is 0.
- \item If $n$ is already evaluated as a child of another node $m'$, $n$'s current parent is $m'$ and
-       $g(m)+\mit{cost}(m,n) < g(m') + \mit{cost}(m',n) = g(n)$,
-       then the parent of $n$ is updated to $m$ and $g(n)\leftarrow g(m)+\mit{cost}(m,n)$.
-       Depth is calculated with respect to the new current parent.
-       Since $g(n)=g(m)+\mit{cost}(m,n)>g(m)$ and so $f(n)-h(n) > f(m)-h(m)$,
-       therefore $f(n)=f(m)$ and $h(n)=h(m)$ cannot hold at the same time and the depth is 0.
- \item If $n$ is already evaluated as a child of another node $m'$, $n$'s current parent is $m'$ and
-       $g(m)+\mit{cost}(m,n) \geq g(m') + \mit{cost}(m',n) = g(n)$, then the parent of $n$ remains $m'$. If the
-       depth of $n$ is 0 at this moment, then it remains 0 because the parent is unchanged.
-\end{enumerate}
-% 
-Since cases 1 and 2 always hold and case 3 holds at the beginning of the search,
-by induction, case 3 always holds during the search.
-Thus, the depths of nodes in positive cost domains are always 0.
+\begin{theo}
+ When all edge costs are positive,
+ the depth of the nodes expanded by \astar $[f,h,\depth,*]$ is always 0
+ and depth diversification does not affect the expansion ordering.
+\end{theo}
+
+% expansion ordering of \astar on the plateau is not affected by depth diversification 
+
+\begin{proof}
+Let a node $n$ be a child of a node $m$.
+Regardless whether the parent $m$ of the node $n$ is newly assigned, updated, or the old parent is kept,
+the invariant $g(n)=g(m)+\mit{cost}(m,n) > g(m)$ holds due to the positive edge cost, and therefore $f(n)-h(n) > f(m)-h(m)$.
+This means that either $f(n)\not=f(m)$ or $h(n)\not=h(m)$ and the depths of nodes are always 0.
+\end{proof}
 
 \subsection{Tie-Breaking within Depth Buckets}
 
