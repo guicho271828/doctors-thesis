@@ -562,7 +562,7 @@ in this figure. Thank you for the suggestion.
  inserting additional section around the beginning that discuss the suboptimal search
  would be out of place and unnatural.
 
-** 3) This applies also to the summary of the authors earlier conference paper.
+** [3.3-INPROGRESS] 3) This applies also to the summary of the authors earlier conference paper.
 
 #+BEGIN_QUOTE
  This applies also to the summary of the authors earlier conference
@@ -572,9 +572,10 @@ paper), the summary of that paper, and the novel contributions this
 article makes over it, should be integrated in the presentation.
 #+END_QUOTE
 
-We fixed it as you suggested.
 
-** 4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.
+We fixed it as you suggested. TODO
+
+** [3.4] 4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.
 
 #+BEGIN_QUOTE
  The argument in the last paragraph before Section 5.1 and the second
@@ -584,10 +585,21 @@ skewing the results by uneven instance set sizes; but then, these
 domains are excluded from the following analysis.
 #+END_QUOTE
 
-The analyses from which these instances are excluded are Section [Original:5.1,Revised:4.1] only.
-They are still evaluated in the later sections.
+The paragraphs at the start of Section 5 define the set of 28 Zerocost
+domains used throughout the rest of the paper, and we explain why for
+some domains (specifically, blocks, freecell, pipesworld-notankage,
+miconic), we selected subsets of instances in order to avoid skewing
+coverage results.
 
-** 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy
+Blocks, freecell, pipesworld-notankage, and miconic were NOT included in the experiment in Table [Original:5.1,Revised:4.1]
+because the purpose of that particular experiment was to compare coverages between Zerocost domains and their corresponding original IPC benchmark domains, 
+and for this particular purpose, we wanted to avoid confusion (particularly for readers familiar with the IPC instances) by only including
+domains where the number of instances in the Zerocost domains is the same as in the IPC benchmark set.
+
+However, the Zerocost versions of Blocks, freecell, pipesworld-notankage, and miconic are used in all of the other experiments in the paper involving Zerocost domains.
+(because none of the other experiments involve comparisons between coverage on Zerocost domains and coverage on standard IPC domains).
+
+** [3.5] 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy
 
 #+BEGIN_QUOTE
  Furthermore in Section 5.1, why is the comparison done using the
@@ -595,18 +607,17 @@ They are still evaluated in the later sections.
 tie-breaking using "lifo" to be much more efficient?
 #+END_QUOTE
 
-The aim of this experiment is to show that there can be some performance difference for some planner,
-and we consider this is sufficient.
-Being the planner Fast Downward, which is currently the most successful state-of-the-art planner
-and by default uses the FIFO default tiebreaking,
-we consider using FIFO as a representative would be a reasonable choice.
+We used the [f,h,fifo] strategy in this experiment in Section [Original:5.1,Revised:4.1] because
+we use the Fast Downward planner, which is currently one of the the most widely used,  state-of-the-art planners,
+and Fast Downward uses the [f,h,fifo] tiebreaking strategy by default.
+Thus, we believe using the default configuration for Fast Downward is a reasonable choice, since the purpose of the experiment was to demonstrate that Zerocost domains pose a challenge for state-of-the-art planners.
 
-Also, you can extract the numbers for [f,h,lifo] experiments from
-Table [Original:7.2, Revised:12.3] and Table [Original:7.4, Revised:12.5].
-We obtained the same results using these numbers:
-The coverages in the original and Zerocost domains are similarly different.
+Although not prominently featured in Section [Original:5.1,Revised4:1], 
+the results for [f,h,lifo] can be extracted from 
+Table [Original:7.2, Revised:12.3] (Zerocost instances) and Table [Original:7.4, Revised:12.5] (IPC instances).
+Qualitiatively, the results for [f,h,lifo] are similar to that of [f,h,fifo] -- Zerocost differences are "harder" than their corresponding IPC instances.
 
-** 6) In Section 6.2, the authors argue that ... pruning methods ... are somehow equivalent to tie-breaking. This is not accurate.
+** [3.6] 6) In Section 6.2, the authors argue that ... pruning methods ... are somehow equivalent to tie-breaking. This is not accurate.
 
 #+BEGIN_QUOTE
  In Section 6.2, the authors argue that pruning methods such as
@@ -619,7 +630,7 @@ less than the cost of the optimal solution, no form of tie-breaking
 will prevent A* from expanding all of them, but symmetry pruning will.
 #+END_QUOTE
 
-In the revised version, we clarified that pruning is a stronger technique
+In Section [Original:6.2,Revised:5.1] we clarified that pruning is a stronger technique
 than diversification.
 
 ** 7) In Section 7, Table 7.1 shows that there is little consistency in the results
@@ -680,6 +691,8 @@ This can also be seen as the coverage difference in Table [Original:7.2, Revised
 
 Section 7.1, third paragraph: Typo: "Figures 7.2 - 7.4" should be "7.2
 - 7.6".
+
+
 
 #+BEGIN_latex
 \bibliography{../confs,../journals}

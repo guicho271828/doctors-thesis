@@ -105,15 +105,15 @@ The new set of 28 \emph{Zerocost domains} are:
 \pddl{zenotravel-fuel} (20).
 
 While the action costs in the PDDL \emph{domain} definitions are modified,
-we did not modified the PDDL \emph{problem} definitions.
+we did not modify the PDDL \emph{problem} definitions.
 Although some domains (specifically, \pddl{blocks}, \pddl{freecell}, \pddl{pipesworld-notankage}, \pddl{miconic}) have fewer instances than the original domain does,
 their problem definitions are the evenly sampled subset of the original set of instances.
 % \pddl{blocks} original 35 vs 20, \pddl{freecell} 80 vs 20, pipesnt 50 vs 20, \pddl{miconic} 150 vs 30
 For example, the original \pddl{miconic} domain has 150 instances, while our version has 30 instances.
 These 30 instances are selected evenly from the original set of instances, by picking instances p05, p10, ... p150.
 % 
-The aim of reducing the number of instances is to avoid the problem of the overall coverage sums being skewed by the domains with a larger number of instances.
-Thus, we did not modified the problem definitions at all, only modifying the action costs described in the domain definitions.
+The reason for reducing the number of instances is to avoid the problem of the overall coverage sums being skewed by the domains with a larger number of instances.
+Thus, we did not modify the problem definitions at all, and only modified the action costs in the domain definitions.
 
 \subsection{Difference in Problem Characteristics between IPC and Zerocost Domains}
 
