@@ -154,7 +154,7 @@ We formalized and significantly shortened the proof (Theorem 1),
 and  Section [Original:6.1] has been folded into into Section [Revised:6].
 
 
-** 6) Section 7.1: this section repeats what you said above and ...
+** [1.6] 6) Section 7.1: this section repeats what you said above and ...
 
 #+BEGIN_QUOTE
 Section 7.1: this section repeats what you said above and I was
@@ -164,9 +164,9 @@ Consider to omit these experiments and just mention that you have
 results that support this trend.
 #+END_QUOTE
 
-We moved several non-critical figures to the appendix.
+We moved several non-critical figures [Original:XXX,XXX]to the appendix [Revised:Appendix XXX,XXX].
 
-** 7) The beginning of Section 8 is also rather trivial.
+** [1.7] 7) The beginning of Section 8 is also rather trivial.
 
 #+BEGIN_QUOTE
 The beginning of Section 8 is also rather trivial. This is the main
@@ -176,7 +176,9 @@ an introduction to your later section 8.1 which I find quite
 interesting and more deep and should certainly be kept.
 #+END_QUOTE
 
-We shortened the beginning of Section [Original:8,Revised:7].
+We shortened the beginning of Section [Original:8,Revised:7], compared "A*-as-series-of-satisficing-search" to IDA*, and added a paragraph connecting this introduction better as an introduction to  subsections 8.1
+
+
 
 ** minor comments)                                                  :noexport:
 
@@ -189,7 +191,7 @@ page 4: "g(n) is the current shortest path cost from the initial node
 to the current node." -- should be "current shortest known path"
 #+END_QUOTE
 
-Fixed as you suggested.
+Fixed.
 
 ** minor 2) -- I did not like this syntax. Give the reference and...
 
@@ -199,8 +201,7 @@ syntax. Give the reference and then give your comment but not in the
 same parenthesis.
 #+END_QUOTE
 
-
-Fixed as you suggested.
+Fixed as suggested.
 
 ** minor 3) -- Calling it the  third is misleading...
 
@@ -210,7 +211,7 @@ third is misleading. It is actually the second which comes before the
 default criterion.
 #+END_QUOTE
 
-Fixed as you suggested.
+Fixed as you suggested.  XXX - not fixed???
 
 ** minor 4) -- The first sections are very short. Maybe they can be one large section...
 
@@ -219,7 +220,7 @@ The first sections are very short. Maybe they can be one large section
 with different subsections.
 #+END_QUOTE
 
-We merged the section 3 into section 2.
+We merged section [Original:2] and [Original:3] into section [Revised:2],
 
 ** TODO minor 5) -- Indeed distance-to-go is a term that was used by other... :noexport:
 
@@ -234,7 +235,7 @@ think the correct term should be something like
 
 * Reviewer 2
 
-** 1) Maxim Likhachev's ARA* paper...
+** [2.1] 1) Maxim Likhachev's ARA* paper...
 
 #+BEGIN_QUOTE
  Maxim Likhachev's ARA* paper presents an elegant solution to
@@ -247,13 +248,15 @@ think this merits a discussion and probable inclusion of results in
 case of other domains used.
 #+END_QUOTE
 
-We added a paragraph describing the relationship to ARA* in Related Work.
+We added a paragraph describing the relationship to ARA* in Related Work (Section [Revised:9]).
 
 ARA* could largely avoid the problem of final plateau if the previous suboptimal searches happen to
-have found the optimal solution already (and thus pruning most nodes on f=f*). However, this applies only to the iterated, real-time
-search algorithms.
+have found the optimal solution already (and thus pruning most nodes on f=f*). 
+However, ARA* is based on an iterated anytime framework, whereas our work is based on the standard (A*) admissible search.
+We point out this difference.
 
-** 2) the amount of data is a bit too much...
+
+** [2.2] 2) the amount of data is a bit too much...
 
 #+BEGIN_QUOTE
  While I appreciate the in-depth experimental investigation
@@ -267,7 +270,7 @@ compaction will be good). This will also help to reduce the length of
 the paper. Currently, it seems too long for the content.
 #+END_QUOTE
 
-We moved some tables to appendix.
+We moved many tables and plots to the appendix, so the length of the main portion of the paper has been reduced to 39 pages (excluding references and appendix).
 
 ** <<R2Q3>> 3) the theory and analysis part... Section 5.3
 
