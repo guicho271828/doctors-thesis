@@ -111,7 +111,8 @@ numbers.
 #+END_QUOTE
 
 As suggested, we shortened Section [Revised:4].
-We moved one of the tables to Appendix. XXX Which table in the Appendix? -- maybe it was removed entirely?
+We also removed Table [Original:5.2].
+(Same results can still be extracted by the other tables in the appendix. See [3.5] also.)
 
 ** [1.4b]  4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.
 
@@ -120,10 +121,11 @@ The claims about FIFO in infinite graphs (section 5.3) is trivial. You can short
 #+END_QUOTE
 
 In the revised version, we moved the section [Original:5.3] to the end of Section [Original:8,Revised:7],
-where it fits better (using the A*-as-sequence-of-SAT framework)
+where it fits better (using the A*-as-sequence-of-SAT framework).
 
-In response to item [2.XXX] below from Reviewer 2, 
-we formalized some additional completeness results on infinite graphs, which was also added to this revised section [Original:5.3,Revised7.2].
+In response to item [[R2Q3]] below from Reviewer 2, 
+we formalized some additional completeness results on infinite graphs,
+which was also added to this revised section [Original:5.3,Revised7.2].
 
 # Although the proofs are still mostly trivial, the new section improves the flow of the story
 # and strengthen the significance of A*-as-sequence-of-SAT.
@@ -151,8 +153,7 @@ values only occur in zero domains. I would shorten it or even omit it.
 #+END_QUOTE
 
 We formalized and significantly shortened the proof (Theorem 1),
-and  Section [Original:6.1] has been folded into into Section [Revised:6].
-
+and Section [Original:6.1] has been folded into Section [Revised:6].
 
 ** [1.6] 6) Section 7.1: this section repeats what you said above and ...
 
@@ -164,7 +165,8 @@ Consider to omit these experiments and just mention that you have
 results that support this trend.
 #+END_QUOTE
 
-We moved several non-critical figures [Original:XXX,XXX]to the appendix [Revised:Appendix XXX,XXX].
+We moved several non-critical figures [Original:7.3,7.4,7.6] to the appendix: Figures [Revised:11.2,11.3,11.4].
+Also, we shorten the text by removing the list improved domains.
 
 ** [1.7] 7) The beginning of Section 8 is also rather trivial.
 
