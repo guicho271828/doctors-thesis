@@ -471,7 +471,7 @@ made clear.
 #+END_QUOTE
 
 # "should be made clear" = "must make clear"
-
+We made clear that it was observed on IPC domains.
 
 #+BEGIN_QUOTE
  Section 2, the 4th paragraph can probably be combined with the
