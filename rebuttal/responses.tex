@@ -1,4 +1,4 @@
-% Created 2016-11-11 金 23:49
+% Created 2016-11-12 土 21:24
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -23,17 +23,15 @@ To address the reviewers' comments, we have modified the paper as described belo
 To reduce the length of the main portion of the paper, we moved many tables to the Appendix, 
 eliminated some tables and consolidated some figures.
 Now the paper length excluding references and appendix is 39 pages.
-We also added a few figures, Algorithms,
+The numberings of the sections, figures, and tables have changed due to changes made in response to the reviewers' comments.
 
-proofs in order to address the concern by the reviewers.
-As a result, the numbering of the tables/figures are changed from the original manuscript.
-In this response, we use [Revised:X] to indicate that we refer to those figures using
-the new numbering system, and [Original:X] to indicate the numbers in the original manuscript.
+In this response, when disambiguation is required, we use [Revised:X] to indicate that we refer to those figures/tables/sections using
+the new numbering system, and [Original:X] to indicate the numbers in the original submitted manuscript.
 
 \section{Reviewer 1}
 \label{sec:orgheadline13}
 
-\subsection{1) The definition of plateau can be improved.}
+\subsection{[1.1] 1) The definition of plateau can be improved.}
 \label{sec:orgheadline1}
 
 \begin{quote}
@@ -54,7 +52,7 @@ Plateaus are formally defined in the 2nd-to-last paragraph of Section 2, Prelimi
 However, as the reviewer noted, there were some informal usages of the term "plateau" throughout the paper.
 In the revision, we increased the usage of the more precise notation "plateau(f,h)" throughout the paper.
 
-\subsection{2) page 18: "In order to diversify the expansion\ldots{} " --> This paragraph is very hard to understand}
+\subsection{[1.2] 2) page 18: "In order to diversify the expansion\ldots{} " --> This paragraph is very hard to understand}
 \label{sec:orgheadline2}
 
 \begin{quote}
@@ -71,11 +69,11 @@ mean you that do a round robin from the deepest available depth to the
 shallowest available depth. You must clarify this.
 \end{quote}
 
-We rewrote the description and added a pseudo code of depth diversification
+We rewrote the description and added the pseudocode (Algorithm 2) for depth diversification
 in Section [Original:6,Revised:5].
 d\(_{\text{c}}\) is a counter assigned to each plateau.
 
-\subsection{3) It will be very interesting to see what happens if you factor away the constant time per node.}
+\subsection{[1.3] 3) It will be very interesting to see what happens if you factor away the constant time per node.}
 \label{sec:orgheadline3}
 
 \begin{quote}
@@ -88,15 +86,14 @@ rather major comment. You do not always have to use the 30 minutes
 limit in your experiments.
 \end{quote}
 
-In order to factor away the constant low-level overhead of depth bucket
-which is degrading the performance of M\&S in IPC domains,
+Thanks for the suggestion. In order to factor away the constant low-level overhead of depth bucket management
+which degrades the performance of M\&S on IPC domains,
 we compared the number of node evaluations between the depth-diversified and standard search method.
-We newly added Figure [Revised:6.2] comparing the cumulative coverage over the number of evaluations.
-We limited the instances to those successfully solved by both.
-The result shows that the evaluations are almost identical for most IPC instances.
-There were differences in Openstacks, as expected.
+We added Figure [Revised:6.2] comparing the cumulative coverage over the number of evaluations.
+This shows that the evaluations are almost identical for most IPC instances, meaning that search efficiency in positive cost domains was largely unaffected by depth diversification, as expected.
+There were differences in Openstacks (this is also as expected, since Openstacks has zero-cost actions).
 
-\subsection{4) Section 5: Zerocost domains. I buy all your arguments on zero cost}
+\subsection{[1.4a] 4) Section 5: Zerocost domains. I buy all your arguments on zero cost}
 \label{sec:orgheadline4}
 
 \begin{quote}
@@ -107,26 +104,23 @@ seem reasonable and you do not have to necessarily show all the
 numbers.
 \end{quote}
 
-We moved one of the tables to Appendix. We also shortened the section.
+As suggested, we shortened Section [Revised:4].
+We moved one of the tables to Appendix. XXX Which table in the Appendix? -- maybe it was removed entirely?
 
-\subsection{[continue] 4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.}
+\subsection{[1.4b]  4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.}
 \label{sec:orgheadline5}
 
 \begin{quote}
 The claims about FIFO in infinite graphs (section 5.3) is trivial. You can shorten it or even delete it.
 \end{quote}
 
-In the revised version, we moved the section to the end of Section [Original:8,Revised:7]
-and added more proofs, in order to satisfy the requests from Reviewer 2.
-Although the proofs are still mostly trivial, the new section improves the flow of the story
-and strengthen the significance of A*-as-sequence-of-SAT.
+In the revised version, we moved the section [Original:5.3] to the end of Section [Original:8,Revised:7],
+where it fits better (using the A*-as-sequence-of-SAT framework)
 
-It is no longer in section [Original:5,Revised:4] because we noticed that
-infinite search space is irrelevant to having 0-cost edges.
-We had/gave false impression that 0-cost edges induces an infinite graph, which is not the case.
-Trivially, just changing the cost of edges does not make finite graphs infinite.
+In response to item [2.XXX] below from Reviewer 2, 
+we formalized some additional completeness results on infinite graphs, which was also added to this revised section [Original:5.3,Revised7.2].
 
-\subsection{{\bfseries\sffamily TODO} 5) Section 6.1 is trivial.}
+\subsection{[1.5] 5) Section 6.1 is trivial.}
 \label{sec:orgheadline6}
 
 \begin{quote}
@@ -134,9 +128,11 @@ Section 6.1 is trivial. It is easy to see that different "depth"
 values only occur in zero domains. I would shorten it or even omit it.
 \end{quote}
 
-We shortened the section as requested.
+We formalized and significantly shortened the proof (Theorem 1),
+and  Section [Original:6.1] has been folded into into Section [Revised:6].
 
-\subsection{6) Section 7.1: this section repeats what you said above and \ldots{}}
+
+\subsection{[1.6] 6) Section 7.1: this section repeats what you said above and \ldots{}}
 \label{sec:orgheadline7}
 
 \begin{quote}
@@ -147,9 +143,9 @@ Consider to omit these experiments and just mention that you have
 results that support this trend.
 \end{quote}
 
-We moved several non-critical figures to the appendix.
+We moved several non-critical figures [Original:XXX,XXX]to the appendix [Revised:Appendix XXX,XXX].
 
-\subsection{7) The beginning of Section 8 is also rather trivial.}
+\subsection{[1.7] 7) The beginning of Section 8 is also rather trivial.}
 \label{sec:orgheadline8}
 
 \begin{quote}
@@ -160,7 +156,9 @@ an introduction to your later section 8.1 which I find quite
 interesting and more deep and should certainly be kept.
 \end{quote}
 
-We shortened the beginning of Section [Original:8,Revised:7].
+We shortened the beginning of Section [Original:8,Revised:7], compared "A*-as-series-of-satisficing-search" to IDA*, and added a paragraph connecting this introduction better as an introduction to  subsections 8.1
+
+
 
 \subsection{minor 1) -- should be "current shortest known path"}
 \label{sec:orgheadline9}
@@ -170,7 +168,7 @@ page 4: "g(n) is the current shortest path cost from the initial node
 to the current node." -- should be "current shortest known path"
 \end{quote}
 
-Fixed as you suggested.
+Fixed.
 
 \subsection{minor 2) -- I did not like this syntax. Give the reference and\ldots{}}
 \label{sec:orgheadline10}
@@ -181,8 +179,7 @@ syntax. Give the reference and then give your comment but not in the
 same parenthesis.
 \end{quote}
 
-
-Fixed as you suggested.
+Fixed as suggested.
 
 \subsection{minor 3) -- Calling it the  third is misleading\ldots{}}
 \label{sec:orgheadline11}
@@ -193,7 +190,7 @@ third is misleading. It is actually the second which comes before the
 default criterion.
 \end{quote}
 
-Fixed as you suggested.
+Fixed as you suggested.  XXX - not fixed???
 
 \subsection{minor 4) -- The first sections are very short. Maybe they can be one large section\ldots{}}
 \label{sec:orgheadline12}
@@ -203,12 +200,12 @@ The first sections are very short. Maybe they can be one large section
 with different subsections.
 \end{quote}
 
-We merged the section 3 into section 2.
+We merged section [Original:2] and [Original:3] into section [Revised:2],
 
 \section{Reviewer 2}
-\label{sec:orgheadline24}
+\label{sec:orgheadline25}
 
-\subsection{1) Maxim Likhachev's ARA* paper\ldots{}}
+\subsection{[2.1] 1) Maxim Likhachev's ARA* paper\ldots{}}
 \label{sec:orgheadline14}
 
 \begin{quote}
@@ -222,13 +219,15 @@ think this merits a discussion and probable inclusion of results in
 case of other domains used.
 \end{quote}
 
-We added a paragraph describing the relationship to ARA* in Related Work.
+We added a paragraph describing the relationship to ARA* in Related Work (Section [Revised:9]).
 
 ARA* could largely avoid the problem of final plateau if the previous suboptimal searches happen to
-have found the optimal solution already (and thus pruning most nodes on f=f*). However, this applies only to the iterated, real-time
-search algorithms.
+have found the optimal solution already (and thus pruning most nodes on f=f*). 
+However, ARA* is based on an iterated anytime framework, whereas our work is based on the standard (A*) admissible search.
+We point out this difference.
 
-\subsection{2) the amount of data is a bit too much\ldots{}}
+
+\subsection{[2.2] 2) the amount of data is a bit too much\ldots{}}
 \label{sec:orgheadline15}
 
 \begin{quote}
@@ -243,7 +242,7 @@ compaction will be good). This will also help to reduce the length of
 the paper. Currently, it seems too long for the content.
 \end{quote}
 
-We moved some tables to appendix.
+We moved many tables and plots to the appendix, so the length of the main portion of the paper has been reduced to 39 pages (excluding references and appendix).
 
 \subsection{\label{orgtarget1} 3) the theory and analysis part\ldots{} Section 5.3}
 \label{sec:orgheadline16}
@@ -257,17 +256,12 @@ would suggest that such results should be presented using formal
 statements with proofs.
 \end{quote}
 
-In the revised version, we moved Section [Original:5.3]
-to the end of Section [Original:8,Revised:7] and added more theorems/proofs.
-Although the proofs are mostly trivial, the new section improves the flow of the story
-and strengthen the significance of A*-as-sequence-of-SAT.
+We moved Section [Original:5.3]
+to the end of Section [Original:8,Revised:7] and added more formal statements regarding the completeness 
+on infinite graphs. This material was moved because the analysis is most natural 
+using the A*-as-sequence-of-SAT framework introduced in Section [Revised:7].
 
-It is no longer in section [Original:5,Revised:4] because we noticed that
-infinite search space is irrelevant to having 0-cost edges.
-We had/gave a false impression that 0-cost edges induces an infinite graph, which is not the case.
-Trivially, just changing the cost of edges does not make finite graphs infinite.
-
-\subsection{{\bfseries\sffamily TODO} 3) the theory and analysis part\ldots{} Section 6.1}
+\subsection{[2.3b] 3) the theory and analysis part\ldots{} Section 6.1}
 \label{sec:orgheadline17}
 
 \begin{quote}
@@ -275,7 +269,9 @@ Similarly, the analysis in 6.1 can be more
 precise, results in 6.1 can be presented in terms of theorems.
 \end{quote}
 
-\subsection{4) Sec6, "more nodes will tend to have shallower depth" vs disjoint forest model}
+We have formalized the result (Theorem 1) and made it more precise.
+
+\subsection{[2.4] 4) Sec6, "more nodes will tend to have shallower depth" vs disjoint forest model}
 \label{sec:orgheadline18}
 
 \begin{quote}
@@ -287,26 +283,25 @@ to be in contrast to each other. I think a more formal treatment of
 the analysis can allay such confusions for a reader.
 \end{quote}
 
-We clarify this here as well as in the paper.
-We also added some figures for better understanding.
-
-The \emph{no-exhaustion assumption} assumes that no depth bucket exhausts due to the expansion.
+To clarify: According to the \emph{no-exhaustion assumption} , no depth bucket exhausts due to the expansion.
 This implies that there are sufficiently large number of nodes in depth \(d=0\) so that
  depth 0 does not exhaust as a result of expansion.
 If FIFO default tiebreaking is used,
-it tries to expand all those nodes in depth 0 before expanding any nodes in depth d >= 1.
+it tries to expand all those nodes with depth 0 before expanding any nodes in depth d >= 1.
 Similar situation happens at every depth.
-Thus, even if the entire graph is a forest model, FIFO causes a heavy bias to the shallow depth.
+Thus, even if the entire graph is a forest model, FIFO causes a heavy bias to expanding nodes with shallow depth.
 
-Indeed, if all nodes in the entire graph are expanded, there are surely more nodes in larger depth.
-However, the nodes expanded during the search process are biased to the shallower region.
+It's true that there are surely more nodes with larger depth if \emph{all} nodes in the entire plateau are expanded, which is the case for \(f<f^*\).
+However, in the final plateau of A*, FIFO expands only a fraction of nodes with depth \(d\leq d^*\),
+where \(d^*\) is the \emph{minimum solution depth}, the smallest depth of the solutions.
+Entire nodes above the solution depths (\(d>d^*\)) are not expanded due to the breadth-first behavior.
+During this process the expanded nodes are biased to the shallower region.
 
-In practice,
-the nodes in depth 0 are the nodes that were generated as a result of expanding earlier plateaus,
-i.e. the entire set of frontier nodes whose number is sufficiently large for FIFO
-to cause pathological behavior.
+This has been clarified in the text (Section [Revised:5.2]), and 
+for further clarity, we also added Figures 5.2 and 5.3 which illustrate the scenarios.
 
-\subsection{5) I think it will be helpful if the authors include pseudocodes for\ldots{}}
+
+\subsection{[2.5] 5) I think it will be helpful if the authors include pseudocodes for\ldots{}}
 \label{sec:orgheadline19}
 
 \begin{quote}
@@ -319,9 +314,10 @@ pseudocode will also remove any chance of mis-interpreting the
 strategies.
 \end{quote}
 
-Added pseudo code of Best-First search, as you suggested.
+As suggested, we added pseudo-code for  Best-First search (Algorithm 1), and depth-based tiebreaking (Algorithm 2).
 
-\subsection{6) state/prove the properties of each of these algorithms, especially important ones like completeness}
+
+\subsection{[2.6] 6) state/prove the properties of each of these algorithms, especially important ones like completeness}
 \label{sec:orgheadline20}
 
 \begin{quote}
@@ -334,7 +330,7 @@ cases, however, i would still prefer if they are explicitly
 stated/proved.
 \end{quote}
 
-We proved the completeness and its conditions as requested. See Question \ref{orgtarget1} also.
+We proved the completeness and its conditions as requested in Section [Revised:8] (See also the response to Question \ref{orgtarget1}).
 
 \subsection{7) I like the idea of representing A* as a series of satisficing search. Here also, i would suggest inclusion of pseudocode.}
 \label{sec:orgheadline21}
@@ -352,8 +348,31 @@ top of that with formal discussion about the properties.
 
 Added pseudo code of A*-as-sequence-of-SAT-search, as you suggested.
 
-\subsection{{\bfseries\sffamily TODO} 9) Finally, I think it would be nice if we have some infinite spaces in the ZeroCost domains}
+\subsection{8) distribution of goal depth in the final frontier}
 \label{sec:orgheadline22}
+
+\begin{quote}
+ I think it will be interesting to find out what is distribution of
+goal depth in the final frontier. I believe there will be a strong
+correlation between the goal depth and the relative performance of the
+strategies (which the authors mention), and it would be good to
+analyze this statistically. Similarly, for strategies in section 9, it
+would be interesting to find out the correlation between the
+performance of different strategies with the accuracy of the
+distance-to-go estimates.
+\end{quote}
+
+We agree that goal depth distribution
+and distance-to-goal heuristic accuracy might be strongly correlated with tie-breaking strategy performance.
+This poses interesting avenues for future work, 
+and may be very useful, for example, in an extension of this work which 
+seeks to automatically select tie-breaking strategy.  
+
+Thanks for these suggestions. 
+
+
+\subsection{9) Finally, I think it would be nice if we have some infinite spaces in the ZeroCost domains}
+\label{sec:orgheadline23}
 
 \begin{quote}
  Finally, I think it would be nice if we have some infinite spaces
@@ -364,23 +383,25 @@ believe inclusion of such graphs (or some domains that closely
 approximate such behavior) will enhance the analysis.
 \end{quote}
 
-Although we added proofs of the completeness of each tiebreaking algorithms
-on infinite search spaces, infinite search space and 0-cost edges are irrelevant.
-As we already noted,
-just changing the cost of edges does not make finite graphs infinite.
-Also, infinite graphs includes some continuous search problems,
-which is clearly beyond the scope of this paper.
 
-The main topic of this paper is 0-cost edges and not infinite search space.
-We initially had/gave a false impression that 0-cost edges induces an infinite graph,
-but it was not the case.
+In this paper, we focused on domain-independent planning in the classical planning framework (specifically, in the STRIPS/SAS+ framework), for which the search spaces are finite.
+Zerocost domains were created as variations of standard IPC benchmarks (which are all in this finite-space framework).
 
-Now, given that the main topic is 0-cost edges and not infinite search space,
-experimental results for infinite search space is out of scope of this paper,
-despite being an interesting avenue of future work.
+Empirical evaluation of tie-breaking strategies on infinite search
+spaces is an interesting avenue for future work, but 
+since infinite search spaces are beyond the scope of classical planning, this will require
+careful design of interesting/practical benchmark domains and solvers.
+
+We agree that completeness can be one good reason for choosing a  fifo tie-breaking strategy.
+However, in our survey of papers mentinoing tie-breaking strategies, we couldn't find any work 
+which specifically mentioned fifo tie-breaking and also handled infinite spaces -- 
+the use of fifo which we cite in the paper is by Fast Downward, a classical planner, and as mentioned above, 
+infinite search spaces are beyond the scope of the standard clasical planning framework, so it's unlikely that the use of FIFO
+tie-breaking in FD was motivated by completeness concerns.
+
 
 \subsection{minor comments}
-\label{sec:orgheadline23}
+\label{sec:orgheadline24}
 
 \begin{quote}
  I think the abstract needs to be re-written to precisely state the
@@ -390,11 +411,13 @@ diversification is the second strategy, which is not the case. Also,
 "We proposes" -> "We propose".
 \end{quote}
 
+
 \begin{quote}
  page 27, claim 1 "A Last-In-First-Out ..". Is this a general claim,
 or is it tied to the domains you tested on. I think this should be
 made clear.
 \end{quote}
+
 
 \begin{quote}
  Section 2, the 4th paragraph can probably be combined with the
@@ -417,10 +440,10 @@ current parent" -> "current parent", and others.
 
 Thank you for the detailed comments, they are all fixed according to your suggestions.
 \section{Reviewer 3}
-\label{sec:orgheadline33}
+\label{sec:orgheadline34}
 
 \subsection{1) There are a large number of colourful scatterplots in the paper, most of which would probably be better presented in a different form.}
-\label{sec:orgheadline25}
+\label{sec:orgheadline26}
 
 \begin{quote}
  There are a large number of colourful scatterplots in the paper, most
@@ -452,7 +475,7 @@ comparing the node evaluation ratio, because the domain characteristics is not i
 in this figure. Thank you for the suggestion.
 
 \subsection{2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search}
-\label{sec:orgheadline26}
+\label{sec:orgheadline27}
 
 \begin{quote}
  The description in the early part of the paper (Sections 1, 3, 4, 5)
@@ -481,7 +504,7 @@ inserting additional section around the beginning that discuss the suboptimal se
 would be out of place and unnatural.
 
 \subsection{3) This applies also to the summary of the authors earlier conference paper.}
-\label{sec:orgheadline27}
+\label{sec:orgheadline28}
 
 \begin{quote}
  This applies also to the summary of the authors earlier conference
@@ -494,7 +517,7 @@ article makes over it, should be integrated in the presentation.
 We fixed it as you suggested.
 
 \subsection{4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.}
-\label{sec:orgheadline28}
+\label{sec:orgheadline29}
 
 \begin{quote}
  The argument in the last paragraph before Section 5.1 and the second
@@ -508,7 +531,7 @@ The analyses from which these instances are excluded are Section [Original:5.1,R
 They are still evaluated in the later sections.
 
 \subsection{5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy}
-\label{sec:orgheadline29}
+\label{sec:orgheadline30}
 
 \begin{quote}
  Furthermore in Section 5.1, why is the comparison done using the
@@ -528,7 +551,7 @@ We obtained the same results using these numbers:
 The coverages in the original and Zerocost domains are similarly different.
 
 \subsection{6) In Section 6.2, the authors argue that \ldots{} pruning methods \ldots{} are somehow equivalent to tie-breaking. This is not accurate.}
-\label{sec:orgheadline30}
+\label{sec:orgheadline31}
 
 \begin{quote}
  In Section 6.2, the authors argue that pruning methods such as
@@ -545,7 +568,7 @@ In the revised version, we clarified that pruning is a stronger technique
 than diversification.
 
 \subsection{7) In Section 7, Table 7.1 shows that there is little consistency in the results}
-\label{sec:orgheadline31}
+\label{sec:orgheadline32}
 
 \begin{quote}
  In Section 7, Table 7.1 shows that there is little consistency in the
@@ -577,7 +600,7 @@ we added a paragraph in the end of section 7
 emphasizing and explaining the inconsistency you suggested.
 
 \subsection{8) I'm somewhat sceptical about the value of these figures\ldots{}which of the examples are showing the failure of depth-based tie-breaking strategies.}
-\label{sec:orgheadline32}
+\label{sec:orgheadline33}
 
 \begin{quote}
  I'm somewhat sceptical about the value of these figures. They show
