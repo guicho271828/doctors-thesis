@@ -180,21 +180,21 @@ Nevertheless, the close relationship between depth diversification for admissibl
 \subsection{Completeness of \astar on an Infinite Graph}
 \label{sec:completeness-on-infinite-space}
 
-As another example of the usefulness of the framework, we show that we can prove the completeness of \astar on infinite graph depending on the tie-breaking criteria.
-As long as the search graph is finite, \astar is complete regardless of the tie-breaking strategy.
-However, if the search graph is infinite (i.e. the number of nodes in the graph has no upper bound), the completeness of the algorithm could be affected.
-In order to analyze \astar, we examine several cases depending on which plateau is infinite.
+We can apply this framework to analyze the completeness of \astar on infinite graphs with respect to various tie-breaking criteria.
+First, \astar is complete on finite graphs regardless of the tie-breaking strategy \cite{hart1968formal}.
+However, if the graph is infinite (i.e. the number of nodes in the graph has no upper bound), the completeness of the algorithm depends on tie-breaking.
+We consider several cases depending on which plateau is infinite.
 
-\begin{theo}
- If any of $\plateau{f}$ for $f<f^*$ are infinite, then \astar does not terminate in a finite length of time.
-\end{theo}
+\begin{propo}
+ If any $\plateau{f}$ for $f<f^*$ is infinite, then \astar does not terminate in a finite length of time.
+\end{propo}
 
 \begin{proof}
- \refalgo{alg:astar-sat} requires that the algorithm must prove the UNSAT-isfiability (that there is no solution) of non-final plateaus, $\plateau{f}$ ($\forall f<f^*$). If any of them are infinite, it does not terminate.
+ \refalgo{alg:astar-sat} requires that the algorithm must prove the UNSAT-isfiability (that there is no solution) of all non-final plateaus, $\plateau{f}$ ($\forall f<f^*$), so if any of them are infinite, \astar does not terminate.
 \end{proof}
 
-So we next examine the case where all of $\plateau{f}$ for $\forall f<f^*$ are finite.
-We immediately get the following:
+Next, we consider the case where $\plateau{f}$ is finite $\forall f<f^*$.
+We immediately have the following:
 
 \begin{propo}
  $\plateau{f}$ for $f>f^*$ do not affect the completeness of \astar because
@@ -203,14 +203,22 @@ We immediately get the following:
 
 % Given that, the last condition we should examine is whether $\plateau{f^*}$ is infinite.
 
-\begin{propo}
- Given a set of finite $\plateau{f}$ for $\forall f<f^*$ and an infinite $\plateau{f^*}$,
- the completeness of \astar $[f, \text{criterion}_2, \ldots \text{criterion}_k]$
- depends on the completeness of satisficing search algorithm
- $[\text{criterion}_2, \ldots \text{criterion}_k]$ on $\plateau{f^*}$.
-\end{propo}
+% \begin{propo} % I don't think this is a formal proposition because ``completeness depends on'' is not clearly defined 
+% Given a set of finite $\plateau{f}$ for $\forall f<f^*$ and an infinite $\plateau{f^*}$,
+% the completeness of \astar $[f, \text{criterion}_2, \ldots \text{criterion}_k]$
+% depends on the completeness of satisficing search algorithm
+% $[\text{criterion}_2, \ldots \text{criterion}_k]$ on $\plateau{f^*}$.
+%\end{propo}
 
-Thus we can carry theorems from the existing literature.
+% I think what you're  really trying to do with the prop is encapsulate the conditions so you can refer to it later, but it seems that directly stating these  assumptions isn't muchlonger than saying ``the conditions in Proposition X''. So...
+
+The remaining cases assume that the following two conditions hold: 
+ $\plateau{f}$ is finite  $\forall f<f^*$, and $\plateau{f^*}$ is infinite.
+
+The completeness of \astar $[f, \text{criterion}_2, \ldots \text{criterion}_k]$
+depends on the completeness of satisficing search algorithm
+$[\text{criterion}_2, \ldots \text{criterion}_k]$ on $\plateau{f^*}$.
+For the standard tie-breakig criteria, we can apply previously known results.
 % , such as \cite{Valenzano2016}.
 % Reiterating \cite{Valenzano2016}, 
 
@@ -222,29 +230,53 @@ Thus we can carry theorems from the existing literature.
  approaches to 1 when the number of expansion $t$ approaches to $\infty$.
 \end{theo}
 
-\begin{theo}
- \astar with Random Order tiebreaking $[f,\ro]$ is probabilistically complete on an infinite graph satisfying the conditions in Proposition 2.
-\end{theo}
+\begin{corollary}
+ \astar with Random Order tiebreaking $[f,\ro]$ is probabilistically complete on an infinite graph
+ when  $\plateau{f}$ is finite  $\forall f<f^*$, and $\plateau{f^*}$ is infinite. %stating the conditions is not much longer than referencing conditions
+ %satisfying the conditions in Proposition 2.
+\end{corollary}
 
 \begin{proof}
   $[f,\ro]$ is an instance of \astar using $[\ro]$ as a satisficing algorithm for plateau-search. Since $[\ro]$ is a special case of $\varepsilon$-greedy node selection with $\varepsilon=1$, $[f,\ro]$ with an infinite $\plateau{f^*}$ is also probabilistically complete.
 \end{proof}
 
+Breadth-first search is complete when the graph has finite branch factor, and solution length is finite.
+Since FIFO tiebreaking $[f,\fifo]$ applies breadth-first search to $\plateau{f^*}$,  it follows that
+
 \begin{propo}
- \astar with FIFO tiebreaking $[f,\fifo]$ is complete on an infinite graph when \emph{(1)} it satisfies the conditions in Proposition 2, \emph{(2)} the branching factor is finite and \emph{(3)} the solution length is finite. (Trivially shown by the completeness of Breadth-first search on $\plateau{f^*}$.)
+% \astar with FIFO tiebreaking $[f,\fifo]$ is complete on an infinite graph when \emph{(1)} it satisfies the conditions in Proposition 2, \emph{(2)} the branching factor is finite and \emph{(3)} the solution length is finite. (Trivially follows from the completeness of Breadth-first search on $\plateau{f^*}$.)
+ \astar with FIFO tiebreaking $[f,\fifo]$ is complete on an infinite graph when the branching factor is finite and solution length is finite.
 \end{propo}
+
+
+{\bf XXX in progress below this point XXX}
+
+LIFO tiebreaking performs depth-first search on $\plateau{f^*}$.
 
 % \begin{proof}
 %  % on an infinite graph is complete when (2) and (3) holds.
 % % Since the solution have finite length and thus finite depth in the plateau, the search space expanded by FIFO (Breadth-first search) in infinite $\plateau{f^*}$ is finite.  Thus FIFO returns the solution in a finite time. 
 % \end{proof}
 
-\begin{theo}
+% ``solution length is finite'' -- does the existence of a ``solution'' implies finite length?
+
+\begin{propo} %corollary? (because dfs completeness is known under these conditions)
+ \astar with LIFO tiebreaking $[f,\lifo]$ is complete on an infinite graph with finite branching factor and finite maximum depth.
+\end{propo}
+
+\begin{propo} %corollary? (because dfs incompleteness is known under these conditions)
  \astar with LIFO tiebreaking $[f,\lifo]$ is not complete on an infinite graph.
-\end{theo}
- 
+\end{propo}
+%% \begin{proof}
+%%  Completeness depends on the completeness of depth-first search on an infinite graph.
+%%  On a graph satisfying (2), it has a possibility to search the infinitely large region.
+%%  On a graph with (4) a finite maximum depth,
+%%  it still has a possibility to search the infinitely large region in a subtree
+%%  which does not contain the solution.
+%%  If we assume both (2) and (4), then the graph becomes finite.
+%% \end{proof}
 \begin{proof}
- Completeness depends on the completeness of depth-first search on an infinite graph.
+ If $\plateau{f^*}$ is infinite, then depth-first seearch 
  On a graph satisfying (2), it has a possibility to search the infinitely large region.
  On a graph with (4) a finite maximum depth,
  it still has a possibility to search the infinitely large region in a subtree
@@ -252,7 +284,7 @@ Thus we can carry theorems from the existing literature.
  If we assume both (2) and (4), then the graph becomes finite.
 \end{proof}
 
-While these are trivial proofs, we next show the completeness of our iteration-based depth diversification.
+Next, we show the completeness of our iteration-based depth diversification \refalgo{}.
 
 
 \begin{theo}
