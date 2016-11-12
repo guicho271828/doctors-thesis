@@ -11,7 +11,7 @@ in the plateau so that the search algorithm can make progress in the plateau.
 We define the \emph{depth} of a node as an 
 integer representing the distance (number of steps) from the
 \emph{entrance} of the plateau.  An \emph{entrance} of the plateau is
-the first node which encountered in the plateau, along the path from the
+the first node which encountered the plateau along the path from the
 initial node. These notions are depicted in
 \refig{fig:plateau-depiction} (subfigure 1). 
 
@@ -31,8 +31,8 @@ initial node. These notions are depicted in
 
 The depth $d(n)$ of a node $n$ is 0 when $n$ and
 the parent node $m$ are in the different plateaus,
-and $d(n)=d(m)+1$ when they are in the same plateau.
-As defined in \refsec{sec:preliminaries}, two nodes being in the same plateau
+and $d(n)=d(m)+1$ when they are on the same plateau.
+As defined in \refsec{sec:preliminaries}, two nodes being on the same plateau
 means that they share the same key values for the sorting strategy.
 For example, when the strategy is $[f,h,*]$,
  % and $n$ and $m$ are on the same plateau,
@@ -60,7 +60,7 @@ regardless of the depth.
 However, until we find a
 solution, we do not know how the goals are distributed among various
 depths. In some problem instances the goals can be concentrated around
-the entrance, and in other problem instances the goals can be
+the entrance, while in other problem instances the goals can be
 concentrated at some large depth. % $k$.  k never used below?
 
 In the former case, \fifo
@@ -117,7 +117,7 @@ In order to diversify the expansion among depths, we simply
 iterate over the depth buckets (\refalgo{alg:depth}).
 This iteration is managed by a Depth-Diversified Node Selector instance associated with each plateau (e.g. each of $\plateau{1,0}, \plateau{2,0}, \plateau{2,1}\ldots$).
 In order to select a single node from the OPEN list for expansion,
-we first selects the plateau with the smallest key value, such as $\plateau{f=5,h=1}$, as usual.
+we first select the plateau with the smallest key value, such as $\plateau{f=5,h=1}$, as usual.
 This plateau is now represented by a selector instance, and
 we call $\text{pop}(\text{selector})$ method on this instance in order to obtain a node.
 Each instance holds
@@ -138,7 +138,7 @@ implementation here because it facilitates the theoretical analysis below in \re
 Depth-based diversification is significantly different from \ro strategy which simply selects a random node from the OPEN list.
 The uniform sampling behavior of  \ro behaves very similar to \fifo, and is insufficient to achieve the level of diversity provided by our depth diversification tie-breaking,
 which is also already evidenced by the performance similarity between \fifo and \ro-based tiebreaking strategies (\reftbl{tbl:summary-std}).
-This is because at any given point in the search, more nodes will tend to have shallower depth than deeper depth, and a uniform, random selection will therefore be biased to select a node with shallow depth.
+This is because at any given point in the search, more nodes will tend to have shallower depths than deeper depths, and a uniform, random selection will, therefore, be biased to select a node with shallow depths.
 For example, imagine we have 100 nodes at depth $d=1$ and a single node at depth $d=2$.
 Since \ro does not consider the depth, the chance of expanding $d=2$ is only $1/101$.
 This probability does not improve until a sufficient number of expansions decreases the number of nodes in $d=1$.
@@ -284,7 +284,7 @@ In the discussion below,
 we first assume that $P$ forms a forest of a fixed branching factor
 $w\geq 2$ (\emph{forest assumption}), rather than a graph with an indefinite number of successor nodes.
 In the later experiments, we show this assumption is not much distant from the real situations.
-We also assume that no depth bucket exhausts due to the expansion (\emph{no-exhaustion assumption}). This implies that there are sufficiently large number of nodes in depth $d=0$ so that depth 0 does not exhaust, which may cause \fifo default tiebreaking to fail due to the heavy bias to the shallow depth.
+We also assume that no depth bucket exhausts due to the expansion (\emph{no-exhaustion assumption}). This implies that there are a sufficiently large number of nodes in depth $d=0$ so that depth 0 does not exhaust, which may cause \fifo default tiebreaking to fail due to the heavy bias to the shallow depth.
 We provide a condition for this assumption to hold within this section.
 % Finally, we assume that the sorting strategy performs a \ro default tie-breaking
 % after the depth-based diversification is applied.
@@ -296,7 +296,7 @@ An example of running depth diversification with $w=3$ is depicted in \refig{fig
   \includegraphics{img/depth-distribution-analysis.pdf}
  \label{fig:depth-distribution-analysis}
  \caption{Depth Diversification applied to a plateau 
-with forest assumption and no-exhaustion asssumption.}
+with forest assumption and no-exhaustion assumption.}
 \end{figure}
 
 Let $D\geq 0$ be the current largest depth of the nodes found in $P$ so far.
@@ -328,7 +328,7 @@ Since $w\geq 2$, $w(D-d+1)\geq 2(D-d)+2>D-d$.
 If there are no solutions, every depth-selection criterion, including the least depth selection (\fifo) or the largest depth selection (\lifo), expands the same set of nodes and results in the same distribution as depth diversification.
 For example, if the number of nodes in depth 0 is $D$, each $d$ is expanded $Dw^d$ times.
 However, their online characteristics are different.
-Under our assumptions, the $D-d$ distribution of depth diversification is an invariant which holds at any point of the search until the solution is found.
+Under our assumptions, the $D-d$ distribution of depth diversification is an invariant which holds at any point in the search until the solution is found.
 In contrast, in \fifo, all nodes with $d<D-1$ are expanded, depth $d=D-1$ can take an arbitrary number of expansions $e \in [0, Dw^{D-1}]$ and $d\geq D$ are not expanded at all.
 In \lifo, for some $k\in [0,D_\mit{max}]$ (assuming the forest has a finite maximum depth $D_\mit{max}$), there can be a situation where all depths $d \in [0,k]$ get only 1 expansion each
 while all nodes in depths $d \in [k+1,D_\mit{max}]$ are expanded. In this case, the number of expansions in $d \in [k,D_\mit{max}]$ is exponential to $D_\mit{max}-k$ ($\sum_{i=k}^{i=D\mit{max}}w^{i-k}=\frac{1-w^{D\mit{max}-k+1}}{1-w}$) while the number of expansions in $d \in [0,k-1]$ is linear to $k$ (i.e. $k-1$). Such an imbalance during the search causes the pathological behavior mentioned above.
@@ -340,7 +340,7 @@ while all nodes in depths $d \in [k+1,D_\mit{max}]$ are expanded. In this case, 
   \includegraphics{img/depth-distribution-analysis-fifolifo.pdf}
  \label{fig:depth-distribution-analysis-fifolifo}
  \caption{FIFO and LIFO applied to a plateau
- with forest assumption and no-exhaustion asssumption.}
+ with forest assumption and no-exhaustion assumption.}
 \end{figure}
 
 

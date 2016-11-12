@@ -136,7 +136,7 @@
      inkscape:cx="257.11641"
      inkscape:cy="142.90933"
      inkscape:document-units="px"
-     inkscape:current-layer="g6044"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-bbox="true"
      inkscape:snap-bbox-midpoints="false"
@@ -614,7 +614,7 @@
            id="tspan5428"
            y="299.80203"
            x="-111.79275"
-           sodipodi:role="line">iteration</tspan></text>
+           sodipodi:role="line">Iteration</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text4392"
@@ -645,7 +645,7 @@
            id="tspan5428-9"
            y="299.80203"
            x="22.207253"
-           sodipodi:role="line">iteration</tspan></text>
+           sodipodi:role="line">Iteration</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text4392-6"
@@ -673,7 +673,7 @@
          sodipodi:role="line"
          id="tspan3614"
          x="72.085571"
-         y="260.03348">two nodes</tspan><tspan
+         y="260.03348">Two nodes</tspan><tspan
          sodipodi:role="line"
          x="72.085571"
          y="272.53348"

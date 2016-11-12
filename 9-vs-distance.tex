@@ -161,7 +161,7 @@ Detailed per-domain results are shown in \reftbls{tbl:dtg-lmcut-zero}{tbl:dtg-ma
 
 In Zerocost domains, we see that $\hat{h}$ tie-breaking outperforms $h$ tie-breaking for both \lmcut (e.g. $256\rightarrow 295$ with \fifo) and \mands (e.g. $280\rightarrow 308$ with \fifo).
 Also, combining $h$ and $\hat{h}$ can further improve performance when the heuristic is \lmcut (e.g. $295\rightarrow 305$ with \fifo).
-The results of combining $h$ and $\hh$ was comparable to $\hh$ when the main heuristic function $h$ is \mands.
+The results of combining $h$ and $\hh$ were comparable to $\hh$ when the main heuristic function $h$ is \mands.
 % 
 Yet more surprisingly, using $\ffo$ further improved the performance for both \lmcut
 (e.g. $[f,h,\hh,\fifo]:305 \rightarrow [f,\ffo,\fifo]:337$) and \mands 
@@ -258,7 +258,7 @@ In practice, the performance degradation when using multi-heuristic strategy in 
 We can easily avoid the overhead incurred by the distance-to-go heuristics in those domains by applying the following simple policy:
 If there are any 0-cost actions, use a multi-heuristic strategy; Otherwise, use a single-heuristic strategy.
 
-Since such a check has negligible impact on the total runtime, we can extrapolate the result of applying this rule based on the previously obtained results.
+Since the impact of such a check on the total runtime is negligible, we can extrapolate the result of applying this rule based on the previously obtained results.
 Coverage results in \reftbl{tbl:dtg-summary-sum} show the total coverage of
 Zerocost and IPC benchmark domains. The bottom two rows, labeled as \emph{dynamic configuration},
 are the extrapolated results when the switching policy is applied -- this dynamic configuration achieves the highest overall coverage.
@@ -290,5 +290,5 @@ using a distance-to-go version of an inadmissible heuristic function for
 tie-breaking is more effective. Also, combining the depth metric with
 such an inadmissible heuristics is also effective.
 
-We only tested this relatively simple dynamic configuration that switches between two strategies based on the presence of 0-cost operators. However, as noted in \refsec{sec:depth-based-evaluation}, domain-specific solvers (compared to domain-independent solver, which is our main interest) can benefit from fine-tuning the tiebreaking strategy so that it is most suited to the target domain.
+We only tested this relatively simple dynamic configuration that switches between two strategies based on the presence of 0-cost operators. However, as noted in \refsec{sec:depth-based-evaluation}, domain-specific solvers (compared to domain-independent solvers, which are our main interest) can benefit from fine-tuning the tiebreaking strategy so that it is most suited to the target domain.
 

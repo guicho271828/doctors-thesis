@@ -41,7 +41,7 @@ assigning 0-costs makes sense from a practical, modeling perspective.
 For example, consider the \pddl{driverlog} domain, where the task is to move packages between locations using trucks.
 The IPC version of this domain assigns unit costs to all actions. Thus, cost-optimal planning on this domain seeks to minimize the number of steps in the plan.
 However, another natural objective function would be the one which minimizes the amount of fuel spent by driving the trucks,
-assigning cost 0 to all actions except \pddl{drive-truck} -- we believe that for cost-optimal planning, this is at least as natural as the current IPC model of \pddl{driverlog} in which all actions are unit cost.
+assigning cost 0 to all actions except \pddl{drive-truck} -- we believe that for cost-optimal planning, this is at least as natural as the current IPC model of \pddl{driverlog} in which all actions are of unit cost.
 
 % While I agree with the point you're trying to make,
 % There is an ugly issue when arguing that current models try to  optimize plan-execution time (i.e., makespan), 
@@ -89,7 +89,7 @@ Most of the transportation-type domains are modified to optimize
 energy usage (\pddl{logistics-fuel}, \pddl{elevator-up} etc.), and  assembly-type domains are modified to minimize resource usage
 %% \pddl{floortile-ink} is not shown, so better not to mention it
 (\pddl{Woodworking-cut} minimizes wood usage, etc.).
-When no action makes sense from practical point of view, we chose an action schema arbitrarily (e.g. \pddl{mprime-succumb}).
+When no action makes sense from the practical point of view, we chose an action schema arbitrarily (e.g. \pddl{mprime-succumb}).
 We did not
 include domains which have only a single action schema, or which already had many 0-cost actions.
 
@@ -118,7 +118,7 @@ Thus, we did not modify the problem definitions at all, and only modified the ac
 \subsection{Difference in Problem Characteristics between IPC and Zerocost Domains}
 
 Domains containing 0-cost operators are known to be difficult for traditional planners \cite{thayer2009using,cushing2010cost,wilt2011cost,thayer2011bounded,richter2011lama}.
-\citeauthor{cushing2010cost} \citeyear{cushing2010cost} and \citeauthor{wilt2011cost} \citeyear{wilt2011cost} noted that a large ratio between maximum and minimum operator costs can pose challenge to existing planners. They both addressed this using plan-length heuristics instead of plan-cost heuristics, which sacrifice the optimality of the solution. In contrast, we investigate methods for handling 0-cost operators within the framework of admissible search. In \refsec{sec:distance-to-go}, we show how  plan length heuristics can be incorporated within admissible search.
+\citeauthor{cushing2010cost} \citeyear{cushing2010cost} and \citeauthor{wilt2011cost} \citeyear{wilt2011cost} noted that a large ratio between maximum and minimum operator costs can pose a challenge to existing planners. They both addressed this using plan-length heuristics instead of plan-cost heuristics, which sacrifice the optimality of the solution. In contrast, we investigate methods for handling 0-cost operators within the framework of admissible search. In \refsec{sec:distance-to-go}, we show how  plan length heuristics can be incorporated into admissible search.
 %While \citeauthor{cushing2010cost} \citeyear{cushing2010cost} and \cite{wilt2010cost} \citeyear{wilt2011cost} also analyze the cause of difficulties,  % if we don't say the causes they determined are, then no need to say they analyzed
 In a parameterized complexity analysis of planning domains,
 \citeauthor{aghighi2015} \citeyear{aghighi2015,aghighi2016} % fully complemented the full theory behind this, % don't casually use strong terms like ``fully''
@@ -140,7 +140,7 @@ standard tie-breaking strategies. Results using the \lmcut
 heuristic are shown in \reftbl{tbl:lmcut-zerocost-std}%  and
 % \reftbl{tbl:mands-zerocost-std} (Appendix), respectively
 . In each table,
-the left-hand side shows the results in the original domains, and the right-hand side
+the left-hand side shows the results in the original domains and the right-hand side
 shows the results for the corresponding Zerocost domains.
 %We excluded domains whose
 %number of instances in the standard domain differs from the number of instances in the 0-cost version. % this is noted in the table caption

@@ -11,7 +11,7 @@ techniques. In detail, the contributions in this paper are the following:
 \end{comment}
 Our contributions are as follows:
 % \begin{enumerate} % It looks bad when an entire section is just an enumerated list, 
- First, we showed that tie-breaking has a significant role in cost-optimal
+ First, we showed that tie-breaking has a significant role in the cost-optimal
        search using \astar. We empirically showed that most  IPC
        benchmark instances have large plateaus with regard to $f$, and most of the
        search effort is spent in the final plateau with $f=f^*$.
@@ -43,7 +43,7 @@ We then introduced a new interpretation of cost-optimal \astar search as a serie
 %This opens  many opportunities for unifying work on satisficing search and cost-optimal search, as 
 %many techniques which have been developed for 
 %       satisficing search can be directly applied to plateau search in   cost-optimal search.
-This perspective led to another, novel approach for effective tie-breaking in Zerocost domains, the use of
+This perspective led to another approach for effective tie-breaking in Zerocost domains, the use of
        inadmissible distance-to-go estimates as part of a multi-heuristics tie-breaking strategy.
        Combination of depth diversification and distance-to-go estimates results in the best overall performance. Although there is an additional cost to compute
        multiple heuristic values, the overhead can be eliminated by a simple

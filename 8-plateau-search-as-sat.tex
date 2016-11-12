@@ -107,7 +107,7 @@ In model-based planning, a planning problem is converted to a corresponding cons
 %doing iterated deepening, where each iteration seeks a satisficing solution, like IDA*. }
 % 
 
-It is also reminiscent of the behavior of iterative deepening \astar \cite{korf1985depth}, which executes a series of satisficing searches with a $f$-cost limit which increases on each iteration. However, ``\astar-as a sequence of satisficing search'' differs from IDA* in that IDA*, in order to achieve linear memory usage, repeats previous work on each iteration. Instead of searching a particular plateau in each iteration, IDA* searches through the union of several plateaus.
+It is also reminiscent of the behavior of iterative deepening \astar \cite{korf1985depth}, which executes a series of satisficing searches with an $f$-cost limit which increases on each iteration. However, ``\astar-as a sequence of satisficing search'' differs from IDA* in that IDA*, in order to achieve linear memory usage, repeats previous work on each iteration. Instead of searching a particular plateau in each iteration, IDA* searches through the union of several plateaus.
 
 % Unsurprisingly, this can also be modeled as sequence of satisficing searches (\refalgo{alg:idastar-sat}).
 % 
@@ -140,7 +140,7 @@ In the following two subsections, as well as in the next section, we show that (
 \label{sec:depth-vs-types}
 Within this framework, the implementation of depth diversification can be viewed as a variant of Type-based diversification approach \cite{xie14type} which is specifically tailored toward Zerocost domains.
 
-\citeauthor{xie14type} proposed \emph{type based buckets}, an implementation of the OPEN list which partitions the nodes into buckets according to some set of key values (\emph{types}). They proposed several types, for example $\brackets{1}$, $\brackets{g}$, $\brackets{h}$ or $\brackets{g,h}$. In type-based expansion, at each expansion, a randomly selected node from a randomly selected single bucket is selected. For example, with type $\brackets{g,h}$, a node with $g=5$ and $h=3$ is put into a bucket  $\brackets{5,3}$. This mechanism diversifies the search so that it tries to expand the nodes with various distances from the initial state and various distances from a goal state.
+\citeauthor{xie14type} proposed \emph{type based buckets}, an implementation of the OPEN list which partitions the nodes into buckets according to some set of key values (\emph{types}). They proposed several types such as $\brackets{1}$, $\brackets{g}$, $\brackets{h}$ or $\brackets{g,h}$. At each type-based expansion, a randomly selected node from a randomly selected single bucket is selected. For example, with type $\brackets{g,h}$, a node with $g=5$ and $h=3$ is put into a bucket  $\brackets{5,3}$. This mechanism diversifies the search so that it tries to expand the nodes with various distances from the initial state and various distances from a goal state.
 
 They then proposed Type-GBFS, which alternates the expansion between normal GBFS with a $[h,\fifo]$ sorting criteria and type-based expansion. This alternating framework addresses a weakness of GBFS: 
 GBFS is solely guided by the heuristic function $h$, and heuristic errors in $h$ can easily misguide GBFS to spend all of its time in the wrong part of the search space -- GBFS can become trapped due to heuristic error and cannot recover from the wrong decision until expanding all nodes in that branch.
