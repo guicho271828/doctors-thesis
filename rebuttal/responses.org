@@ -500,7 +500,8 @@ them. For example, "did not modified" -> "did not modify", "new
 current parent" -> "current parent", and others.
 #+END_QUOTE
 
-Thank you for the detailed comments, they are all fixed according to your suggestions.
+We have rechecked and corrected spelling+grammar.
+
 
 ** TODO 1) I think the abstract needs to be re-written to precisely state the :noexport:
 ** TODO 2) page 27, claim 1 "A Last-In-First-Out ..". Is this a general claim, :noexport:
