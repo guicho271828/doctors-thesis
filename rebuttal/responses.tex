@@ -1,4 +1,4 @@
-% Created 2016-11-12 土 23:17
+% Created 2016-11-13 日 14:57
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -11,7 +11,6 @@
 \tolerance=1000
 \usepackage[pxjahyper]{}
 \usepackage[margin=20mm]{geometry}
-\author{Masataro Asai}
 \date{}
 \title{Responses}
 \begin{document}
@@ -23,15 +22,15 @@ To address the reviewers' comments, we have modified the paper as described belo
 To reduce the length of the main portion of the paper, we moved many tables to the Appendix, 
 eliminated some tables and consolidated some figures.
 Now the paper length excluding references and appendix is 39 pages.
-The numberings of the sections, figures, and tables have changed due to changes made in response to the reviewers' comments.
+The numberings of the sections, figures and tables have changed due to changes made in response to the reviewers' comments.
 
 In this response, when disambiguation is required, we use [Revised:X] to indicate that we refer to those figures/tables/sections using
-the new numbering system, and [Original:X] to indicate the numbers in the original submitted manuscript.
+the new numbering system and [Original:X] to indicate the numbers in the original submitted manuscript.
 
 \section{Reviewer 1}
 \label{sec:orgheadline13}
 
-\subsection{[1.1] 1) The definition of plateau can be improved.}
+\subsection{1) The definition of plateau can be improved.}
 \label{sec:orgheadline1}
 
 \begin{quote}
@@ -52,7 +51,7 @@ Plateaus are formally defined in the 2nd-to-last paragraph of Section 2, Prelimi
 However, as the reviewer noted, there were some informal usages of the term "plateau" throughout the paper.
 In the revision, we increased the usage of the more precise notation "plateau(f,h)" throughout the paper.
 
-\subsection{[1.2] 2) page 18: "In order to diversify the expansion\ldots{} " --> This paragraph is very hard to understand}
+\subsection{2) page 18: "In order to diversify the expansion\ldots{} " --> This paragraph is very hard to understand}
 \label{sec:orgheadline2}
 
 \begin{quote}
@@ -73,7 +72,7 @@ We rewrote the description and added the pseudocode (Algorithm 2) for depth dive
 in Section [Original:6,Revised:5].
 d\(_{\text{c}}\) is a counter assigned to each plateau.
 
-\subsection{[1.3] 3) It will be very interesting to see what happens if you factor away the constant time per node.}
+\subsection{3) It will be very interesting to see what happens if you factor away the constant time per node.}
 \label{sec:orgheadline3}
 
 \begin{quote}
@@ -91,9 +90,9 @@ which degrades the performance of M\&S on IPC domains,
 we compared the number of node evaluations between the depth-diversified and standard search method.
 We added Figure [Revised:6.2] comparing the cumulative coverage over the number of evaluations.
 This shows that the evaluations are almost identical for most IPC instances, meaning that search efficiency in positive cost domains was largely unaffected by depth diversification, as expected.
-There were differences in Openstacks (this is also as expected, since Openstacks has zero-cost actions).
+There were differences in Openstacks (this is also as expected since Openstacks has zero-cost actions).
 
-\subsection{[1.4a] 4) Section 5: Zerocost domains. I buy all your arguments on zero cost}
+\subsection{4) Section 5: Zerocost domains. I buy all your arguments on zero cost}
 \label{sec:orgheadline4}
 
 \begin{quote}
@@ -105,9 +104,10 @@ numbers.
 \end{quote}
 
 As suggested, we shortened Section [Revised:4].
-We moved one of the tables to Appendix. XXX Which table in the Appendix? -- maybe it was removed entirely?
+We also removed Table [Original:5.2].
+(Same results can still be extracted from the other tables in the appendix. See [3.5] also.)
 
-\subsection{[1.4b]  4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.}
+\subsection{4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.}
 \label{sec:orgheadline5}
 
 \begin{quote}
@@ -115,12 +115,13 @@ The claims about FIFO in infinite graphs (section 5.3) is trivial. You can short
 \end{quote}
 
 In the revised version, we moved the section [Original:5.3] to the end of Section [Original:8,Revised:7],
-where it fits better (using the A*-as-sequence-of-SAT framework)
+where it fits better (using the A*-as-sequence-of-SAT framework).
 
-In response to item [2.XXX] below from Reviewer 2, 
-we formalized some additional completeness results on infinite graphs, which was also added to this revised section [Original:5.3,Revised7.2].
+In response to item \ref{orgtarget1} below from Reviewer 2, 
+we formalized some additional completeness results on infinite graphs,
+which was also added to this revised section [Original:5.3,Revised7.2].
 
-\subsection{[1.5] 5) Section 6.1 is trivial.}
+\subsection{5) Section 6.1 is trivial.}
 \label{sec:orgheadline6}
 
 \begin{quote}
@@ -129,10 +130,9 @@ values only occur in zero domains. I would shorten it or even omit it.
 \end{quote}
 
 We formalized and significantly shortened the proof (Theorem 1),
-and  Section [Original:6.1] has been folded into into Section [Revised:6].
+and Section [Original:6.1] has been folded into Section [Revised:6].
 
-
-\subsection{[1.6] 6) Section 7.1: this section repeats what you said above and \ldots{}}
+\subsection{6) Section 7.1: this section repeats what you said above and \ldots{}}
 \label{sec:orgheadline7}
 
 \begin{quote}
@@ -143,9 +143,10 @@ Consider to omit these experiments and just mention that you have
 results that support this trend.
 \end{quote}
 
-We moved several non-critical figures [Original:XXX,XXX]to the appendix [Revised:Appendix XXX,XXX].
+We moved several non-critical figures [Original:7.3,7.4,7.6] to the appendix: Figures [Revised:11.2,11.3,11.4].
+Also, we shorten the text by removing the list improved domains.
 
-\subsection{[1.7] 7) The beginning of Section 8 is also rather trivial.}
+\subsection{7) The beginning of Section 8 is also rather trivial.}
 \label{sec:orgheadline8}
 
 \begin{quote}
@@ -205,7 +206,7 @@ We merged section [Original:2] and [Original:3] into section [Revised:2],
 \section{Reviewer 2}
 \label{sec:orgheadline25}
 
-\subsection{[2.1] 1) Maxim Likhachev's ARA* paper\ldots{}}
+\subsection{1) Maxim Likhachev's ARA* paper\ldots{}}
 \label{sec:orgheadline14}
 
 \begin{quote}
@@ -227,7 +228,7 @@ However, ARA* is based on an iterated anytime framework, whereas our work is bas
 We point out this difference.
 
 
-\subsection{[2.2] 2) the amount of data is a bit too much\ldots{}}
+\subsection{2) the amount of data is a bit too much\ldots{}}
 \label{sec:orgheadline15}
 
 \begin{quote}
@@ -261,7 +262,7 @@ to the end of Section [Original:8,Revised:7] and added more formal statements re
 on infinite graphs. This material was moved because the analysis is most natural 
 using the A*-as-sequence-of-SAT framework introduced in Section [Revised:7].
 
-\subsection{[2.3b] 3) the theory and analysis part\ldots{} Section 6.1}
+\subsection{3) the theory and analysis part\ldots{} Section 6.1}
 \label{sec:orgheadline17}
 
 \begin{quote}
@@ -271,7 +272,7 @@ precise, results in 6.1 can be presented in terms of theorems.
 
 We have formalized the result (Theorem 1) and made it more precise.
 
-\subsection{[2.4] 4) Sec6, "more nodes will tend to have shallower depth" vs disjoint forest model}
+\subsection{4) Sec6, "more nodes will tend to have shallower depth" vs disjoint forest model}
 \label{sec:orgheadline18}
 
 \begin{quote}
@@ -284,24 +285,24 @@ the analysis can allay such confusions for a reader.
 \end{quote}
 
 To clarify: According to the \emph{no-exhaustion assumption} , no depth bucket exhausts due to the expansion.
-This implies that there are sufficiently large number of nodes in depth \(d=0\) so that
+This implies that there are a sufficiently large number of nodes in depth \(d=0\) so that
  depth 0 does not exhaust as a result of expansion.
 If FIFO default tiebreaking is used,
 it tries to expand all those nodes with depth 0 before expanding any nodes in depth d >= 1.
-Similar situation happens at every depth.
+A similar situation happens at every depth.
 Thus, even if the entire graph is a forest model, FIFO causes a heavy bias to expanding nodes with shallow depth.
 
 It's true that there are surely more nodes with larger depth if \emph{all} nodes in the entire plateau are expanded, which is the case for \(f<f^*\).
 However, in the final plateau of A*, FIFO expands only a fraction of nodes with depth \(d\leq d^*\),
 where \(d^*\) is the \emph{minimum solution depth}, the smallest depth of the solutions.
 Entire nodes above the solution depths (\(d>d^*\)) are not expanded due to the breadth-first behavior.
-During this process the expanded nodes are biased to the shallower region.
+During this process, the expanded nodes are biased to the shallower region.
 
 This has been clarified in the text (Section [Revised:5.2]), and 
 for further clarity, we also added Figures 5.2 and 5.3 which illustrate the scenarios.
 
 
-\subsection{[2.5] 5) I think it will be helpful if the authors include pseudocodes for\ldots{}}
+\subsection{5) I think it will be helpful if the authors include pseudocodes for\ldots{}}
 \label{sec:orgheadline19}
 
 \begin{quote}
@@ -317,7 +318,7 @@ strategies.
 As suggested, we added pseudo-code for  Best-First search (Algorithm 1), and depth-based tiebreaking (Algorithm 2).
 
 
-\subsection{[2.6] 6) state/prove the properties of each of these algorithms, especially important ones like completeness}
+\subsection{6) state/prove the properties of each of these algorithms, especially important ones like completeness}
 \label{sec:orgheadline20}
 
 \begin{quote}
@@ -366,7 +367,7 @@ We agree that goal depth distribution
 and distance-to-goal heuristic accuracy might be strongly correlated with tie-breaking strategy performance.
 This poses interesting avenues for future work, 
 and may be very useful, for example, in an extension of this work which 
-seeks to automatically select tie-breaking strategy.  
+seeks to automatically select a tie-breaking strategy.  
 
 Thanks for these suggestions. 
 
@@ -393,10 +394,10 @@ since infinite search spaces are beyond the scope of classical planning, this wi
 careful design of interesting/practical benchmark domains and solvers.
 
 We agree that completeness can be one good reason for choosing a  fifo tie-breaking strategy.
-However, in our survey of papers mentinoing tie-breaking strategies, we couldn't find any work 
+However, in our survey of papers mentioning tie-breaking strategies, we couldn't find any work 
 which specifically mentioned fifo tie-breaking and also handled infinite spaces -- 
 the use of fifo which we cite in the paper is by Fast Downward, a classical planner, and as mentioned above, 
-infinite search spaces are beyond the scope of the standard clasical planning framework, so it's unlikely that the use of FIFO
+infinite search spaces are beyond the scope of the standard classical planning framework, so it's unlikely that the use of FIFO
 tie-breaking in FD was motivated by completeness concerns.
 
 
@@ -450,7 +451,7 @@ them. For example, "did not modified" -> "did not modify", "new
 current parent" -> "current parent", and others.
 \end{quote}
 
-Thank you for the detailed comments, they are all fixed according to your suggestions.
+We have rechecked and corrected spelling+grammar.
 \section{Reviewer 3}
 \label{sec:orgheadline34}
 
@@ -473,18 +474,31 @@ The data in Figures in 4.1, 4.2, 5.2 and 7.1 would similarly benefit
 from a more thought-through visual presentation.
 \end{quote}
 
-The figure [Original,Revised:4.1] and [Original,Revised:4.2] should be in the present form.
-The role of these figures is to identify which domain is affected by the different default criteria.
-
-The figure [Original,Revised:1.1] is paired with [Original,Revised:4.2].
-If we change the format of [Original,Revised:1.1] from the current one to the histogram,
-then it loses the consistency with [Original,Revised:4.2].
-
-Separating the figure into per-domain analyses would further increase the paper length.
-
-However, we indeed benefit from converting [Original,Revised:7.1] into a histograms
-comparing the node evaluation ratio, because the domain characteristics is not important
+As suggested, we converted Figure [Original:7.1,Revised:A.1] into histograms
+comparing the node evaluation ratio, because this is essentially 1-dimensional data and the domain characteristics are not important
 in this figure. Thank you for the suggestion.
+
+We also considered converting Figures 1.1, 4.1, 4.2 into histograms as suggested.
+However, we concluded that they should remain in the present form, because
+the color-coded domain information in Figures [Original:4.1,Revised:3.1] and [Original:4.2,Revised:3.2] are 
+important for highlighting the domains which are affected by different default criteria.
+
+We acknowledge that these figures are crowded and it's hard to distinguish
+many of the domains/points. However, this was the best compromise of
+information-vs-space we could come up with, as providing full,
+per-domain data would make this paper even longer.
+
+While the domain information in Figure [Original,Revised:1.1] is less
+important, and if it was a completely independent figure, it may be a good idea to convert it to a histogram as suggested.
+However, Figure [Original,Revised:1.1] is intended to be contrasted against 
+Figure [Original:4.2,Revised:3.2] , and as
+explained above, we believe Figure [Original:4.2,Revised:3.2] should
+remain in its current format because the domain information is important. 
+Thus, we'd like to keep Figure [Original,Revised:1.1] as is.
+Similarly, we believe Figure [Original:5.2,Revised:4.2] should remain its current format for the same reason.
+
+
+
 
 \subsection{2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search}
 \label{sec:orgheadline27}
@@ -504,18 +518,23 @@ be rectified; the previous state of knowledge should be clearly
 established early in the paper.
 \end{quote}
 
-Previously, the issues of zero cost transitions were not directly associated with 
+In Section 1, we added a reference to Benton et al 2010 in Section 1 when 0-cost
+actions are first mentioned, noting that these induce the g-value
+plateaus which are discussed in the Benton et al 2010 paper.
+
+In Section [Revised:4], when zero-cost domains are motivated and described, 
+we added the statement that the huge final plateaus are instances of \$g\$-value plateaus described by Benton et al 2010.
+
+At the beginning of Section [Revised:4.1], we added references to
+works which have mentioned the difficulty of 0-cost domains (Thayer et
+al 2009, Cushing et al 2010, Wilt et al 2011, Thayer et al 2011,
+Richter et al 2011).
+We clarify that previously, the issues of zero cost transitions were not directly associated with 
 a failure in tie-breaking. Thus, previous work focused on how to modify the main 
 evaluation functions (use of distance-to-go functions, inflating the heuristic value)
 or to modify the expansion order (e.g. Thayer and Ruml, ICAPS08).
 
-Considering the flow of the paper,
-which start by examining the standard tiebreaking strategies on optimal search,
-then proceed to identify and connect the source of the problem with 0-cost transitions,
-inserting additional section around the beginning that discuss the suboptimal search
-would be out of place and unnatural.
-
-\subsection{[3.3-INPROGRESS] 3) This applies also to the summary of the authors earlier conference paper.}
+\subsection{3) This applies also to the summary of the authors earlier conference paper.}
 \label{sec:orgheadline28}
 
 \begin{quote}
@@ -527,9 +546,9 @@ article makes over it, should be integrated in the presentation.
 \end{quote}
 
 
-We fixed it as you suggested. TODO
+We integrated the comparison with our earlier conference paper as a new paragraph at the end of Section 1, in a form similar to those of other recently published JAIR papers.
 
-\subsection{[3.4] 4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.}
+\subsection{4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.}
 \label{sec:orgheadline29}
 
 \begin{quote}
@@ -555,7 +574,7 @@ domains where the number of instances in the Zerocost domains is the same as in 
 However, the Zerocost versions of Blocks, freecell, pipesworld-notankage, and miconic are used in all of the other experiments in the paper involving Zerocost domains.
 (because none of the other experiments involve comparisons between coverage on Zerocost domains and coverage on standard IPC domains).
 
-\subsection{[3.5] 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy}
+\subsection{5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy}
 \label{sec:orgheadline30}
 
 \begin{quote}
@@ -565,16 +584,16 @@ tie-breaking using "lifo" to be much more efficient?
 \end{quote}
 
 We used the [f,h,fifo] strategy in this experiment in Section [Original:5.1,Revised:4.1] because
-we use the Fast Downward planner, which is currently one of the the most widely used,  state-of-the-art planners,
+we use the Fast Downward planner, which is currently one of the most widely used state-of-the-art planners
 and Fast Downward uses the [f,h,fifo] tiebreaking strategy by default.
 Thus, we believe using the default configuration for Fast Downward is a reasonable choice, since the purpose of the experiment was to demonstrate that Zerocost domains pose a challenge for state-of-the-art planners.
 
 Although not prominently featured in Section [Original:5.1,Revised4:1], 
 the results for [f,h,lifo] can be extracted from 
 Table [Original:7.2, Revised:11.3] (Zerocost instances) and Table [Original:7.4, Revised:11.5] (IPC instances).
-Qualitiatively, the results for [f,h,lifo] are similar to that of [f,h,fifo] -- Zerocost instances are "harder" than their corresponding IPC instances.
+Qualitatively, the results for [f,h,lifo] are similar to that of [f,h,fifo] -- Zerocost instances are "harder" than their corresponding IPC instances.
 
-\subsection{[3.6] 6) In Section 6.2, the authors argue that \ldots{} pruning methods \ldots{} are somehow equivalent to tie-breaking. This is not accurate.}
+\subsection{6) In Section 6.2, the authors argue that \ldots{} pruning methods \ldots{} are somehow equivalent to tie-breaking. This is not accurate.}
 \label{sec:orgheadline31}
 
 \begin{quote}
@@ -604,42 +623,42 @@ depth-based tie-breaking \textbf{can} be advantageous, it is by no means
 always the case.
 \end{quote}
 
-The inconsistency is natural considering
-that the aim of diversifying the depth is to choose the \textbf{safest} practice in a domain-independent
-manner. Depending on the domain, the \textbf{best} practice may vary -- for example, fifo is the best in
-airport-fuel with LMcut, while lifo is the best in freecell-move with LMcut (cf. Table [Revised:11.3]).
-However, although these two default strategies may work well in some domains,
-it does more harm than good in many other domains,
-encountering the worst case pathological behavior.
+Each tie-breaking strategy has advantages and disadvantages depending on the domain. 
+These trade-offs and pathological behaviors are explained in Section [Revised:5], and 
+Depth-based tie-breaking is designed to avoid pathological behaviors (Section [Revised:5]).
+While this results in strong \textbf{overall} performance, other strategies
+may perform better on any given  domain.
 
-This is previously addressed in section 6 in the original version:
-
-\begin{quote}
-"In the former case, fifo should perform well because\ldots{} However, in the latter case, exhaustively
-searching the shallower depths can result in \ldots{} because \ldots{}"
-\end{quote}
-
-In the revised version,
-we added a paragraph in the end of section 7
-emphasizing and explaining the inconsistency you suggested.
+We added a paragraph before the start of Section [Revised:6.1]
+clarifying this point.
 
 \subsection{8) I'm somewhat sceptical about the value of these figures\ldots{}which of the examples are showing the failure of depth-based tie-breaking strategies.}
 \label{sec:orgheadline33}
 
 \begin{quote}
- I'm somewhat sceptical about the value of these figures. They show
+ I'm somewhat sceptical about the value of these figures [Figures in Section [Original:7,Revised:6]. They show
 only examples of what can happen on isolated instances. Although such
 deep-dives may be useful to explain what is happening in different
 cases (particularly given the variance in the results), the volume and
-unclear selection of the examples make them less informative. (For
+unclear selection of the examples make them less informative. 
+\end{quote}
+
+The purpose of the figures in Section [Original:7.1,Revised:6.1] which
+show the number of nodes expanded per depth in the final plateau is
+to show how the behaviors of depth diversification and other
+strategies follow the theoretical analyses in Sections
+[Original:6-7,Revised:5-6]
+
+We have significantly reduced the volume of the figures in Section
+[Revised:6.1] by moving the majority of the figures to the Appendix.
+
+\begin{quote}
+(For
 instance, it is not clear which of the examples are showing the
 failure of depth-based tie-breaking compared to default tie-breaking
 strategies.)
 \end{quote}
 
-The purpose of these figures is not to show the performance,
-but how depth diversification and other strategies follow the expected depth distribution.
-(Sec.7.1, "To understand the behavior of depth-based policies\ldots{}")
 
 In terms of performance measured by the number of expanded nodes,
 freecell-move p04 in Figure [Original:7.2, Revised:7.3], mid-right,

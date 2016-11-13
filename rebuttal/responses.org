@@ -3,7 +3,7 @@
 
 #+TITLE: Responses
 #+DATE: 2016-11-03
-#+AUTHOR: Masataro Asai
+#+AUTHOR: 
 #+EMAIL: guicho2.71828@gmail.com
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t c:nil creator:nil
 #+OPTIONS: d:(not "LOGBOOK") date:nil e:t email:nil f:t inline:t num:t p:nil pri:nil stat:t tags:t tasks:t
@@ -30,10 +30,10 @@ To address the reviewers' comments, we have modified the paper as described belo
 To reduce the length of the main portion of the paper, we moved many tables to the Appendix, 
 eliminated some tables and consolidated some figures.
 Now the paper length excluding references and appendix is 39 pages.
-The numberings of the sections, figures, and tables have changed due to changes made in response to the reviewers' comments.
+The numberings of the sections, figures and tables have changed due to changes made in response to the reviewers' comments.
 # ??
 In this response, when disambiguation is required, we use [Revised:X] to indicate that we refer to those figures/tables/sections using
-the new numbering system, and [Original:X] to indicate the numbers in the original submitted manuscript.
+the new numbering system and [Original:X] to indicate the numbers in the original submitted manuscript.
 
 * Reviewer 1
 
@@ -98,7 +98,7 @@ which degrades the performance of M&S on IPC domains,
 we compared the number of node evaluations between the depth-diversified and standard search method.
 We added Figure [Revised:6.2] comparing the cumulative coverage over the number of evaluations.
 This shows that the evaluations are almost identical for most IPC instances, meaning that search efficiency in positive cost domains was largely unaffected by depth diversification, as expected.
-There were differences in Openstacks (this is also as expected, since Openstacks has zero-cost actions).
+There were differences in Openstacks (this is also as expected since Openstacks has zero-cost actions).
 
 ** 4) Section 5: Zerocost domains. I buy all your arguments on zero cost
 
@@ -112,7 +112,7 @@ numbers.
 
 As suggested, we shortened Section [Revised:4].
 We also removed Table [Original:5.2].
-(Same results can still be extracted by the other tables in the appendix. See [3.5] also.)
+(Same results can still be extracted from the other tables in the appendix. See [3.5] also.)
 
 **  4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.
 
@@ -322,18 +322,18 @@ the analysis can allay such confusions for a reader.
 #+END_QUOTE
 
 To clarify: According to the /no-exhaustion assumption/ , no depth bucket exhausts due to the expansion.
-This implies that there are sufficiently large number of nodes in depth $d=0$ so that
+This implies that there are a sufficiently large number of nodes in depth $d=0$ so that
  depth 0 does not exhaust as a result of expansion.
 If FIFO default tiebreaking is used,
 it tries to expand all those nodes with depth 0 before expanding any nodes in depth d >= 1.
-Similar situation happens at every depth.
+A similar situation happens at every depth.
 Thus, even if the entire graph is a forest model, FIFO causes a heavy bias to expanding nodes with shallow depth.
 
 It's true that there are surely more nodes with larger depth if /all/ nodes in the entire plateau are expanded, which is the case for $f<f^*$.
 However, in the final plateau of A*, FIFO expands only a fraction of nodes with depth $d\leq d^*$,
 where $d^*$ is the /minimum solution depth/, the smallest depth of the solutions.
 Entire nodes above the solution depths ($d>d^*$) are not expanded due to the breadth-first behavior.
-During this process the expanded nodes are biased to the shallower region.
+During this process, the expanded nodes are biased to the shallower region.
 # with a reasonably good heuristic, A* expands only a small fraction of nodes in the search space, and the nodes expanded by A* during the search process are biased to the shallower region 
 
 # In practice,
@@ -410,7 +410,7 @@ We agree that goal depth distribution
 and distance-to-goal heuristic accuracy might be strongly correlated with tie-breaking strategy performance.
 This poses interesting avenues for future work, 
 and may be very useful, for example, in an extension of this work which 
-seeks to automatically select tie-breaking strategy.  
+seeks to automatically select a tie-breaking strategy.  
 # this may not be the best example, but I'm trying to suggest "future work"  which is a sizable chunk of work where the reviewer's suggested experiments might fit (but is obviously out of scope for this paper, thus we don't have to do the suggested experiments for this paper)
 Thanks for these suggestions. 
 
@@ -530,7 +530,7 @@ from a more thought-through visual presentation.
 
 # give the good news first (say "yes" first)
 As suggested, we converted Figure [Original:7.1,Revised:A.1] into histograms
-comparing the node evaluation ratio, because this is essentially 1-dimensional data and the domain characteristics is not important
+comparing the node evaluation ratio, because this is essentially 1-dimensional data and the domain characteristics are not important
 in this figure. Thank you for the suggestion.
 
 # then the bad news..
@@ -539,7 +539,7 @@ However, we concluded that they should remain in the present form, because
 the color-coded domain information in Figures [Original:4.1,Revised:3.1] and [Original:4.2,Revised:3.2] are 
 important for highlighting the domains which are affected by different default criteria.
 
-We acknowledge that these figures are crowded it's hard to distinguish
+We acknowledge that these figures are crowded and it's hard to distinguish
 many of the domains/points. However, this was the best compromise of
 information-vs-space we could come up with, as providing full,
 per-domain data would make this paper even longer.
@@ -578,7 +578,7 @@ actions are first mentioned, noting that these induce the g-value
 plateaus which are discussed in the Benton et al 2010 paper.
 
 In Section [Revised:4], when zero-cost domains are motivated and described, 
-we added the statement that the huge plateaus induced in the final plateau are instances of $g$-value plateaus described by Benton et al 2010.
+we added the statement that the huge final plateaus are instances of $g$-value plateaus described by Benton et al 2010.
 
 At the beginning of Section [Revised:4.1], we added references to
 works which have mentioned the difficulty of 0-cost domains (Thayer et
@@ -600,7 +600,7 @@ article makes over it, should be integrated in the presentation.
 #+END_QUOTE
 
 
-We integrated the comparison with our earlier conference paper as a paragraph at the end of Section 1, in a form similar to those of other recently published JAIR papers.
+We integrated the comparison with our earlier conference paper as a new paragraph at the end of Section 1, in a form similar to those of other recently published JAIR papers.
 
 ** 4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.
 
@@ -636,7 +636,7 @@ tie-breaking using "lifo" to be much more efficient?
 #+END_QUOTE
 
 We used the [f,h,fifo] strategy in this experiment in Section [Original:5.1,Revised:4.1] because
-we use the Fast Downward planner, which is currently one of the the most widely used,  state-of-the-art planners,
+we use the Fast Downward planner, which is currently one of the most widely used state-of-the-art planners
 and Fast Downward uses the [f,h,fifo] tiebreaking strategy by default.
 Thus, we believe using the default configuration for Fast Downward is a reasonable choice, since the purpose of the experiment was to demonstrate that Zerocost domains pose a challenge for state-of-the-art planners.
 
@@ -693,7 +693,7 @@ unclear selection of the examples make them less informative.
 #+END_QUOTE 
 
 The purpose of the figures in Section [Original:7.1,Revised:6.1] which
-show the number of nodes expanded per depth in the final plateau are
+show the number of nodes expanded per depth in the final plateau is
 to show how the behaviors of depth diversification and other
 strategies follow the theoretical analyses in Sections
 [Original:6-7,Revised:5-6]
