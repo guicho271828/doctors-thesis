@@ -1,7 +1,7 @@
 
 # C-c C-e latex export
 
-#+TITLE: Responses
+#+TITLE: Responses to Reviewer Comments for JAIR Submission 5249: "Tie-Breaking Strategies for Cost-Optimal Best First Search"
 #+DATE: 2016-11-03
 #+AUTHOR: 
 #+EMAIL: guicho2.71828@gmail.com
