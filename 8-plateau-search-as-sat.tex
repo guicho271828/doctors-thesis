@@ -75,9 +75,10 @@ When the plateau is UNSAT, then the search continues to the plateau with the nex
 % However, the difference is superficial: The latter can be reduced to the former case by introducing a dummy node
 % which acts as a common parent of all initial nodes. We can thus reformulate the plateau search problem as a satisficing search from the single dummy node.
 
-This is somewhat similar to the standard approach to model-based sequential / temporal planning using SAT/IP/CP solvers \cite{kautz1992planning,van2005optiplan}.
+This is somewhat similar to the standard approach to model-based planning 
+using SAT/IP/CP solvers \cite{kautz1992planning,van2005optiplan}, %avoid ''sequential'' here because it can refer to either the semantics (wrong) or to the solving strategy (correct)
 % \cite{rintanen2012planning,   Rintanen is state-of-the-art but not a good exemplar for this point, because his solver jumps around various horizons. van2005optiplan} in a slightly different sense.  
-In model-based planning, a planning problem is converted to a corresponding constraint satisfaction problem with a finite horizon $t$ (plan length / makespan). The search starts from the horizon 0 and tests if the problem is satisfiable. If not, then it increases the horizon, add constraints excluding solutions below $t$, and retests the same problem with additional constraints for a new horizon $t+1$.
+based on an iterative strategy where a planning problem is converted to a corresponding constraint satisfaction problem with a finite horizon $t$ (plan length / makespan). The search starts from the horizon 0 and tests if the problem is satisfiable. If not, then it increases the horizon, add constraints excluding solutions below $t$, and retests the same problem with additional constraints for a new horizon $t+1$.
 
 % The strategy of iterative search over a sequence of horizons in model-based planning is somewhat analogous to our view of \astar as a sequence of satisficing search over a set of plateaus.
 

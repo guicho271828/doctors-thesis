@@ -568,7 +568,7 @@ in this figure. Thank you for the suggestion.
  inserting additional section around the beginning that discuss the suboptimal search
  would be out of place and unnatural.
 
-** [3.3-INPROGRESS] 3) This applies also to the summary of the authors earlier conference paper.
+** [3.3] 3) This applies also to the summary of the authors earlier conference paper.
 
 #+BEGIN_QUOTE
  This applies also to the summary of the authors earlier conference
@@ -579,7 +579,7 @@ article makes over it, should be integrated in the presentation.
 #+END_QUOTE
 
 
-We fixed it as you suggested. TODO
+We integrated the comparison with our earlier conference paper as a paragraph at the end of Section 1, in a form similar to those of other recently published JAIR papers.
 
 ** [3.4] 4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.
 
@@ -640,7 +640,7 @@ will prevent A* from expanding all of them, but symmetry pruning will.
 In Section [Original:6.2,Revised:5.1] we clarified that pruning is a stronger technique
 than diversification.
 
-** 7) In Section 7, Table 7.1 shows that there is little consistency in the results
+** [3.7] 7) In Section 7, Table 7.1 shows that there is little consistency in the results
 
 #+BEGIN_QUOTE
  In Section 7, Table 7.1 shows that there is little consistency in the
@@ -652,24 +652,14 @@ depth-based tie-breaking *can* be advantageous, it is by no means
 always the case.
 #+END_QUOTE
 
-The inconsistency is natural considering
-that the aim of diversifying the depth is to choose the *safest* practice in a domain-independent
-manner. Depending on the domain, the *best* practice may vary -- for example, fifo is the best in
-airport-fuel with LMcut, while lifo is the best in freecell-move with LMcut (cf. Table [Revised:11.3]).
-However, although these two default strategies may work well in some domains,
-it does more harm than good in many other domains,
-encountering the worst case pathological behavior.
+Each tie-breaking strategy has advantages and disadvantages depending on the domain. 
+These tradeoffs and pathological behaviors are explained in Section [Revised:5], and 
+Depth-based tie-breaking is designed to avoid pathological behaviors (Section [Revised:5]).
+While this results in strong *overall* performance, other strategies
+may perform better on any given  domain.
 
-This is previously addressed in section 6 in the original version:
-
-#+BEGIN_QUOTE
-"In the former case, fifo should perform well because... However, in the latter case, exhaustively
-searching the shallower depths can result in ... because ..."
-#+END_QUOTE
-
-In the revised version,
-we added a paragraph in the end of section 7
-emphasizing and explaining the inconsistency you suggested.
+We added a paragraph before the start of Section [Revised:6.1]
+clarifying this point.
 
 ** 8) I'm somewhat sceptical about the value of these figures...which of the examples are showing the failure of depth-based tie-breaking strategies.
 

@@ -136,27 +136,8 @@ We empirically show that:
 
 % 
 
-% \textbf{
-% Note for reviewers: % In Progress: rewriting into more natural text -- the outline/note format was to make sure the reviewers clearly understood the diff vs aaai16, but outline format isn't stylistically appropriate for the final version.
-This paper is a significantly extended version of an earlier conference paper \cite{Asai2016}. 
-The additions to the conference paper are as follows:
- Introduction of deterministic depth-based diversification
-       strategy (as opposed to the randomized version in the conference
-       paper), and its theoretical analysis in \refsec{sec:depth}. 
- \item A new, thorough empirical analysis of the behavior of depth-based diversification
-       (\refsec{sec:depth-based-evaluation}).
- \item We propose a framework for treating \astar as a sequence of satisficing searches on
-       a set of $f$-cost plateaus (\refsec{sec:discussion}), and based on this framework, 
-       \begin{enumerate}
-        \item We identify the relationship between depth diversification and Type-GBFS
-              \cite{xie14type} (\refsec{sec:depth-vs-types}).
-        \item We demonstrated that some of the theories in satisficing search literature can be effectively used
-              for proving the completeness of each tie-breaking algorithms for \astar on infinite graph
-              (\refsec{sec:completeness-on-infinite-space})
-        \item We propose and evaluate tie-breaking strategies which incorporates distance-to-go estimates
-              (\refsec{sec:distance-to-go}).
-       \end{enumerate}
-\end{enumerate}
-% Thus, over 60\% of \refsec{sec:depth} and \refsec{sec:depth-based-evaluation}, as well as 100\% of \refsecs{sec:discussion}{sec:distance-to-go} are new.
-% }
-
+% The comparison to the conference paper is based on similar paragraphs in recent JAIR search/planning papers.
+This paper significantly extends an earlier conference paper \cite{Asai2016}, which experimentally evaluated standard tie-breaking strategies, identified the significant effect of tie-breaking strategies in domains with zero-cost edges, and proposed randomized depth-based diversification.
+In this paper we present a significantly expanded analysis of domains with zero-cost edges, a new, deterministic, depth-based diversification strategy, and an expanded empirical and theoretical analysis of depth-based diversification.  We also introduce the 
+framework for treating \astar as a sequence of satisficing searches on 
+a set of $f$-cost plateaus, and propose tie-breaking strategies which incorporates distance-to-go estimates.
