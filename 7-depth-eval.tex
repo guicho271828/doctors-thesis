@@ -14,8 +14,8 @@ We compared the performance of standard tie-breaking methods to depth-based tie-
 as the second-level sorting criterion and either \fifo, \lifo or \ro (random order) default tie-breaking criterion.
 The only difference is the presence of the third, depth-diversification criterion.
 
-Experiments are conducted on \textbf{1104 standard IPC benchmark
-instances} from 35 domains  and \textbf{620 Zerocost instances} from 28 domains (see \refsec{sec:eval-common-strategies} and \refsec{sec:zerocost-domains} for full lists of these domains). 
+Experiments are conducted on {1104 standard IPC benchmark
+instances} from 35 domains  and {620 Zerocost instances} from 28 domains (see \refsec{sec:eval-common-strategies} and \refsec{sec:zerocost-domains} for full lists of these domains). 
 The basic experimental settings are the same as the previous ones:
 Each experiment uses the Fast Downward planner using \astar search and either the \lmcut heuristic or \mands heuristic.
 Each experiment is run for 5 minutes excluding SAS translation time, with 4GB memory constraints.
@@ -47,7 +47,7 @@ Detailed data tables are in the Appendix (\refsec{sec:appendix}).
  }
 \end{table}
 
-\reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full} shows the number of \textbf{620 Zerocost
+\reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full} shows the number of {620 Zerocost
 instances} solved by \lmcut and \mands heuristics. In these
 Zerocost domains, our proposed method outperforms the traditional tie-breaking methods in both heuristics.
 Significant improvements were observed in 10 domains when using \lmcut, and in 7 domains when using \mands.
@@ -63,7 +63,7 @@ Significant improvements were observed in 10 domains when using \lmcut, and in 7
 %        \pddl{tpp-fuel} (\fifo,\ro), \pddl{woodworking-cut} (\fifo,\ro).
 % \end{itemize}
 
-\reftbl{tbl:lmcut-ipc-full} shows the number of \textbf{1104 standard IPC benchmark instances} solved by the configuration using \lmcut
+\reftbl{tbl:lmcut-ipc-full} shows the number of {1104 standard IPC benchmark instances} solved by the configuration using \lmcut
 heuristics. Depth-based tie-breaking ($\depth$) shows impressive results on \pddl{Openstacks} ($\fifo:2\to 8,\ \lifo:3\to 12,\  \ro:3.9\to 10$) and \pddl{Cybersec} ($\fifo: 11\to 18,\ \ro: 11.7\to 18$) because these
 domains contain many instances of 0-cost edges (See
 \refig{fig:plateau}).  Most other instances are unaffected by depth-based tie-breaking.  Thus, depth-based
@@ -71,7 +71,7 @@ tie-breaking yields better performance in the domains with 0-cost actions, witho
 other domains.
 
 In contrast, \reftbl{tbl:mands-ipc-full} shows that depth-based tie-breaking negatively affects the performance of
-the configuration using \mands when applied to \textbf{1104 standard IPC benchmark instances}. This result can be explained as follows.
+the configuration using \mands when applied to {1104 standard IPC benchmark instances}. This result can be explained as follows.
 % %concatenating into single, long paragraph because  otherwise, it seems that almost the entire 1st part of Sec 7 is about the negative result on M&S, giving the wrong impression of the overall results
 First,  similar to the case of \lmcut, \pddl{Openstacks} coverage improved for \fifo ($15\to 19$) and \ro ($15.4\to 19$), which is expected according to our analysis of Zerocost domains.
 %
