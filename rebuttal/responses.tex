@@ -1,4 +1,4 @@
-% Created 2016-11-13 日 15:15
+% Created 2016-11-13 日 15:49
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -90,7 +90,7 @@ which degrades the performance of M\&S on IPC domains,
 we compared the number of node evaluations between the depth-diversified and standard search method.
 We added Figure [Revised:6.2] comparing the cumulative coverage over the number of evaluations.
 This shows that the evaluations are almost identical for most IPC instances, meaning that search efficiency in positive cost domains was largely unaffected by depth diversification, as expected.
-There were differences in Openstacks (this is also as expected since Openstacks has zero-cost actions).
+There were differences in Openstacks (this is also expected since Openstacks has zero-cost actions).
 
 \subsection{4) Section 5: Zerocost domains. I buy all your arguments on zero cost}
 \label{sec:orgheadline4}
@@ -103,9 +103,9 @@ seem reasonable and you do not have to necessarily show all the
 numbers.
 \end{quote}
 
-As suggested, we shortened Section [Revised:4].
+As suggested, we shortened Section [Original:5,Revised:4].
 We also removed Table [Original:5.2].
-(Same results can still be extracted from the other tables in the appendix. See [3.5] also.)
+(Same results can still be extracted from the other tables in the appendix. See \ref{orgtarget1} also.)
 
 \subsection{4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.}
 \label{sec:orgheadline5}
@@ -117,7 +117,7 @@ The claims about FIFO in infinite graphs (section 5.3) is trivial. You can short
 In the revised version, we moved the section [Original:5.3] to the end of Section [Original:8,Revised:7],
 where it fits better (using the A*-as-sequence-of-SAT framework).
 
-In response to item \ref{orgtarget1} below from Reviewer 2, 
+In response to item \ref{orgtarget2} below from Reviewer 2, 
 we formalized some additional completeness results on infinite graphs,
 which was also added to this revised section [Original:5.3,Revised7.2].
 
@@ -143,7 +143,7 @@ Consider to omit these experiments and just mention that you have
 results that support this trend.
 \end{quote}
 
-We moved several non-critical figures [Original:7.3,7.4,7.6] to the appendix: Figures [Revised:11.2,11.3,11.4].
+We moved several non-critical figures [Original:7.3,7.4,7.6] to the appendix: Figures [Revised:A.2,A.3,A.4].
 Also, we shorten the text by removing the list improved domains.
 
 \subsection{7) The beginning of Section 8 is also rather trivial.}
@@ -157,9 +157,10 @@ an introduction to your later section 8.1 which I find quite
 interesting and more deep and should certainly be kept.
 \end{quote}
 
-We shortened the beginning of Section [Original:8,Revised:7], compared "A*-as-series-of-satisficing-search" to IDA*, and added a paragraph connecting this introduction better as an introduction to  subsections 8.1
-
-
+We shortened the beginning of Section [Original:8,Revised:7],
+compared "A*-as-series-of-satisficing-search" to IDA*
+and added a paragraph connecting this section
+better as an introduction to subsection [Original:8.1,Revised:7.1,7.2].
 
 \subsection{minor 1) -- should be "current shortest known path"}
 \label{sec:orgheadline9}
@@ -191,7 +192,10 @@ third is misleading. It is actually the second which comes before the
 default criterion.
 \end{quote}
 
-Fixed as you suggested.  XXX - not fixed???
+Depth Diversification is the third strategy
+in a sorting strategy [f,h,<d>,*] we used in the experiments.
+Instead, we fixed the part "h as the first-level tiebreaking criterion"
+into "h as the second-level sorting criterion".
 
 \subsection{minor 4) -- The first sections are very short. Maybe they can be one large section\ldots{}}
 \label{sec:orgheadline12}
@@ -245,7 +249,7 @@ the paper. Currently, it seems too long for the content.
 
 We moved many tables and plots to the appendix, so the length of the main portion of the paper has been reduced to 37 pages (excluding references and appendix).
 
-\subsection{\label{orgtarget1} 3) the theory and analysis part\ldots{} Section 5.3}
+\subsection{\label{orgtarget2} 3) the theory and analysis part\ldots{} Section 5.3}
 \label{sec:orgheadline16}
 
 \begin{quote}
@@ -331,7 +335,7 @@ cases, however, i would still prefer if they are explicitly
 stated/proved.
 \end{quote}
 
-We proved the completeness and its conditions as requested in Section [Revised:8] (See also the response to Question \ref{orgtarget1}).
+We proved the completeness and its conditions as requested in Section [Revised:8] (See also the response to Question \ref{orgtarget2}).
 
 \subsection{7) I like the idea of representing A* as a series of satisficing search. Here also, i would suggest inclusion of pseudocode.}
 \label{sec:orgheadline21}
@@ -574,7 +578,7 @@ domains where the number of instances in the Zerocost domains is the same as in 
 However, the Zerocost versions of Blocks, freecell, pipesworld-notankage, and miconic are used in all of the other experiments in the paper involving Zerocost domains.
 (because none of the other experiments involve comparisons between coverage on Zerocost domains and coverage on standard IPC domains).
 
-\subsection{5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy}
+\subsection{\label{orgtarget1} 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy}
 \label{sec:orgheadline30}
 
 \begin{quote}
@@ -590,7 +594,7 @@ Thus, we believe using the default configuration for Fast Downward is a reasonab
 
 Although not prominently featured in Section [Original:5.1,Revised4:1], 
 the results for [f,h,lifo] can be extracted from 
-Table [Original:7.2, Revised:11.3] (Zerocost instances) and Table [Original:7.4, Revised:11.5] (IPC instances).
+Table [Original:7.2, Revised:A.3] (Zerocost instances) and Table [Original:7.4, Revised:A.5] (IPC instances).
 Qualitatively, the results for [f,h,lifo] are similar to that of [f,h,fifo] -- Zerocost instances are "harder" than their corresponding IPC instances.
 
 \subsection{6) In Section 6.2, the authors argue that \ldots{} pruning methods \ldots{} are somehow equivalent to tie-breaking. This is not accurate.}
@@ -664,5 +668,5 @@ In terms of performance measured by the number of expanded nodes,
 freecell-move p04 in Figure [Original:7.2, Revised:7.3], mid-right,
 is an instance on which lifo solved the problem
 with much smaller expansions than depth diversification.
-This can also be seen as the coverage difference in Table [Original:7.2, Revised:11.3].
+This can also be seen as the coverage difference in Table [Original:7.2, Revised:A.3].
 \end{document}
