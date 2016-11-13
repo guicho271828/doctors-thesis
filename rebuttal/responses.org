@@ -165,7 +165,7 @@ Consider to omit these experiments and just mention that you have
 results that support this trend.
 #+END_QUOTE
 
-We moved several non-critical figures [Original:7.3,7.4,7.6] to the appendix: Figures [Revised:11.2,11.3,11.4].
+We moved several non-critical figures [Original:7.3,7.4,7.6] to the appendix: Figures [Revised:A.2,A.3,A.4].
 Also, we shorten the text by removing the list improved domains.
 
 ** 7) The beginning of Section 8 is also rather trivial.
@@ -642,7 +642,7 @@ Thus, we believe using the default configuration for Fast Downward is a reasonab
 
 Although not prominently featured in Section [Original:5.1,Revised4:1], 
 the results for [f,h,lifo] can be extracted from 
-Table [Original:7.2, Revised:11.3] (Zerocost instances) and Table [Original:7.4, Revised:11.5] (IPC instances).
+Table [Original:7.2, Revised:A.3] (Zerocost instances) and Table [Original:7.4, Revised:A.5] (IPC instances).
 Qualitatively, the results for [f,h,lifo] are similar to that of [f,h,fifo] -- Zerocost instances are "harder" than their corresponding IPC instances.
 
 ** 6) In Section 6.2, the authors argue that ... pruning methods ... are somehow equivalent to tie-breaking. This is not accurate.
@@ -713,7 +713,7 @@ In terms of performance measured by the number of expanded nodes,
 freecell-move p04 in Figure [Original:7.2, Revised:7.3], mid-right,
 is an instance on which lifo solved the problem
 with much smaller expansions than depth diversification.
-This can also be seen as the coverage difference in Table [Original:7.2, Revised:11.3].
+This can also be seen as the coverage difference in Table [Original:7.2, Revised:A.3].
 
 ** minor comments                                                  :noexport:
 
