@@ -110,9 +110,9 @@ seem reasonable and you do not have to necessarily show all the
 numbers.
 #+END_QUOTE
 
-As suggested, we shortened Section [Revised:4].
+As suggested, we shortened Section [Original:5,Revised:4].
 We also removed Table [Original:5.2].
-(Same results can still be extracted from the other tables in the appendix. See [3.5] also.)
+(Same results can still be extracted from the other tables in the appendix. See [[R3Q5]] also.)
 
 **  4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.
 
@@ -627,7 +627,7 @@ domains where the number of instances in the Zerocost domains is the same as in 
 However, the Zerocost versions of Blocks, freecell, pipesworld-notankage, and miconic are used in all of the other experiments in the paper involving Zerocost domains.
 (because none of the other experiments involve comparisons between coverage on Zerocost domains and coverage on standard IPC domains).
 
-** 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy
+** <<R3Q5>> 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy
 
 #+BEGIN_QUOTE
  Furthermore in Section 5.1, why is the comparison done using the
