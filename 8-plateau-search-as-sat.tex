@@ -183,41 +183,30 @@ Nevertheless, the close relationship between depth diversification for admissibl
 
 We can apply this framework to analyze the completeness of \astar on infinite graphs with respect to various tie-breaking criteria.
 First, \astar is complete on finite graphs regardless of the tie-breaking strategy \cite{hart1968formal}.
-However, if the graph is infinite (i.e. the number of nodes in the graph has no upper bound), the completeness of the algorithm depends on tie-breaking.
+However, if the graph is infinite, the completeness of the algorithm depends on tie-breaking.
 We consider several cases depending on which plateau is infinite.
  We only need to consider plateaus for $f \leq f^*$ because  \astar does not expand the nodes in $\plateau{f}$ for $f>f^*$.
 
+\begin{defi}
+ A graph is \emph{infinite} when the number of nodes in the graph has no upper bound.
+\end{defi}
+
 \begin{propo}
- If any $\plateau{f}$ for $f<f^*$ is infinite, then \astar does not terminate in a finite length of time.
+ \label{propo:f-less}
+ If any $\plateau{f}$ for $f<f^*$ is infinite, then \astar does not terminate.
 \end{propo}
 
 \begin{proof}
  \refalgo{alg:astar-sat} requires proving the UNSAT-isfiability (that there is no solution) of all non-final plateaus, $\plateau{f}$ ($\forall f<f^*$), so if any of them are infinite, \astar does not terminate.
 \end{proof}
 
-Next, we consider the case where $\plateau{f}$ is finite $\forall f<f^*$.
-
-
-% Given that, the last condition we should examine is whether $\plateau{f^*}$ is infinite.
-
-% \begin{propo} % I don't think this is a formal proposition because ``completeness depends on'' is not clearly defined 
-% Given a set of finite $\plateau{f}$ for $\forall f<f^*$ and an infinite $\plateau{f^*}$,
-% the completeness of \astar $[f, \text{criterion}_2, \ldots \text{criterion}_k]$
-% depends on the completeness of satisficing search algorithm
-% $[\text{criterion}_2, \ldots \text{criterion}_k]$ on $\plateau{f^*}$.
-%\end{propo}
-
-% I think what you're  really trying to do with the prop is encapsulate the conditions so you can refer to it later, but it seems that directly stating these  assumptions isn't muchlonger than saying ``the conditions in Proposition X''. So...
-
 The remaining cases assume that the following two conditions hold: 
  $\plateau{f}$ is finite  $\forall f<f^*$, and $\plateau{f^*}$ is infinite.
-
-The completeness of \astar $[f, \text{criterion}_2, \ldots \text{criterion}_k]$
+Under this assumption,
+the completeness of \astar $[f, \text{criterion}_2, \ldots \text{criterion}_k]$
 depends on the completeness of satisficing search algorithm
 $[\text{criterion}_2, \ldots \text{criterion}_k]$ on $\plateau{f^*}$.
 For the standard tie-breaking criteria, we can apply previously known results.
-% , such as \cite{Valenzano2016}.
-% Reiterating \cite{Valenzano2016}, 
 
 \begin{theo}[\citeauthor{Valenzano2016} \citeyear{Valenzano2016}]
  % [Probabilistic Completeness of $\varepsilon$-greedy node selection \cite{valenzano2014comparison}]
@@ -229,25 +218,27 @@ For the standard tie-breaking criteria, we can apply previously known results.
 
 \begin{corollary}
  \astar with Random Order tiebreaking $[f,\ro]$ is probabilistically complete on an infinite graph
- when  $\plateau{f}$ is finite  $\forall f<f^*$, and $\plateau{f^*}$ is infinite. %stating the conditions is not much longer than referencing conditions
+ when $\plateau{f}$ is finite for all $f<f^*$. %stating the conditions is not much longer than referencing conditions
  %satisfying the conditions in Proposition 2.
 \end{corollary}
 
 \begin{proof}
-  $[f,\ro]$ is an instance of \astar using $[\ro]$ as a satisficing algorithm for plateau-search. Since $[\ro]$ is a special case of $\varepsilon$-greedy node selection with $\varepsilon=1$, $[f,\ro]$ with an infinite $\plateau{f^*}$ is also probabilistically complete.
+  $[f,\ro]$ is an instance of \astar using $[\ro]$ as a satisficing algorithm for plateau-search. Since $[\ro]$ is a special case of $\varepsilon$-greedy node selection with $\varepsilon=1$,
+ $[\ro]$ is also probabilistically complete on an infinite $\plateau{f^*}$.
 \end{proof}
 
-Breadth-first search is complete when the graph has finite branch factor, and solution length is finite.
+Breadth-first search is complete when the graph has a finite branch factor below the solution depth.
 Since FIFO tiebreaking $[f,\fifo]$ applies breadth-first search to $\plateau{f^*}$,  it follows that
 
 \begin{propo}
-% \astar with FIFO tiebreaking $[f,\fifo]$ is complete on an infinite graph when \emph{(1)} it satisfies the conditions in Proposition 2, \emph{(2)} the branching factor is finite and \emph{(3)} the solution length is finite. (Trivially follows from the completeness of Breadth-first search on $\plateau{f^*}$.)
- \astar with FIFO tiebreaking $[f,\fifo]$ is complete on an infinite graph when the branching factor is finite and solution length is finite.
+ \astar with FIFO tiebreaking $[f,\fifo]$ is complete on an infinite graph when
+ $\plateau{f}$ is finite  $\forall f<f^*$,
+ solution length is finite and
+ the branching factor is finite in $\plateau{f^*}$ below the solution depth.
 \end{propo}
 
-
-
-LIFO tie-breaking performs depth-first search on $\plateau{f^*}$. Therefore, the completeness of \astar using LIFO tiebreaking depends on the search space -- in general, LIFO tie-breaking is not complete.
+LIFO tie-breaking performs a depth-first search with duplicate detection (DFS-dup) on $\plateau{f^*}$.
+Assuming a fixed successor ordering, we get the following:
 
 % \begin{proof}
 %  % on an infinite graph is complete when (2) and (3) holds.
@@ -256,14 +247,11 @@ LIFO tie-breaking performs depth-first search on $\plateau{f^*}$. Therefore, the
 
 % ``solution length is finite'' -- does the existence of a ``solution'' implies finite length?
 
-% finite branch factor and finite max depth --> finite space,  which is out of scope
-%\begin{propo} %corollary? (because dfs completeness is known under these conditions)
-% \astar with LIFO tiebreaking $[f,\lifo]$ is complete on an infinite graph with finite branching factor and finite maximum depth. 
-%\end{propo}
-
-\begin{propo} %corollary? (because dfs incompleteness is known under these conditions)
- \astar with LIFO tiebreaking $[f,\lifo]$ is not complete on an infinite graph.
+\begin{propo} %corollary? (because dfs completeness is known under these conditions)
+ \astar with LIFO tiebreaking $[f,\lifo]$ is complete on an infinite graph iff
+ $\plateau{f}$ is finite for all $f\leq f^*$.
 \end{propo}
+
 %% \begin{proof}
 %%  Completeness depends on the completeness of depth-first search on an infinite graph.
 %%  On a graph satisfying (2), it has a possibility to search the infinitely large region.
@@ -273,41 +261,36 @@ LIFO tie-breaking performs depth-first search on $\plateau{f^*}$. Therefore, the
 %%  If we assume both (2) and (4), then the graph becomes finite.
 %% \end{proof}
 \begin{proof}
-
- If $\plateau{f^*}$ is infinite, then 
- it is possible for the $[f,\lifo]$ to be trapped in an infinitely large region (e.g., if $[f,\lifo]$ starts exploring an infinitely large region where all edge costs have zero cost,  depth-first exploration of $plateau(f)$ never terminates). 
-% On a graph with (4) a finite maximum depth,
-% it still has a possibility to search the infinitely large region in a subtree
-% which does not contain the solution.
-% not sure what was intended by ``finite maximum depth...''  here -- ``infinitely large region in a subtree'' where branch factor is finite must have infinite depth.
+ If $\plateau{f^*}$ is infinite, then
+ either the maximum depth or the branching factor is infinite (has no upper bound).
+ If the maximum depth has no upper bound,
+ DFS-dup requires an arbitrary longer runtime before the first backtracking
+ unless the solution is found before it.
+ If the branching factor has no upper bound,
+ there is a successor ordering which forces DFS-dup
+ to search all subtrees that do not contain solutions, and
+ the size of the subtrees has no upper bound.
+ If both maximum depth and the branching factor are finite, then $\plateau{f^*}$ is finite
+ and DFS-dup is complete.
+ Combined with \refpropo{propo:f-less},
+ LIFO tie-breaking requires a finite $\plateau{f}$ for all $f\leq f^*$.
 \end{proof}
 
-Next, we show the completeness of our iteration-based depth diversification \refalgo{alg:depth}.
-
+Finally, we show the completeness of our iteration-based depth diversification in \refalgo{alg:depth}.
 
 \begin{theo}
- On a graph with finite branching factor,
- if $\plateau{f}$ is finite $\forall f<f^*$
- and $\plateau{f^*}$ is infinite,
-%  \emph{(1)} it satisfies the conditions in Proposition 2,
-% \emph{(2)} the branching factor is finite and 
-% \emph{(3)} the solution length is finite % ``solution'' by definition must be  finite length?
- \astar with Depth Diversification $[f,\depth,*]$ is complete.
+ \astar with Depth Diversification $[f,\depth,*]$ is complete on an infinite graph when
+ $\plateau{f}$ is finite  $\forall f<f^*$,
+ solution length is finite and
+ the branching factor is finite in $\plateau{f^*}$ below the solution depth.
 \end{theo}
  
 \begin{proof}
-% The completeness depends on the completeness of $[\depth,*]$ on $\plateau{f^*}$.
-% Due to (3), we can assume that the solution has a finite depth $d^*$ on the plateau.
-% On one iteration from the largest depth $D$ to the depth 0, each depth is expanded once.
-% Since (2) the branching factor is finite,
-% every nodes in depth $d\leq d^*$ is guaranteed to be expended in a finite amount of time.
  Any solution must have a finite depth $d^*$ on $\plateau{f^*}$.
  On every iteration of the $pop$ method of \refalgo{alg:depth} from the largest depth $D$ to the depth 0, each depth is expanded once.
  Since the branching factor is finite,
  every node with depth $d\leq d^*$ will be expanded in a finite amount of iterations.
-
 \end{proof}
-
 
 \begin{comment} % excessive and controversial claims
 Despite all this, however, 
