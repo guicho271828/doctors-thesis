@@ -215,7 +215,7 @@ The remaining cases assume that the following two conditions hold:
 The completeness of \astar $[f, \text{criterion}_2, \ldots \text{criterion}_k]$
 depends on the completeness of satisficing search algorithm
 $[\text{criterion}_2, \ldots \text{criterion}_k]$ on $\plateau{f^*}$.
-For the standard tie-breakig criteria, we can apply previously known results.
+For the standard tie-breaking criteria, we can apply previously known results.
 % , such as \cite{Valenzano2016}.
 % Reiterating \cite{Valenzano2016}, 
 
@@ -273,6 +273,7 @@ LIFO tie-breaking performs depth-first search on $\plateau{f^*}$. Therefore, the
 %%  If we assume both (2) and (4), then the graph becomes finite.
 %% \end{proof}
 \begin{proof}
+
  If $\plateau{f^*}$ is infinite, then 
  it is possible for the $[f,\lifo]$ to be trapped in an infinitely large region (e.g., if $[f,\lifo]$ starts exploring an infinitely large region where all edge costs have zero cost,  depth-first exploration of $plateau(f)$ never terminates). 
 % On a graph with (4) a finite maximum depth,

@@ -132,7 +132,7 @@ which was also added to this revised section [Original:5.3,Revised7.2].
 
 # Although the completeness material definitely fits better in the new location, 
 # the submitted section 5.3 didn't say or imply that 0-cost edges
-# induces inifinite search spaces, and I don't see any reviewer comment which suggests the
+# induces infinite search spaces, and I don't see any reviewer comment which suggests the
 # reviewers thought we made any such claim, so let's not go out of our
 # way to mention this (it just makes us look bad).
 
@@ -403,7 +403,7 @@ distance-to-go estimates.
 #+END_QUOTE
 
 # this is a good set of suggestions, but is a lot of work.
-# fortunately, R2 doesn't say we "must" or "should" do these. He just says "would be intersting", "would be good",
+# fortunately, R2 doesn't say we "must" or "should" do these. He just says "would be interesting", "would be good",
 # which can usually be safely interpreted as constructive suggestions rather than demands for addition.
 
 We agree that goal depth distribution
@@ -411,7 +411,7 @@ and distance-to-goal heuristic accuracy might be strongly correlated with tie-br
 This poses interesting avenues for future work, 
 and may be very useful, for example, in an extension of this work which 
 seeks to automatically select tie-breaking strategy.  
-# this may not be the best example, but I'm trying to suggest "future work"  which is a sizeable chunk of work where the reviewer's suggested experiments might fit (but is obviously out of scope for this paper, thus we don't have to do the suggested experiments for this paper)
+# this may not be the best example, but I'm trying to suggest "future work"  which is a sizable chunk of work where the reviewer's suggested experiments might fit (but is obviously out of scope for this paper, thus we don't have to do the suggested experiments for this paper)
 Thanks for these suggestions. 
 
 
@@ -440,10 +440,10 @@ since infinite search spaces are beyond the scope of classical planning, this wi
 careful design of interesting/practical benchmark domains and solvers.
 
 We agree that completeness can be one good reason for choosing a  fifo tie-breaking strategy.
-However, in our survey of papers mentinoing tie-breaking strategies, we couldn't find any work 
+However, in our survey of papers mentioning tie-breaking strategies, we couldn't find any work 
 which specifically mentioned fifo tie-breaking and also handled infinite spaces -- 
 the use of fifo which we cite in the paper is by Fast Downward, a classical planner, and as mentioned above, 
-infinite search spaces are beyond the scope of the standard clasical planning framework, so it's unlikely that the use of FIFO
+infinite search spaces are beyond the scope of the standard classical planning framework, so it's unlikely that the use of FIFO
 tie-breaking in FD was motivated by completeness concerns.
 
 
@@ -622,7 +622,7 @@ Thus, we believe using the default configuration for Fast Downward is a reasonab
 Although not prominently featured in Section [Original:5.1,Revised4:1], 
 the results for [f,h,lifo] can be extracted from 
 Table [Original:7.2, Revised:11.3] (Zerocost instances) and Table [Original:7.4, Revised:11.5] (IPC instances).
-Qualitiatively, the results for [f,h,lifo] are similar to that of [f,h,fifo] -- Zerocost instances are "harder" than their corresponding IPC instances.
+Qualitatively, the results for [f,h,lifo] are similar to that of [f,h,fifo] -- Zerocost instances are "harder" than their corresponding IPC instances.
 
 ** [3.6] 6) In Section 6.2, the authors argue that ... pruning methods ... are somehow equivalent to tie-breaking. This is not accurate.
 
@@ -653,7 +653,7 @@ always the case.
 #+END_QUOTE
 
 Each tie-breaking strategy has advantages and disadvantages depending on the domain. 
-These tradeoffs and pathological behaviors are explained in Section [Revised:5], and 
+These trade-offs and pathological behaviors are explained in Section [Revised:5], and 
 Depth-based tie-breaking is designed to avoid pathological behaviors (Section [Revised:5]).
 While this results in strong *overall* performance, other strategies
 may perform better on any given  domain.
