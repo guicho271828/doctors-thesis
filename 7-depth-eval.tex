@@ -256,12 +256,12 @@ Thus, the overall behavior of \ro tends to be similar to \fifo, and naive random
 In contrast, $[f,h,\depth,\fifo]$ is balancing the search at various depths.
 The yellow curve representing $[f,h,\depth,\fifo]$ tends to be almost flat at shallow depths while gradually decreasing the number of nodes at larger depths.
 Moreover, its node distribution almost accurately follows $D-d$, a theoretical model from \refsec{sec:theoretical-characteristics} which applies the simplified
-assumption that the plateau is a forest with fixed branching factor.
+assumption that the plateau is a forest with a fixed branching factor.
 $D$ denotes the largest depth of the unexpanded nodes in the final plateau, which is
 1 larger than the largest depth of the expanded nodes.
 
 The discrepancy of the $[f,h,\depth,\fifo]$ curve from the theoretical prediction $D-d$ can be caused by the 
-following factors: First, the branching factor of the graph may not be
+following factors: First, the outdegree of each node in the graph may not be
 uniform across the search space. Second, some depth buckets could be
 exhausted, as depicted in the  $[f,h,\fifo]$ line which
 shows that all nodes in the shallower depths are expanded while the line is still below $D-d$.

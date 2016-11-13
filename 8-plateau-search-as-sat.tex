@@ -233,7 +233,7 @@ Since FIFO tiebreaking $[f,\fifo]$ applies breadth-first search to $\plateau{f^*
 \begin{propo}
  \astar with FIFO tiebreaking $[f,\fifo]$ is complete on an infinite graph when
  $\plateau{f}$ is finite  $\forall f<f^*$ and
- the branching factor is finite in $\plateau{f^*}$ below the solution depth.
+ the maximum outdegree of the nodes is finite in $\plateau{f^*}$ below the solution depth.
 \end{propo}
 
 LIFO tie-breaking performs a depth-first search with duplicate detection (DFS-dup) on $\plateau{f^*}$.
@@ -259,15 +259,15 @@ Assuming a fixed successor ordering, we get the following:
 %% \end{proof}
 \begin{proof}
  If $\plateau{f^*}$ is infinite, then
- either the maximum depth or the branching factor is infinite (has no upper bound).
+ either the maximum depth or the maximum outdegree of the nodes is infinite (has no upper bound).
  If the maximum depth has no upper bound,
  DFS-dup requires an arbitrary longer runtime before the first backtracking
  unless the solution is found before it.
- If the branching factor has no upper bound,
+ If the maximum outdegree has no upper bound,
  there is a successor ordering which forces DFS-dup
  to search all subtrees that do not contain solutions, and
  the size of the subtrees has no upper bound.
- If both maximum depth and the branching factor are finite, then $\plateau{f^*}$ is finite
+ If both the maximum depth and the maximum outdegree are finite, then $\plateau{f^*}$ is finite
  and DFS-dup is complete.
  Combined with \refpropo{propo:f-less},
  LIFO tie-breaking requires a finite $\plateau{f}$ for all $f\leq f^*$.
@@ -278,13 +278,13 @@ Finally, we show the completeness of our iteration-based depth diversification i
 \begin{theo}
  \astar with Depth Diversification $[f,\depth,*]$ is complete on an infinite graph when
  $\plateau{f}$ is finite  $\forall f<f^*$ and
- the branching factor is finite in $\plateau{f^*}$ below the solution depth.
+ the maximum outdegree of the nodes is finite in $\plateau{f^*}$ below the solution depth.
 \end{theo}
  
 \begin{proof}
  Any solution must have a finite depth $d^*$ on $\plateau{f^*}$.
  On every iteration of the $pop$ method of \refalgo{alg:depth} from the largest depth $D$ to the depth 0, each depth is expanded once.
- Since the branching factor is finite,
+ Since the maximum outdegree is finite,
  every node with depth $d\leq d^*$ will be expanded in a finite amount of iterations.
 \end{proof}
 
