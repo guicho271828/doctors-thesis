@@ -541,7 +541,7 @@ However, we indeed benefit from converting [Original,Revised:7.1] into a histogr
 comparing the node evaluation ratio, because the domain characteristics is not important
 in this figure. Thank you for the suggestion.
 
-** 2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search
+** [2.2] 2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search
 
  #+BEGIN_QUOTE
   The description in the early part of the paper (Sections 1, 3, 4, 5)
@@ -558,16 +558,21 @@ in this figure. Thank you for the suggestion.
  established early in the paper.
  #+END_QUOTE
 
- Previously, the issues of zero cost transitions were not directly associated with 
- a failure in tie-breaking. Thus, previous work focused on how to modify the main 
- evaluation functions (use of distance-to-go functions, inflating the heuristic value)
- or to modify the expansion order (e.g. Thayer and Ruml, ICAPS08).
+In Section 1, we added a reference to Benton et al 2010 in Section 1 when 0-cost
+actions are first mentioned, noting that these induce the g-value
+plateaus which are discussed in the Benton et al 2010 paper.
 
- Considering the flow of the paper,
- which start by examining the standard tiebreaking strategies on optimal search,
- then proceed to identify and connect the source of the problem with 0-cost transitions,
- inserting additional section around the beginning that discuss the suboptimal search
- would be out of place and unnatural.
+In Section [Revised:4], when zero-cost domains are motivated and described, 
+we added the statement that the huge plateaus induced in the final plateau are instances of $g$-value plateaus described by Benton et al 2010.
+
+At the beginning of Section [Revised:4.1], we added references to
+works which have mentioned the difficulty of 0-cost domains (Thayer et
+al 2009, Cushing et al 2010, Wilt et al 2011, Thayer et al 2011,
+Richter et al 2011).
+We clarify that previously, the issues of zero cost transitions were not directly associated with 
+a failure in tie-breaking. Thus, previous work focused on how to modify the main 
+evaluation functions (use of distance-to-go functions, inflating the heuristic value)
+or to modify the expansion order (e.g. Thayer and Ruml, ICAPS08).
 
 ** [3.3] 3) This applies also to the summary of the authors earlier conference paper.
 

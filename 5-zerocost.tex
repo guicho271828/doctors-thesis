@@ -11,6 +11,7 @@ One characteristic of \pddl{Openstacks} is the presence of many  actions which h
 Since 0-cost actions (edges) allow ``free'' transitions between many neighboring nodes,
 the number of neighboring nodes sharing the same $h$ also becomes quite large.
 This creates huge plateaus that share the same $h$-value, and the standard $h$-based tie-breaking criterion can not provide informative guidance for search within a plateau.\todo*{why mention $f=f^*$ specifically here, instead of ``final plateau'' (f*,0) or just in general all plateaus?}
+Since the $g$-values of the nodes in these plateaus are all identical, these plateaus are an instance of $g$-value plateaus, which are known to increase the difficulty of search \cite{benton2010g}.
 
 \begin{figure}[htbp]
   \centering
