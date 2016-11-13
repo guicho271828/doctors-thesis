@@ -232,8 +232,7 @@ Since FIFO tiebreaking $[f,\fifo]$ applies breadth-first search to $\plateau{f^*
 
 \begin{propo}
  \astar with FIFO tiebreaking $[f,\fifo]$ is complete on an infinite graph when
- $\plateau{f}$ is finite  $\forall f<f^*$,
- solution length is finite and
+ $\plateau{f}$ is finite  $\forall f<f^*$ and
  the branching factor is finite in $\plateau{f^*}$ below the solution depth.
 \end{propo}
 
@@ -244,8 +243,6 @@ Assuming a fixed successor ordering, we get the following:
 %  % on an infinite graph is complete when (2) and (3) holds.
 % % Since the solution have finite length and thus finite depth in the plateau, the search space expanded by FIFO (Breadth-first search) in infinite $\plateau{f^*}$ is finite.  Thus FIFO returns the solution in a finite time. 
 % \end{proof}
-
-% ``solution length is finite'' -- does the existence of a ``solution'' implies finite length?
 
 \begin{propo} %corollary? (because dfs completeness is known under these conditions)
  \astar with LIFO tiebreaking $[f,\lifo]$ is complete on an infinite graph iff
@@ -280,8 +277,7 @@ Finally, we show the completeness of our iteration-based depth diversification i
 
 \begin{theo}
  \astar with Depth Diversification $[f,\depth,*]$ is complete on an infinite graph when
- $\plateau{f}$ is finite  $\forall f<f^*$,
- solution length is finite and
+ $\plateau{f}$ is finite  $\forall f<f^*$ and
  the branching factor is finite in $\plateau{f^*}$ below the solution depth.
 \end{theo}
  
