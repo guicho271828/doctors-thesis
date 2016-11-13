@@ -98,7 +98,7 @@ which degrades the performance of M&S on IPC domains,
 we compared the number of node evaluations between the depth-diversified and standard search method.
 We added Figure [Revised:6.2] comparing the cumulative coverage over the number of evaluations.
 This shows that the evaluations are almost identical for most IPC instances, meaning that search efficiency in positive cost domains was largely unaffected by depth diversification, as expected.
-There were differences in Openstacks (this is also as expected since Openstacks has zero-cost actions).
+There were differences in Openstacks (this is also expected since Openstacks has zero-cost actions).
 
 ** 4) Section 5: Zerocost domains. I buy all your arguments on zero cost
 
