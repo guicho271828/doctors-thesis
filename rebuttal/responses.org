@@ -272,7 +272,7 @@ compaction will be good). This will also help to reduce the length of
 the paper. Currently, it seems too long for the content.
 #+END_QUOTE
 
-We moved many tables and plots to the appendix, so the length of the main portion of the paper has been reduced to 39 pages (excluding references and appendix).
+We moved many tables and plots to the appendix, so the length of the main portion of the paper has been reduced to 37 pages (excluding references and appendix).
 
 ** <<R2Q3>> 3) the theory and analysis part... Section 5.3
 
