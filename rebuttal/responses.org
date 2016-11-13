@@ -528,18 +528,33 @@ The data in Figures in 4.1, 4.2, 5.2 and 7.1 would similarly benefit
 from a more thought-through visual presentation.
 #+END_QUOTE
 
-The figure [Original,Revised:4.1] and [Original,Revised:4.2] should be in the present form.
-The role of these figures is to identify which domain is affected by the different default criteria.
-
-The figure [Original,Revised:1.1] is paired with [Original,Revised:4.2].
-If we change the format of [Original,Revised:1.1] from the current one to the histogram,
-then it loses the consistency with [Original,Revised:4.2].
-
-Separating the figure into per-domain analyses would further increase the paper length.
-
-However, we indeed benefit from converting [Original,Revised:7.1] into a histograms
-comparing the node evaluation ratio, because the domain characteristics is not important
+# give the good news first (say "yes" first)
+As suggested, we converted Figure [Original:7.1,Revised:A.1] into histograms
+comparing the node evaluation ratio, because this is essentially 1-dimensional data and the domain characteristics is not important
 in this figure. Thank you for the suggestion.
+
+# then the bad news..
+We also considered converting Figures 1.1, 4.1, 4.2 into histograms as suggested.
+However, we concluded that they should remain in the present form, because
+the color-coded domain information in Figures [Original:4.1,Revised:3.1] and [Original:4.2,Revised:3.2] are 
+important for highlighting the domains which are affected by different default criteria.
+
+We acknowledge that these figures are crowded it's hard to distinguish
+many of the domains/points. However, this was the best compromise of
+information-vs-space we could come up with, as providing full,
+per-domain data would make this paper even longer.
+
+While the domain information in Figure [Original,Revised:1.1] is less
+important, and if it was a completely independent figure, it may be a good idea to convert it to a histogram as suggested.
+However, Figure [Original,Revised:1.1] is intended to be contrasted against 
+Figure [Original:4.2,Revised:3.2] , and as
+explained above, we believe Figure [Original:4.2,Revised:3.2] should
+remain in its current format because the domain information is important. 
+Thus, we'd like to keep Figure [Original,Revised:1.1] as is.
+Similarly, we believe Figure [Original:5.2,Revised:4.2] should remain its current format for the same reason.
+
+
+
 
 ** [2.2] 2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search
 
