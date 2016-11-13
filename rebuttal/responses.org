@@ -178,9 +178,10 @@ an introduction to your later section 8.1 which I find quite
 interesting and more deep and should certainly be kept.
 #+END_QUOTE
 
-We shortened the beginning of Section [Original:8,Revised:7], compared "A*-as-series-of-satisficing-search" to IDA*, and added a paragraph connecting this introduction better as an introduction to  subsections 8.1
-
-
+We shortened the beginning of Section [Original:8,Revised:7],
+compared "A*-as-series-of-satisficing-search" to IDA*
+and added a paragraph connecting this section
+better as an introduction to subsection [Original:8.1,Revised:7.1,7.2].
 
 ** minor comments)                                                  :noexport:
 
