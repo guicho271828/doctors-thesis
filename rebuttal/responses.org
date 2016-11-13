@@ -37,7 +37,7 @@ the new numbering system, and [Original:X] to indicate the numbers in the origin
 
 * Reviewer 1
 
-** [1.1] 1) The definition of plateau can be improved.
+**  1) The definition of plateau can be improved.
 
 # [Don't abbreviate the reviewer's comment, as that forces the editor to open the review file and go
 # back-and-forth between the response and the review files.  Minimize the editor's work by quoting the entire,
@@ -61,7 +61,7 @@ Plateaus are formally defined in the 2nd-to-last paragraph of Section 2, Prelimi
 However, as the reviewer noted, there were some informal usages of the term "plateau" throughout the paper.
 In the revision, we increased the usage of the more precise notation "plateau(f,h)" throughout the paper.
 
-** [1.2] 2) page 18: "In order to diversify the expansion... " --> This paragraph is very hard to understand
+** 2) page 18: "In order to diversify the expansion... " --> This paragraph is very hard to understand
 
 #+BEGIN_QUOTE
 page 18: "In order to diversify the expansion... " --> This
@@ -81,7 +81,7 @@ We rewrote the description and added the pseudocode (Algorithm 2) for depth dive
 in Section [Original:6,Revised:5].
 d_c is a counter assigned to each plateau.
 
-** [1.3] 3) It will be very interesting to see what happens if you factor away the constant time per node.
+** 3) It will be very interesting to see what happens if you factor away the constant time per node.
 
 #+BEGIN_QUOTE
 page 22: Table 7.5. It will be very interesting to see what
@@ -100,7 +100,7 @@ We added Figure [Revised:6.2] comparing the cumulative coverage over the number 
 This shows that the evaluations are almost identical for most IPC instances, meaning that search efficiency in positive cost domains was largely unaffected by depth diversification, as expected.
 There were differences in Openstacks (this is also as expected, since Openstacks has zero-cost actions).
 
-** [1.4a] 4) Section 5: Zerocost domains. I buy all your arguments on zero cost
+** 4) Section 5: Zerocost domains. I buy all your arguments on zero cost
 
 #+BEGIN_QUOTE
 Section 5: Zerocost domains. I buy all your arguments on zero cost
@@ -114,7 +114,7 @@ As suggested, we shortened Section [Revised:4].
 We also removed Table [Original:5.2].
 (Same results can still be extracted by the other tables in the appendix. See [3.5] also.)
 
-** [1.4b]  4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.
+**  4)  The claims about FIFO in infinite graphs (section 5.3) is trivial.
 
 #+BEGIN_QUOTE
 The claims about FIFO in infinite graphs (section 5.3) is trivial. You can shorten it or even delete it.
@@ -145,7 +145,7 @@ which was also added to this revised section [Original:5.3,Revised7.2].
 # None of our experiments include infinite search space,
 
 
-** [1.5] 5) Section 6.1 is trivial.
+** 5) Section 6.1 is trivial.
 
 #+BEGIN_QUOTE
 Section 6.1 is trivial. It is easy to see that different "depth"
@@ -155,7 +155,7 @@ values only occur in zero domains. I would shorten it or even omit it.
 We formalized and significantly shortened the proof (Theorem 1),
 and Section [Original:6.1] has been folded into Section [Revised:6].
 
-** [1.6] 6) Section 7.1: this section repeats what you said above and ...
+** 6) Section 7.1: this section repeats what you said above and ...
 
 #+BEGIN_QUOTE
 Section 7.1: this section repeats what you said above and I was
@@ -168,7 +168,7 @@ results that support this trend.
 We moved several non-critical figures [Original:7.3,7.4,7.6] to the appendix: Figures [Revised:11.2,11.3,11.4].
 Also, we shorten the text by removing the list improved domains.
 
-** [1.7] 7) The beginning of Section 8 is also rather trivial.
+** 7) The beginning of Section 8 is also rather trivial.
 
 #+BEGIN_QUOTE
 The beginning of Section 8 is also rather trivial. This is the main
@@ -237,7 +237,7 @@ think the correct term should be something like
 
 * Reviewer 2
 
-** [2.1] 1) Maxim Likhachev's ARA* paper...
+** 1) Maxim Likhachev's ARA* paper...
 
 #+BEGIN_QUOTE
  Maxim Likhachev's ARA* paper presents an elegant solution to
@@ -258,7 +258,7 @@ However, ARA* is based on an iterated anytime framework, whereas our work is bas
 We point out this difference.
 
 
-** [2.2] 2) the amount of data is a bit too much...
+** 2) the amount of data is a bit too much...
 
 #+BEGIN_QUOTE
  While I appreciate the in-depth experimental investigation
@@ -301,7 +301,7 @@ using the A*-as-sequence-of-SAT framework introduced in Section [Revised:7].
 # Still, the new theorems/proofs prove both pedagogical and practical usefullness of the idea
 # in Section 8.
 
-** [2.3b] 3) the theory and analysis part... Section 6.1
+** 3) the theory and analysis part... Section 6.1
 
 #+BEGIN_QUOTE
 Similarly, the analysis in 6.1 can be more
@@ -310,7 +310,7 @@ precise, results in 6.1 can be presented in terms of theorems.
 
 We have formalized the result (Theorem 1) and made it more precise.
 
-** [2.4] 4) Sec6, "more nodes will tend to have shallower depth" vs disjoint forest model
+** 4) Sec6, "more nodes will tend to have shallower depth" vs disjoint forest model
 
 #+BEGIN_QUOTE
  In the last paragraph of section 6, it is stated that "more nodes
@@ -345,7 +345,7 @@ This has been clarified in the text (Section [Revised:5.2]), and
 for further clarity, we also added Figures 5.2 and 5.3 which illustrate the scenarios.
 
 
-** [2.5] 5) I think it will be helpful if the authors include pseudocodes for...
+** 5) I think it will be helpful if the authors include pseudocodes for...
 
 #+BEGIN_QUOTE
  All the strategies proposed are explained in text only. I think it
@@ -360,7 +360,7 @@ strategies.
 As suggested, we added pseudo-code for  Best-First search (Algorithm 1), and depth-based tiebreaking (Algorithm 2).
 
 
-** [2.6] 6) state/prove the properties of each of these algorithms, especially important ones like completeness
+** 6) state/prove the properties of each of these algorithms, especially important ones like completeness
 
 #+BEGIN_QUOTE
  Tied to point 6, i think it would be good to state/prove the
@@ -556,7 +556,7 @@ Similarly, we believe Figure [Original:5.2,Revised:4.2] should remain its curren
 
 
 
-** [2.2] 2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search
+** 2) The description in the early part of the paper (Sections 1, 3, 4, 5) somewhat convey the false impression that there has been no previous recognition of the challenge that plateaus can create for A* search
 
  #+BEGIN_QUOTE
   The description in the early part of the paper (Sections 1, 3, 4, 5)
@@ -589,7 +589,7 @@ a failure in tie-breaking. Thus, previous work focused on how to modify the main
 evaluation functions (use of distance-to-go functions, inflating the heuristic value)
 or to modify the expansion order (e.g. Thayer and Ruml, ICAPS08).
 
-** [3.3] 3) This applies also to the summary of the authors earlier conference paper.
+** 3) This applies also to the summary of the authors earlier conference paper.
 
 #+BEGIN_QUOTE
  This applies also to the summary of the authors earlier conference
@@ -602,7 +602,7 @@ article makes over it, should be integrated in the presentation.
 
 We integrated the comparison with our earlier conference paper as a paragraph at the end of Section 1, in a form similar to those of other recently published JAIR papers.
 
-** [3.4] 4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.
+** 4) The argument in the last paragraph before Section 5.1 and the second paragraph of Section 5.1 do not make sense.
 
 #+BEGIN_QUOTE
  The argument in the last paragraph before Section 5.1 and the second
@@ -627,7 +627,7 @@ domains where the number of instances in the Zerocost domains is the same as in 
 However, the Zerocost versions of Blocks, freecell, pipesworld-notankage, and miconic are used in all of the other experiments in the paper involving Zerocost domains.
 (because none of the other experiments involve comparisons between coverage on Zerocost domains and coverage on standard IPC domains).
 
-** [3.5] 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy
+** 5) Furthermore in Section 5.1, why is the comparison done using the [f,h,fifo] strategy
 
 #+BEGIN_QUOTE
  Furthermore in Section 5.1, why is the comparison done using the
@@ -645,7 +645,7 @@ the results for [f,h,lifo] can be extracted from
 Table [Original:7.2, Revised:11.3] (Zerocost instances) and Table [Original:7.4, Revised:11.5] (IPC instances).
 Qualitatively, the results for [f,h,lifo] are similar to that of [f,h,fifo] -- Zerocost instances are "harder" than their corresponding IPC instances.
 
-** [3.6] 6) In Section 6.2, the authors argue that ... pruning methods ... are somehow equivalent to tie-breaking. This is not accurate.
+** 6) In Section 6.2, the authors argue that ... pruning methods ... are somehow equivalent to tie-breaking. This is not accurate.
 
 #+BEGIN_QUOTE
  In Section 6.2, the authors argue that pruning methods such as
@@ -661,7 +661,7 @@ will prevent A* from expanding all of them, but symmetry pruning will.
 In Section [Original:6.2,Revised:5.1] we clarified that pruning is a stronger technique
 than diversification.
 
-** [3.7] 7) In Section 7, Table 7.1 shows that there is little consistency in the results
+** 7) In Section 7, Table 7.1 shows that there is little consistency in the results
 
 #+BEGIN_QUOTE
  In Section 7, Table 7.1 shows that there is little consistency in the
@@ -682,7 +682,7 @@ may perform better on any given  domain.
 We added a paragraph before the start of Section [Revised:6.1]
 clarifying this point.
 
-** [3.8] 8) I'm somewhat sceptical about the value of these figures...which of the examples are showing the failure of depth-based tie-breaking strategies.
+** 8) I'm somewhat sceptical about the value of these figures...which of the examples are showing the failure of depth-based tie-breaking strategies.
 
 #+BEGIN_QUOTE
  I'm somewhat sceptical about the value of these figures [Figures in Section [Original:7,Revised:6]. They show
