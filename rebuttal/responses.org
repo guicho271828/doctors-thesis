@@ -214,7 +214,10 @@ third is misleading. It is actually the second which comes before the
 default criterion.
 #+END_QUOTE
 
-Fixed as you suggested.  XXX - not fixed???
+Depth Diversification is the third strategy
+in a sorting strategy [f,h,<d>,*] we used in the experiments.
+Instead, we fixed the part "h as the first-level tiebreaking criterion"
+into "h as the second-level sorting criterion".
 
 ** minor 4) -- The first sections are very short. Maybe they can be one large section...
 
