@@ -153,7 +153,7 @@ values only occur in zero domains. I would shorten it or even omit it.
 #+END_QUOTE
 
 We formalized and significantly shortened the proof (Theorem 1),
-and Section [Original:6.1] has been folded into Section [Revised:6].
+and Section [Original:6.1] has been folded into Section [Revised:5].
 
 ** 6) Section 7.1: this section repeats what you said above and ...
 
