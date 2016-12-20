@@ -47,10 +47,10 @@ Detailed data tables are in the Appendix (\refsec{sec:appendix}).
  }
 \end{table}
 
-\reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full} shows the number of {620 Zerocost
-instances} solved by \lmcut and \mands heuristics. In these
+\reftbl{tbl:lmcut-zerocost-full} and \reftbl{tbl:mands-zerocost-full} show the number of Zerocost
+instances (out of 620) solved by \lmcut and \mands heuristics. In these
 Zerocost domains, our proposed method outperforms the traditional tie-breaking methods in both heuristics.
-Significant improvements were observed in 10 domains when using \lmcut, and in 7 domains when using \mands.
+Significant improvements were observed in 10 domains when using \lmcut, and 7 domains when using \mands.
 
 %% Removed in order to reduce the paper length
 % In detail,
@@ -63,22 +63,21 @@ Significant improvements were observed in 10 domains when using \lmcut, and in 7
 %        \pddl{tpp-fuel} (\fifo,\ro), \pddl{woodworking-cut} (\fifo,\ro).
 % \end{itemize}
 
-\reftbl{tbl:lmcut-ipc-full} shows the number of {1104 standard IPC benchmark instances} solved by the configuration using \lmcut
-heuristics. Depth-based tie-breaking ($\depth$) shows impressive results on \pddl{Openstacks} ($\fifo:2\to 8,\ \lifo:3\to 12,\  \ro:3.9\to 10$) and \pddl{Cybersec} ($\fifo: 11\to 18,\ \ro: 11.7\to 18$) because these
+\reftbl{tbl:lmcut-ipc-full} shows the number standard IPC benchmark instances (out of 1104) solved by the configuration using \lmcut
+heuristics. Depth-based tie-breaking ($\depth$) achieves impressive results on \pddl{Openstacks} ($\fifo:2\to 8,\ \lifo:3\to 12,\  \ro:3.9\to 10$) and \pddl{Cybersec} ($\fifo: 11\to 18,\ \ro: 11.7\to 18$) because these
 domains contain many instances of 0-cost edges (See
 \refig{fig:plateau}).  Most other instances are unaffected by depth-based tie-breaking.  Thus, depth-based
 tie-breaking yields better performance in the domains with 0-cost actions, without sacrificing performance in
 other domains.
 
-In contrast, \reftbl{tbl:mands-ipc-full} shows that depth-based tie-breaking negatively affects the performance of
+In contrast, \reftbl{tbl:mands-ipc-full} shows that depth-based tie-breaking degrades the performance of
 the configuration using \mands when applied to {1104 standard IPC benchmark instances}. This result can be explained as follows.
 % %concatenating into single, long paragraph because  otherwise, it seems that almost the entire 1st part of Sec 7 is about the negative result on M&S, giving the wrong impression of the overall results
 First,  similar to the case of \lmcut, \pddl{Openstacks} coverage improved for \fifo ($15\to 19$) and \ro ($15.4\to 19$), which is expected according to our analysis of Zerocost domains.
 %
-Although there was no improvement on \pddl{Cybersec}, this is because, 
+Although there was no improvement on \pddl{Cybersec}, this is because 
 the coverage of \pddl{Cybersec} is 0 in all \mands configurations, regardless of tie-breaking. Thus, the positive
-effect of depth diversification to the overall score was limited.
-
+contribution of depth diversification to the overall score was limited for \mands compared to \lmcut.
 
 Second, with \mands, performance degraded across a wide range of domains due to the low-level overhead of depth-based tie-breaking (i.e., updates to the depth-based bucket data structures).
 As shown in \refig{fig:expansion-ratio}, when depth-based tie-breaking was used, the node evaluations rate significantly decreased with the \mands heuristic, 
@@ -92,10 +91,10 @@ required to solve IPC instances.
 % 
 According to \refig{fig:eval-comparison}, the number of evaluations required to solve IPC instances
 for  $[f,h,*]$ and $[f,h,\depth,*]$ were almost identical, which is expected because
-IPC instances mostly consist of instances with only positive-cost actions which are unaffected by depth-based tie-breaking (as predicted by our analysis in \refsec{sec:depth-and-nonzero-cost}).
+IPC instances mostly consist of instances with only positive-cost actions which are unaffected by depth-based tie-breaking (as predicted by our analysis in \refsec{sec:depth}).
 %We observed differences in \pddl{Openstacks} as expected, because \pddl{Openstacks} contains 0-cost actions.
 %(No \pddl{Cybersec} instances were successfully solved using \mands.)
-This shows that the degradation in coverage on IPC instances when using depth diversification is caused by the low-level overhead. %removed ``purely'' because sometimes it's due to other causes, e.g. pegsol.
+This shows that the coverage degradation on IPC instances when using depth diversification is caused by the low-level overhead. %removed ``purely'' because sometimes it's due to other causes, e.g. pegsol.
 % According to \refig{fig:eval-comparison}, the depth diversification does not
 % affect the node evaluation in positive-cost domains while it reduced the number of evaluations in Openstacks
 % (contains 0-cost operators). Since Cybersec instances were not solved at all, the results are not included. This
@@ -190,7 +189,7 @@ This shows that the degradation in coverage on IPC instances when using depth di
 %  \label{fig:eval-comparison-zero}
 % \end{figure}
 
-Finally, the per-domain results in Zerocost domains (\reftbls{tbl:lmcut-zerocost-full}{tbl:mands-zerocost-full}\todo*{reftables}) show that 
+Finally, the per-domain results for Zerocost domains (\reftbls{tbl:lmcut-zerocost-full}{tbl:mands-zerocost-full}\todo*{reftables}) show that 
 $\depth$ can cause both improvement and degradation (despite the total coverage improvement).
 This is natural considering that depth-diversification is designed to be a conservative, domain-independent strategy which is designed to avoid worst-case pathological behaviors.
  Overall,  $\depth$ tends to perform well, but the best-performing strategy on particular domain varies
@@ -233,8 +232,8 @@ used in the performance comparison experiments above, and were only used for thi
 
 
 \refig{fig:depth-histogram} (as well as \refigs{fig:depth-histogram2}{fig:depth-histogram3} in the Appendix) show the results on exemplary instances from 
-various Zerocost domains.  We do not show some domains where we did not observe any depths more than 3, in which case both
-the depth metric and  $\lifo/\fifo/\ro$ has a negligible impact on search performance.
+various Zerocost domains.  We do not show some domains where we did not observe any depths greater than 3, in which case both
+the depth metric and  $\lifo/\fifo/\ro$ have a negligible impact on search performance.
 We observed very similar results across a wide range of domains as shown in the figures.
 This indicates that the depth metric accurately describes the behavior of each tie-breaking criterion.
 
@@ -268,10 +267,10 @@ the number of expansion by $[f,h,\fifo]$ in the shallower depths constitutes an 
 
 Next, \refig{fig:depth-histogram4} shows the same results on the standard IPC
 \pddl{Openstacks} and \pddl{Cybersec} domains.
-The \pddl{Openstacks} result was similar to those of the Zerocost domains.
+The \pddl{Openstacks} results were similar to those of the Zerocost domains.
 In \pddl{Cybersec},
 % while the depth has improved the overall performance,
-we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$ because all tie-breaking strategies have generated only a small number of such nodes before the solution was found.
+we found that the performance improvement was not due to the number of nodes in $\plateau{f^*,0}$,  because all tie-breaking strategies have generated only a small number of such nodes before the solution was found.
 Instead, we observed a large difference in the depth distributions in non-final plateaus $\plateau{f^*,h}, h\not=0$ caused by the difference of tie-breaking.
 Note that depth diversification is always applied regardless of $f$ or $h$ values.
 This suggests that most children of the nodes in $\plateau{f^*,h}$ have $f$ value larger than $f^*$ or stays in $\plateau{f^*,h}$, and the planner is struggling to find nodes with better $h$.

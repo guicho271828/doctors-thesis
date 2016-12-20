@@ -18,7 +18,8 @@ initial node. These notions are depicted in
 \begin{figure}[htbp]
   \centering
   \includegraphics{img/astar/plateau-2.pdf}
- \caption{(\textbf{Subfigure 1}) The nodes in a plateau are divided into several layers, and each layer has the corresponding depth. Since all nodes have $f=f^*$, depth does not affect optimality. The goals in both shallower or deeper region yield cost-optimal solutions.
+ \caption{(\textbf{Subfigure 1}) The nodes in a plateau are divided into several layers, and each layer has a corresponding depth. Since all nodes have $f=f^*$, depth does not affect optimality, so all
+goals in the final plateau are cost-optimal, regardless of whether they are in shallow/deep regions.
  (\textbf{Subfigure 2}) \lifo tie-breaking strategy results in depth-first behavior in a
  plateau, which could miss solutions if they are concentrated near the entrance.
  (\textbf{Subfigure 3}) \fifo tie-breaking strategy results in  breadth-first behavior in a
@@ -32,16 +33,16 @@ initial node. These notions are depicted in
 The depth $d(n)$ of a node $n$ is 0 when $n$ and
 the parent node $m$ are in the different plateaus,
 and $d(n)=d(m)+1$ when they are on the same plateau.
-As defined in \refsec{sec:preliminaries}, two nodes being on the same plateau
-means that they share the same key values for the sorting strategy.
+As defined in \refsec{sec:preliminaries}, if two nodes are  on the same plateau, 
+they share the same key values for the sorting strategy.
 For example, when the strategy is $[f,h,*]$,
  % and $n$ and $m$ are on the same plateau,
 it means $\plateau{f(n),h(n)}=\plateau{f(m),h(m)}$, therefore
 $f(n) = f(m) \land h(n) = h(m)$.
 
 The traditional \lifo and \fifo tie-breaking strategies
-search each plateau in a decreasing and increasing order of the depth, respectively.
-Let us assume we are using $[f,h,*]$ sorting strategy.
+search each plateau in decreasing and increasing order of the depth, respectively.
+Assume we are using $[f,h,*]$ sorting strategy.
 The \lifo strategy always selects the most recently generated node
 within $\plateau{f,h}$, and the behavior in the plateau is equivalent to depth-first search.
 Thus, \lifo always selects a node in the largest depth,
@@ -65,7 +66,7 @@ concentrated at some large depth. % $k$.  k never used below?
 
 In the former case, \fifo
 should perform well because its breadth-first behavior naturally
-focuses the search around the entrance favoring the smaller depths.
+focuses the search around the entrance, favoring the smaller depths.
 However, in the latter case, exhaustively searching
 the shallower depths can result in not finding any solutions within
 the time limit because \fifo may never reach the depth where the goals
@@ -133,9 +134,10 @@ is reset to the current largest depth in the plateau.
 
 In an earlier, conference paper, we used a non-deterministic,
 randomized implementation of this idea \cite{Asai2016}, which does not have this counter and pops a node from a randomly selected bucket ($B_{\texttt{random}()}$), but we use a deterministic
-implementation here because it facilitates the theoretical analysis below in \refsec{sec:theoretical-characteristics}. It also eliminates the possibility of results being influenced by random seeds.
+implementation here because it facilitates the theoretical analysis below in \refsec{sec:theoretical-characteristics}.
+%It also eliminates the possibility of results being influenced by random seeds. %  this eliminates randomness within the deph diversification, but there can be other random factors, e.g., ro default tiebreaking, so "eliminates" is too strong.
 
-Depth-based diversification is significantly different from \ro strategy which simply selects a random node from the OPEN list.
+Depth-based diversification is significantly different from the \ro strategy which simply selects a random node from the OPEN list.
 The uniform sampling behavior of  \ro behaves very similar to \fifo, and is insufficient to achieve the level of diversity provided by our depth diversification tie-breaking,
 which is also already evidenced by the performance similarity between \fifo and \ro-based tiebreaking strategies (\reftbl{tbl:summary-std}).
 This is because at any given point in the search, more nodes will tend to have shallower depths than deeper depths, and a uniform, random selection will, therefore, be biased to select a node with shallow depths.
@@ -207,19 +209,19 @@ Thus, we should, for example, apply one of \lifo, \fifo or \ro (random order) cr
 after the $\depth$ criterion.
 
 There are two concerns about this default tie-breaking criteria.
-First, the default tie-breaking behavior is still prone to be
-affected by the accidental biases, e.g., names/orders of action schema in the PDDL domain definition \cite{vallati2015effective}.
+First, the default tie-breaking behavior is still susceptible to 
+ accidental biases, e.g., names/orders of action schema in the PDDL domain definition \cite{vallati2015effective}.
 Second, in addition to accidental biases, there may be some nontrivial biases that require 
 sophisticated algorithms to be removed.
 
-Recent work  showed that the performance of satisficing
+Recent work  showed that the performance of a satisficing
 planner can be significantly affected by the order in which actions appear in a PDDL file \cite{vallati2015effective}.
 However, the conference version of this paper \cite{Asai2016} showed that
 the effect of such an accidental bias is not statistically significant in cost-optimal search,
 by comparing the performance on
 several sets of randomly ``mangled'' domains whose action names are replaced with random strings.
-Moreover, the \ro default tie-breaking is supposed to be unaffected by such an accidental bias.
-Thus, the experimental results we show in this paper is not a product of some piece of luck.
+Moreover, the \ro default tie-breaking should be unaffected by such an accidental bias.
+Thus, we believe it is safe to claim that the experimental results in this paper are not a product of such accidental biases.
 
 % ``breadth direction'' example was not well defined, replaced with vague discussion of symmetry (combined with the next par); also removing ``non-trivial'' because trivial/nontrivial is not obvious and undefined.
 In addition to accidental biases, there may be other nontrivial biases such as some form of symmetry among states which can be removed using some tie-breaking criterion $X$.
@@ -237,25 +239,24 @@ Partial-Order).
 If a search algorithm expands $S$ by random selection, it favors the
 group $A$ by giving 4 times larger chance of expansion than each of $b$,
 $c$ or $d$.
-
-Despite the similarity, search diversification is weaker than pruning methods because diversification can only \emph{delay} the expansion of nodes sharing the similar attributes (such as depth), not \emph{prune} the nodes.
-Developing a diversification method addressing biases similar to those by pruning techniques is an avenue for future work.
+Despite this similarity, search diversification is weaker than pruning methods because diversification can only \emph{delay} the expansion of nodes sharing the similar attributes (such as depth), not \emph{prune} the nodes.
+%Developing a diversification method addressing biases similar to those by pruning techniques is an avenue for future work.
 
 
 \subsection{Theoretical Characteristics of the Depth Distribution}
 \label{sec:theoretical-characteristics}
 
 We give further insight into the search behavior of our implementation of depth-based diversification.
-In the diversification, although the random selection from the depth buckets is possible,
-our implementation performs a deterministic, round-robin sampling from the available depth buckets as described in \refalgo{alg:depth}.
+In depth-based diversification, although it is possible to select from a randomly selected depth bucket, as was done in an earlier conference paper \cite{Asai2016},
+the implementation used in this paper performs a deterministic, round-robin sampling from the available depth buckets as described in \refalgo{alg:depth}.
 %iterates from the largest depth to 0.
 % 
 %We are particularly interested in how the expansions happen among the
 %various depths in the plateau region.
 We are particularly interested in how the nodes selected for expansion are distributed 
 among the various depths in a plateau region.
-Let's first assume that a search algorithm is searching on a plateau $P$.
-The definition of $P$ could change depending on the higher-level sorting strategy e.g. $[f,h,\depth]$ or $[f,\depth]$.
+Assume that a search algorithm is searching a plateau region $P$.
+The precise definition of $P$ depends on the higher-level sorting strategy e.g. $[f,h,\depth]$ or $[f,\depth]$.
 % 
 Using a simplified model where this $P$ forms a forest (a set of disjoint trees),
 we can analyze the number of expansions in a particular depth
@@ -283,8 +284,8 @@ can be represented by a simple formula.
 In the discussion below, 
 we first assume that $P$ forms a forest of a fixed branching factor
 $w\geq 2$ (\emph{forest assumption}), rather than a graph with an indefinite number of successor nodes.
-In the later experiments, we show this assumption is not much distant from the real situations.
-We also assume that no depth bucket exhausts due to the expansion (\emph{no-exhaustion assumption}). This implies that there are a sufficiently large number of nodes in depth $d=0$ so that depth 0 does not exhaust, which may cause \fifo default tiebreaking to fail due to the heavy bias to the shallow depth.
+In the later experiments, we show this is a fairly accurate model.
+We also assume that no depth bucket is exhausted due to the expansion (\emph{no-exhaustion assumption}). This implies that there are a sufficiently large number of nodes in depth $d=0$ so that depth 0 is not exhausted, which may cause \fifo default tiebreaking to fail due to the heavy bias to the shallow depth.
 We provide a condition for this assumption to hold within this section.
 % Finally, we assume that the sorting strategy performs a \ro default tie-breaking
 % after the depth-based diversification is applied.
@@ -302,19 +303,19 @@ with forest assumption and no-exhaustion assumption.}
 Let $D\geq 0$ be the current largest depth of the nodes found in $P$ so far.
 This is equal to $\bars{B}-1$ in \refalgo{alg:depth},
 the size of the buckets in Depth-Diversified Node Selector instance.
-An expansion of a node in depth $D$ results in $w$ more nodes with depth $D+1$ on the same plateau $P$.
-These children are all newly generated because the forest assumption says each child has a single incoming edge.
+An expansion of a node at depth $D$ results in $w$ more nodes with depth $D+1$ on the same plateau $P$.
+These children are all newly generated because by the forest assumption, each child has a single incoming edge.
 Since the expansion is
 diversified by a sequence of iterations from the current largest depth to 0, when the current
 largest depth of the plateau is $D$, the number of iteration executed so far is also $D$ because
-in the beginning of each iteration the largest depth is increased by 1.
+at the beginning of each iteration the largest depth is increased by 1.
 % Under the forest assumption, each expansion of depth $d$ results in $w$ new nodes in depth $d+1$. 
 Therefore, at the end of the $D$'th iteration,
 each depth $d$ has been expanded exactly $D-d$ times, with $D(D-1)$ expansions in total.
 In \refig{fig:depth-distribution-analysis},
 after iteration 2, depth $d=0$ is expanded twice and depth $d=1$ is expanded once.
 
-It also means that the sufficient condition for \emph{no-exhaustion assumption} to hold until the end of the $D$'th
+It also means that a sufficient condition for \emph{no-exhaustion assumption} to hold until the end of the $D$'th
 iteration is that the initial number of nodes in depth 0 is at least $D$.  If there are at least $D$ nodes in depth
 0, depth 0 is trivially never exhausted until the $D$'th iteration. Also, no depth buckets in depth $d>0$ will be exhausted 
 because each bucket has $w(D-d+1)$ generated nodes in total (i.e. OPEN+CLOSED) while the expansion has
@@ -325,7 +326,7 @@ Since $w\geq 2$, $w(D-d+1)\geq 2(D-d)+2>D-d$.
 % no nodes will be added to depth 0 during the search.
 % Also let $N=w(D-d+1)$ for readability.
 
-If there are no solutions, every depth-selection criterion, including the least depth selection (\fifo) or the largest depth selection (\lifo), expands the same set of nodes and results in the same distribution as depth diversification.
+If there are no solutions, every depth-selection criterion, including least depth selection (\fifo) or largest depth selection (\lifo), expands the same set of nodes and results in the same distribution as depth diversification.
 For example, if the number of nodes in depth 0 is $D$, each $d$ is expanded $Dw^d$ times.
 However, their online characteristics are different.
 Under our assumptions, the $D-d$ distribution of depth diversification is an invariant which holds at any point in the search until the solution is found.

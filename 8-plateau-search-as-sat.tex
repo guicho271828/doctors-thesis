@@ -139,7 +139,7 @@ In the following two subsections, as well as in the next section, we show that t
 
 \subsection{Depth Diversification as Satisficing Search}
 \label{sec:depth-vs-types}
-Within this framework, the implementation of depth diversification can be viewed as a variant of Type-based diversification approach \cite{xie14type} which is specifically tailored toward Zerocost domains.
+Within this framework, the implementation of depth diversification can be viewed as a variant of the Type-based diversification approach \cite{xie14type},  specifically tailored for Zerocost domains.
 
 \citeauthor{xie14type} proposed \emph{type based buckets}, an implementation of the OPEN list which partitions the nodes into buckets according to some set of key values (\emph{types}). They proposed several types such as $\brackets{1}$, $\brackets{g}$, $\brackets{h}$ or $\brackets{g,h}$. At each type-based expansion, a randomly selected node from a randomly selected single bucket is selected. For example, with type $\brackets{g,h}$, a node with $g=5$ and $h=3$ is put into a bucket  $\brackets{5,3}$. This mechanism diversifies the search so that it tries to expand the nodes with various distances from the initial state and various distances from a goal state.
 
