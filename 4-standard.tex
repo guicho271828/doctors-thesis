@@ -61,7 +61,7 @@ the nodes that continue to be expanded in $\plateau{f}$ by \lifo usually   %adde
 have non-increasing $h$-values,
 much like in $h$-based tie-breaking which always searches toward the least $h$ cost.
 Thus, although the expansion order of $[f,\lifo]$ is not exactly the same as that of $h$-based tie-breaking strategies,
-their performance is similar.
+they perform similarly.
 
 % \textbf{An in-depth investigation of the behavior of $[f,\lifo]$ vs. $h$-based tie-breaking is a direction for future work.}
 % Compared to the $h$-based variants which explicitly selects nodes with smaller $h$ and its expanded nodes have non-increasing $h$-values,
@@ -103,7 +103,7 @@ of the primary heuristics, or the presence of $h$-based tie-breaking.
 
 \refig{fig:f-h-eval} provides a
 more fine-grained analysis by comparing the number of node evaluations
-(calls to the expensive \lmcut heuristic function) in each instance between $[f,h,\lifo]$ and $[f,h,\fifo]$ strategies.
+(calls to the expensive \lmcut heuristic function) on each instance by the $[f,h,\lifo]$ and $[f,h,\fifo]$ strategies.
 The difference in the number of nodes
 evaluated can sometimes be larger than a factor of 10 (\pddl{Openstacks}, \pddl{Cybersec} domains).
 As noted in Section \ref{sec:astar-background}, the choice among default criteria has not been considered very important in the literature, as evidenced by the lack of explicit descriptions of the default tie-breaking criterion in recent papers. 
@@ -159,7 +159,7 @@ which have much smaller final plateaus?
   \includegraphics[width=\linewidth]{tables/aaai16-frontier/aaai16prelim3/lmcut_frontier-front.pdf}
   \caption{
  The number of nodes in $\plateau{f^*, 0}$ (y-axis), which form
-  the final plateau of sorting strategy $[f,h]$, compared to
+  the final plateau for sorting strategy $[f,h]$, compared to
   the total number of nodes in the search space with $f\leq f^*$
  (x-axis) on 1104 IPC benchmark problems.  Note that \pddl{Openstacks}
   and \pddl{Cybersec} instances are near the $y=x$ line.

@@ -202,15 +202,17 @@ in determining search performance.
  \label{fig:plateau-zerocost}
 \end{figure}
 
-\subsection{Discussion on Zerocost Domains}
+%\subsection{Discussion on Zerocost Domains}
+% removing subsection header  since the observations in the paragraphs below relate directly to 4.1 ("Diff in characteristics bet IPC & Zerocost"), and 4.1 is not that long.
 
-Trivially, changing the edge costs does not make a finite graph infinite.
-Thus, 
-the search graph of the Zerocost versions of the instances remains finite
-if the search graph of the original instance is finite,
-which is the case with domain-independent planning under STRIPS semantics.
-Since \astar is complete on a finite graph regardless of the tie-breaking strategy,
-Zerocost domains do not affect the completeness of the search.
+% This paragraph may have been useful earlier in the revised submission, but the fact that zerocost domains doesn't affect completeness should be obvious to readers, so let's not even mention it in the final version.
+% Trivially, changing the edge costs does not make a finite graph infinite.
+% Thus, 
+% the search graph of the Zerocost versions of the instances remains finite
+% if the search graph of the original instance is finite,
+% which is the case with domain-independent planning under STRIPS semantics.
+% Since \astar is complete on a finite graph regardless of the tie-breaking strategy,
+% Zerocost domains do not affect the completeness of the search.
 
 Note that the difficulty posed by these domains sometimes \emph{cannot}
 be tackled by improving the heuristic estimates, or reducing the
