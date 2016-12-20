@@ -13,8 +13,8 @@ In this paper, we investigate \emph{tie-breaking strategies} for cost-optimal \a
 % tie-breaking strategies for the optimal search using \astar.
 \astar is a standard search algorithm for finding an optimal cost path from an initial state $s$ to some goal
 state $g \in G$ in a search space represented as a graph \cite{hart1968formal}.
-It expands the nodes in the best-first order of $f(n)$ until up to $f^*$,
-where $f(n)$ is a lower bound of the cost of the shortest path that contains a node $n$ and $f^*$ is the optimal cost.
+It expands the nodes in best-first order of $f(n)$ up to $f^*$,
+where $f(n)$ is a lower bound of the cost of the shortest path that contains a node $n$ and $f^*$ is the cost of the optimal path.
 % 
 In many combinatorial search problems, the size of the last layer $f(n)=f^*$ of the search, called a \emph{final plateau},
 accounts for a significant fraction of the effective search space of \astar.  \refig{fig:plateau-noh}
@@ -24,25 +24,24 @@ For many instances, a large fraction of the nodes in the effective search space 
 are located very close to the diagonal line ($x=y$), indicating that almost all states with $f(n) \leq f^*$ have cost
 $f^*$.
 
-\refig{fig:plateau-0} depicts the conceptual view of this phenomenon.
+\refig{fig:plateau-0} depicts this phenomenon conceptually.
 % 
-In the left, we show 
+On the left, we show 
 one natural  % avoiding ``naive'' here because we don't want to Frontier Search people to misunderstand and belive that we're calling them naive.
 view of the search space that considers the space searched by \astar as
 a large number of closed nodes with $f<f^*$, surrounded by
 a thin layer of final plateau $f(n)=f^*$.  This intuitive view
-may accurately describe some real, practical search spaces such as 2D pathfinding on an explicit
+accurately reflects the search spaces of some real-world problems such as 2D pathfinding on an explicit
 graph.
 % 
-It has also served as a model for some algorithms such as Frontier Search \cite{korf1999divide,korf2000divide},
-which tries to reduce the memory requirement by discarding the information associated with states with $f<f^*$.
-It can be effective when the number of such states accounts for a large fraction of the memory usage.
+It has also served as a model for algorithms such as Frontier Search \cite{korf1999divide,korf2000divide},
+which tries to reduce the memory requirement by discarding the information associated with states with $f<f^*$, an effective strategy when the number of such states accounts for a large fraction of the memory usage.
  
 However, for many other classes of combinatorial search problems, e.g., the IPC Planning Competition Benchmarks, 
 the figure on the right is a more accurate depiction -- here, the  search space has a large plateau for $f=f^*$.
 In fact, Iterative Deepening approaches \cite{korf1985depth} assume this type of search space
-where this final frontier is quite huge and the cost of re-evaluating $f<f^*$ is limited.
-Classical planning problems in IPC benchmarks are clearly the instances of such combinatorial search problems.
+where this final frontier is quite large and the overhead of re-evaluating $f<f^*$ is limited.
+Classical planning problems in the IPC benchmark set are clearly the instances of such combinatorial search problems.
 \todo*{The fact that the last layer of search dominates the search was the motivation for Frontier Search and its numerous variants, so the SoCS community has been well aware of this --- SoCS community considers the opposite. Frontier search would not gain advantage in the planning domains because the number of nodes being forgotten is low compared to the size of the plateau.}
 
 \begin{figure}[htbp]
@@ -67,7 +66,7 @@ Classical planning problems in IPC benchmarks are clearly the instances of such 
  \label{fig:plateau-0}
 \end{figure}
 
-In the majority of such IPC problem domains where
+For the majority of such IPC problem domains where
 the last layer ($f(n)=f^*$) accounts for a significant fraction of the effective search space, a
 \emph{tie-breaking strategy}, which determines which node to expand among nodes with the same $f$-cost,
 can have a significant impact on the performance of \astar.
@@ -87,7 +86,7 @@ We show that:
        A Last-In-First-Out (\lifo) criterion tends to be more efficient
        than a First-In-First-Out (\fifo) criterion.
  \item Tie-breaking according to the heuristic value $h$, which
-       frequently appears in the heuristic search literature, has little
+       is frequently mentioned in the heuristic search literature, has little
        impact on the performance as long as \lifo default criterion is used 
        --  in other words, a \lifo tie-breaking policy is sufficient for most IPC domains.
  \item There are significant performance differences among tie-breaking strategies
@@ -102,8 +101,8 @@ Also, according to a parameterized complexity analysis, problem instances contai
 Therefore, we introduce a new set of benchmarks called \emph{Zerocost domains}
 (\refsec{sec:zerocost-domains}), which are a set of domains based on standard IPC domains for which only the most important actions directly related to resource usage incur the non-zero costs.
 We compare these domains with the original IPC domains from which they are derived, and empirically show that 
-Zerocost domains have a different search space structure and different practical problem difficulty.
-Hereafter, we use ``0-cost'' as a general term which works as an adjective for actions and search edges, while ``Zerocost'' refers to this specific set of domains we propose in this paper.
+Zerocost domains have a different search space structure and pose different, practical difficulties.
+Hereafter, we use ``0-cost'' as a general adjective for actions and search edges, while ``Zerocost'' refers to this specific set of benchmark domains we introduce in this paper.
 
 In order to solve such problems more efficiently, we propose and
 evaluate \emph{depth diversification}, a new
@@ -115,13 +114,13 @@ Our new depth-based diversification strategy significantly improves upon the
 standard tie-breaking strategies.
 
 We then propose a new framework which considers cost-optimal search using \astar 
-as a series of satisficing searches on each plateau,
-which allows the problem of tie-breaking to be reduced to satisficing search within a plateau (\refsec{sec:discussion}).
+as a series of satisficing searches on each plateau.
+This allows the problem of tie-breaking to be reduced to satisficing search within a plateau (\refsec{sec:discussion}).
 Based on this insight, we then investigate an
 admissible tie-breaking strategy which uses the distance-to-go estimate, a heuristic function which treats every action
 to have the unit costs (\refsec{sec:distance-to-go}).
 Although distance-to-go estimates are inadmissible,
-it does not harm the admissibility of entire search as long as it is used only for tie-breaking.
+it does compromise the admissibility of \astar as long as it is used only for tie-breaking.
 % 
 We empirically show that:
 \begin{enumerate}
@@ -139,6 +138,6 @@ We empirically show that:
 
 % The comparison to the conference paper is based on similar paragraphs in recent JAIR search/planning papers.
 This paper significantly extends an earlier conference paper \cite{Asai2016}, which experimentally evaluated standard tie-breaking strategies, identified the significant effect of tie-breaking strategies in domains with zero-cost edges, and proposed randomized depth-based diversification.
-In this paper we present a significantly expanded analysis of domains with zero-cost edges, a new, deterministic, depth-based diversification strategy, and an expanded empirical and theoretical analysis of depth-based diversification.  We also introduce the 
+In this paper we present an expanded analysis of domains with zero-cost edges, a new, deterministic, depth-based diversification strategy, and an expanded empirical and theoretical analysis of depth-based diversification.  We also introduce the 
 framework for treating \astar as a sequence of satisficing searches on 
 a set of $f$-cost plateaus, and propose tie-breaking strategies which incorporates distance-to-go estimates.

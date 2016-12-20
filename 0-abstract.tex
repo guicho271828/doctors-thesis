@@ -1,20 +1,20 @@
 
 \begin{abstract}
-  Best-first search algorithms such as A* need to apply tie-breaking strategies in order to decide which node to expand when multiple search nodes have the same evaluation score.
+  Best-first search algorithms such as \astar need to apply tie-breaking strategies in order to decide which node to expand when multiple search nodes have the same evaluation score.
  We investigate and improve tie-breaking strategies for
- cost-optimal search using A*.
+ cost-optimal search using \astar.
  We first experimentally analyze the performance of common tie-breaking
  strategies that break ties according to the heuristic value of the
- nodes.  We find that tie-breaking strategy has a significant impact on search
+ nodes.  We find that the tie-breaking strategy has a significant impact on search
  algorithm performance when there are 0-cost operators that induce
- large plateau regions in the search space. With this in mind, we
- develop two new classes of tie-breaking strategy.
+ large plateau regions in the search space. Based on this, we
+ develop two new classes of tie-breaking strategies.
 We  first propose a depth diversification strategy which breaks ties according to the distance from the entrance to the plateau, and then show that this new strategy 
 significantly outperforms standard
  strategies on domains with 0-cost actions.
  Next, we propose a new framework for interpreting \astar search as a series of satisficing searches within plateaus consisting of nodes with the same f-cost.
- Based on this framework, we investigate the second class of tie-breaking strategy 
- which is a  multi-heuristic tie-breaking strategy
+ Based on this framework, we investigate a second, new class of tie-breaking strategy, 
+ a  multi-heuristic tie-breaking strategy
  which embeds inadmissible, distance-to-go variations of various heuristics within an admissible search.
  This is shown to further improve the performance
  in combination with the depth metric.

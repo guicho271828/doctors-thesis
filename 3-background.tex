@@ -45,7 +45,7 @@ that \astar achieves best performance when it breaks ties
 in favor of nodes with least h-cost'' \cite{hansen2007anytime}.
 \citeauthor{holte2010common} writes ``\astar breaks ties in favor
 of larger $g$-values, as is most often done'' \cite{holte2010common}.
-Note that since $f=g+h$, preferring large $g$ is equivalent to preferring smaller $h$.
+Note that  preferring large $g$ is equivalent to preferring smaller $h$, since $f=g+h$.
 \shortciteauthor{felner2011inconsistent} also assume ``ties are broken in
 favor of low h-values'' in describing Bidirectional Pathmax for \astar \citeyear{felner2011inconsistent}.
 In their detailed survey/tutorial on efficient \astar implementations,
@@ -55,7 +55,7 @@ also break ties ``preferring high $g$'' (equivalent to low $h$).
 % They further write: ``The reasoning is that the goal can be found more
 % quickly in the final $f$ layer of search''.
 Thus, tie-breaking according to $h$-values appears
-to be ubiquitous in practice while,
+to be ubiquitous in practice. However, 
 to our knowledge, an in-depth experimental analysis of tie-breaking strategies for \astar is lacking in the literature.
 
 Although the standard practice of tie-breaking according to $h$ might be
@@ -83,8 +83,8 @@ In contrast, the current implementation of the \sota \astar based planner Fast
 Downward \cite{Helmert2006}, as well as the work by \cite{RogerH10} uses
 a $[f,h,\fifo]$ tie-breaking strategy.
 % 
-Although we could not find an explanation in the publication nor in the
-website, this choice is most likely due to their use of alternating OPEN
+Although we could not find a published explanation,  %in the publication nor in the website,   % in this case, can consider a website as a subclass of "publication"
+this choice is most likely due to their use of alternating OPEN
 lists, in which case the \fifo second-level criterion serves to provide a
 limited form of fairness.
 % 

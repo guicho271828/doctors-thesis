@@ -2,16 +2,16 @@
 
 \label{sec:preliminaries}
 
-We first define some notation and the terminology used throughout the
+We first define some notation and terminology used throughout the
 rest of the paper.
 $h(n)$ denotes the estimate of the cost from the current node $n$ to the nearest goal node.
 $g(n)$ is the current shortest known path cost from the initial node to the current node.
-$f(n)=g(n)+h(n)$ is the estimate of the resulting cost of the path to a goal
+$f(n)=g(n)+h(n)$ is the estimate of the cost of a path to a goal
 containing the current node.
 We omit the argument $(n)$ unless necessary.
 
-Below, we first present a \emph{Best First Search} (BFS) algorithm that generalizes \astar, Dijkstra \cite{dijkstra1959note}, GBFS and others.
-It is built upon two sets, OPEN and CLOSED, where unexpanded nodes are stored in OPEN and expanded nodes are stored in CLOSED. Three operations, pop$(S)$, push$(n,S)$ and remove$(n,S)$, are assumed for a node $n$ and a set $S$.
+Below, we first present a general \emph{Best First Search} (BFS) algorithm template which includes  \astar, Dijkstra's algorithm \citeyear{dijkstra1959note}, Greedy Best-First Search (GBFS).
+It uses two sets, OPEN and CLOSED, where unexpanded nodes are stored in OPEN and expanded nodes are stored in CLOSED. Three operations, pop$(S)$, push$(n,S)$ and remove$(n,S)$, are assumed for a node $n$ and a set $S$.
 pop$(S)$ operation tries to select a single node from $S$,
 push$(n,S)$ stores the node $n$ into $S$ and remove$(n,S)$ removes $n$ from $S$ if $n$ is already stored.
 
@@ -39,7 +39,7 @@ push$(n,S)$ stores the node $n$ into $S$ and remove$(n,S)$ removes $n$ from $S$ 
 OPEN is sorted according to a \emph{sorting strategy} and the node selected by pop$(S)$ always returns the best node according to the strategy.
 Each sorting strategy is denoted as a vector of several \emph{sorting criteria}, such as
 [$\text{criterion}_1$, $\text{criterion}_2$, $\ldots$,
-$\text{criterion}_k$], which defines a lexicographic ordering ---
+$\text{criterion}_k$], which defines a lexicographic ordering, 
 i.e., from the OPEN list, first, select a
 set of nodes using $\text{criterion}_1$, and if there are still multiple
 nodes remaining in the set, then break ties using $\text{criterion}_2$
@@ -59,25 +59,25 @@ Unless stated otherwise, we assume the nodes are sorted in the
 increasing order of the key value and a BFS always selects the smallest
 key value.
 
-However, a sorting strategy may only provide a partial ordering ---
+However, a sorting strategy may only provide a partial ordering, 
 i.e., the sorting strategy may fail to select a single node because some nodes
 may share the same sorting keys.
 For such cases, a BFS algorithm must
-decide which node to expand by a \emph{default} tie-breaking
-criterion $\text{criterion}_k$ such as  \fifo (oldest node first: first-in-first-out), \lifo
+decide which node to expand by applying some \emph{default} tie-breaking
+criterion $\text{criterion}_k$ which is guaranteed to return a single node, such as  \fifo (oldest node first: first-in-first-out), \lifo
 (most recently inserted first: last-in-first-out) or \ro (random ordering).
-For example, an \astar using $h$ tie-breaking and \fifo default tie-breaking
+For example, \astar using $h$ tie-breaking and \fifo default tie-breaking
  is denoted as $[f,h,\fifo]$.
 By definition, there is only 1 node which satisfies the default criterion, so
-strategies with a default criterion guarantee the total order and
+strategies with a default criterion guarantee a total ordering among all nodes and
 are able to select a single node from the set of nodes.
 When the default criterion is irrelevant to the discussion,
-we use a wildcard * e.g. $[f,h,*]$ or sometimes omit it.
+we either use a wildcard ``*'', e.g. $[f,h,*]$, or sometimes omit it altogether for brevity.
 
 Given a search algorithm with a sorting strategy, 
 a $\plateau{\text{criterion}\ldots}$ is a set of nodes in OPEN whose elements share
-the same sort keys according to non-default sorting criteria and therefore
-are indistinguishable. In a case of \astar
+the same sort keys according to non-default sorting criteria and are therefore
+indistinguishable. In the case of \astar
 using tie-breaking with $h$ (sorting strategy $[f,h,*]$), the plateaus are denoted as
 $\plateau{f,h}$, the set of nodes with the same $f$ cost and the same $h$ cost.
 We can also refer to a specific plateau with $f=f_p$ and $h=h_p$ by $\plateau{f_p,h_p}$.
