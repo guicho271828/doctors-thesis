@@ -65,13 +65,14 @@ Although the standard practice of tie-breaking according to $h$ might be
 sufficient in some domains, further levels of tie-breaking (explicit or
 implicit) are required if multiple nodes have the same $f$ as well as
 the same $h$ values. To date, the effect of such \emph{default}
-tie-breaking was not investigated in depth.
+tie-breaking has not been investigated in depth.
 % 
-For example, the survey of efficient \astar implementation techniques in
-\cite{burns2012implementing} did not explicitly mention the default
-tie-breaking, while their library
-code\footnote{https://github.com/eaburns/search} uses \lifo
-default tie-breaking.
+For example, although the survey of efficient \astar implementation techniques by \citeauthor{burns2012implementing} 
+%\cite{burns2012implementing} 
+did not explicitly mention the default
+tie-breaking \citeyear{burns2012implementing},  their library
+code  uses \lifo
+default tie-breaking \cite{BurnsCode}.
 % 
 It first breaks ties according to $h$, and then
 breaks remaining ties according to a \lifo criterion (most recently

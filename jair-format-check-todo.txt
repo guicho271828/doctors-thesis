@@ -15,17 +15,17 @@ DONE - When referencing two citations next to each other they should be in the s
 separated by a semi-colon. So on page 6 it should be Åg(Hart et al., 1968, p.102 Step 2; Nilsson, 
 1971, p. 69).Åh
 
-TODO- Please avoid using a citation as a noun, as you do twice on page 6. For example, you 
+DONE- Please avoid using a citation as a noun, as you do twice on page 6. For example, you 
 write "...in (Burns et al., 2012)..." This should be restated, for instance, as "...in the work of 
 Burns et al. (2012)..."
 
-TODO- I notice that some of your footnotes are websites. In most cases websites should be referenced 
+DONE- I notice that some of your footnotes are websites. In most cases websites should be referenced 
 the same way as other citations -- cited within the body of the paper and and in the reference 
 section.
 
-TODO- Figure 5.1 looks like it extends slightly into the right margin. Please correct if it does.
+DONE- Figure 5.1 looks like it extends slightly into the right margin. Please correct if it does.
 
-TODO- On pages 28 and 29 some of your lines extend into the right margin. Please correct.
+DONE- On pages 28 and 29 some of your lines extend into the right margin. Please correct.
 
 DONE - The ÅggÅh in ÅggoÅh in heading 8.1.1 and 8.2 needs to be capitalized as you did in heading 8.1.
 

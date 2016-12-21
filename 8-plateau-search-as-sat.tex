@@ -203,8 +203,8 @@ We consider several cases depending on which plateau is infinite.
 The remaining cases assume that the following two conditions hold: 
  $\plateau{f}$ is finite  $\forall f<f^*$, and $\plateau{f^*}$ is infinite.
 Under this assumption,
-the completeness of \astar $[f, \text{criterion}_2, \ldots \text{criterion}_k]$
-depends on the completeness of satisficing search algorithm
+the completeness of \astar using tie-breaking $[f, \text{criterion}_2, \ldots \text{criterion}_k]$
+depends on the completeness of the satisficing search algorithm corresponding to 
 $[\text{criterion}_2, \ldots \text{criterion}_k]$ on $\plateau{f^*}$.
 For the standard tie-breaking criteria, we can apply previously known results.
 
@@ -236,7 +236,7 @@ Since FIFO tiebreaking $[f,\fifo]$ applies breadth-first search to $\plateau{f^*
  the maximum outdegree of the nodes is finite in $\plateau{f^*}$ below the solution depth.
 \end{propo}
 
-LIFO tie-breaking performs a depth-first search with duplicate detection (DFS-dup) on $\plateau{f^*}$.
+LIFO tie-breaking behaves equivalently to  a depth-first search with duplicate detection (DFS-dup) on $\plateau{f^*}$.
 Assuming a fixed successor ordering, we get the following:
 
 % \begin{proof}
@@ -276,16 +276,16 @@ Assuming a fixed successor ordering, we get the following:
 Finally, we show the completeness of our iteration-based depth diversification in \refalgo{alg:depth}.
 
 \begin{theo}
- \astar with Depth Diversification $[f,\depth,*]$ is complete on an infinite graph when
- $\plateau{f}$ is finite  $\forall f<f^*$ and
- the maximum outdegree of the nodes is finite in $\plateau{f^*}$ below the solution depth.
+ \astar with Depth Diversification $[f,\depth,*]$ is complete % on an infinite graph % not necessary, as the following clause fully constrains the cases for which DD is complete
+when  $\plateau{f}$ is finite  $\forall f<f^*$ and
+ the maximum outdegree of the nodes is finite in $\plateau{f^*}$ for depths below the solution depth.
 \end{theo}
  
 \begin{proof}
  Any solution must have a finite depth $d^*$ on $\plateau{f^*}$.
  On every iteration of the $pop$ method of \refalgo{alg:depth} from the largest depth $D$ to the depth 0, each depth is expanded once.
  Since the maximum outdegree is finite,
- every node with depth $d\leq d^*$ will be expanded in a finite amount of iterations.
+ every node with depth $d\leq d^*$ will be expanded in a finite number of iterations.
 \end{proof}
 
 \begin{comment} % excessive and controversial claims
