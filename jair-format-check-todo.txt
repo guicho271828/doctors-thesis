@@ -1,0 +1,40 @@
+TODO[after deciding on year and getting starting page number from jair]- Prior to publication donÅft forget to update your special header on page 1 and copyright on 
+the bottom of the page.
+
+DONE- The first line of the authorsÅf location continues too far to the right. Consider separating it 
+into two lines. Also, although not required we recommend you include more information in 
+the authorsÅf location (such as city, state or province, country).
+
+DONE- Your title header has a spelling typo. You have ÅgCOST-OOPTIMALÅh
+
+DONE- When referencing page numbers within a citation there should be a space between the 
+period and the page number. So, for example, on page 6 you have Åg(Hart et al., 1968, p.102...Åh
+and it should be Åg(Hart et al., 1968, p. 102...Åh [This occurs several times on page 6.]
+
+DONE - When referencing two citations next to each other they should be in the same paragraph and
+separated by a semi-colon. So on page 6 it should be Åg(Hart et al., 1968, p.102 Step 2; Nilsson, 
+1971, p. 69).Åh
+
+TODO- Please avoid using a citation as a noun, as you do twice on page 6. For example, you 
+write "...in (Burns et al., 2012)..." This should be restated, for instance, as "...in the work of 
+Burns et al. (2012)..."
+
+TODO- I notice that some of your footnotes are websites. In most cases websites should be referenced 
+the same way as other citations -- cited within the body of the paper and and in the reference 
+section.
+
+TODO- Figure 5.1 looks like it extends slightly into the right margin. Please correct if it does.
+
+TODO- On pages 28 and 29 some of your lines extend into the right margin. Please correct.
+
+DONE - The ÅggÅh in ÅggoÅh in heading 8.1.1 and 8.2 needs to be capitalized as you did in heading 8.1.
+
+DONE - On page 25 you need a space in-between the period and the word ÅgHoffmannÅh in 
+Åg2001).Hoffmann (2005, 2011)...Åh
+
+DONE- When possible, avoid starting a section with a subsection (as you do in Appendix A).
+
+DONE - The ÅgFÅh in ÅgFinalÅh in the heading for section A.5 (on page 47) should not be capitalized. 
+While some hyphenated words need the first letter in the word after the hyphen capitalized, in 
+this case it shouldnÅft be capitalized because itÅfs a word that only exists as a hyphenated word. 
+The prefix ÅgnonÅh is not considered a word by itself in most dictionaries.

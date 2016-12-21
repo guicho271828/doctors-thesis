@@ -32,11 +32,14 @@ The early literature on heuristic search seems to have been mostly agnostic rega
 The original \astar paper, as well as Nilsson's subsequent textbook 
 states: ``Select the open node $n$ whose value $f$
 is smallest. Resolve ties arbitrarily, but always in favor of any [goal
-node]'' \cite[p.102 Step 2]{hart1968formal}, \cite[p.69]{Nilsson71}.
+node]'' 
+%\cite[p. 102 Step 2]{hart1968formal}, \cite[p. 69]{Nilsson71}.
+% \cites[p. 102 Step 2]{hart1968formal}[p. 69]{Nilsson71}  %unfortunatley, \cites is undefiend for APA format?, so as a hack, I'll just do this manually
+(\citeR{hart1968formal}, p. 102 Step 2; \citeR{Nilsson71}, p. 69).
 % Although it is possible to interpret this to imply $h$-based tie-breaking
 % since goal nodes are the special case where $h=0$,
 % they make no further mention of tie-breaking.
-Pearl's textbook on heuristic search specifies that best-first search should ``break ties arbitrarily'' \cite[p.48, Step 3]{pearl1984heuristics}, and does not specifically mention tie-breaking for \astar.
+Pearl's textbook on heuristic search specifies that best-first search should ``break ties arbitrarily'' \cite[p. 48, Step 3]{pearl1984heuristics}, and does not specifically mention tie-breaking for \astar.
 To the best of our knowledge, the first explicit mention of a tie-breaking strategy that considers node generation order is by Korf in his analysis of IDA*: ``If \astar employs the tie-breaking rule of 'most-recently generated', it must also expand the same nodes [as IDA*]'', i.e., a \lifo ordering.
 
 In recent years, tie-breaking according to $h$-values has become ``folklore'' in the search community.
