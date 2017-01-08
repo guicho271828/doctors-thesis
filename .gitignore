@@ -34,3 +34,5 @@ nohup.out
 /org-mode/
 tables/.#*
 /rebuttal/responses.tex
+*.subm
+/submission/

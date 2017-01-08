@@ -25,7 +25,9 @@ all: check_pages check_overflow
 check_pages: en
 	-./check_pages.sh $(max_pages) $(name)
 
-check_overflow: en
+$(name).log $(name).fls: $(name).pdf
+
+check_overflow: $(name).log
 	-./check_overflow.sh $(name).log
 
 en:	$(name).pdf supplemental.pdf $(sources)
