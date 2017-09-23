@@ -1,19 +1,11 @@
-% Created 2013-10-07 月 18:04
-% \documentclass[10pt,letterpaper]{article}
-% ecai
-% \documentclass{ecai}
-% \usepackage{times}
-% jair
-\documentclass[11pt]{article}
+\documentclass[11pt]{book}
 \usepackage{hyperref}
-\usepackage{jair}
 \usepackage{times}
 \usepackage{theapa}
 \usepackage{xparse}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{xspace}
 \usepackage{relsize}
 \usepackage{aaai_my}
 \usepackage{graphicx}
@@ -22,89 +14,19 @@
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 % \renewcommand{\algorithmicensure}{\textbf{Output:}}
 \renewcommand{\algorithmicforall}{\textbf{for each}}
+\usepackage{CJKutf8}
 
 \usepackage{abbrev}
 \usepackage{multirow}
-\usepackage[normalem]{ulem}
 \usepackage{booktabs}
-\usepackage{fancyhdr}
 \usepackage{comment}
-\fancypagestyle{plain}{%
-\fancyhf{} % clear all header and footer fields
-\fancyfoot[C]{\iffloatpage{}{\thepage}} % except the center
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}}
-\pagestyle{plain}
 \usepackage{longtable}
-\setlength{\LTcapwidth}{\textwidth}
-\setcounter{LTchunksize}{10}
-
-\frenchspacing
-\setlength{\pdfpagewidth}{8.5in}
-\setlength{\pdfpageheight}{11in}
-
 
 \hypersetup{pdfinfo={
-Title={Tie-Breaking Strategies for Cost-Optimal Best First Search},
+Title={Diversification Mechanisms for Best-First Search},
 Keywords={Planning, Heuristic Search},
-Author={Masataro Asai, Alex Fukunaga}
+Author={Masataro Asai}
 }}
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%
-% % forbid the direct use of \\ref --- it results in inconsistency in styles, e.g., Figure,Fig., etc.
-% % Macros are for styles!
-% % !!!WARN!!! this should be removed in the camera-ready version.
-% \def\ref{\todo{Do not use ``ref'' directly!}}
-% \renewcommand{\subsubparagraph}[1]{%
-% \vspace{3pt}%
-% \hrule width \linewidth%
-% \marginpar[\hfill\relsize{-1} \protect{{#1}} $\triangleright$]{\relsize{-1} $\triangleleft$ \protect{{#1}}}%
-% \vspace{3pt}%
-% }
-% % \usepackage{soul}
-% \makeatletter
-% \newcounter{todo}[page]
-% \renewcommand{\thetodo}{\text{$\dagger$}\arabic{todo}}
-% \renewcommand{\@todons}[2]{%
-%   \refstepcounter{todo}%
-%   $^{\thetodo}$\uline{#1}%
-%   \marginpar[%
-%     \hfill\relsize{-1}%
-%     \thetodo\;%
-%     \protect{%
-%       {\scriptsize\bf #2}}]{%
-%     \relsize{-1}%
-%     \thetodo\;%
-%     \protect{%
-%       {\scriptsize\bf #2}}}}
-% \renewcommand{\@todos}[2]{%
-%   \refstepcounter{todo}%
-%   $^{\thetodo}$\uline{#1}%
-%   \marginpar[%
-%     \hfill\relsize{-1}%
-%     \thetodo\;%
-%     \protect{%
-%       {\scriptsize \it #2}}]{%
-%     \relsize{-1}%
-%     \thetodo\;%
-%     \protect{%
-%       {\scriptsize \it #2}}}}
-% \makeatother
-% \setlength{\marginparwidth}{2.9cm}
-% \setlength{\marginparsep}{5pt}
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\setcounter{secnumdepth}{2}
-% \setlength{\floatsep}{1mm}
-% \setlength{\textfloatsep}{1mm}
-% \setlength{\abovecaptionskip}{1mm}
-% \setlength{\belowcaptionskip}{1mm}
-% \setlength{\abovedisplayskip}{1mm}
-% \setlength{\belowdisplayskip}{1mm}
-% \setlength{\arraycolsep}{1mm}
-% 
-% \setlength{\tabcolsep}{0.02em}
 
 \makeatletter
   \renewcommand{\thefigure}{%
@@ -126,30 +48,17 @@ no-mystery open-stacks parc-printer path-ways peg-sol pipes-world
 no-tankage scan-alyzer so-ko-ban tidy-bot visit-all zeno-travel tie-break-ing wood-work-ing
 push-goal no-tank-age}
 
-\jairheading{58}{2017}{67-121}{06/16}{01/17}
-\ShortHeadings{Tie-Breaking Strategies for Cost-Optimal Best First Search}{Asai \& Fukunaga}
-\firstpageno{67}
-\title{Tie-Breaking Strategies for Cost-Optimal Best First Search}
-\author{%
-\name Masataro Asai \email guicho2.71828\textcircled{$\alpha$}gmail.com\\
-\name Alex Fukunaga \email fukunaga\textcircled{$\alpha$}idea.c.u-tokyo.ac.jp\\
-\addr Graduate School of Arts and Sciences\\The University of Tokyo\\Japan}
+\author{Masataro Asai (Advisor: Alex Fukunaga) \\ Graduate School of Arts and Sciences, The University of Tokyo}
+\title{Diversification Mechanisms for Best-First Search\\
+\begin{CJK}{UTF8}{ipxm}(最良優先探索のための探索非局在化手法)\end{CJK}}
+\date{}
 
 \begin{document}
 
 \maketitle
 \input{main.tex}
 
-
 \bibliography{confs,journals,misc-refs}
-% \bibliographystyle{aaai}
-% ijcai
-% \bibliographystyle{named}
-% jsai
-% \bibliographystyle{jsai}
-% ecai
-% \bibliographystyle{ecai}
-% jair
 \bibliographystyle{theapa}
 
 \end{document}
