@@ -15,6 +15,7 @@
 \newcommand{\rel}[1]{\in \params{#1}}
 
 \newcommand{\sota}{State-of-the-Art\xspace}
+\newcommand{\lsota}{state-of-the-art\xspace}  %lower-case version
 \newcommand{\domind}{domain-independent\xspace}
 
 % template
@@ -103,8 +104,8 @@
 \def\ww{{\relsize{-1}Woodworking}\xspace}
 \def\barm{{\relsize{-1}Barman}\xspace}
 
-\newcommand{\pddl}[1]{\textsf{\small #1}}
-\newcommand{\pddls}[1]{\textsf{\scriptsize #1}}
+\newcommand{\pddl}[1]{{\small \textsf{#1}}}
+\newcommand{\pddls}[1]{{\scriptsize \textsf{#1}}}
 
 \newcommand{\tpred}[2]{\pddl{(#1 \uline{#2})}}
 
@@ -185,7 +186,6 @@
 
 \newcommand{\spc}[2][c]{%
   \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
-% \def\_{\\[-0.3em]}
 
 \def\spm{$\mathsmaller{\mathsmaller{\pm}}$}
 
@@ -225,3 +225,5 @@
 \def\id{\mit{id}\xspace}
 \def\hh{\hat{h}}
 \def\rb#1{\rotatebox{-90}{\hspace{-1em}#1\;}} 
+\newcommand{\bi}[1]{\textbf{#1}}
+\newcommand{\ui}[1]{\uline{\textit{#1}}}
