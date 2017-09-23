@@ -1,0 +1,58 @@
+\begin{table}[tb] 
+ \setlength{\tabcolsep}{0.1em}
+\centering
+\relsize{-1}
+\begin{tabular}{|ll|r|rrr|r|r|rrr|r|}
+% \begin{tabularx}{\linewidth}{|ll|l|l|lll|l|l|lll|}
+\hline
+& & \multicolumn{ 5}{c|}{$\cg$} & \multicolumn{ 5}{c|}{$\ff$} \\ 
+   &       & h   & {hb}           & {hB}           & {hbB}                & {hdD}                & h   & {hb}           & {hB}           & {hbB}          & {hdD}         \\ 
+   &       &     & {intra}        & {inter}        & {both}               & {both}               &     & {intra}        & {inter}        & {both}         & {both}        \\ \hline
+%  &total  & 228 & 232.5          & 261.8          & \textbf{268.5}       & 263.2                & 231 & 261.5          & 297.7          & \textbf{307.4} & 280.6         \\ \hline \multirow{14}{0.4em}{\rotatebox{90}{\textbf{\relsize{-1}IPC2011}}}
+   &total  & 187 & 187.2          & 206.8          & \textit{208.7}       & \textbf{215.8}       & 192 & 207.8          & 232.9          & \textbf{237.7} & 223.9         \\ \hline \multirow{8}{1em}{\rotatebox{90}{\textbf{\relsize{-1}IPC11 w/o duplicates}}}
+%  &barman & 0   & 0              & 0              & 0                    & 0                    & 8   & 8.1            & \bred{16.2}    & \bred{15.2}    &         10.3  \\ 
+   &elev.. & 9   & 9.2            & \bred{12.6}    & \bred{13.3}          & \textbf{9.7}         & 19  & 18.2           & 18.5           & 19.4           & 13.7          \\ 
+ % &floo.. & 0   & 0              & \bred{0.6}     & \bred{0.5}           & \textbf{2}           & 6   & 4.6            & 5.6            & 5.2            & \textbf{6.9}  \\ 
+   &nomy.. & 7   & 6.4            & 5.5            & 5.6                  & \textbf{15.1}        & 9   & 6.6            & 7.6            & 6.6            & \textbf{17}   \\ 
+ % &open.. & 10  & \borange{12}   & \borange{13.5} & \borange{13.6}       & 12.8                 & 11  & \borange{19.2} & \borange{17.7} & \borange{19}   & 15.8          \\ 
+   &parc.. & 20  & 19.6           & 13.7           & 12.4                 & 18.7                 & 20  & 20             & 19.9           & 18.9           & 20            \\ 
+ % &park.. & 18  & \borange{19.2} & \borange{19.4} & \borange{19.9}       & 14.1                 & 11  & \borange{16.8} & \borange{13.3} & \borange{16.9} & \textbf{17.2} \\ 
+   &pegs.. & 20  & 20             & 19.7           & 19.8                 & 20                   & 20  & 20             & 20             & 20             & 20            \\ 
+   &scan.. & 20  & 20             & 20             & 20                   & 20                   & 15  & 16.6           & \bred{19.1}    & \bred{19.1}    & \textbf{18.6} \\ 
+   &soko.. & 16  & 15.9           & 15.8           & 15.2                 & \textbf{17}          & 19  & 18.6           & 18.5           & 18.4           & 17.4          \\ 
+   &tidy.. & 16  & \borange{17.3} & \borange{17.5} & \borange{17.5}       & \textbf{18.6}        & 16  & 15             & 16.4           & {16.3}         & \textbf{16.7} \\ 
+ % &tran.. & 10  & 10.2           & \bred{11.5}    & \bred{15.6}          & \textbf{12.1}        & 0   & 0              & {0.2}          & \textbf{1.3}   & 0.2           \\ 
+ % &visi.. & 3   & 3.9            & \bred{10}      & \bred{10.2}          &         6.4          & 3   & \borange{5}    & \borange{11.8} & \borange{12.1} & 6.3           \\ 
+   &wood.. & 2   & 1.8            & \bred{14}      & \bred{12.8}          &         \textbf{7.7} & 2   & 1.5            & \bred{14.8}    & \bred{15.7}    & \textbf{7.2}           \\ \hline \multirow{14}{1em}{\rotatebox{90}{\textbf{\relsize{-1}IPC14}}}
+   &barm.. & 0   & 0              & 0              & 0                    & 0                    & 0   & 0              & \bred{7.6}     & \bred{6.5}     & \textbf{1}             \\ 
+   &cave.. & 7   & 7.1            & 7              & 6.9                  & 7                    & 7   & 7              & 7              & 7              & 7.2           \\ 
+   &chil.. & 1   & 0              & 0.1            & 0                    & \textbf{1.5}         & 0   & 0              & 0.1            & 0              & 0.3           \\ 
+   &city.. & 0   & {0.2}          & \textbf{1.1}   & {0.4}                & \textbf{4.7}         & 0   & 0              & \bred{3}       & \bred{3.8}     & \textbf{7.1}  \\ 
+   &floo.. & 0   & 0              & \bred{0.5}     & \textcolor{red}{0.2} & \textbf{2}           & 2   & 2              & 2.1            & 2              & 2.1           \\ 
+   &ged    & 0   & 0              & \bred{4.8}     & \bred{4.6}           & \textbf{9.7}         & 19  & 19.2           & 12.8           & 13             & 13.8          \\ 
+   &hiki.. & 18  & 15.9           & \bred{18.7}    & \bred{18.8}          & \textbf{19.7}        & 20  & 17.6           & 19.9           & 20             & 20            \\ 
+   &main.. & 16  & 14.6           & 14.9           & 14.1                 & 15.8                 & 11  & 6.7            & 10             & 5.8            & 11.1          \\ 
+   &open.. & 0   & 0.1            & \bred{2.5}     & \bred{2.4}           &         \textbf{0.5} & 0   & \borange{15.7} & \borange{11.7} & \borange{14.5} & \textbf{7}             \\ 
+   &park.. & 7   & \bblue{10.4}   & 7.6            & \bblue{10.9}         & 4.1                  & 4   & \bblue{5.4}    & 2.3            & \bblue{4.8}    & \textbf{5.7}  \\ 
+   &tetr.. & 18  & \bblue{19.7}   & 17.6           & \bblue{19.4}         & 14.3                 & 1   & \borange{8.6}  & \borange{7}    & \borange{11.1} & \textbf{4.9}           \\ 
+   &thou.. & 5   & 4.9            & 5.2            & 5.2                  & 5                    & 8   & \borange{9.1}  & \borange{11.2} & \borange{11}   & \textbf{13.1} \\ 
+   &tran.. & 5   & 4.1            & \bred{6}       & \bred{7.1}           & 4.7                  & 0   & 0              & 0              & 0              & 0             \\ 
+   &visi.. & 0   & 0              & \bred{2}       & \bred{2.1}           & 0                    & 0   & 0              & \bred{3.4}     & \bred{3.8}     & 0             \\ 
+\hline
+% \end{tabularx}
+\end{tabular}
+\caption{
+Number of solved instances (5 min, 4Gb RAM), mean of 10 runs.
+\textbf{h}: baseline GBFS.
+\textbf{hb/hB}: intra / inter-plateau IP diversification $[h,\bip]$ and $alt([h],[\bip])$,
+\textbf{hbB}: A combined IP configuration $alt([h,\bip],[\bip])$,
+\textbf{hdD}: $alt([h,\brackets{d}],[\brackets{g,h},\ro])$ (same as hdD from \reftbl{tbl:results})  . % confusing because hdD is not IP-based
+The same highlighting/coloring rules as \reftbl{tbl:results} are applied, showing that
+% Results follow the same observation made in \reftbl{tbl:results}.  
+intra/inter-plateau schemes based on IP are complementary.
+\textbf{bold} shows the improvements by \textbf{hdD}.
+Although \textbf{hbB} and \textbf{hdD} are comparable overall,
+per-domain comparison shows \textbf{hbB} and \textbf{hdD} are complementary.
+}
+\label{tbl:results2}
+\end{table}

@@ -1,0 +1,90 @@
+* blind
+| ipc2014 |    cov | brmn | cvdv | chld | ctyc | flrt | gd-s | hkng | mntn | pnst |  prkn |   ttrs | thgh | trns | vstl |
+| h       |     14 |    0 |    7 |    0 |    0 |    0 |    0 |    2 |    0 |    0 |     0 |      0 |    5 |    0 |    0 |
+| hb      |     15 |    0 |    7 |    0 |    0 |    0 |    0 |    2 |    0 |    0 |     0 |      1 |    5 |    0 |    0 |
+| hd      |   *22* |    0 |    7 |    0 |    0 |    0 |    0 |  *7* |    0 |    0 |     0 |    *3* |    5 |    0 |    0 |
+| hr      |   15.8 |    0 |    7 |    0 |    0 |    0 |    0 |  2.8 |    0 |    0 |     0 |    1.3 |  4.8 |    0 |    0 |
+
+| ipc2011 |    cov | brmn | lvtr | flrt | nmys | pnst | prcp | prkn | pgsl | scnl |  skbn |   tdyb | trns | vstl | wdwr |
+| h       |     30 |    0 |    0 |    0 |    3 |    0 |    0 |    0 |   17 |    4 |     3 |      2 |    0 |    0 |    1 |
+| hb      |     48 |    0 |    0 |    0 |  *4* |    0 |    0 |    0 | 18.5 |    4 |     3 | *17.5* |    0 |    0 |    1 |
+| hd      | *50.8* |    0 |    0 |    0 |  *4* |    0 |    0 |    0 | *19* |  *6* | *3.8* |     14 |    0 |  *3* |    1 |
+| hr      |   47.8 |    0 |    0 |    0 |  *4* |    0 |    0 |    0 | 18.3 |  3.8 |     3 | *17.5* |    0 |    0 |    1 |
+
+| /           |  < |        |        |      > |             |
+|             |  h |     hb | hd     |     hr | $[h,\ro]$  |
+|-------------+----+--------+--------+--------+-------------|
+| ipc2014 sum | 14 |     15 | *22*   |   15.8 |          15 |
+|-------------+----+--------+--------+--------+-------------|
+| cavediving  |  7 |      7 | 7      |      7 |           7 |
+| hiking      |  2 |      2 | *7*    |    2.8 |           2 |
+| tetris      |  0 |      1 | *3*    |    1.3 |           1 |
+| thoughtful  |  5 |      5 | 5      |    4.8 |           5 |
+|-------------+----+--------+--------+--------+-------------|
+| ipc2011 sum | 30 |     48 | *50.8* |   47.8 |          35 |
+|-------------+----+--------+--------+--------+-------------|
+| nomystery   |  3 |      4 | 4      |      4 |           4 |
+| pegsol      | 17 |   18.5 | *19*   |   18.3 |          17 |
+| scanalyzer  |  4 |      4 | *6*    |    3.8 |           4 |
+| sokoban     |  3 |      3 | *3.8*  |      3 |           3 |
+| tidybot     |  2 | *17.5* | 14     | *17.5* |           6 |
+| visitall    |  0 |      0 | *3*    |      0 |           0 |
+|-------------+----+--------+--------+--------+-------------|
+
+
+
+
+ipc2014                                         cov  brmn  cvdv  chld  ctyc  flrt  gd-s  hkng  mntn  pnst  prkn  ttrs  thgh  trns  vstl  
+bl1-eager-RANDOM-h-b39eae-2016-07-19-11-46-23   15   0     7     0     0     0     0     2     0     0     0     1     5     0     0  
+bl1-eager-RANDOM-h-b39eae-2016-07-19-11-47-25   15   0     7     0     0     0     0     2     0     0     0     1     5     0     0  
+bl1-eager-RANDOM-h-b39eae-2016-07-19-11-48-31   15   0     7     0     0     0     0     2     0     0     0     1     5     0     0  
+bl1-eager-RANDOM-h-b39eae-2016-07-19-11-49-39   15   0     7     0     0     0     0     2     0     0     0     1     5     0     0  
+ipc2011                                         cov  brmn  lvtr  flrt  nmys  pnst  prcp  prkn  pgsl  scnl  skbn  tdyb  trns  vstl  wdwr  
+bl1-eager-RANDOM-h-b5e515-2016-07-19-11-45-39   35   0     0     0     4     0     0     0     17    4     3     6     0     0     1  
+bl1-eager-RANDOM-h-b5e515-2016-07-19-11-46-58   35   0     0     0     4     0     0     0     17    4     3     6     0     0     1  
+bl1-eager-RANDOM-h-b5e515-2016-07-19-11-47-52   35   0     0     0     4     0     0     0     17    4     3     6     0     0     1  
+bl1-eager-RANDOM-h-b5e515-2016-07-19-11-49-08   34   0     0     0     4     0     0     0     17    4     3     5     0     0     1  
+ipc2014                                         cov  brmn  cvdv  chld  ctyc  flrt  gd-s  hkng  mntn  pnst  prkn  ttrs  thgh  trns  vstl  
+bl1-eager-RANDOM-hb-b39eae-2016-07-19-11-46-33  15   0     7     0     0     0     0     2     0     0     0     1     5     0     0  
+bl1-eager-RANDOM-hb-b39eae-2016-07-19-11-47-32  15   0     7     0     0     0     0     2     0     0     0     1     5     0     0  
+bl1-eager-RANDOM-hb-b39eae-2016-07-19-11-48-41  14   0     7     0     0     0     0     2     0     0     0     1     4     0     0  
+bl1-eager-RANDOM-hb-b39eae-2016-07-19-11-49-46  16   0     7     0     0     0     0     3     0     0     0     1     5     0     0  
+ipc2011                                         cov  brmn  lvtr  flrt  nmys  pnst  prcp  prkn  pgsl  scnl  skbn  tdyb  trns  vstl  wdwr  
+bl1-eager-RANDOM-hb-b5e515-2016-07-19-11-45-51  46   0     0     0     4     0     0     0     16    4     3     18    0     0     1  
+bl1-eager-RANDOM-hb-b5e515-2016-07-19-11-47-05  49   0     0     0     4     0     0     0     19    3     4     18    0     0     1  
+bl1-eager-RANDOM-hb-b5e515-2016-07-19-11-48-01  50   0     0     0     4     0     0     0     19    5     3     18    0     0     1  
+bl1-eager-RANDOM-hb-b5e515-2016-07-19-11-49-15  48   0     0     0     3     0     0     0     18    4     4     18    0     0     1  
+ipc2014                                         cov  brmn  cvdv  chld  ctyc  flrt  gd-s  hkng  mntn  pnst  prkn  ttrs  thgh  trns  vstl  
+bl1-eager-RANDOM-hd-b39eae-2016-07-19-11-46-26  30   0     7     0     0     0     0     2     0     13    0     3     5     0     0  
+bl1-eager-RANDOM-hd-b39eae-2016-07-19-11-47-28  33   0     7     0     0     0     0     2     0     15    0     4     5     0     0  
+bl1-eager-RANDOM-hd-b39eae-2016-07-19-11-48-34  34   0     7     0     0     0     0     3     0     14    0     5     5     0     0  
+bl1-eager-RANDOM-hd-b39eae-2016-07-19-11-49-41  32   0     7     0     0     0     0     2     0     15    0     3     5     0     0
+ipc2011                                         cov  brmn  lvtr  flrt  nmys  pnst  prcp  prkn  pgsl  scnl  skbn  tdyb  trns  vstl  wdwr
+bl1-eager-RANDOM-hd-b5e515-2016-07-19-11-45-43  75   0     0     0     4     18    0     0     20    6     4     14    0     8     1
+bl1-eager-RANDOM-hd-b5e515-2016-07-19-11-47-00  76   0     0     0     4     19    0     0     20    6     4     14    0     8     1
+bl1-eager-RANDOM-hd-b5e515-2016-07-19-11-47-54  79   0     0     0     4     19    0     0     20    6     4     16    0     9     1
+bl1-eager-RANDOM-hd-b5e515-2016-07-19-11-49-10  79   0     0     0     4     18    0     0     20    6     4     17    0     9     1
+ipc2014                                         cov  brmn  cvdv  chld  ctyc  flrt  gd-s  hkng  mntn  pnst  prkn  ttrs  thgh  trns  vstl
+bl1-eager-RANDOM-hr-b39eae-2016-07-19-11-46-30  16   0     7     0     0     0     0     3     0     0     0     1     5     0     0
+bl1-eager-RANDOM-hr-b39eae-2016-07-19-11-47-30  15   0     7     0     0     0     0     2     0     0     0     1     5     0     0
+bl1-eager-RANDOM-hr-b39eae-2016-07-19-11-48-37  16   0     7     0     0     0     0     3     0     0     0     1     5     0     0
+bl1-eager-RANDOM-hr-b39eae-2016-07-19-11-49-44  14   0     7     0     0     0     0     2     0     0     0     1     4     0     0
+ipc2011                                         cov  brmn  lvtr  flrt  nmys  pnst  prcp  prkn  pgsl  scnl  skbn  tdyb  trns  vstl  wdwr
+bl1-eager-RANDOM-hr-b5e515-2016-07-19-11-45-47  51   0     0     0     4     1     0     0     19    4     4     18    0     0     1
+bl1-eager-RANDOM-hr-b5e515-2016-07-19-11-47-03  46   0     0     0     4     1     0     0     17    3     3     17    0     0     1
+bl1-eager-RANDOM-hr-b5e515-2016-07-19-11-47-57  49   0     0     0     4     0     0     0     19    4     3     18    0     0     1
+bl1-eager-RANDOM-hr-b5e515-2016-07-19-11-49-13  48   0     0     0     4     0     0     0     18    5     3     17    0     0     1
+
+* cg,ff
+
+| ipc2014 |  cov | brmn | cvdv | chld | ctyc | flrt | gd-s | hkng | mntn | pnst | prkn | ttrs | thgh | trns | vstl |
+|---------+------+------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+| h       | 69.5 |    0 |    7 |    0 |    0 |    0 |    0 |   17 |   16 |    0 |  3.8 | 15.8 |    5 |    5 |    0 |
+| hb      | 70.8 |    0 |    7 |    0 |  0.3 |    0 |    0 | 15.3 |   14 |    0 |  6.5 | 19.8 |    4 |  3.8 |    0 |
+| hd      | 77.8 |    0 |    7 |    5 |    0 |    0 |    0 |   16 |   16 |  1.5 |  6.8 | 17.5 |    5 |    3 |    0 |
+| hr      | 71.5 |    0 |    7 |    0 |  0.5 |    0 |    0 | 14.5 | 15.8 |    0 |  7.3 | 19.8 |  4.5 |  3.8 |    0 |
+|---------+------+------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+| h       | 68.8 |    0 |    7 |    0 |    0 |    2 |   18 |   20 |   11 |    0 |    2 |  0.8 |    8 |    0 |    0 |
+| hb      |   79 |    0 |    7 |    0 |    0 |    2 | 18.5 |   18 |  6.8 | 12.5 |  4.3 |  9.3 |  8.8 |    0 |    0 |
+| hd      | 88.8 |    0 |    6 |    4 |    0 |    2 |   19 |   20 |    8 |  9.3 |  6.5 |    5 |    9 |    0 |    0 |
+| hr      |   85 |    0 |  6.8 |    0 |    0 |    2 | 19.3 | 17.8 |  7.8 | 11.8 |  3.8 |  7.8 |  8.8 |    0 |    0 |

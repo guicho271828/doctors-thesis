@@ -1,0 +1,53 @@
+\begin{table}[htb]
+ \setlength{\tabcolsep}{0.07em}
+\centering
+\relsize{-0.5}
+\begin{tabular}{lcccc|c}
+        & LAMA      & +b        & +d         & +B & +t\\ \hline
+ipc2011 & 229.8     & 223.5     & 226.8      & 223   & \bi{233.5}\\ \hline
+brm     & 16        & 16        & \bi{17}    & 17   & 14.8\\
+% lvt   & 18.8      & 18.8      & 19.5       & 19   & 18\\
+flr     & 3         & 2.5       & 2.8        & 3   & \bi{5.3}\\
+nmy     & 10        & 10.3      & 10         & 9   & \bi{16.3}\\
+% pns   & 20        & 20        & 20         & 20   & 20\\
+prc     & \bi{20}   & 18        & 18         & 16   & \bi{20}\\
+% prk   & 20        & 20        & 20         & 20   & 20\\
+% pgs   & 20        & 19.5      & 19         & 20   & 20\\
+% scn   & 19        & 18.5      & 19         & 19   & 18.8\\
+% skb   & 16        & 15        & 15         & 16 & 15\\
+% tdy   & 16        & 14.3      & 15.5       & 15 & 15\\
+% trn   & 11        & 10.8      & 11         & 10 & 10.5\\
+% vst   & 20        & 20        & 20         & 20 & 20\\
+% wdw   & 20        & 20        & 20         & 20 & 20\\ \hline
+ipc2014 & 129.3     & 136.5     & \bi{142.5} & 131   & 127.5\\ \hline
+brm     & 8         & 9.3       & \bi{10.5}  & \bi{12} & 7.5\\
+% cvd   & 7         & 6         & 7          & 7  & 7\\
+chl     & 0         & 0.3       & \bi{10.8}  & 0.3& 0.3\\
+cty     & 2         & 3.5       & 0          & 3.5& \bi{5}\\
+% flr   & 2         & 2         & 2          & 2  & 2\\
+% gd-   & 20        & 20        & 20         & 20 & 20\\
+hkn     & 17.3      & \bi{18.3} & 17.8       & 17 & 16.3\\
+mnt     & 1         & 1         & 1          & 1  & \bi{5.5}\\
+% pns   & 20        & 20        & 20         & 20 & 20\\
+% prk   & 15.3      & 15.5      & 15.5       & 14.3& 13.8\\
+ttr     & 3.5       & \bi{9.5}  & 4.8        & 6   & 2.8\\
+% thg   & 14        & 12.8      & 14.3       & 13   & 14.3 \\
+% trn   & 2.5       & 2.8       & 3.5        & 2.5   & 2\\
+vst     & \bi{16.8} & 15.8      & 15.5       & 12.5   & 11.3\\
+\hline
+\end{tabular}
+\caption{
+LAMA extensions.
+Number of solved instances in 3 min, 4Gb memory.
+(+d) Depth-LAMA,
+(+r) Site IP LAMA,
+(+b) Bond IP LAMA,
+(+t) Type-LAMA.
+All configurations use \fifo default tiebreaking.
+All results are averaged over 4 runs of different random seeds.
+We highlighted the best results whose coverage difference to the worst result is more than two.
+The results show that hb/hr, hd, ht all address the different characteristics of the search space structure.
+ }
+\label{tbl:eager-results}
+\end{table}
+

@@ -1,0 +1,62 @@
+
+\begin{table}[htb]
+ \setlength{\tabcolsep}{0.3em}
+\centering
+\relsize{-1}
+% \begin{tabular}{|ll|r|rrr||r|rrr|}
+\begin{tabularx}{\linewidth}{|rl|XXXX||XXXX|}
+\hline
+& & \multicolumn{ 4}{c||}{$\cg$} & \multicolumn{ 4}{c|}{$\ff$} \\ 
+& & h & {hd}    & {hD}    & {hdD}  & h & {hd}    & {hD}    & {hdD}  \\ 
+& &   & {intra} & {inter} & {both} &   & {intra} & {inter} & {both} \\ 
+\hline
+   % &total       & 228 & 241.1        & 245.1          & \textbf{263.2} & 231 & 264.3         & 252.9          & \textbf{280.6} \\ \hline \multirow{14}{0.3em}{\rotatebox{90}{\textbf{IPC2011}}}
+   &total       & 187 & 194.2        & 206.1          & \textbf{215.8} & 192 & 208           & 207.4          & \textbf{223.9} \\ \hline \multirow{8}{0.3em}{\rotatebox{90}{\textbf{IPC11 w/o duplicates}}}
+ % &barman      & 0   & 0            & 0              & 0              & 8   & \borange{8.6} & \borange{10.9} & \borange{10.3} \\ 
+   &elevators   & 9   & 8            & 8.7            & \textbf{9.7}            & 19  & 14            & 15.9           & 13.7           \\ 
+ % &floortile   & 0   & 0            & \bred{2.1}     & \bred{2}       & 6   & 6.1           & \bred{7.1}     & \bred{6.9}     \\ 
+   &nomystery   & 7   & 6            & \bred{15.4}    & \bred{15.1}    & 9   & 7             & \bred{16.6}    & \bred{17}      \\ 
+ % &openstacks  & 10  & \bblue{14.7} & 9.9            & \bblue{12.8}   & 11  & \bblue{18.6}  & 11             & \bblue{15.8}   \\ 
+   &parcprinter & 20  & 20           & 19.4           & 18.7           & 20  & 20            & 20             & 20             \\ 
+ % &parking     & 18  & 17.7         & 11.6           & 14.1           & 11  & \bblue{20}    & 10.4           & \bblue{17.2}   \\ 
+   &pegsol      & 20  & 20           & 20             & 20             & 20  & 20            & 20             & 20             \\ 
+   &scanalyzer  & 20  & 20           & 19.9           & 20             & 15  & 15.1          & \bred{18}      & \bred{18.6}    \\ 
+   &sokoban     & 16  & 16           & \bred{16.9}    & \bred{17}      & 19  & 19            & 17.4           & 17.4           \\ 
+   &tidybot     & 16  & \borange{18} & \borange{18.7} & \borange{18.6} & 16  & 16            & 16             & \textbf{16.7}  \\
+ % &transport   & 10  & \bblue{11.5} & 9              & \bblue{12.1}   & 0   & 0             & 0              & 0.2            \\ 
+ % &visitall    & 3   & 3            & \bred{6.4}     & \bred{6.4}     & 3   & 3             & \bred{6.1}     & \bred{6.3}     \\ 
+   &woodwork    & 2   & 2            & \bred{2.7}     & \bred{7.7}     & 2   & 2             & \bred{4}       & \bred{7.2}     \\ \hline \multirow{14}{0.3em}{\rotatebox{90}{\textbf{IPC14}}}
+   &barman      & 0   & 0            & 0              & 0              & 0   & 0             & \bred{1.5}     & \bred{1}       \\ 
+   &cavediving  & 7   & 7            & 7              & 7              & 7   & 7             & 7              & 7.2            \\ 
+   &childsnack  & 1   & \bblue{6}    & 0.1            & \bblue{1.5}    & 0   & \bblue{4}    & 0              & \textcolor{blue}{0.3}            \\ 
+   &citycar     & 0   & 0            & \bred{7.8}     & \bred{4.7}     & 0   & 0             & \bred{7.2}     & \bred{7.1}     \\ 
+   &floortile   & 0   & 0            & \bred{2}       & \bred{2}       & 2   & 2             & 2              & 2.1            \\ 
+   &ged         & 0   & 0            & \bred{9.6}     & \bred{9.7}     & 19  & 19            & 14             & 13.8           \\ 
+   &hiking      & 18  & 16.9         & \bred{19.5}    & \bred{19.7}    & 20  & 20            & 19.8           & 20             \\ 
+   &maintenance & 16  & 16           & 16.1           & 15.8           & 11  & 8             & 10.7           & 11.1           \\ 
+   &openstacks  & 0   & \bblue{3.5}  & 0              & \bblue{0.5}    & 0   & \bblue{12.6}  & 0              & \bblue{7}      \\ 
+   &parking     & 7   & \bblue{9.7} & 1.2            & \textcolor{blue}{4.1}            & 4   & \bblue{7.5}   & 1.4            & \bblue{5.7}    \\ 
+   &tetris      & 18  & 17.1         & 12.4           & 14.3           & 1   & \bblue{5.8}   & 3.2            & \bblue{4.9}    \\ 
+   &thoughtful  & 5   & 5            & 5              & 5              & 8   & \borange{9}   & \borange{12.7} & \borange{13.1} \\
+   &transport   & 5   & 3            & 3.7            & 4.7            & 0   & 0             & 0              & 0              \\ 
+   &visitall    & 0   & 0            & 0              & 0              & 0   & 0             & 0              & 0              \\ 
+\hline
+\end{tabularx}
+% \end{tabular}
+\caption{
+Number of solved instances (5 min, 4GB RAM), mean of 10 runs.
+\textbf{h}: baseline GBFS.
+\textbf{hd/hD}: intra/inter-plateau type-based diversification $[h,\depth]$ and
+  $alt([h],[\brackets{g,h},\ro])$ (Type-GBFS),
+\textbf{hdD}: A combined configuration, $alt([h,\brackets{d}],[\brackets{g,h},\ro])$.
+ % -- (\textbf{see supplements for \lifo and \ro}).
+\textbf{Bold} indicates that (improvements vs. baseline)$>0.5$.
+\textcolor{blue}{Blue} indicates that \textbf{hdD} improvement correlates with \textbf{hd} (intra-plateau) improvement,
+\textcolor{red}{red} indicates that \textbf{hdD} improvement correlates with \textbf{hD} (inter-plateau) improvement,
+and \textcolor{orange}{orange} indicate that both intra/inter-plateau schemes as well as the combined \textbf{hdD} scheme improved.
+Thus, intra- vs. inter-plateau scheme have complementary effects 
+that improve \textbf{hdD}.
+}
+\label{tbl:results}
+\end{table}
+

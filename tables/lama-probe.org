@@ -1,0 +1,12 @@
+
+
+|             | coverage |
+|-------------+----------|
+| Probe       |      319 |
+| LAMA        |    386.2 |
+| Type-LAMA   |    387.3 |
+| LAMA-bB     |          |
+| LAMA-dD     |          |
+| LAMA-dbBD   |    397.5 |
+| LAMA-bdbdBD |    398.3 |
+
