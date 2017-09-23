@@ -30,9 +30,9 @@ $(name).log $(name).fls: $(name).pdf
 check_overflow: $(name).log
 	-./check_overflow.sh $(name).log
 
-en:	$(name).pdf supplemental.pdf $(sources)
+en:	$(name).pdf $(sources)
 
-%.pdf: %.tex $(name).tex supplemental.tex imgs $(sources) $(styles) $(reference)
+%.pdf: %.tex $(name).tex imgs $(sources) $(styles) $(reference)
 	$(latexmk) -pdf \
 		   -latexoption="-halt-on-error" \
 		   -bibtex \
