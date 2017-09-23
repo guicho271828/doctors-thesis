@@ -1,0 +1,54 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#| <Put a one-line description here>
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp (ql:quickload '(:eazy-gnuplot) :silent t)
+  )
+
+(defpackage :ros.script.plot-init.3688281412
+  (:use :cl :eazy-gnuplot))
+(in-package :ros.script.plot-init.3688281412)
+
+(defun main (out &rest argv)
+  (declare (ignorable argv))
+  (with-plots (*standard-output* :debug t)
+    (gp-setup :output out
+              :terminal `(:pdf :enhanced
+                               :size
+                               (2 1.3) ; inch ; half column, US letterpaper
+                               ;; (800 800)
+                               ;; :dashed
+                               ;; :background :rgb ,(if improved "white" "gray90")
+                               ;; :monochrome
+                               :font "Times New Roman, 11")
+              ;; :size :square
+              :key :off ;'(:bottom :right)
+              :xrange '(0 10)
+              :yrange '(5 15)
+              :zrange '(0 0.5)
+              ;; :format '(xy "")
+              :format '(z "")
+              :view '(68 60 1 1)
+              :tmargin '(at screen 1.5)
+              :bmargin '(at screen 0.23)
+              :lmargin '(at screen 0.15)
+              :rmargin '(at screen 0.85)
+              :isosamples 30
+              :pointsize 0.3
+              :title ""
+              :xlabel "x=h"
+              :ylabel "y=h*")
+    (gp :set :hidden)
+    ;; (gp :unset :tics)
+    (splot "1/3.0 * exp(-0.5 * ((x-y)**2))"
+     :title "aaa"
+     ;; :with :lw 0.5
+     )
+    ;; (gp :set :parametric)
+    
+    ))
+
+;;; vim: set ft=lisp lisp:
