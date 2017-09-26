@@ -5,7 +5,7 @@ emacs 	   = emacs
 latexmk    = latexmk/latexmk.pl
 styles     = abbrev.sty aaai_my.sty
 tables     = $(addsuffix .tex,$(basename $(wildcard tables/*.org)))
-sources    = main.tex $(wildcard [0-9]-*.tex) $(tables)
+sources    = main.tex $(wildcard [0-9]-*.tex) $(wildcard chap[0-9]/[0-9]-*.tex) $(tables)
 $(info $(sources))
 
 max_pages   = 50
@@ -40,28 +40,11 @@ en:	$(name).pdf $(sources)
 	mkdir -p $(upload)/$(notdir $(PWD))/
 	cp $@ $(upload)/$(notdir $(PWD))/$(shell hostname)-$*.pdf
 
-%.ja.pdf: %.tex imgs $(sources) $(styles) $(reference)
-	$(latexmk) -r latexmk/rc_ja.pl \
-		   -latexoption="-halt-on-error" \
-		   -pdfdvi \
-		   -bibtex \
-		   $<
-
-# %.bib:
-# 	-ln -s $$(kpsewhich $@)
-
-open: $(name).pdf
-	nohup evince $< &>/dev/null &
-
 auto:
 	+./make-periodically.sh
 
-ci:
-	while : ; do git pull && make ; sleep 60 ; done
-
 imgs:
 	$(MAKE) -C img
-# $(MAKE) -C staticimg
 
 %.csv: %.csvorg compile-csv-org.elc
 	$(emacs) --batch --quick --script compile-csv-org.elc --eval "(progn (load-file \"compile-csv-org.el\")(compile-org \"$<\" \"$@\"))"
