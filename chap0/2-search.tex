@@ -1,0 +1,99 @@
+
+\section{Basic Search Algorithms and Notation}
+
+\astar is a standard search algorithm for finding an optimal cost path from an initial state $s$ to some goal
+state $s^* \in G$ in a search space represented as a graph \cite{hart1968formal}.
+It expands the nodes in best-first order of $f(n)$ up to $f^*$,
+where $f(n)$ is a lower bound of the cost of the shortest path that contains a node $n$ and $f^*$ is the cost of the optimal path.
+The value of $f(n)$ is a sum of $g(n)$, the known shotest path cost so far from the initial node to $n$,
+and $h(n)$, the heuristic lower-bound estimate of the cost from $n$ to some goal $s^*$.
+% 
+$h(n)$ is \emph{admissible} if it does not overestimate the true cost to
+goal $h^*(n)$, which is also called a \emph{perfect heuristics}.
+We omit the argument $(n)$ unless necessary.
+
+Greedy Best First Search (GBFS) is a greedy search algorithm that finds
+a satisficing solution to the problem as quickly as possible, without
+explictly tries to minimize the path cost.  It expands the nodes in the
+best-first order of $h(n)$, i.e. greedily guided by the
+lower-bound estimate.
+
+Both search algorithms can be described in a single style of notation, which we call \emph{sorting strategy}.
+Below, we first present a general \emph{Best First Search} (BFS) algorithm template which includes  \astar, Dijkstra's algorithm \citeyear{dijkstra1959note}, Greedy Best-First Search (GBFS).
+It uses two sets, OPEN and CLOSED, where unexpanded nodes are stored in OPEN and expanded nodes are stored in CLOSED. Three operations, pop$(S)$, push$(n,S)$ and remove$(n,S)$, are assumed for a node $n$ and a set $S$.
+pop$(S)$ operation tries to select a single node from $S$,
+push$(n,S)$ stores the node $n$ into $S$ and remove$(n,S)$ removes $n$ from $S$ if $n$ is already stored.
+
+\begin{algorithm}                      
+\begin{algorithmic}[1]
+ \REQUIRE $n_0$, $\text{is\_goal}(\cdot)$, $\text{successors}(\cdot)$ %, strategy
+ \STATE Initialize $\text{OPEN}=\emptyset$, $\text{CLOSED}=\emptyset$, $g(n_0)=0$, $\left(\forall n\not=n_0;\ g(n)=\infty\right)$
+ % \STATE \textbf{Local procedure} $\text{open}(s,t,g_{new})$: $g(t) \leftarrow g_{new}$; $\text{parent}(t) \leftarrow s$; $\text{push}(t,\text{OPEN})$
+ \STATE $\text{push}(n_0,\text{OPEN})$
+ \WHILE{OPEN $\not = \emptyset$}
+ \STATE $n = \text{pop}(\text{OPEN}); \text{push}(n,\text{CLOSED})$
+ \RETURN $n$ \  \textbf{if} \  $\text{is\_goal}(n)=\text{true}$
+ \FORALL{$m \in \text{successors}(n)$}
+ \STATE $g_{new} = g(n) + \text{cost}(n,m)$
+ \IF{$g_{new} < g(m)$}
+ \STATE $g(m) \leftarrow g_{new}$;\; $\text{parent}(m) \leftarrow n$;\; $\text{push}(m,\text{OPEN})$;\; $\text{remove}(m,\text{CLOSED})$
+ \ENDIF
+ \ENDFOR
+ \ENDWHILE
+\end{algorithmic}
+\caption{Best-First Search Algorithm using OPEN/CLOSED list}
+\label{alg:ocl}
+\end{algorithm}
+
+OPEN is sorted according to a \emph{sorting strategy} and the node selected by pop$(S)$ always returns the best node according to the strategy.
+Each sorting strategy is denoted as a vector of several \emph{sorting criteria}, such as
+[$\text{criterion}_1$, $\text{criterion}_2$, $\ldots$,
+$\text{criterion}_k$], which defines a lexicographic ordering, 
+i.e., from the OPEN list, first, select a
+set of nodes using $\text{criterion}_1$, and if there are still multiple
+nodes remaining in the set, then break ties using $\text{criterion}_2$
+and so on, until a single node is selected.  The \emph{first-level
+sorting criterion} of a strategy is $\text{criterion}_1$, the
+\emph{second-level sorting criterion} is $\text{criterion}_2$, and so on.\footnote{This notation corresponds to the command line option format of Fast
+Downward \cite{Helmert2006}.} %demoting sentence to footnote because a statement about command line arguments of a specific planner doesn't seem appropriate in the body of the text..
+%% the word frontier is no longer used in the later text.
+% \emph{final frontier} is the set of open nodes with $f^*$.
+
+
+Using this notation, \astar without any tie-breaking strategy can be
+denoted as a BFS with $[f]$ and \astar which breaks ties according to $h$
+value is denoted as $[f,h]$.
+% Similarly, GBFS is denoted as $[h]$.
+Unless stated otherwise, we assume the nodes are sorted in the
+increasing order of the key value and a BFS always selects the smallest
+key value.
+
+However, a sorting strategy may only provide a partial ordering, 
+i.e., the sorting strategy may fail to select a single node because some nodes
+may share the same sorting keys.
+For such cases, a BFS algorithm must
+decide which node to expand by applying some \emph{default} tie-breaking
+criterion $\text{criterion}_k$ which is guaranteed to return a single node, such as  \fifo (oldest node first: first-in-first-out), \lifo
+(most recently inserted first: last-in-first-out) or \ro (random ordering).
+For example, \astar using $h$ tie-breaking and \fifo default tie-breaking
+ is denoted as $[f,h,\fifo]$.
+By definition, there is only 1 node which satisfies the default criterion, so
+strategies with a default criterion guarantee a total ordering among all nodes and
+are able to select a single node from the set of nodes.
+When the default criterion is irrelevant to the discussion,
+we either use a wildcard ``*'', e.g. $[f,h,*]$, or sometimes omit it altogether for brevity.
+
+Given a search algorithm with a sorting strategy, 
+a $\plateau{\text{criterion}\ldots}$ is a set of nodes in OPEN whose elements share
+the same sort keys according to non-default sorting criteria and are therefore
+indistinguishable. In the case of \astar
+using tie-breaking with $h$ (sorting strategy $[f,h,*]$), the plateaus are denoted as
+$\plateau{f,h}$, the set of nodes with the same $f$ cost and the same $h$ cost.
+We can also refer to a specific plateau with $f=f_p$ and $h=h_p$ by $\plateau{f_p,h_p}$.
+
+An \emph{entrance} to a $\plateau{\text{criterion}\ldots}=P$ is
+a node $n \in P$, whose current parent is not in
+$P$. The \emph{final plateau} is the plateau
+containing the solution found by the search algorithm.  In \astar using
+admissible heuristics, the final plateau is $\plateau{f^*}$ (without
+tie-breaking), or $\plateau{f^*,0}$ (with $h$-based tie-breaking).
