@@ -34,7 +34,7 @@ en:	$(name).pdf $(sources)
 
 %.pdf: %.tex $(name).tex imgs $(sources) $(styles) $(reference)
 	$(latexmk) -pdf \
-		   -latexoption="-halt-on-error" \
+		   -latexoption="-halt-on-error -shell-escape" \
 		   -bibtex \
 		   $<
 	mkdir -p $(upload)/$(notdir $(PWD))/

@@ -1,6 +1,8 @@
 \documentclass[10pt]{book}
 \usepackage{hyperref}
 \usepackage{times}
+\usepackage{helvet}
+\usepackage{courier}
 \usepackage{theapa}
 \usepackage{xparse}
 \usepackage{amsmath}
@@ -22,6 +24,10 @@
 \usepackage{comment}
 \usepackage{longtable}
 \usepackage{tabularx}
+\usepackage{import}
+% didnt work well with import
+% \usepackage[outputdir=out,cache=false]{minted}
+\usepackage{listings}
 
 \hypersetup{pdfinfo={
 Title={Diversification Mechanisms for Best-First Search},
@@ -55,6 +61,13 @@ push-goal no-tank-age}
 \date{}
 
 \begin{document}
+
+\lstset{
+language=lisp,%
+basicstyle=\relsize{-1}\ttfamily}
+
+\texttt{} % for some reason this is necessary. otherwise the font does not get loaded.
+% probably there are some bad interaction between font loading and import package.
 
 \maketitle
 \input{main.tex}
