@@ -97,3 +97,11 @@ $P$. The \emph{final plateau} is the plateau
 containing the solution found by the search algorithm.  In \astar using
 admissible heuristics, the final plateau is $\plateau{f^*}$ (without
 tie-breaking), or $\plateau{f^*,0}$ (with $h$-based tie-breaking).
+
+Finally, OPEN list \emph{alternation}  \cite{RogerH10} is a technique to combine multiple
+sorting strategies in order to improve the robustness of the search algorithm.
+Nodes are simultaneously stored and sorted into
+independent OPEN lists with different strategies, and
+node expansion alternates among the OPEN lists.
+We denote an alternating OPEN list as $\mit{alt}(X_1,X_2,\ldots)$ where
+each $X_i$ is a sorting strategy.
