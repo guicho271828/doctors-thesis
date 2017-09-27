@@ -5,7 +5,7 @@ emacs 	   = emacs
 latexmk    = latexmk/latexmk.pl
 styles     = abbrev.sty aaai_my.sty
 tables     = $(addsuffix .tex,$(basename $(wildcard tables/*.org)))
-sources    = main.tex $(wildcard [0-9]-*.tex) $(wildcard chap[0-9]/[0-9]-*.tex) $(tables)
+sources    = main.tex $(wildcard [0-9]-*.tex) $(addsuffix /main.tex,$(wildcard chap[0-9])) $(tables)
 $(info $(sources))
 
 max_pages   = 50
@@ -39,6 +39,9 @@ en:	$(name).pdf $(sources)
 		   $<
 	mkdir -p $(upload)/$(notdir $(PWD))/
 	cp $@ $(upload)/$(notdir $(PWD))/$(shell hostname)-$*.pdf
+
+chap%/main.tex:
+	$(MAKE) -C $(dir $@)
 
 auto:
 	+./make-periodically.sh
