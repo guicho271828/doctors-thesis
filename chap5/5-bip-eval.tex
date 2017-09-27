@@ -1,0 +1,57 @@
+\subsection{Evaluation of IP-Diversification} 
+
+% in order to minimize the effect of domain configuration problem
+% \cite{vallati2015effective} (e.g. successor ordering caused by the way actions are described in PDDL).
+
+% \subsubsection{Evaluation under Eager GBFS}
+
+Given the performance of blind search,
+IP-diversification is a good candidate for improving the performance of diversified heuristic search.
+% In this section, we evaluate the effects of type-based diversification and IP-diversification on Eager GBFS, where nodes are evaluated as soon as they are generated.
+% Since the effect of diversification could be heuristic-dependent, we tested $\ff$ and $\cg$.
+% Following the previous work \cite{valenzano2014comparison,xie14type}, all configurations are evaluated under unit cost transformation
+%  because we are solely focused on the coverage and the first solution.
+% This is natural because GBFS has no guarantee on the plan cost.
+% Also, according to \cite[p6, left, middle]{xie14type}, Type-GBFS does not incur significant loss in solution quality.
+% 
+% Finally, since depth diversification works only within plateaus, it does not change the best-first order wrto $h$
+% value and it is unlikely to have significant change in solution quality except for some noise from the randomness
+% in tiebreaking.
+% 
+%% not included --- its is a pseudo heuristics anyways
+% , Landmark-Count (LC) heuristics\cite{richter2008landmarks}
+% 
+We compared the performance of 
+(h), the standard GBFS, with
+the combined Type-based diversification (hdD) from \refsec{sec:gbfs-comparison}
+as well as intra-plateau  IP-diversification (hb:$[h,\bip]$), inter-plateau IP-diversification (hB:$alt([h],[\bip])$), and combined intra/inter-plateau IP diversification (hbB:$alt([h,\bip],[\bip])$).
+% All configurations uses \fifo default tie-breaking which is the default configuration in Fast Downward,
+% except Type-bucket in Type-GBFS (which uses \ro, as specified in their paper).
+%(\textbf{See \reftbl{tbl:lazy-supplemental} in supplements for Lazy-GBFS results, where heuristic value of parents are used.})
+% (\textbf{See Supplemental \reftbl{tbl:eager-supplemental} for comparisons to the other default tie-breaking methods (\lifo and \ro). \reftbl{tbl:lazy-supplemental} also contains Lazy-GBFS results, where heuristic value of parents are used}.)
+\todo*{\ro GBFS evaluation}
+
+\input{tables/gbfs-ip.tex}
+
+% In order to remove the effect of randomness of the algorithm, we
+% implemented a deterministic version of Type-based queue for Type-GBFS
+% which, instead of selecting a bucket at random, iterates over the
+% buckets in a reverse order that each bucket is introduced.
+% Similarly, the diversification based on the depth is not randomized but
+% is implemented as a loop-based implementation.
+
+Results are shown in \reftbl{tbl:results2}. IP-diversification, applied to both
+intra- and inter-plateau exploration, resulted in improvements on both the $\ff$ and $\cg$ heuristics.
+Complementary effects similar to \reftbl{tbl:results} are observed between hb and hB, and  hbB outperforms both hb and hB.
+This provides additional empirical evidence for the hypothesis that intra/inter-plateau exploration  are complementary, and that they can be combined to yield superior performance.
+
+Overall, hbB performs comparably to hdD. However, note that some domains were improved by Type-based but not by IP (e.g. \pddl{nomystery, sokoban, childsnack})
+or vise versa (\pddl{transport, visitall}).
+% 
+% For example, with $\cg$, (hb) outperforms (hd) on \pddl{parking14} and \pddl{tetris14}, while
+% \pddl{openstacks14} and \pddl{childsnack14} are solved only by (hd) and other configurations have 0 coverage.
+% Similarly with $\ff$, while (hb) improves performance on \pddl{visitall11} ($3.0\rightarrow 5.3$), (hd) does not, and
+%  and vice versa on \pddl{childsnack14} ($0.0\rightarrow 4.0$ by (hd)).
+% 
+These results indicate that Type-based and IP diversification are orthogonal,
+addressing different diversity criteria (depth vs breadth).

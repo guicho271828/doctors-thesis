@@ -1,0 +1,96 @@
+\section{Tie-Breaking Strategies for \astar}
+
+\label{sec:astar-background}
+
+\astar is a standard search algorithm for finding an optimal cost path
+on a graph.
+On a finite graph, \astar is
+complete regardless of the tiebreaking strategy \cite{hart1968formal}.
+
+It can be defined as a subclass of BFS which uses $f$-value as the first sorting criterion
+% Starting from the single initial node, in each iteration, \astar
+% selects and expands a node $n$ with the lowest $f$-cost in the OPEN
+% priority queue. The successor nodes are inserted back to OPEN, and $n$
+% is marked as CLOSED, in order to avoid duplicated evaluations.
+and returns a cost-optimal solution when $h$ is admissible, i.e., when
+$\forall n; h(n) \leq h^*(n)$, where $h^*(n)$ is the optimal distance from $n$ to
+the nearest goal.
+% 
+The best-first order of the expansion is the key to guaranteeing solution optimality. 
+The first solution found by the algorithm is guaranteed to have the optimal cost $f=f^*$ because 
+all nodes with $f(n) < k$ are already expanded when it starts expanding
+the nodes with $f(n) = k$.
+Thus, the \emph{effective search space of \astar} is the set of nodes with 
+$f(n) \leq f^*$: \astar expands all nodes with $f(n) < f^*$, then
+expands \emph{some} of the nodes with $f(n) = f^*$, and
+never expands the nodes with $f(n) > f^*$.
+
+If there are multiple nodes with the same $f$-cost, \astar
+must implement some tie-breaking strategy (either
+explicitly or implicitly) which selects from among these nodes.
+The early literature on heuristic search seems to have been mostly agnostic regarding tie-breaking.
+The original \astar paper, as well as Nilsson's subsequent textbook 
+states: ``Select the open node $n$ whose value $f$
+is smallest. Resolve ties arbitrarily, but always in favor of any [goal
+node]'' 
+%\cite[p. 102 Step 2]{hart1968formal}, \cite[p. 69]{Nilsson71}.
+% \cites[p. 102 Step 2]{hart1968formal}[p. 69]{Nilsson71}  %unfortunatley, \cites is undefiend for APA format?, so as a hack, I'll just do this manually
+(\citeR{hart1968formal}, p. 102 Step 2; \citeR{Nilsson71}, p. 69).
+% Although it is possible to interpret this to imply $h$-based tie-breaking
+% since goal nodes are the special case where $h=0$,
+% they make no further mention of tie-breaking.
+Pearl's textbook on heuristic search specifies that best-first search should ``break ties arbitrarily'' \cite[p. 48, Step 3]{pearl1984heuristics}, and does not specifically mention tie-breaking for \astar.
+To the best of our knowledge, the first explicit mention of a tie-breaking strategy that considers node generation order is by Korf in his analysis of IDA*: ``If \astar employs the tie-breaking rule of 'most-recently generated', it must also expand the same nodes [as IDA*]'', i.e., a \lifo ordering.
+
+In recent years, tie-breaking according to $h$-values has become ``folklore'' in the search community.
+\citeauthor{hansen2007anytime} state that ``[i]t is well-known 
+that \astar achieves best performance when it breaks ties
+in favor of nodes with least h-cost'' \cite{hansen2007anytime}.
+\citeauthor{holte2010common} writes ``\astar breaks ties in favor
+of larger $g$-values, as is most often done'' \cite{holte2010common}.
+Note that  preferring large $g$ is equivalent to preferring smaller $h$, since $f=g+h$.
+\shortciteauthor{felner2011inconsistent} also assume ``ties are broken in
+favor of low h-values'' in describing Bidirectional Pathmax for \astar \citeyear{felner2011inconsistent}.
+In their detailed survey/tutorial on efficient \astar implementations,
+\shortciteauthor{burns2012implementing} \citeyear{burns2012implementing}
+also break ties ``preferring high $g$'' (equivalent to low $h$).
+%% this could be moved to later analysis
+% They further write: ``The reasoning is that the goal can be found more
+% quickly in the final $f$ layer of search''.
+Thus, tie-breaking according to $h$-values appears
+to be ubiquitous in practice. However, 
+to our knowledge, an in-depth experimental analysis of tie-breaking strategies for \astar is lacking in the literature.
+
+Although the standard practice of tie-breaking according to $h$ might be
+sufficient in some domains, further levels of tie-breaking (explicit or
+implicit) are required if multiple nodes have the same $f$ as well as
+the same $h$ values. To date, the effect of such \emph{default}
+tie-breaking has not been investigated in depth.
+% 
+For example, although the survey of efficient \astar implementation techniques by \citeauthor{burns2012implementing} 
+%\cite{burns2012implementing} 
+did not explicitly mention the default
+tie-breaking \citeyear{burns2012implementing},  their library
+code  uses \lifo
+default tie-breaking \cite{BurnsCode}.
+% 
+It first breaks ties according to $h$, and then
+breaks remaining ties according to a \lifo criterion (most recently
+generated nodes first), i.e., $[f,h,\lifo]$.
+% 
+Although not documented, their choice of a \lifo 2nd-level tie-breaking
+criterion appears to be a natural consequence of the fact it can be
+trivially and efficiently implemented in their two-level bucket (vector)
+implementation of OPEN.
+% 
+In contrast, the current implementation of the \sota \astar based planner Fast
+Downward \cite{Helmert2006}, as well as the work by \citeauthor{RogerH10} \citeyear{RogerH10} uses
+a $[f,h,\fifo]$ tie-breaking strategy.
+% 
+Although we could not find a published explanation,  %in the publication nor in the website,   % in this case, can consider a website as a subclass of "publication"
+this choice is most likely due to their use of alternating OPEN
+lists, in which case the \fifo second-level criterion serves to provide a
+limited form of fairness.
+% 
+%Such lack of explanation suggests that this topic has long been out
+%of focus of the heuristic search literature. % unnecessary - already stated above that default tie-breaking has not been investigated in-depth; and before that, we already said that there's ``folklore'', and that the erly literature was agnostic.

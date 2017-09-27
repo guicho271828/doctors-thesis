@@ -1,0 +1,117 @@
+\section{Intra- and Inter-Plateau Diversification on a State-of-the-Art Planner} % \sota kind of risky, but this time, I think we justfified usage of \sota  better by relating it to Jasper and Probe
+% separating this out to once again remind readers of the intra-inter contribution
+
+Up to this point, we have evaluated intra/inter-plateau exploration on greedy best-first search in order to cleanly isolate their effect.
+Next, we evaluate the combined effect of intra/inter-plateau exploration when applied to a state-of-the-art planner,
+% (\textbf{See Supplemental \reftbl{tbl:lama-supplemental} for configurations not listed in \reftbl{tbl:results}.})
+% 
+the LAMA2011 configuration in the current version of FastDownward,
+which incorporates a number of search enhancement techniques such as lazy evaluation, multi-heuristic search and preferred operators.
+In order to focus on coverage, we only run the first iteration (unit-cost GBFS) of LAMA, 
+denoted as $alt([\ff],\pref{\ff},[\lc],\pref{\lc})$, where
+% $\ff$ denotes the FF heuristics,
+$\lc$ denotes the landmark-count heuristic
+and $\pref{X}$ denotes the preferred operator queue with sorting strategy $X$.
+
+
+% As additional baselines, we also include coverages for Probe \cite{LipovetzkyG11} and Jasper \cite{xie14ipc}, which are \sota, non-portfolio planners from the IPC'14 agile track, 
+% Jasper combines Type-LAMA with GBFS-LS \cite{XieH14gbfsle}, which starts a local GBFS when 
+% the number of expansion in the current local minima exceeds a certain threshold.
+% %While this method address the problem of large plateau, it does not address the diversity
+% %within plateau.
+% %Also, since Jasper is based on an older LAMA, %
+% We also include the original LAMA'11 implementation.
+% %In our environment, Probe and Jasper did not outperform the original LAMA'11.
+% %This is presumably due to the difference in the CPU speed (AMD@2.36GHz in IPC14 vs our Intel Haswell@2.9GHz), resulting in more search being performed in 5 minutes on our machines vs. the machines used in the IPC14 agile track competition.
+% The latest FastDownward LAMA configuration performs better significantly better than the other baselines.
+
+
+% Since our version is based on the latest FastDownward, we also tested the original version used in IPC2011.
+% 
+% Type-LAMA \cite{xie14type} 
+% adds Type-based buckets $\brackets{g,h}$ to the list of alternating queues in LAMA, and is denoted as: 
+% $alt\left([\ff],\ldots,\pref{\lc},\brackets{g,\ff}\right)$.
+
+% We followed the best configuration suggested by \citeauthor{xie14type} (\citeyear{xie14type})
+% for Type-GBFS, which uses the type vector $\brackets{g,\ff}$.
+
+We apply the methods proposed in this paper incrementally.
+We first add a single exploration strategy to LAMA.
+(d, b) augments $[h]$ with type-based and IP diversification for intra-plateau exploration ($[h,\depth]$ and $[h,\bip]$), respectively.
+(D, B) incorporates inter-plateau exploration by adding $\brackets{g,\ff}$ and $[\bip]$ to LAMA's alternation queue, respectively.
+LAMA+D is equivalent to Type-LAMA \cite{xie14type}.
+Next, we combine intra/inter-plateau diversification methods:
+(dD) applies both changes in (d) and (D), and similarly (bB) applies both changes in (b) and (B).
+
+Finally, (db$^2$DB) incorporates all 4 methods into LAMA.
+Let $db$ denote $alt(\depth,\bip)$, alternation between depth and IP based diversification for intra-plateau exploration,
+and let $DB$ denote $alt(\brackets{g,\ff},\bip)$, alternation between type-based and IP based diversification for inter-plateau exploration.
+The resulting configuration,
+LAMA-db$^2$DB, incorporates all of the ideas proposed in this paper: {\small $alt\big([\ff,db], \pref{\ff}, [\lc,db], \pref{\lc}, DB\big)$.}
+This configuration alternates between type-based and IP diversification in each iteration.
+It allocates 1/5 of the entire search time to inter-plateau exploration 
+(same as the frequency with which Type-LAMA selects from $\brackets{g,\ff}$),
+so it spends 1/10 of the time on $[\bip]$ and 1/10 of the time on $\brackets{g,\ff})$.
+Adopting more sophisticated approaches for determining exploration frequency \cite{schulte2014balancing,nakhost2009monte} is a direction for future work.
+%\citeauthor{schulte2014balancing} (\citeyear{schulte2014balancing}) combined Tree-search framework
+%\cite{keller2013trial} with UCT \cite{kocsis2006bandit} to automatically adjust the ratio of exploration %in Classical Planning.
+%Similarly, Arvand \cite{nakhost2009monte} uses Random Walk Local Search for exploration,
+%with sophisticated mechanism for balancing the ratio. %Since our LAMA-Btdb uses a trivial approach for determining the exploration ratio (fixed to 1/5),
+%Adopting these exploration-ration tuning approaches is a direction for future work.
+
+% supplement?
+%Since this experimental setting (satisficing, 5min limit) is similar to the Agile track of the IPC, 
+% we also include results for Probe \cite{LipovetzkyG11}, which had the highest coverage in the 2014 IPC Agile track, as another baseline.
+
+
+%% removed ``once every 5 expansions to be the same as TGBFS'' both because it was unclear what it meant, and also, it wasn't clear why it's desirable to match the Type-GBFS exploration rate.
+%in order to explore at the same rate as Type-GBFS, we
+%(once for every 5 expansions).
+
+% \input{tables/lama-probe.tex}
+\input{tables/lama.tex}
+
+\reftbl{tbl:lama} shows the number of solved instances.
+Each single diversification improved the overall performance of LAMA except LAMA+B.
+For combinations of two methods (dD and bB),
+complementary effects by intra-/inter-plateau diversification similar to \reftbl{tbl:results} are observed.
+Although LAMA+B did not result in improvement, adding B to LAMA+b resulted in larger coverage in LAMA+bB.
+Finally, bd$^2$BD outperformed all other methods.
+We observed complementary effects from dD and bB, each addressing different diversity criteria.
+% Type-based exploration sometimes significantly degrades LAMA performance when the heuristic is correct but ignored in favor of the type-based queue. 
+
+%\section{Related Work} % let's remove the Related Work section because right now, the contents are 100% IP-related, and makes it look as though IP should be viewed as the most important contribution.
+
+% Valenzano14 baseline discussion moved to IP section.
+
+% too dangerous because there's no clear example of a "continuous space" which is clearly better suited for IP than novelty. replaced below in conclusions+future work with a more positive type of mention.
+% % "novelty metric" itself needs to be mentioned, although we cant cite BWFS ...
+% While novelty metric used in Probe \cite{LipovetzkyG11} or IW \cite{lipovetzky2012width} also addresses diversity of a new node from existing nodes, one drawback is that it assumes a propositional representation of the problem. As such, currently there is no straightforward way to compute the novelty metric on domains where no such representation is available. In contrast, IP-diversification only assumes the graph-based representation of the explored problem space and therefore, for example, the same method can be applied to the sampled nodes in a continuous space without modification, given the background theories on Percolation Physics on continuous space.
+% The analysis in this direction is future work.
+
+% removed 30 years
+%  (\emph{real world is continuous})
+
+% \section{Related Work}
+% 
+% Other techniques that can be viewed as addressing breadth-biases are
+% symmetry breaking \cite{Fox1998,pochter2011exploiting,domshlak2013symmetry}
+% and partial order reduction \cite{hall2013faster,wehrle2013relative}.
+% While these are usually described as ``pruning techniques'',
+% they can be viewed as diversification techniques, in that 
+% \emph{they aim to remove the bias for a set of redundant nodes.}
+% % 
+% Suppose we have a set of nodes $S=\{a_1, a_2, b, c\}$ where the subset
+% $A=\{a_1, a_2\}$ is ``redundant'' according to some measure (e.g. by symmetry, partial order). 
+% A search algorithm which selects a node randomly from $S$ for expansion is clearly biased -- 
+% group $A$ is twice as likely to be expanded than either $b$ or $c$, although $a_1$ and $a_2$ are ``same'' nodes.
+% By eliminating either $a_1$ or $a_2$, symmetry and partial-order reduction eliminates this bias.
+
+
+% Seems safer to remove this, because Lelis et al 2013 is applied to sliding tiles, blocksworld, pancake, so claiming their work is for trees doesn't look right.
+%% The previous work on Type system \cite{lelis2013stratified} has also used the number of children with particular
+%% heuristic value. Although this could be another direction to address the breadth-related bias, our work is
+%% significantly different --- First, we focus on the search on a general graph rather than a tree. Second, they claim
+%% ``type system can use any information about a node to define its type'', without further explanation why this
+%% metric works.
+

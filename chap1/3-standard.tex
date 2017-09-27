@@ -1,0 +1,170 @@
+\section{Analysis of Standard Strategies}
+\label{sec:eval-common-strategies}
+
+We first 
+we evaluated standard tie-breaking strategies for domain-independent cost-optimal
+classical planning and analyze their performance differences.  
+In our experiments, all planners are based on Fast
+Downward, and all experiments are run with a 5-minute,
+4GB memory limit for the search binary (FD translation/preprocessing
+times are not included in the 5-minute limit).  All experiments were
+conducted on Xeon E5410@2.33GHz CPUs. For the randomized configurations, we took the average of 10 runs.
+% 
+We used two \sota heuristic functions \lmcut \cite{Helmert2009} and \mands \cite{HelmertHHN14} as the primary
+heuristic functions used for calculating $f$ and $h$.  For \mands, we used the bisimulation-based shrink strategy, DFP merge strategy, and exact label reduction.
+%, which are the currently recommended settings\cite{FastDownwardRepo}.  %removing citation becauswe it was too awkward to cite this the way JAIR wanted. In this case, the citation isn't really necessary anyway.
+These basic experimental
+configurations are shared in all performance evaluation experiments throughout this paper. 
+
+% following paragraph is added in order to avoid repeating the list of domains not
+% included due to no coverage difference.
+We used 1104 instances from 35 standard IPC benchmark domains:
+% these are from the FD benchmark directory, but that's a detail which usually isn't mentioned, because credit should be given to IPC, not FD.
+\pddl{airport} (50 instances),
+\pddl{barman-opt11}(20), \pddl{blocks}(35), \pddl{cybersec}(19), \pddl{depot}(22), \pddl{driver\-log}(20),
+\pddl{elevators-opt11}(20), \pddl{floor\-tile-opt11}(20), \pddl{freecell}(80), \pddl{grid}(5),
+\pddl{gripper}(20), \pddl{hanoi}(30), \pddl{logistics00}(28), \pddl{miconic}(150), \pddl{mprime}(35),
+\pddl{mystery}(30), \pddl{nomystery-opt11}(20), \pddl{openstacks-opt11}(20),
+\pddl{parcprinter-opt11}(20), \pddl{park\-ing-opt11}(20), \pddl{path\-ways}(30),
+\pddl{pegsol-opt11}(20), \pddl{pipes\-world-no\-tankage}(50), \pddl{pipes\-world-tankage}(50),
+\pddl{psr-small}(50), \pddl{rovers}(40), \pddl{scanalyzer-opt11}(20), \pddl{sokoban-opt11}(20),
+\pddl{storage}(30), \pddl{tidybot-opt11}(20), \pddl{tpp}(30), \pddl{trans\-port-opt11}(20),
+\pddl{visitall-opt11}(20), \pddl{woodworking-opt11}(20), \pddl{zenotravel}(20).
+
+\subsection{Is $h$-Based Tie-Breaking Necessary?}
+
+\label{sec:noh}
+\todo*{changed order because the next 2 sections discuss the importance of default tie-breaking, which is directly caused by the size of plateaus, so they should be consecutive; this section is not directly related and seemed out of place sandwiched between defaults and plateaus}
+As noted in \refsec{sec:astar-background}, the current standard practice is to use a tie-breaking criterion which uses the $h$-value of the nodes. However, to our knowledge, the need for $h$-based tie-breaking has not been previously empirically investigated.
+
+In \reftbl{tbl:summary-std}, we show the summary results for $[f, \fifo]$ and $[f, \lifo]$, the
+\astar variants which rely on \fifo or \lifo default tie-breaking only, as well as the standard $[f, h, \fifo]$ and $[f, h, \lifo]$ strategies.
+(Detailed results are in
+\reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std} in the Appendix.)
+$[f,\lifo]$, which simply breaks ties among nodes with the same
+$f$-cost by expanding the most recently generated nodes first
+\cite{korf1985depth}, clearly dominates $[f,\fifo]$.  Interestingly,
+the performance of the $[f,\lifo]$ strategy is comparable to
+$[f,h,\lifo]$ and $[f,h,\fifo]$.  This may be surprising, considering
+the ubiquity of $h$-based tie-breaking in the search and planning
+communities.
+
+This is explained by the fact that 
+\lifo behaves somewhat similarly to $h$-based tie-breaking.
+\lifo expands the most recently generated node $n$.
+For any child $n'$, 
+if the heuristic function is admissible and $f(n') = f(n)$, there are only 2 possibilities :
+(1) $g(n') > g(n)$ and $h(n') < h(n)$, or
+(2) $g(n') = g(n)$ and $h(n') = h(n)$.
+Thus, as \lifo expands nodes in a ``depth-first'' manner,
+the nodes that continue to be expanded in $\plateau{f}$ by \lifo usually   %added ``usually' because usually true, but not always true because LIFO/DFS has to periodically ``back up'' to nodes with h > h(n)  after exhausiting  nodes with h=h(n).
+have non-increasing $h$-values,
+much like in $h$-based tie-breaking which always searches toward the least $h$ cost.
+Thus, although the expansion order of $[f,\lifo]$ is not exactly the same as that of $h$-based tie-breaking strategies,
+they perform similarly.
+
+% \textbf{An in-depth investigation of the behavior of $[f,\lifo]$ vs. $h$-based tie-breaking is a direction for future work.}
+% Compared to the $h$-based variants which explicitly selects nodes with smaller $h$ and its expanded nodes have non-increasing $h$-values,
+% This has the same  can behave somewhat similarly to actively expanding nodes with low $h$-values, as done by $h$-based tie-breaking.
+% \citeauthor{burns2012implementing}
+% (\citeyear{burns2012implementing}) writes ``the goal can be found more
+% quickly in the final $f$ layer of search'' about $h$ tie-breaking.
+
+
+\subsection{Do Default Strategies Make a Difference?}
+
+Next, we  compared two commonly used tie-breaking strategies, $[f,h,\fifo]$, $[f,h,\lifo]$, which
+first break ties according to $h$, and then apply \fifo or \lifo
+default tie-breaking, respectively.
+Summary results for \lmcut and \mands are
+shown in \reftbl{tbl:summary-std}, and the detailed results are in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std} (\refsec{sec:appendix}, Appendix).
+Differences in coverage are observed in several domains and $[f,h,\lifo]$ outperforms $[f,h,\fifo]$ overall. Thus, the choice of default criterion seems to have a modest but measurable impact when the first tie-breaking criterion is $h$.
+
+We also conducted experiments using \ro (Random Order) default tie-breaking because it is another trivial way to
+break ties. We ran the experiments 10 times with the different random seeds, then took the average and the
+standard deviation of the coverages. The performance of \ro is comparable to \fifo default tie-breaking regardless
+of the primary heuristics, or the presence of $h$-based tie-breaking.
+\todo*{The baseline [f,h,ro] and [f,ro] are in the tables, but don't seem to be defined/mentioned/discussed at all in this section}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/4-1-summary.tex}
+ \caption{
+ Summary of coverage comparison (the number of instances solved in 5min, 4GB, LMcut
+ heuristics) among
+ the standard baseline tie-breaking algorithms (details in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, leftmost 2 columns). 
+ }
+ \label{tbl:summary-std}
+ }
+\end{table}
+
+\subsection{Plateaus and Tie-Breaking}
+
+\refig{fig:f-h-eval} provides a
+more fine-grained analysis by comparing the number of node evaluations
+(calls to the expensive \lmcut heuristic function) on each instance by the $[f,h,\lifo]$ and $[f,h,\fifo]$ strategies.
+The difference in the number of nodes
+evaluated can sometimes be larger than a factor of 10 (\pddl{Openstacks}, \pddl{Cybersec} domains).
+As noted in Section \ref{sec:astar-background}, the choice among default criteria has not been considered very important in the literature, as evidenced by the lack of explicit descriptions of the default tie-breaking criterion in recent papers. 
+Our results suggest that 2nd-level default tie-breaking can have a surprisingly large effect on
+the search performance.
+
+\begin{figure}[htbp]
+ \centering \relsize{-3}
+ \includegraphics[width=\linewidth]{tables/aaai16-30min-5min-cut/aaai16prelim3/evaluated-lmcut_ff-lmcut_lf.pdf}
+ \caption{The number of LMcut evaluations on various IPC planning benchmark domains,
+ with standard \fifo vs \lifo default tie-breaking, both with $h$
+ tie-breaking. \lifo evaluates  less than $1/10$ of the nodes evaluated
+ by \fifo in \pddl{Cybersec} and \pddl{Openstacks}. 
+ }
+ \label{fig:f-h-eval}
+\end{figure}
+
+The effect of the choice of 2nd-level default tie-breaking criteria (\lifo vs.
+\fifo)  when the 1st-level tie-breaking criterion is  $h$ tie-breaking is
+limited to each search plateau $\plateau{f,h}$, the set of nodes which
+share the same $f$ value and $h$ value.
+% 
+Also, in admissible search, two \astar implementations using 
+different default tie-breaking criteria both expand the same set of
+nodes in the region where $f<f^*$.
+% 
+Furthermore, nodes with $h>0$ can not be goal nodes when $h$ is admissible.
+% 
+Therefore, the effect of default tie-breaking becomes most prominent in the final plateau, $\plateau{f^*,0}$.
+
+% Conventionally, 
+% this final plateau, $\plateau{f^*,0}$, was naively considered to be very small compared to the
+% total size of the search space required to be expanded by \astar.
+% However, 
+Counterintuitively, the $\plateau{f^*, 0}$ region can be large enough to
+cause a significant performance difference -- in fact, this final plateau can even account for \emph{most} of the
+search effort required by \astar.
+\refig{fig:plateau} plots the size of the final plateau on 1104 IPC
+benchmark instances.  The $y$-axis represents the number of nodes in
+the final plateau ($\plateau{f^*, 0}$), and the $x$-axis represents the total
+number of nodes expanded so far. This figure suggests that in some
+domains such as \pddl{Openstacks} and \pddl{Cybersec}, the planner
+spends most of the runtime searching $\plateau{f^*, 0}$ for a solution,
+even with the help of $h$ tie-breaking.
+\todo{maybe we need a statistics on (\#goal)/(\#states) ?}
+
+A natural question is:  What makes these two domains
+(\pddl{Openstacks} and \pddl{Cybersec})  different from all other domains
+which have much smaller final plateaus?
+
+\begin{figure}[htbp]
+   \centering
+  \includegraphics[width=\linewidth]{tables/aaai16-frontier/aaai16prelim3/lmcut_frontier-front.pdf}
+  \caption{
+ The number of nodes in $\plateau{f^*, 0}$ (y-axis), which form
+  the final plateau for sorting strategy $[f,h]$, compared to
+  the total number of nodes in the search space with $f\leq f^*$
+ (x-axis) on 1104 IPC benchmark problems.  Note that \pddl{Openstacks}
+  and \pddl{Cybersec} instances are near the $y=x$ line.
+  These statistics are obtained by running a modified Fast Downward with
+ \lmcut which continues searching after the solution is found
+ until all nodes with cost $f=f^*$ are expanded.} \label{fig:plateau}
+\end{figure}
+

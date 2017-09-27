@@ -1,0 +1,122 @@
+\section{Intra- and Inter-plateau Diversification}
+\label{sec:intra-inter}
+
+Previous works on exploration for GBFS  address the problem of heuristic errors
+by occasionally expanding nodes with high $h$.
+Since this type of diversification operates  across different search plateaus,
+we refer to these as \emph{inter-plateau} exploration.
+However, we propose another type of exploration,
+which we call \emph{intra-plateau} exploration, which works within a particular plateau.
+This type of exploration only changes expansion order among the nodes within a plateau.
+We use this new term rather than tiebreaking in order to emphasize its relationship to plateaus.
+
+Existing inter-plateau exploration can be understood as a diversification applied to $h^*$ plateau.
+Consider a hypothetical  2-dimensional histogram (\refig{fig:h-hstar}) of the number of nodes for each pair $h,h^*$.
+If both axes were $h^*$ (i.e., $h$ is a perfect heuristic), all nodes would be on the diagonal line $x=y$.
+However, in reality, $h$ has errors relative to  $h^*$, as would be shown if we projected the histogram to the $x$-axis.
+Since low-$h^*$ nodes may have high-$h$ values,
+it is sometimes reasonable to expand
+high-$h$ nodes depending on the distribution defined by the problem characteristics and the heuristic function.
+% To our knowledge, all previous work on exploration for GBFS has addressed exploration along this dimension by ignoring the best-first ordering wrto $h$.
+
+\begin{figure}[bt]
+ \centering
+ \includegraphics{img/h-hstar.pdf}
+ \caption{A conceptual view of the node distribution wrto $h^*$ and inadmissible $h$.
+ The peak line on the surface is on $x=y$.
+ Projection to $x$-axis shows the distribution of $h$ values, while 
+ projection to $y$-axis shows the distribution of $h^*$ values.
+ }
+ \label{fig:h-hstar}
+\end{figure}
+
+However, the converse can also be true --
+not only can a single $h^*$-plateau consists of nodes with different $h$ values,
+a single $h$-plateau consists of nodes with different $h^*$ values,
+as would be shown by projecting the histogram  to the $y$-axis in \refig{fig:h-hstar}.
+This leads to an observation that
+\emph{in the worst case, a naive algorithm may keep expanding bad (high-$h^*$) nodes within an $h$-value plateau}.
+
+More precisely, the node selection algorithm of a diversified GBFS variant can be described as follows:
+\begin{defi}
+ An \emph{inter}-plateau diversification strategy for GBFS is a method for selecting the next $h$-value.
+\end{defi}
+\begin{defi}
+ An \emph{intra}-plateau diversification strategy for GBFS is a method for selecting the next node in the plateau selected by an \emph{inter}-plateau strategy.
+\end{defi}
+This view cleanly separates the effects of two strategies, providing a firm basis for the observation that their effects are orthogonal and should be combined for the better performance.
+It is straightforward to see that,
+given an OPEN list state and an inter-plateau diversification strategy,
+the next h-plateau to select a node from is independent of intra-plateau strategy.
+Likewise, given a set of nodes with the same $h$-value and an intra-plateau (tiebreaking) strategy,
+the next expanded node is independent of inter-plateau strategy.
+
+Intra-plateau diversification is similar to \emph{local exploration} \cite{XieH14gbfsle,XieMH15}, but is more restrictive. \emph{Local exploration} is targeted for uninformative heuristic region (UHR), which includes both plateaus and local minima. In fact, GBFS-LS does not restrict the local exploration by the $h$-value, thus it may eventually expand a different plateau as the side effect.
+Similarly, some existing inter-plateau strategies such as $\varepsilon$-greedy GBFS have some intra-plateau side-effects because they may distort the expansion order within a plateau.
+
+%% this explanation is ambiguous, so I left it out.
+% \emph{Unlike inter-plateau exploration, which addresses \textbf{incorrect information for h$^*$-plateau},
+% intra-plateau exploration addresses the problem of \textbf{insufficient information for h-plateau.}}
+% %An intra-plateau diversification tries to expand low-$h^*$ nodes within an $h$-value plateau
+% %with a sufficient probability.
+% %% ``trap'' may refer to specific structure defined in ``Traps, invariant and dead-ends'' lipo/muise
+% 
+%% below is just repeating the previous statements, so left out in favor of space.
+% An intra-plateau exploration strategy tries to avoid the aforementioned pathology of continually expanding high-$h^*$ nodes within an $h$-value plateau.
+% Since we do not know \emph{a priori} which nodes in an $h$-plateau are better (low-$h^*$) than the other nodes in the same $h$-plateau, by
+% an  adversary argument, the safest strategy is to avoid biased choices  -- 
+% in the absences of useful heuristic knowledge which differentiates among a set of nodes, 
+% an expansion policy which is biased to expand some particular group of states within a plateau can be exploited by an adversary which seeks to hide better (low-$h^*$) nodes.
+
+\subsubsection{Type-Based Diversification}
+
+The notions of inter-vs-intra plateau exploration allows us to discuss and compare depth diversification \cite{Asai2016} and Type-GBFS \cite{xie14type} within a unified framework
+ -- it turns out that
+these are essentially the same basic idea,  applied to different contexts (inter-vs-intra plateau, satisficing-vs-optimal search), using different parameters (type systems).
+
+\citeauthor{lelis2013stratified} (\citeyear{lelis2013stratified}) define a general framework for adding exploration to search using ``type systems'':
+
+%% for future reference, to see how much our definition drifts from the original
+%\begin{defi} %Definition, copied from Xie's TypeGBFS paper (2014). This is almost the same as the original def in Lelis et al 2013, except the original def was for a search tree.
+%  Let $S$ be the set of nodes in the search space. $T = \{t_1,...,t_n \}$ is a type system for $S$  if $T$ is a disjoint partitioning of $S$. For every $s \in S$, $T(s)$ denotes the unique $t \in T$ with $s \in S$.
+%\end{defi}
+%They define a type bucket $tb$ which partitions nodes according to their type, and they define type bucket-based node selection as: pick a bucket $b$ uniformly at random from all non-empty buckets. Then, pick a node uniformly at random from $b$.
+%Type-GBFS alternatively expands a node from the regular open list $O$ and from this type bucket, where new nodes are added to both $O$ and $tb$.
+
+\begin{defi} 
+A \emph{Type system} \cite{lelis2013stratified} is a 
+function from a node to a vector,
+$T: \text{node} \rightarrow \mathbb{Z}^k, T(n)=\brackets{t_1(n) \ldots t_k(n)} $, where each function $t_i(n)$ returns an integer for each node $n$.
+\end{defi}
+
+%% These functions are assumed to represent the characteristic feature of the state.
+
+\citeauthor{xie14type} proposed a node selection technique based on type systems.
+
+\begin{defi}
+% \emph{Type-Based Diversification} 
+ \emph{Type-Based Node Selection} \cite{xie14type}
+with a type system $T(\cdot)$ of $k$ types maintains a $k$-dimensional matrix of sets of nodes,
+ where each set $S_v$ is associated with a vector $v=\brackets{v_1,\ldots,v_k}$.
+ Each node $n$ is stored in $S_{T(n)}$.
+ For dequeueing, it randomly selects a non-empty set from all sets,
+ and a random node in the set is dequeued.
+\end{defi}
+
+The reason for selecting a set at random is to try to allocate the search effort among a diverse set of nodes.
+Some sets could contain a large number of nodes while others are only scarcely populated.
+Type-based node selection tries to remove this cardinality bias among buckets.
+Because type-based node selection  has this diversification as an explicit goal and is best understood as a diversification strategy, we call it \textbf{\emph{type-based diversification}} in the rest of this paper.
+
+% describe Type-GBFS first to keep the description of all the type-based previous work together.
+Type-GBFS \cite{xie14type} uses type-based diversification with type system $\brackets{g,h}$ for inter-plateau
+exploration. Their inter-plateau exploration is implemented by queue alternation \cite{RogerH10} between
+standard Best-First queue and type-based diversification queue.
+
+Depth diversification \cite{Asai2016} originally addressed the issue of zero-cost actions in admissible search with \astar,
+and the configuration was denoted as $[f,h,\depth]$ using the type system notation, where $f=g+h$ and $d$ is a number of steps from the current node to the nearest ancestor that has the different $h$-value.
+In order to use $\depth$ for GBFS, the resulting configuration is $[h,\depth]$.
+This configuration is considered an instance of intra-plateau type-based diversification because
+it uses type-based diversification $\depth$ for diversifying the search within plateaus defined by $h$.
+
+%% removed Type-GBFS with <h>. Type-GBFS with <g,h> turns out to be just sufficient for discussion.

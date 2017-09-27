@@ -1,0 +1,62 @@
+\section{Empirical Comparison of Intra- and Inter-Plateau Exploration}
+\label{sec:gbfs-comparison}
+
+ % changed to "complementary" in the rest of the section, "complementary" is used to talk about coverage performance on domains, while "orthogonal" refers to the algorithmic behavior and what issues each addresses.
+
+Since depth-diversification and Type-GBFS turned out to be instances of the same strategy applied for different purposes
+(intra/inter-plateau), we use these as exemplars to compare the impact of intra/inter-plateau exploration.
+In the following experiments, we empirically show that they achieve complementary performance improvements.
+This indicates that inter/intra-plateau exploration in fact addresses orthogonal issues of \emph{incorrect} and \emph{insufficient} information, respectively.
+We then show that intra/inter-plateau exploration can be successfully combined in a single search algorithm.
+
+We compare the performance of the following configurations for Greedy best-first search using the Fast Forward heuristic $\ff$ \cite{hoffmann01} and Causal Graph heuristic $\cg$ \cite{Helmert04}.
+\begin{itemize}
+\item \bi{h}: baseline GBFS (eager evaluation).
+\item \bi{hd}: Depth diversification \cite{Asai2016} -- intra-plateau type-based diversification, $[h,\depth]$.
+\item \bi{hD}: Type-GBFS \cite{xie14type} -- inter-plateau type-based diversification,  $alt([h],[\brackets{g,h},\ro])$,
+\item  \bi{hdD}: A combined configuration of intra- and inter-plateau type-based diversification, $alt([h,\brackets{d}],[\brackets{g,h},\ro])$.
+\end{itemize}
+
+Experiments are conducted on a Xeon E5-2666 @ 2.9GHz, HyperThreading and TurboBoost disabled.
+We used IPC 2011 and 2014 instances with a 4GB memory limit and 5 minutes time limit. Since IPC 2011 and IPC 2014 contain duplicate domains, we removed duplicates from the 2011 set, keeping the 2014 versions.
+All implementations are based on FastDownward \cite{Helmert2006} and
+unless specified, all configurations use \fifo default tiebreaking (FastDownward default).
+% 
+Following previous work \cite{valenzano2014comparison,xie14type}, all configurations are evaluated under unit cost transformation
+because we focused on the coverage (number of problems solved within resource limit) for purely satisficing search. 
+Each experiment is run 10 times, and the means are shown in \reftbl{tbl:results}.
+
+First, 
+% 
+intra-plateau exploration \bi{hd} increases coverage for both heuristics
+$\cg$ ($187 \rightarrow 194.2$) and $\ff$ ($192 \rightarrow 223.9$).
+This shows that intra-plateau exploration successfully allows GBFS to avoid being trapped in $h$-value plateaus.
+Inter-plateau exploration \bi{hD} also increases coverage for both heuristics, confirming the results in \cite{xie14type}.
+It is worth mentioning that the performance of \bi{hd} is comparable to \bi{hD}, showing that intra-plateau exploration is no less important than inter-plateau exploration which previous work focused on.
+
+Second, the data shows that the effects of inter/intra-plateau exploration are complementary, 
+as would be expected since they are designed to address orthogonal issues.
+In most cases,
+when \textbf{hd} improves upon \textbf{h} then \textbf{hdD} improves upon \textbf{hD},
+and when \textbf{hD} improves upon \textbf{h} then \textbf{hdD} improves upon \textbf{hd}.
+As a result, for both $\cg$ and $\ff$ heuristics, the \textbf{hdD} configuration had higher coverage ($\cg$:215.8, $\ff$:223.9) than the hd ($\cg$:194.2, $\ff$:208) and hD ($\cg$:206.1, $\ff$:207.4) configurations. 
+This shows that combining intra/inter-plateau exploration methods which address orthogonal issues results in better overall performance than either type of exploration by themselves.
+% in the earlier version, we said this in the IP evaluation section, but better to highlight this result in this section so it's obvious the result is independent of IP and increase the value of the novel inter/intra framework.
+
+% \input{tables/intra-inter.tex}
+\input{tables/gbfs.tex}
+
+
+Based on these results, we conclude that:
+%% inline list from enumitem
+% \begin{enumerate*}
+\begin{enumerate} % there's space, and these are the strongest results in the paper, so let's enum
+\item Inter- and intra-plateau exploration address orthogonal issues and have complementary performance; 
+%While the depth diversity $[h,\depth]$ and Type-GBFS $\brackets{h}$ configurations are both instances of bucket-based diversification,  
+%the way it is used has affected the performance.
+% XXX since these configs use different keys, it seems safer to avoid emphasizing that they are "the same"
+%% this second element is not so important
+% \item The benefits from each type of diversification (inter/intra-plateau) depend on the problem domain and heuristic used; and
+\item Combining inter- and intra-plateau exploration can result in better performance than either  exploration alone.
+\end{enumerate}
+% \end{enumerate*}

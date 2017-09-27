@@ -1,0 +1,83 @@
+\section{background}
+
+\subsubsection{Depth-Based Tie-breaking}
+
+To date, there has been relatively little work on 
+tie-breaking policies for BFS.
+
+Recently, \citeauthor{Asai2016} (\citeyear{Asai2016}) performed an in-depth investigation
+of tie-breaking strategies for \astar, in which
+the tie-breaking policy was found to have a
+significant effect on the performance when the search plateau is huge.
+In the most commonly used  sorting strategies, $[f,h,\fifo]$ or $[f,h,\lifo]$, the search has a strong bias to focus on  either the regions of smaller (\fifo) or larger (\lifo) search depth of each $\plateau{f,h}$, which can cause a failure to find a solution within a given time limit.
+
+To address the issue caused by the search bias within a plateau,
+they proposed a notion of \emph{depth} and diversified the search over different depths
+within a plateau. The depth $d(n)$ of a state $n$ is an integer representing 
+the step-wise distance from the \emph{entrance} of the plateau (the most recent state which
+entered the plateau, along the path from the initial state). 
+% 
+$d(n)=d(m)+1$ when $n$ and the parent node $m$ are on the same plateau.
+For example, with strategy $[f,h,*]$, 
+$\plateau{f(n),h(n)}=\plateau{f(m),h(m)}$, therefore
+$f(n) = f(m) \land h(n) = h(m)$.
+$d(n)$ is 0 otherwise.
+The nodes are stored in buckets indexed by depth, and expansions are allocated across different buckets with equal probability at every iteration.
+The resulting sorting strategy is denoted as $[f,h,\depth,*]$.
+
+For GBFS, to our knowledge, there is currently no
+well-established tie-breaking policy analogous to $h$-based tie-breaking for \astar.
+Presumably, this is  because
+while \astar has access to three cost values ($f$, $g$, and $h$),
+%% better to keep this footnote even without citations, just so we acknowledge that there are some "obvious" tiebreaking strategies.
+GBFS is guided solely by the heuristic value $h$.\footnote{Tie-breaking based on  $g$ is sometimes used, but this is motivated as a means to find higher-quality solutions. To our knowledge, in a satisficing context, tie-breaking strategies for reducing search effort have not been explicitly motivated or evaluated.} 
+As a consequence,
+improvements to  GBFS have been primarily achieved by addressing other aspects, such as
+modifying the evaluation scheme \cite[lazy evaluation]{richter2010lama}, queue alternation
+(multiple heuristic functions), preferred operators \cite{hoffmann01}, and diversification.
+
+\subsubsection{Exploration Mechanisms}
+
+One class of improvements to GBFS seeks to introduce exploration (diversity) to the search process, as exemplified by DBFS \cite{imai2011novel}, $\epsilon$-GBFS \cite{valenzano2014comparison}, Type-GBFS
+\cite{xie14type}.
+These algorithms address the problem of GBFS getting stuck due to heuristic errors.
+GBFS will not expande a node $n$  until it expands all nodes with a lower $h$-value than $n$.
+Thus, search progress can be delayed when a good (low-$h^*$) node is mistakenly assigned a poor (high) $h$-value (overestimation), or bad (high-$h^*$) nodes are assigned promising $h$-values (low-$h$, underestimation).
+These exploration strategies allow the search to escape local minima by relaxing the $h$-based best-first node expansion order.
+
+KBFS(k) \cite{felner2003kbfs} attempts to address this problem by expanding $k$ nodes at a time.
+% in order to prevent the search algorithm from getting stuck in a heuristic trap.
+%  KBFS provided an
+% interesting observation to GBFS --- KBFS(1) is equivalent to GBFS, and
+% KBFS($\infty$) is equivalent to Breadth-First Search.
+% 
+% 
+$\epsilon$-GBFS \cite{valenzano2014comparison} selects a random node from OPEN with some fixed probability $\epsilon <1$.
+This is a randomized, weighted alternating 
+OPEN list using $[h,*]$ and $[\ro]$ (no sorting criteria): $\mit{alt}([h,*],[\ro])$.
+
+While $\epsilon$-GBFS relies on  a pure randomization strategy to escape traps and introduce exploration, 
+Type-GBFS \cite{xie14type} explicitly seeks to remove bias and diversify the search  by categorizing OPEN according to several key values, such as $[g,h]$ for each state.
+Each node is assigned to a bucket according to its key value.
+The search then selects a random node in a random
+bucket, avoiding the cardinality bias among buckets.
+Since Type-GBFS does not sort the buckets according to the key vector, we use a different notation $\brackets{\ldots}$,
+such as $\brackets{g,h}$ denoting type buckets whose key values are $g$ and $h$.
+In the implementation evaluated by \citeauthor{xie14type} (\citeyear{xie14type}),
+Type-GBFS alternates the exploitative (standard best-first order) expansion and the exploratory (randomized) expansion. We denote this 
+ as $\mit{alt}([h,*], [\brackets{g,h},\ro])$.
+
+DBFS \cite{imai2011novel} diversifies the
+search based on $g$ and $h$ values, but with several key differences from
+the above two algorithms: First, the exploratory selection is not uniformly
+random, but is subject to a particular distribution function based on 
+$h, g, h_{min}$ and $g_{max}$. Second, it uses a local search with
+a bounded number of expansions equal to $h$, which dynamically balances the exploration
+and exploitation --- it does more GBFS when $h$ is large (far
+from the goal), and less GBFS near the goal ($h$ is small).
+
+GBFS with Local Exploration (GBFS-LE) introduces a 2-level search architecture which runs
+GBFS until it detects that no improvements have been made for a while, and
+then runs a local GBFS (GBFS-LS) or random walk (GBFS-LRW)
+in order to find an exit to a more promising region of the search space \cite{XieH14gbfsle}.
+

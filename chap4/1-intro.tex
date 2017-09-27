@@ -1,0 +1,75 @@
+
+\chapter{Search Diversification for Satisficing Search Algorithms: Intra-vs-Inter plateau Diversification}
+
+
+%% trying not to mention ``h-value'' or ``g-value'' until it is defined
+
+% \begin{abstract}
+% Recent enhancements to greedy best-first search (GBFS) such as  DBFS, $\epsilon$-GBFS, Type-GBFS improve performance by occasionally
+% introducing exploratory behavior which occasionally expands non-greedy nodes.
+% However, most of these exploratory mechanisms do not address exploration within the space sharing the same heuristic estimate (plateau).
+% In this paper, we show these two modes of exploration, which work across (\emph{inter-}) and within (\emph{intra-}) plateau, are complementary, and can be combined to yield superior performance. 
+% % 
+% We then introduces a new fractal-inspired scheme called Invasion-Percolation diversification,
+% % We also introduce IP-diversification, a method combining Minimum Spanning Tree and randomization,
+% which addresses  ``breadth''-bias instead of the ``depth''-bias addressed by the existing diversification methods.
+% We evaluate IP-diversification for  both intra- and inter-plateau exploration,  and show that it  significantly improves  performance  in several domains.
+% % 
+% Finally, we show that combining diversification methods results in a planner which is competitive to the state-of-the-art for satisficing planning.
+% \end{abstract}
+
+\section{Analysis of Diversification Strategies for Greedy Best First Search}
+
+Many search problems in AI are too difficult to solve optimally, and finding even one satisficing solution is challenging. 
+Greedy Best-First Search (GBFS) is a best-first search variant where $f(n)$, the expansion priority of node $n$ is based only on a heuristic estimate of the node, i.e., $f(n) = h(n)$  (in contrast with \astar search, where the node priority also considers $g(n)$, the cost from the start state to $n$, and $f(n) = g(n)+h(h)$).
+GBFS has been shown to be quite useful when it is necessary to find some  satisficing solution quickly, and GBFS 
+has been the basis for \lsota domain-independent planners. % \cite{domshlak2015red}. % let's intentionally leave this ambiguous and not explicitly cite current sota planners, since we don't want our claims of ``improving upon sota'', ``competitive w. sota'' to be misunderstood as, e.g., ``better than gbfs/redblack''
+
+Despite the ubiquitous use of GBFS for satisficing search,
+previous work has shown  that GBFS is susceptible to being 
+easily trapped by undetected dead ends and huge search plateaus.
+On infinite graphs, GBFS is not even complete \cite{Valenzano2016}
+because it could be misdirected by the heuristic guidance forever.
+These pathological behaviors are caused by the fact that 
+the search behavior of GBFS strongly depends on the
+quality of the heuristic function.
+
+%Existing methods tackle this issue from two directions.
+Previous approaches to this problem can be classified into two classes.
+The first class of methods focuses on an issue arising with inadmissible heuristics,
+which can incorrectly label nodes which are close to the goal (low $h^*$, optimal cost to goal) as unpromising (overestimation: $h>h^*$), 
+causing GBFS to delay expanding them until all other open nodes with smaller $h$-values have been expanded.
+Several approaches have been proposed for alleviating this problem, including 
+DBFS \cite{imai2011novel}, $\epsilon$-GBFS \cite{valenzano2014comparison} and Type-GBFS \cite{xie14type}.
+These approaches \emph{diversify} the search by occasionally expand nodes which do not have the lowest $h$-value, 
+and provide an opportunity to expand nodes that are mistakenly overlooked due to  heuristic errors.
+
+The second class of methods focuses on a different issue which arises in both admissible and inadmissible heuristics:
+A node that is far from the goal (high $h^*$) can be mislabeled as promising (underestimation: $h<h^*$), 
+causing GBFS to have larger plateaus and expand unnecessary nodes.
+Techniques which address this issue include  \emph{plateau escaping} \cite{Coles07}, \emph{local exploration} \cite{XieH14gbfsle} or \emph{tiebreaking} \cite{Asai2016}.
+
+%% this paragraph is important because diversity, exploration, and
+%% ``removing bias'' might not immediately connect with each other
+All of these methods share the objective of removing some \emph{bias},
+thereby encouraging  \emph{exploration} by the search process
+and adding \emph{diversity} in decision making process.
+In this paper, we use the terms ``exploration'', ``diversity'', and ``bias removal'' interchangeably.
+Previous work lacked a common framework which unified these various approaches to diversification/exploration/bias removal.
+Furthermore, as shown later, the current \lsota methods are based on diversification with respect to search depth (distance from the start / goal / plateau entrance),
+so the bias among the set of nodes with the same search depth is not removed.
+
+In this chapter, we first show that  the above two classes of approaches to diversification are orthogonal and should be combined for better performance.
+We show that a recently proposed depth-based tie-breaking strategy for \astar \cite{Asai2016} also improves the performance of GBFS by diversifying the depth within each h-plateau.
+Both depth diversification strategy and Type-GBFS are shown to be instances of a \emph{type}-based diversification strategy \cite{xie14type}: Depth diversification applies type-based diversification within a plateau, and Type-GBFS applies it between plateaus.
+We compare their empirical performance and show that their improvements are complementary -- 
+They improve the performance in different domains, and a configuration using both methods, achieves the best overall coverage.
+This effectively shows that \emph{inter}-plateau and \emph{intra}-plateau diversification are two orthogonal usages of diversification, and both modes should be used if possible.
+ 
+Next, we propose and evaluate a new diversification strategy called IP-diversification which addresses diversity with respect to \emph{breadth}.
+We evaluate this new diversification strategy both for intra-plateau and inter-plateau exploration.
+Complementary effects on intra/inter-plateau exploration were similarly observed. In addition, IP-diversification outperforms the Type-based diversification strategy.
+Finally, we show that by combining several intra/inter plateau exploration strategies, we can improve upon \lsota planners in terms of coverage.
+% The FD implementation of "Type-LAMA" is not the same as the Jasper code which competed in IPC2014, so can't say anything aobut Type-LAMA IPC performance rank.
+%(LAMA, the IPC2011 winner,  and Type-LAMA, the non-portfolio planner with the highest coverage in IPC2014) in terms of coverage.
+
