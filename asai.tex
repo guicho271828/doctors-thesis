@@ -62,14 +62,17 @@ push-goal no-tank-age}
 
 \begin{document}
 
+\frontmatter
+
 \lstset{
 language=lisp,%
 basicstyle=\relsize{-1}\ttfamily}
 
+\maketitle
+
 \texttt{} % for some reason this is necessary. otherwise the font does not get loaded.
 % probably there are some bad interaction between font loading and import package.
 
-\maketitle
 \input{main.tex}
 
 \bibliography{confs,journals,misc-refs}
