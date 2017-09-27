@@ -1,4 +1,4 @@
-\chapter{New Perspective: Optimal Search as a Sequence of Satisficing Searches}
+\chapter[New Perspective]{New Perspective: Optimal Search as a Sequence of Satisficing Searches}
 
 So far, we have shown that by carefully analyzing search within an $f$-cost plateau,
 we were able to develop an effective
@@ -135,7 +135,7 @@ The framework of ``\astar as a series of satisficing searches'' suggests that we
 % 
 In the following two subsections, as well as in the next section, we show that this framework  (1) provides a better understanding of depth-diversification (\refsec{sec:depth-vs-types}), (2) allows us to prove the completeness of \astar on infinite graph depending on the tie-breaking methods (\refsec{sec:completeness-on-infinite-space}), and (3) allows us to improve the performance of \astar on Zerocost domains (\refsec{sec:distance-to-go}).
 
-\subsection{Depth Diversification as Satisficing Search}
+\section{Depth Diversification as Satisficing Search}
 \label{sec:depth-vs-types}
 Within this framework, the implementation of depth diversification can be viewed as a variant of the Type-based diversification approach \cite{xie14type},  specifically tailored for Zerocost domains.
 
@@ -176,7 +176,7 @@ In contrast, type buckets are global --- type buckets have no preceding sorting 
 Nevertheless, the close relationship between depth diversification for admissible \astar and Type-GBFS for satisficing search is important. It shows that if we apply our framework of ``\astar as a series of satisficing searches'', we can directly use ideas which have been previously proposed for satisficing search within each $f$-cost plateau search.
 % In the next section, we present another instance of this general approach.
 
-\subsection{Completeness of \astar on an Infinite Graph}
+\section{Completeness of \astar on an Infinite Graph}
 \label{sec:completeness-on-infinite-space}
 
 Similarly, we can use this framework for analyzing the completeness of \astar on infinite graphs with respect to various tie-breaking criteria.
@@ -303,7 +303,7 @@ open up a new opportunity to break this boundary.
 
 \begin{comment}
 % If you're still considering submitting tie-breaking for satisficing to a conference, including this subsection can block the conference paper and is a bad idea.
-\subsection{Depth Diversification for Satisficing Search}
+\section{Depth Diversification for Satisficing Search}
 
 In order to strengthen the connection between tie-breaking and satisficing search,
 we conducted another set of experiments. In the previous experiments, we showed that the distance-to-go

@@ -108,7 +108,7 @@ As we shall see below, a sorting strategy which performs tie-breaking using both
 
 
 
-\subsection{Evaluation of Distance-to-Go Estimates as Tie-Breaking Criteria for Admissible Search}
+\section{Evaluation of Distance-to-Go Estimates as Tie-Breaking Criteria for Admissible Search}
 
 We tested various admissible sorting strategies on IPC domains and Zerocost domains.
 % on Zerocost domains  where tie-breaking strategies have the large impact.
@@ -157,7 +157,7 @@ Detailed per-domain results are shown in \reftbls{tbl:dtg-lmcut-zero}{tbl:dtg-ma
  \label{tbl:dtg-summary}
 \end{table}
 
-\subsubsection{Evaluation on Zerocost Domains}
+\subsection{Evaluation on Zerocost Domains}
 
 In Zerocost domains, we see that $\hat{h}$ tie-breaking outperforms $h$ tie-breaking for both \lmcut (e.g. $256\rightarrow 295$ with \fifo) and \mands (e.g. $280\rightarrow 308$ with \fifo).
 Also, combining $h$ and $\hat{h}$ can further improve performance when the heuristic is \lmcut (e.g. $295\rightarrow 305$ with \fifo).
@@ -205,7 +205,7 @@ The coverage increased in both
 When the default tie-breaking was \ro and the heuristic is \mands, $[f,\ffo,\depth,\ro]$ performed slightly worse than 
 $[f,\ffo,\ro]$, but the difference was very small  ($337.9\rightarrow 337.6$) and $\depth$ made the performance slightly more robust (smaller standard deviation: $2.1\rightarrow 1.3$).
 
-\subsubsection{Evaluation on Standard IPC Domains}
+\subsection{Evaluation on Standard IPC Domains}
 
 For the standard IPC benchmark instances, the overhead due to the additional computation of
 $\hat{h}$ or $\ffo$ tends to harm the overall performance.
@@ -225,7 +225,7 @@ When the primary heuristics is \lmcut, we do not observe a significant differenc
 When the primary heuristic is  \mands, $[f^\mands,h^\mands,\lifo]$ performs slightly better than  other default tie-breaking strategies; It also outperforms the depth-based variants as we already discussed in \refsec{sec:depth-based-evaluation}.
 %  (\reftbl{tbl:dtg-lmcut-ipc} and \reftbl{tbl:dtg-mands-ipc}).
 
-\subsubsection{Summary of the Evaluation}
+\subsection{Summary of the Evaluation}
 % \pagebreak[3]
 
 \reftbl{tbl:summary} summarizes the overall conclusions of our performance evaluations. We conclude that although the performance gain by depth diversification and distance-to-go heuristics depend on the domain characteristics, they provide a promising overall performance enhancement.
