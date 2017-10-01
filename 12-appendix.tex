@@ -1,0 +1,286 @@
+
+
+\chapter{Appendix: Detailed Data}
+\label{sec:appendix}
+
+This Appendix contains some detailed figures and data which are referenced from the text in the previous sections. 
+
+% \setlength{\floatsep}{1mm}
+% \setlength{\textfloatsep}{1mm}
+% \setlength{\abovecaptionskip}{1mm}
+% \setlength{\belowcaptionskip}{1mm}
+% \setlength{\abovedisplayskip}{1mm}
+% \setlength{\belowdisplayskip}{1mm}
+% \setlength{\arraycolsep}{1mm}
+
+\section{Detailed Data for \reftbl{tbl:summary-std}}
+
+\begin{table}[htbp]
+ {
+ \relsize{-0.5}
+ \centering
+ \input{tables/4-ipc-lmcut.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
+ heuristics) among
+ the standard baseline tie-breaking algorithms. We highlight the
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-ipc-std}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \relsize{-0.5}
+ \centering
+ \input{tables/4-ipc-mands.tex}
+ \caption{
+ Coverage comparison (the number of instances solved in 5min, 4GB, M\&S heuristics) among
+ the standard baseline tie-breaking algorithms. We highlight the
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
+ }
+ \label{tbl:mands-ipc-std}
+ }
+\end{table}
+
+% % This comparison can be removed even from the appendix.
+% % The result is not essential. Furthermore,
+% % these numbers can be extracted from the other tables.
+%
+% \clearpage
+% \section{\mands Data for \reftbl{tbl:lmcut-zerocost-std}}
+% 
+% \begin{table}[htbp]
+%  \centering
+%  \input{tables/5-std-zero-comparison-mands}
+%  \caption{
+%  Coverage comparison (the number of instances solved) 
+%  between the original IPC instances and the modified Zerocost instances,
+%  using the same configuration and experimental setting (5min, 4GB, \mands heuristics).
+%  This table does not include domains where the total number of instances
+%  differ in the Zerocost domain and the original IPC domain. The results in
+%  those domains are available in the later sections.
+%  }
+%  \label{tbl:mands-zerocost-std}
+% \end{table}
+
+\clearpage
+\section{Detailed Data for \reftbl{tbl:depth-summary}}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/7-zero-lmcut}
+ % 
+  \caption{ Coverage comparison (the number of instances solved in 5min, 4GB, \lmcut heuristics) on {620
+ Zerocost instances}.  We highlight the best results when the difference between the best and the worst coverages
+ is greater than 2.  }
+ % 
+ \label{tbl:lmcut-zerocost-full}}
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/7-zero-mands}
+  \caption{
+ Coverage comparison (the number of instances solved in 5min, 4GB, \mands heuristics)
+ on {620 Zerocost instances}. We highlight the
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
+ }
+ \label{tbl:mands-zerocost-full}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/7-ipc-lmcut}
+  \caption{
+ Coverage comparison (the number of instances solved in 5min, 4GB, LMcut
+ heuristics) on {1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
+ }
+ \label{tbl:lmcut-ipc-full}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \centering
+ \input{tables/7-ipc-mands}
+  \caption{
+ Coverage comparison (the number of instances solved in 5min, 4GB, M\&S
+ heuristics) on {1104 standard IPC benchmark instances}. We highlight the
+ best results when the difference between the maximum and the minimum coverage exceeds 2.
+ }
+ \label{tbl:mands-ipc-full}
+ }
+\end{table}
+
+\clearpage
+\section{Additional Figures for \refig{fig:expansion-ratio}: $\lifo$ Default Tiebreaking}
+
+\begin{figure}[htbp]
+ \centering
+ % \begin{tabular}{cccc}
+ %  nodes/sec                  & LMcut      & M\&S       & M\&S slowdown\\
+ %  \hline
+ %  $[f,h,\lifo]$              & 8.86$\times 10^3$ & 1.37$\times 10^5$ & 100\%\\
+ %  $[f,h,\depth,\lifo]$ & 9.37$\times 10^3$ & 1.13$\times 10^5$ & 82\%\\
+ %  \hline
+ %  $[f,h,\fifo]$              & 9.65$\times 10^3$ & 1.41$\times 10^5$ & 100\%\\
+ %  $[f,h,\depth,\fifo]$ & 9.62$\times 10^3$ & 1.24$\times 10^5$ & 87\%\\
+ %  \hline
+ % \end{tabular}
+ % \caption{Comparison of the average node expansion ratio (node/sec) between
+ % standard tie-breaking and depth-based tie-breaking on \lmcut and \mands
+ % heuristics. Numbers are averaged over the problem instances solved by
+ % all 4 configurations. Since the node evaluation of \mands is an order of
+ % magnitude faster than \lmcut, the overhead of managing depth-based
+ % tie-breaking queue is non-negligible on \mands.}
+ % \includegraphics{img/node-sec/lmhiF-lmh_F.pdf}
+ % % \includegraphics{img/node-sec/lmhiL-lmh_L.pdf}
+ % \includegraphics{img/node-sec/mnhiF-mnh_F.pdf}
+ % % \includegraphics{img/node-sec/mnhiL-mnh_L.pdf}
+ % \includegraphics{img/node-sec/lmhiF-lmh_F-hist.pdf}
+ \includegraphics{img/node-sec/lmhiL-lmh_L-hist.pdf}
+ % \includegraphics{img/node-sec/mnhiF-mnh_F-hist.pdf}
+ \includegraphics{img/node-sec/mnhiL-mnh_L-hist.pdf}
+ % 
+ \caption{Histogram comparing the node evaluation ratio (node/sec) between standard tie-breaking ($[f,h,\lifo]$) and
+ depth-based tie-breaking ($[f,h,\depth,\lifo]$) on \lmcut and \mands heuristics.
+ On \mands, compared to \lmcut, node evaluation rate more often becomes
+ slower when depth is enabled. This is because the node evaluation of \mands is an order of
+ magnitude faster than \lmcut, and the overhead of managing depth-based tie-breaking queue becomes significant.
+ }
+ % 
+ \label{fig:expansion-ratio-lifo}
+\end{figure}
+
+% \clearpage
+% \section{Additional Figures for \refig{fig:eval-comparison}: $\lifo$ Default Tiebreaking}
+% 
+% \begin{figure}[htbp]
+%  \centering
+%  % \includegraphics{img/node-sec/lmhiF-lmh_F-eval.pdf}
+%  \includegraphics{img/node-sec/lmhiL-lmh_L-eval.pdf}
+%  % \includegraphics{img/node-sec/mnhiF-mnh_F-eval.pdf}
+%  \includegraphics{img/node-sec/mnhiL-mnh_L-eval.pdf}
+%  % \includegraphics{img/node-sec/lmhiF-lmh_F-exp.pdf}
+%  % \includegraphics{img/node-sec/lmhiL-lmh_L-exp.pdf}
+%  % \includegraphics{img/node-sec/mnhiF-mnh_F-exp.pdf}
+%  % \includegraphics{img/node-sec/mnhiL-mnh_L-exp.pdf}
+%  % 
+%  \caption{Comparison of the number of evaluated nodes on IPC domains, between standard and depth-diversified search algorithms.
+%  \pddl{Cybersec} and \pddl{Openstacks} shows that the evaluation is reduced by depth.
+%  There are also slight effect on \pddl{pegsol-opt11} because it also contains zero-cost actions.
+%  However, the two 0-cost actions (\pddl{jump-continue-move, end-move}) are the necessary ``finalization'' actions that should always be executed after the unit-cost action (\pddl{jump-start-move}).
+%  Due to the characteristics of these actions, the effect of depth diversification on 0-cost actions are limited.
+%  }
+%  % 
+%  \label{fig:eval-comparison-lifo}
+% \end{figure}
+
+
+\clearpage
+\section{Additional Figures for \refig{fig:depth-histogram}: More Histograms for the Size of Final Plateaus}
+
+These includes 12 additional histograms for the size of final plateaus on
+more variety of domains and instances.
+
+\begin{figure}[htbp]
+\includegraphics[width=0.49\linewidth]{img/output-lmcut/miconic-up/p79-0.pdf}
+\includegraphics[width=0.49\linewidth]{img/output-lmcut/pathways-fuel/p03-0.pdf}
+\includegraphics[width=0.49\linewidth]{img/output-lmcut/pipesnt-pushstart/p06-0.pdf}
+\includegraphics[width=0.49\linewidth]{img/output-lmcut/pipesworld-pushend/p06-0.pdf}
+\includegraphics[width=0.49\linewidth]{img/output-lmcut/psr-small-open/p46-0.pdf}
+\includegraphics[width=0.49\linewidth]{img/output-lmcut/rovers-fuel/p07-0.pdf}
+ \caption{(Page 1/2) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
+ the final plateau with different tie-breaking strategies. Both axes are in logarithmic scale.
+ }
+ \label{fig:depth-histogram2}
+\end{figure}
+
+\begin{figure}[htbp]
+\includegraphics{img/output-lmcut/scanalyzer-analyze/p04-0.pdf}
+\includegraphics{img/output-lmcut/storage-lift/p11-0.pdf}
+\includegraphics{img/output-lmcut/tidybot-motion/p16-0.pdf}
+\includegraphics{img/output-lmcut/tpp-fuel/p08-0.pdf}
+\includegraphics{img/output-lmcut/woodworking-cut/p04-0.pdf}
+\includegraphics{img/output-lmcut/zenotravel-fuel/p07-0.pdf}
+ \caption{(Page 2/2) Number of nodes ($y$-axis) expanded per depth ($x$-axis) in
+ the final plateau with different tie-breaking strategies. Both axes are in logarithmic scale.
+ }
+ \label{fig:depth-histogram3}
+\end{figure}
+
+\clearpage
+\section{Additional Figures for \refig{fig:depth-histogram4}: More Histograms for the Size of Non-final Plateaus}
+
+These are the additional histograms for the size of non-final plateaus on
+more variety of domains and instances.
+
+\begin{figure}[htbp]
+\includegraphics{img/output-lmcut/depot-fuel/p07-1.pdf}
+\includegraphics{img/output-lmcut/driverlog-fuel/p04-1.pdf}
+\includegraphics{img/output-lmcut/zenotravel-fuel/p07-1.pdf}
+\includegraphics{img/output-lmcut/floortile-ink/p02-14.pdf}
+\includegraphics{img/output-lmcut/mprime-succumb/p12-1.pdf}
+\includegraphics{img/output-lmcut/storage-lift/p12-2.pdf}
+ \caption{Depth distribution in the non-final plateaus ($\plateau{f^*,h}, h\not=0$): Other domains.}
+ \label{fig:depth-histogram5}
+\end{figure}
+
+\clearpage
+\section{Detailed Data for \reftbl{tbl:dtg-summary}}
+
+\setlength{\tabcolsep}{0.1em}
+
+\begin{table}[htbp]
+ {
+ \relsize{-0.5}
+ \centering
+ \input{tables/8-zero-lmcut}
+ \caption{
+ Coverage results with { \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tie-breaking, on 620 Zerocost instances}. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, over all configurations \emph{including \reftbl{tbl:lmcut-zerocost-full}}.
+ }
+ \label{tbl:dtg-lmcut-zero}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \relsize{-0.5}
+ \centering
+ \input{tables/8-zero-mands}
+ \caption{
+ Coverage results with \mands for computing $f$ and inadmissible distance-to-go heuristics for tie-breaking, on 620 Zerocost instances. We highlight the best results when the difference between the maximum and the minimum coverage exceeds 2, over all configurations \emph{including \reftbl{tbl:mands-zerocost-full}}.
+ }
+ \label{tbl:dtg-mands-zero}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \relsize{-0.5} 
+ \centering
+ \input{tables/8-ipc-lmcut}
+ \caption{
+ Coverage results with \lmcut for computing $f$ and inadmissible distance-to-go heuristics for tie-breaking, on 1104 standard IPC benchmark instances.
+ }
+ \label{tbl:dtg-lmcut-ipc}
+ }
+\end{table}
+
+\begin{table}[htbp]
+ {
+ \relsize{-0.5}
+ \centering
+ \input{tables/8-ipc-mands}
+ \caption{
+ Coverage results with \mands for computing $f$ and inadmissible distance-to-go heuristics for tie-breaking, on 1104 standard IPC benchmark instances.
+ }
+ \label{tbl:dtg-mands-ipc} }
+\end{table}
