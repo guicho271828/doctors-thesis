@@ -68,13 +68,13 @@ Similarly, some existing inter-plateau strategies such as $\varepsilon$-greedy G
 % in the absences of useful heuristic knowledge which differentiates among a set of nodes, 
 % an expansion policy which is biased to expand some particular group of states within a plateau can be exploited by an adversary which seeks to hide better (low-$h^*$) nodes.
 
-\subsubsection{Type-Based Diversification}
+\subsection{Type-Based Diversification}
 
 The notions of inter-vs-intra plateau exploration allows us to discuss and compare depth diversification \cite{Asai2016} and Type-GBFS \cite{xie14type} within a unified framework
  -- it turns out that
 these are essentially the same basic idea,  applied to different contexts (inter-vs-intra plateau, satisficing-vs-optimal search), using different parameters (type systems).
 
-\citeauthor{lelis2013stratified} (\citeyear{lelis2013stratified}) define a general framework for adding exploration to search using ``type systems'':
+\citeauthor{lelis2013stratified} \citeyear{lelis2013stratified} define a general framework for adding exploration to search using ``type systems'':
 
 %% for future reference, to see how much our definition drifts from the original
 %\begin{defi} %Definition, copied from Xie's TypeGBFS paper (2014). This is almost the same as the original def in Lelis et al 2013, except the original def was for a search tree.
