@@ -1,41 +1,5 @@
 \section{Background}
 
-\subsection{Depth-Based Tie-breaking}
-
-To date, there has been relatively little work on 
-tie-breaking policies for BFS.
-
-Recently, \citeauthor{Asai2016} (\citeyear{Asai2016}) performed an in-depth investigation
-of tie-breaking strategies for \astar, in which
-the tie-breaking policy was found to have a
-significant effect on the performance when the search plateau is huge.
-In the most commonly used  sorting strategies, $[f,h,\fifo]$ or $[f,h,\lifo]$, the search has a strong bias to focus on  either the regions of smaller (\fifo) or larger (\lifo) search depth of each $\plateau{f,h}$, which can cause a failure to find a solution within a given time limit.
-
-To address the issue caused by the search bias within a plateau,
-they proposed a notion of \emph{depth} and diversified the search over different depths
-within a plateau. The depth $d(n)$ of a state $n$ is an integer representing 
-the step-wise distance from the \emph{entrance} of the plateau (the most recent state which
-entered the plateau, along the path from the initial state). 
-% 
-$d(n)=d(m)+1$ when $n$ and the parent node $m$ are on the same plateau.
-For example, with strategy $[f,h,*]$, 
-$\plateau{f(n),h(n)}=\plateau{f(m),h(m)}$, therefore
-$f(n) = f(m) \land h(n) = h(m)$.
-$d(n)$ is 0 otherwise.
-The nodes are stored in buckets indexed by depth, and expansions are allocated across different buckets with equal probability at every iteration.
-The resulting sorting strategy is denoted as $[f,h,\depth,*]$.
-
-For GBFS, to our knowledge, there is currently no
-well-established tie-breaking policy analogous to $h$-based tie-breaking for \astar.
-Presumably, this is  because
-while \astar has access to three cost values ($f$, $g$, and $h$),
-%% better to keep this footnote even without citations, just so we acknowledge that there are some "obvious" tiebreaking strategies.
-GBFS is guided solely by the heuristic value $h$.\footnote{Tie-breaking based on  $g$ is sometimes used, but this is motivated as a means to find higher-quality solutions. To our knowledge, in a satisficing context, tie-breaking strategies for reducing search effort have not been explicitly motivated or evaluated.} 
-As a consequence,
-improvements to  GBFS have been primarily achieved by addressing other aspects, such as
-modifying the evaluation scheme \cite[lazy evaluation]{richter2010lama}, queue alternation
-(multiple heuristic functions), preferred operators \cite{hoffmann01}, and diversification.
-
 \subsection{Exploration Mechanisms}
 
 One class of improvements to GBFS seeks to introduce exploration (diversity) to the search process, as exemplified by DBFS \cite{imai2011novel}, $\epsilon$-GBFS \cite{valenzano2014comparison}, Type-GBFS
@@ -80,4 +44,40 @@ GBFS with Local Exploration (GBFS-LE) introduces a 2-level search architecture w
 GBFS until it detects that no improvements have been made for a while, and
 then runs a local GBFS (GBFS-LS) or random walk (GBFS-LRW)
 in order to find an exit to a more promising region of the search space \cite{XieH14gbfsle}.
+
+\subsection{Tiebreaking}
+
+% To date, there has been relatively little work on 
+% tie-breaking policies for BFS.
+% 
+% Recently, \citeauthor{Asai2016} (\citeyear{Asai2016}) performed an in-depth investigation
+% of tie-breaking strategies for \astar, in which
+% the tie-breaking policy was found to have a
+% significant effect on the performance when the search plateau is huge.
+% In the most commonly used  sorting strategies, $[f,h,\fifo]$ or $[f,h,\lifo]$, the search has a strong bias to focus on  either the regions of smaller (\fifo) or larger (\lifo) search depth of each $\plateau{f,h}$, which can cause a failure to find a solution within a given time limit.
+% 
+% To address the issue caused by the search bias within a plateau,
+% they proposed a notion of \emph{depth} and diversified the search over different depths
+% within a plateau. The depth $d(n)$ of a state $n$ is an integer representing 
+% the step-wise distance from the \emph{entrance} of the plateau (the most recent state which
+% entered the plateau, along the path from the initial state). 
+% % 
+% $d(n)=d(m)+1$ when $n$ and the parent node $m$ are on the same plateau.
+% For example, with strategy $[f,h,*]$, 
+% $\plateau{f(n),h(n)}=\plateau{f(m),h(m)}$, therefore
+% $f(n) = f(m) \land h(n) = h(m)$.
+% $d(n)$ is 0 otherwise.
+% The nodes are stored in buckets indexed by depth, and expansions are allocated across different buckets with equal probability at every iteration.
+% The resulting sorting strategy is denoted as $[f,h,\depth,*]$.
+
+For GBFS, to our knowledge, there is currently no
+well-established tie-breaking policy analogous to $h$-based tie-breaking for \astar.
+Presumably, this is  because
+while \astar has access to three cost values ($f$, $g$, and $h$),
+%% better to keep this footnote even without citations, just so we acknowledge that there are some "obvious" tiebreaking strategies.
+GBFS is guided solely by the heuristic value $h$.\footnote{Tie-breaking based on  $g$ is sometimes used, but this is motivated as a means to find higher-quality solutions. To our knowledge, in a satisficing context, tie-breaking strategies for reducing search effort have not been explicitly motivated or evaluated.} 
+As a consequence,
+improvements to  GBFS have been primarily achieved by addressing other aspects, such as
+modifying the evaluation scheme \cite[lazy evaluation]{richter2010lama}, queue alternation
+(multiple heuristic functions), preferred operators \cite{hoffmann01}, and diversification.
 
