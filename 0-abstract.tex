@@ -21,18 +21,24 @@ understanding. This dissertation proceeds as follows.
 After the introduction and the preliminary backgrounds, we first analyze
 and discuss the search space topology of various domain-independent
 planning problems with regard to $f$, the admissible lower-bound for the
-solution cost (\refchap{chap:topology}).  We show that, contrary to the
-conventional wisdom, these combinatorial problems possess the huge
-\emph{final plateau}, a set of nodes which has the same $f$ value as the
+solution cost (\refchap{chap:plateaus}).  We show that, contrary to the
+conventional wisdom, these combinatorial problems contain huge
+\emph{final plateaus}, a set of nodes which has the same $f$ value as the
 optimal solution cost $f^*$.
-
-Based upon this finding, we next investigate the behavior of existing
-tiebreaking strategy for \astar algorithm and propose a new strategy
-which significantly outperforms the existing strategies in several
-zero-cost domains (\refchap{chap:tiebreaking}).  In particular, we identify
+We next investigate the behavior of existing
+tiebreaking strategy for \astar algorithm and identify
 an important class of problems called \emph{Zerocost domains}, which are
 characterized by the huge number of zero-cost edges and makes the
 existing tiebreaking strategies useless.
+
+In the next chapter (\refchap{chap:tiebreaking}),
+we propose a notion of \emph{depth} in a plateau that explains the behavior of existing tiebreaking strategies
+in Zerocost domains and 
+propose a new strategy called \emph{depth diversification} strategy
+which significantly outperforms the existing strategies in several
+zero-cost domains.
+We analyze the behavior of depth diversification under some assumptions and
+verify that the expectation matches the empirical behavior.
 % 
 As a result, we show that there are still plenty room for improvements
 in the base search algorithms that can impact the search performance,

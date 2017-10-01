@@ -1,7 +1,7 @@
 
-\chapter[How to Explore the Final Frontier]{Tiebreaking Strategies for \astar Search: How to Explore the Final Frontier}
+\chapter[Depth Diversification]{Tiebreaking by Depth Diversification for \astar Search}
 
-\label{sec:depth}
+\label{chap:tiebreaking}
 
 As shown in the previous section, the search spaces of Zerocost domains have many 0-cost edges,
 resulting in a large final plateau ($\plateau{f^*,0}$). In a final plateau,
@@ -34,7 +34,7 @@ goals in the final plateau are cost-optimal, regardless of whether they are in s
 The depth $d(n)$ of a node $n$ is 0 when $n$ and
 the parent node $m$ are in the different plateaus,
 and $d(n)=d(m)+1$ when they are on the same plateau.
-As defined in \refsec{sec:preliminaries}, if two nodes are  on the same plateau, 
+As defined in \refchap{chap:background}, if two nodes are  on the same plateau, 
 they share the same key values for the sorting strategy.
 For example, when the strategy is $[f,h,*]$,
  % and $n$ and $m$ are on the same plateau,
