@@ -9,7 +9,7 @@
 
 #+ATTR_LATEX: :align |l|l|l|
 |---+--------------------------------------------------------+---------------------+---------------------|
-|   |                                                        | IPC+Zerocost (1724) | IPC+Zerocost (1724) |
+| / |                                                        | IPC+Zerocost (1724) | IPC+Zerocost (1724) |
 |   |                                                        |          $h=\lmcut$ |          $h=\mands$ |
 |   | Single-heuristic strategies                            |                     |                     |
 | / | $[f,h,\fifo]$                                          |                 814 |                 771 |

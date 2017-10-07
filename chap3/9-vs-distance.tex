@@ -235,11 +235,13 @@ When the primary heuristic is  \mands, $[f^\mands,h^\mands,\lifo]$ performs slig
 
 \begin{table}[htb]
 \centering
-\begin{tabular}{|p{5em}|p{8em}||p{10em}|p{10em}|}
+\setlength{\tabcolsep}{0.2em}
+\begin{tabular}{|p{4.2em}|p{7.5em}||p{9.4em}|p{9.7em}|}
 \hline
  Primary Heuristics & Zerocost domains
-                    & Zerocost IPC domains (\pddl{Cybersec}, \pddl{Openstacks})
-                    & Positive-cost IPC domains \\
+                    & Zerocost IPC 
+                    & Positive-cost IPC \\
+ & & (\pddl{Cybersec}, \pddl{Openstacks}) & \\ \hline
 \hline
 \lmcut & $[f,\ffo,\depth,\ro]$
        & $[f,h,\depth,\lifo]$
@@ -271,8 +273,8 @@ are the extrapolated results when the switching policy is applied -- this dynami
  \input{tables/8-1-summary-sum}
  \caption{
  % 
- Summary Results: Coverage comparison, the total of IPC domains and Zerocost domains (the number of instances
- solved in 5min, 4GB) between several sorting strategies, plus a dynamic configuration strategy.  $[f,h,\fifo],
+ Summary Results: Coverage comparison, the total number of instances in IPC and Zerocost domains (1724), 
+ solved in 5min, 4GB, with several sorting strategies, plus a dynamic configuration strategy.  $[f,h,\fifo],
  [f,h,\ro], [f,\hh,*], [f,h, \hh,*], [f,\ffo,*]$ are not shown because they achieve smaller coverage.
  % 
  }
