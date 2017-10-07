@@ -134,5 +134,102 @@ However, \citeauthor{valenzano2014comparison} disabled node-reopening in all the
 
 \chapter{Discussion and Conclusion}
 
+In this paper, we investigated the cost-optimal search using \astar and the satisficing search based on GBFS.
 
+
+\begin{comment} % the goals are unimportant
+We sought to
+(1) shed some light on the importance of tie-breaking in \astar,  %one of the most popular best-first search algorithms, 
+(2) improve \astar without modifying its main heuristic function at all, and (3) to
+improve \astar by introducing inadmissible techniques. We reached all of these goals successfully: We sought
+various possible enhancements and achieved significant performance improvements solely by the tie-breaking
+techniques. In detail, the contributions in this paper are the following:
+\end{comment}
+
+Our contributions are as follows:
+% \begin{enumerate} % It looks bad when an entire section is just an enumerated list, 
+ First, we showed that tie-breaking has a significant role in the cost-optimal
+       search using \astar. We empirically showed that most  IPC
+       benchmark instances have large plateaus with regard to $f$, and most of the
+       search effort is spent in the final plateau with $f=f^*$.
+
+ We then showed that  the commonly used tie-breaking policy based on $h$ value fails to
+       provide guidance in the plateau when problem instances have 0-cost
+       actions and have large plateaus with regard to $h$.
+       We empirically showed that most of the search effort can be spent in
+       the final plateau with $f=f^*, h=0$ in some domains, and noted that in such
+       a plateau, the search is controlled solely by the
+       default tie-breaking \fifo, \lifo or \ro.
+
+ We proposed  a new set of benchmark instances for cost-optimal planning, called Zerocost
+ domains, which contain many 0-cost actions.
+         We showed that Zerocost versions of IPC benchmark domains tend to have larger final plateaus with $f=f^*, h=0$ and pose a new challenge to traditional search algorithms.
+  % removed ``strictly harder than'' because ``strictly harder'' has a formal connotation, which is not our contribution.
+  % --- yes, and it is also an unproven claim: W[2]\not= Para-NP-hard is not proven yet
+       % I do not cite the meysam's paper here because I want to make my contribution clear.
+
+ As one approach to improving search performance in Zerocost domains, we proposed a depth metric
+       which measures the distance from the entrance to the
+       plateau. Using this metric, we described the pathological
+       behaviors of \fifo, \lifo and \ro, proposed a new diversification
+       strategy, theoretically and empirically showed that it avoids the
+       pathological behavior and achieves a better performance.
+
+We then introduced a new interpretation of cost-optimal \astar search as a series of satisficing
+       searches among $f$-cost plateaus of an increasing order of $f$. 
+%This opens  many opportunities for unifying work on satisficing search and cost-optimal search, as 
+%many techniques which have been developed for 
+%       satisficing search can be directly applied to plateau search in   cost-optimal search.
+This perspective led to another approach for effective tie-breaking in Zerocost domains, the use of
+       inadmissible distance-to-go estimates as part of a multi-heuristics tie-breaking strategy.
+       Combination of depth diversification and distance-to-go estimates results in the best overall performance. Although there is an additional cost to compute
+       multiple heuristic values, the overhead can be eliminated by a simple
+       case-based configuration which only uses multiple heuristics when 0-cost actions are present in the problem instance.
+
+Our reformulation of \astar as a sequence of satisficing searches  points to  an interesting direction for future work.
+Although we evaluated only one relatively simple, satisficing configuration ($\ffo$) in
+the experiments, many techniques which have previously been developed for satisficing planning can be applied to enhance tie-breaking (plateau-search) in cost-optimal search, including
+lazy evaluation \cite{richter2010lama}, alternating/Pareto open
+list \cite{RogerH10}, helpful actions (preferred operators) \cite{hoffmann01},
+random walk local search \cite{nakhost2009monte}, macro operators
+\cite{Botea2005,ChrpaVM15}, factored planning
+\cite{amir2003factored,brafman2006factored,Asai2015} and
+exploration-based search enhancements
+\cite{valenzano2014comparison,xie14type,Valenzano2016}.
+
+% Another direction for future work is implementing tie-breaking strategies for IDA* and similar linear-space
+% strategies like RBFS.
+% For example, how do we implement or simulate depth-based tie-breaking with a linear space usage?
+% \todo*{In fact, exploring the application of ``IDA* = series of satisficing seraches'' seems like an interesting
+% direction for future work, e.g., how to simulate depth-based tie-breaking (node ordering) in IDA*? IDA* is useful
+% for domains where memory limitations are the bottleneck, so keeping the depth buckets in memory may not be
+% possible. More broadly, linear space, best-first search including RBFS}
+
+Next, in an attempt to improve the satisficing search performance,
+we introduced the notion of \emph{Intra}- and
+\emph{Inter}-plateau exploration in satisficing heuristic search.
+While  previous work on exploration focused on inter-plateau exploration,
+we argued that intra-plateau exploration addresses orthogonal issues, and showed that 
+the type-based diversification framework originally developed for inter-plateau diversification could be used to unify intra- and inter-plateau diversification.
+We then showed empirically that these two modes of diversification have 
+orthogonal, complementary effects when implemented as diversification strategies for GBFS, % although "complementary" implies that they can be combined, this is worth explicitly emphasizing
+and showed that it is possible to combine intra/inter-plateau diversification, 
+resulting in better performance than either class of strategy alone is used.
+
+Next, we showed that type-based diversification is not sufficient for
+bias avoidance in graphs where nodes have largely varying number of
+neighbors, and proposed IP-diversification, a new breadth-aware
+diversification strategy which addresses this issue. We then showed that
+IP-diversification can be used as either intra- or inter-plateau
+exploration strategy, i.e., IP is a dual-mode diversification strategy
+unlike depth-diversification and $\brackets{g,h}$ type-based
+diversification, which are specialized for either intra- or
+inter-plateau exploration. %"bimodal" can be misinterpreted in the
+probability distribution sense of two peaks.  In addition, to our
+knowledge, this is the first successful fractal-inspired
+planning algorithm.
+
+Finally, we showed that incorporating these two new ideas (performing
+both intra/inter-plateau exploration, and IP-diversification) into
+FD/LAMA yields state-of-the-art performance on IPC benchmark instances.
 
