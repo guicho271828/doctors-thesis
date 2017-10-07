@@ -119,9 +119,9 @@ Applying our techniques to problems with slack is an avenue of future work.
 
 We theorized that we can understand the diversification of GBFS with
 respect to two orthogonal error axes of inter-plateau and intra-plateau
-errors. Recently, another idea for understanding the GBFS behavior,
-namely \emph{high water marks} \cite{wilt2014speedy} and \emph{benches} \cite{heusner2017understanding}, were proposed.
-Analyzing the interaction between these ideas and our understanding is future work.
+errors. Recently, another group of ideas for understanding the GBFS behavior,
+namely \emph{high water marks} \cite{wilt2014speedy} and \emph{benches} \cite{heusner2017understanding}, was proposed.
+Analyzing the interaction between these ideas and our framework is future work.
 
 While this paper investigated Bond-IP (the variant of Invasion Percolation which fixes random values to edges),
 the dual variant which fixes values on nodes is called \emph{Site IP}.
@@ -132,7 +132,7 @@ By itself, this would behave similarly to the $ro$ baseline strategy, if heurist
 However, \citeauthor{valenzano2014comparison} disabled node-reopening in all their experimental configurations, which, in effect, fixes the random value for each node and makes them behave similarly to SIP.
 
 
-\chapter{Discussion and Conclusion}
+\chapter{Conclusion and Future Work}
 
 In this paper, we investigated the cost-optimal search using \astar and the satisficing search based on GBFS.
 
@@ -186,17 +186,6 @@ This perspective led to another approach for effective tie-breaking in Zerocost 
        multiple heuristic values, the overhead can be eliminated by a simple
        case-based configuration which only uses multiple heuristics when 0-cost actions are present in the problem instance.
 
-Our reformulation of \astar as a sequence of satisficing searches  points to  an interesting direction for future work.
-Although we evaluated only one relatively simple, satisficing configuration ($\ffo$) in
-the experiments, many techniques which have previously been developed for satisficing planning can be applied to enhance tie-breaking (plateau-search) in cost-optimal search, including
-lazy evaluation \cite{richter2010lama}, alternating/Pareto open
-list \cite{RogerH10}, helpful actions (preferred operators) \cite{hoffmann01},
-random walk local search \cite{nakhost2009monte}, macro operators
-\cite{Botea2005,ChrpaVM15}, factored planning
-\cite{amir2003factored,brafman2006factored,Asai2015} and
-exploration-based search enhancements
-\cite{valenzano2014comparison,xie14type,Valenzano2016}.
-
 % Another direction for future work is implementing tie-breaking strategies for IDA* and similar linear-space
 % strategies like RBFS.
 % For example, how do we implement or simulate depth-based tie-breaking with a linear space usage?
@@ -233,3 +222,31 @@ Finally, we showed that incorporating these two new ideas (performing
 both intra/inter-plateau exploration, and IP-diversification) into
 FD/LAMA yields state-of-the-art performance on IPC benchmark instances.
 
+
+Our reformulation of \astar as a sequence of satisficing searches  points to  an interesting direction for future work.
+Although we evaluated only one relatively simple, satisficing configuration ($\ffo$) in
+the experiments, many techniques which have previously been developed for satisficing planning can be applied
+ to enhance tie-breaking (plateau-search) in cost-optimal search, including
+lazy evaluation \cite{richter2010lama}, alternating/Pareto open
+list \cite{RogerH10}, helpful actions (preferred operators) \cite{hoffmann01},
+random walk local search \cite{nakhost2009monte}, macro operators
+\cite{Botea2005,ChrpaVM15}, factored planning
+\cite{amir2003factored,brafman2006factored,Asai2015} and
+exploration-based search enhancements
+\cite{valenzano2014comparison,xie14type,Valenzano2016}.
+
+Another direction for future work is to reformulate those
+satisficing search algorithms into the simpler blind search algorithms,
+instead of trying to embed them directly as the subroutines for optimal search.
+This is because many of these methods are ad-hoc and 
+integrating them into the standard Best-First Search framework may not be straightforward.
+% 
+By proposing the inter/intra-plateau framework for understanding the diversification methods for GBFS,
+we effectively showed that \emph{satisficing search can be reduced to blind search}
+because the methods for either of the two modes of diversification are all knowledge-free, blind search algorithms.
+% Similar to the reduction of optimising search into satisficing search,
+This inspired us that a less-adhoc way to improve the satisficing search performance
+is by simply devising a better blind search algorithm.
+IP-based diversification was exactly one such instance.
+
+% Overall, we gradually reduced the optimal search algorithms into a less complicated, primitive algorithms.
