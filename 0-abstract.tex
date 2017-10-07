@@ -63,13 +63,13 @@ tiebreaking and exploration,
 and reformulate them as the orthogonal dimensions in the space
 of errors between a heuristic function $h$ and the true cost to goal $h^*$.
 We empirically verify this hypothesis by comparing the search performance between algorithms
-that has the same diversification mechanism applied to tiebreaking and $h$-value selection.
+where the same diversification mechanism is applied to either tiebreaking or $h$-value selection, or both.
 
 Since the diversification mechanism in both tiebreaking and exploration
 are based on \emph{knowledge-free}, blind search algorithms, we further
 conclude that satisficing search algorithms can be ultimately improved
 by developing the more sophisticated blind search algorithms.
-In \refchap{chap:ip}, we do exactly this: We propose a new
+In \refchap{chap:ip}, we propose a new
 diversification mechanism called \emph{Invation Percolation}, which is
 based on a fractal structure resulted by the minimum spanning tree on a
 search graph.
