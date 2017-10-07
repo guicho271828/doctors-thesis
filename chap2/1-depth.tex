@@ -78,6 +78,8 @@ are prone to failures due to pathological cases.
 
 \section{Depth-Based Tie-Breaking for A*}
 
+\label{sec:depth}
+
 In order to avoid focusing the search at the wrong depths (too shallow/deep), 
 the safest policy seems to be to simply \emph{diversify} the depths which are being searched,
 in order to avoid any depth-based biases which could lead to pathological behavior.
