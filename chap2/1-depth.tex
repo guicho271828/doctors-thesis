@@ -217,14 +217,95 @@ First, the default tie-breaking behavior is still susceptible to
 Second, in addition to accidental biases, there may be some nontrivial biases that require 
 sophisticated algorithms to be removed.
 
-Recent work  showed that the performance of a satisficing
-planner can be significantly affected by the order in which actions appear in a PDDL file \cite{vallati2015effective}.
-However, the conference version of this paper \cite{Asai2016} showed that
-the effect of such an accidental bias is not statistically significant in cost-optimal search,
-by comparing the performance on
-several sets of randomly ``mangled'' domains whose action names are replaced with random strings.
-Moreover, the \ro default tie-breaking should be unaffected by such an accidental bias.
-Thus, we believe it is safe to claim that the experimental results in this paper are not a product of such accidental biases.
+\subsubsection{Domain Configuration and Tiebreaking}
+
+%Moved this out of the depth-based evaluation section because we also evaluate [f,h,fifo] and [f,h,lifo], and the results show that all are robust wrto action ordering
+Recently, \citeauthor{vallati2015effective} showed that the performances of 
+satisficing planners were significantly affected by PDDL domain \emph{configurations}, which include the name/ordering of actions, propositions, and objects in the PDDL input file \citeyear{vallati2015effective}.
+% note that vallati et al. did not show that tiebreaking was affected -- they observed that performance of the planners was affected by configuration, and conjectured that the performance variation was due to the effects of configuration on tiebreaking.
+They conjectured that performance variations caused
+by different domain configurations are due to the impact that the naming/ordering of objects has on tiebreaking.
+% in \cite{vallati2015effective} p.7, col2, par#1
+In Fast Downward, action names can affect search performance, because FD 
+sorts the action schemas according to the dictionary
+order of the schema names, which affects the order of applicable ground
+actions, which in turn affects the node insertion order into OPEN.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+We tested the robustness of the standard $[f,h,\lifo]$ and $[f,h,\fifo]$ strategies, as well as $[f,h,\depth,\ro]$,
+with respect to 
+biases introduced by domain configuration (action naming) in the PDDL domain definition.
+We created 3 different sets of domains in which the
+original names of action schema are mangled into random strings. 
+%We only reordered the actions because in the FD codebase, the order of propositions has no effect on tiebreaking. --- let's avoid talking about anything other than action names, in case there are other configuration factors.
+%  XXXTODO CHECK whether above sentence correctly summarizes the sentence below.
+%% In contrast, we continued to use the variable ordering in the original domains
+%% because the effect of variable ordering is irrelevant to the tiebreaking
+%% criteria.
+% %We avoided the effect of action orderings by using the randomized third tiebreaking.
+%Each set of action-renamed domains contains all of the benchmark and zerocost domains.   %XX - can be inferred from table
+We ran each of the 3 strategies on each
+set of mangled domains, three times each with different random seeds,
+resulting in 9 runs per strategy (recall that robustness wrto random seed was shown in \refsec{sec:depth-based-evaluation}.)
+
+\begin{table}[tb]
+ \centering \relsize{-1}
+ \input{tables/aaai16-actionordering/aaai16prelim3random1_aaai16prelim3random2_aaai16prelim3random3_aaai16prelim3-_zrandom1_zrandom2_zrandom3_zerocost/1-1-all.tex}
+ \caption{Total coverages of $[f,h,\fifo]$, $[f,h,\lifo]$
+ and $[f,h,\depth,\ro]$ (with three seeds). Each row represents the original set of
+ domains or its three action-mangled variants. The effect
+ of action ordering is small enough for $[f,h,\depth,\ro]$ to
+ constantly perform better than the traditional tiebreaking methods.}
+ \label{actionordering-robustness}
+\end{table}
+
+The results are shown in \reftbl{actionordering-robustness}.
+We statistically analyzed the results for $[f,h,\depth,\ro]$ 
+to see if any of the 4 sets of domains
+significantly outperformed the others.
+%In order to test the significance of mean value,
+Fligner-Killeen's non-parametric test could not reject the homogeneity of variances
+($p=0.75$ for IPC, $p=0.26$ for Zerocost), so
+% Since the variances were not significantly different,
+we then applied the non-parametric Kruskal-Wallis test,
+% to see if there is any difference in the mean values between the original
+% population of the sample groups, 
+which showed that the mean differences were not significant
+($p=0.28$ for IPC, $p=0.44$ for Zerocost),
+% We first applied Fligner-Killeen's non-parametric test to see if the sample groups 
+% in each set of randomized domains share the same variance, 
+% but could not reject the homogeneity of variances ($p=0.74$).
+% Since the variances were not significantly different,
+% we could then apply the non-parametric Kruskal-Wallis test to see if
+% there is any difference in the mean values between the original
+% population of the sample groups, which showed that the differences were not significant ($p=0.26$),
+i.e., action name mangling did not significantly affect performance.
+
+Thus, in contrast to the results for satisficing search by \cite{vallati2015effective}, 
+the effect of action ordering  seems to be relatively weak for cost-optimal search using \astar.
+This may be because 
+compared to the satisficing, best-first search algorithms evaluated in \cite{vallati2015effective},
+the behavior of admissible search is more constrained.
+% $[f,h,\lifo]$, $[f,h,\fifo]$, and $[f,h,rd,\ro]$ are
+% because of the first-level tiebreaking according to $h$.
+%in that all nodes with cost $f$ must be expanded before any nodes with cost larger than $f$.
+% this is true for best-first-search in general, by definition.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Recent work showed that the performance of a satisficing planner can be
+% significantly affected by the order in which actions appear in a PDDL
+% file \cite{vallati2015effective}.
+% However, the conference version of this paper \cite{Asai2016} showed that
+% the effect of such an accidental bias is not statistically significant in cost-optimal search,
+% by comparing the performance on
+% several sets of randomly ``mangled'' domains whose action names are replaced with random strings.
+% Moreover, the \ro default tie-breaking should be unaffected by such an accidental bias.
+% Thus, we believe it is safe to claim that the experimental results in
+% this paper are not a product of such accidental biases.
+
+\subsubsection{Other Non-trivial Biases}
 
 % ``breadth direction'' example was not well defined, replaced with vague discussion of symmetry (combined with the next par); also removing ``non-trivial'' because trivial/nontrivial is not obvious and undefined.
 In addition to accidental biases, there may be other nontrivial biases such as some form of symmetry among states which can be removed using some tie-breaking criterion $X$.
