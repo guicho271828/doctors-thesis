@@ -8,7 +8,7 @@ Next, we evaluate the combined effect of intra/inter-plateau exploration when ap
 the LAMA2011 configuration in the current version of FastDownward,
 which incorporates a number of search enhancement techniques such as lazy evaluation, multi-heuristic search and preferred operators.
 In order to focus on coverage, we only run the first iteration (unit-cost GBFS) of LAMA, 
-denoted as $alt([\ff],\pref{\ff},[\lc],\pref{\lc})$, where
+denoted as \[ alt([\ff],\pref{\ff},[\lc],\pref{\lc}), \] where
 % $\ff$ denotes the FF heuristics,
 $\lc$ denotes the landmark-count heuristic
 and $\pref{X}$ denotes the preferred operator queue with sorting strategy $X$.
@@ -47,7 +47,8 @@ Finally, (db$^2$DB) incorporates all 4 methods into LAMA.
 Let $db$ denote $alt(\depth,\bip)$, alternation between depth and IP based diversification for intra-plateau exploration,
 and let $DB$ denote $alt(\brackets{g,\ff},\bip)$, alternation between type-based and IP based diversification for inter-plateau exploration.
 The resulting configuration,
-LAMA-db$^2$DB, incorporates all of the ideas proposed in this paper: {\small $alt\big([\ff,db], \pref{\ff}, [\lc,db], \pref{\lc}, DB\big)$.}
+LAMA-db$^2$DB, incorporates all of the ideas proposed in this paper:
+ \[ alt\big([\ff,db], \pref{\ff}, [\lc,db], \pref{\lc}, DB\big). \]
 This configuration alternates between type-based and IP diversification in each iteration.
 It allocates 1/5 of the entire search time to inter-plateau exploration 
 (same as the frequency with which Type-LAMA selects from $\brackets{g,\ff}$),
