@@ -12,12 +12,13 @@ Compared to BreadthFS/\fifo and \ro, the increase of nodes-per-depth by IP-diver
 Compared to Type-based diversification which shows linear nodes-per-depth, IP still exhibits exponential behavior because IP has no explicit mechanism for balancing  the search  efforts wrto depths. However, IP expands smaller number of nodes in the shallower region.
 Similar figures were obtained for other domains.
 
-\begin{figure}
+\begin{figure}[htbp]
+ \centering
  % \includegraphics{img/ipc2011-sat/barman-sat11/p20-intra.pdf}
  %% because barman is ``flat'' in a sense it does not have peaks but also ``bumpy'' in a sense that it has lots of noise
- \includegraphics{img/ipc2011-sat/visitall-sat11/p20-intra.pdf}
+ \includegraphics[width=0.39\linewidth]{img/ipc2011-sat/visitall-sat11/p20-intra.pdf}
  %% it is more reasonable to use the successful domain in the next table 
- \includegraphics{img/ipc2011-sat/tidybot-sat11/p08-intra-mod.pdf}
+ \includegraphics[width=0.39\linewidth]{img/ipc2011-sat/tidybot-sat11/p08-intra-mod.pdf}
  % \includegraphics{img/ipc2011-sat/elevators-sat11/p16-intra.pdf}
  \caption{Distribution of the evaluated nodes per depth.}
  \label{fig:distribution}
@@ -37,10 +38,8 @@ Comparison between \ro and hb indicate that the blind performance of IP is bette
 % Thus, the base performance of (hd), (hb) and (ro) are shown to 
 % These indicate that IP is a good candidate for improving the performance of heuristic search.
 
-\begin{table}[bt]
+\begin{table}[htbp]
 \centering
-\relsize{-1}
-% \setlength{\tabcolsep}{0.4em}
 \begin{tabular}{l|rrr|r}
    & h         & hb             & hd                & \ro       \\
  % & $[\fifo]$ & $[\bip,\fifo]$ & $[\depth,\fifo]$  & $[\ro]$ \\
