@@ -1,8 +1,7 @@
 \section{Analysis of Standard Strategies}
 \label{sec:eval-common-strategies}
 
-We first 
-we evaluated standard tie-breaking strategies for domain-independent cost-optimal
+We first evaluated standard tie-breaking strategies for domain-independent cost-optimal
 classical planning and analyze their performance differences.  
 In our experiments, all planners are based on Fast
 Downward, and all experiments are run with a 5-minute,
@@ -49,6 +48,20 @@ $[f,h,\lifo]$ and $[f,h,\fifo]$.  This may be surprising, considering
 the ubiquity of $h$-based tie-breaking in the search and planning
 communities.
 
+\begin{table}[tbp]
+ {
+ \centering
+ \input{tables/4-1-summary.tex}
+ \caption{
+ Summary of coverage comparison (the number of instances solved in 5min, 4GB, LMcut
+ heuristics) among
+ the standard baseline tie-breaking algorithms (details in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, leftmost 2 columns). 
+ }
+ \label{tbl:summary-std}
+ }
+\end{table}
+
+
 This is explained by the fact that 
 \lifo behaves somewhat similarly to $h$-based tie-breaking.
 \lifo expands the most recently generated node $n$.
@@ -86,19 +99,6 @@ standard deviation of the coverages. The performance of \ro is comparable to \fi
 of the primary heuristics, or the presence of $h$-based tie-breaking.
 \todo*{The baseline [f,h,ro] and [f,ro] are in the tables, but don't seem to be defined/mentioned/discussed at all in this section}
 
-\begin{table}[htbp]
- {
- \centering
- \input{tables/4-1-summary.tex}
- \caption{
- Summary of coverage comparison (the number of instances solved in 5min, 4GB, LMcut
- heuristics) among
- the standard baseline tie-breaking algorithms (details in \reftbl{tbl:lmcut-ipc-std} and \reftbl{tbl:mands-ipc-std}, leftmost 2 columns). 
- }
- \label{tbl:summary-std}
- }
-\end{table}
-
 \subsection{Plateaus and Tie-Breaking}
 
 \refig{fig:f-h-eval} provides a
@@ -110,7 +110,7 @@ As noted in Section \ref{sec:astar-background}, the choice among default criteri
 Our results suggest that 2nd-level default tie-breaking can have a surprisingly large effect on
 the search performance.
 
-\begin{figure}[htbp]
+\begin{figure}[tbp]
  \centering \relsize{-3}
  \includegraphics[width=\linewidth]{tables/aaai16-30min-5min-cut/aaai16prelim3/evaluated-lmcut_ff-lmcut_lf.pdf}
  \caption{The number of LMcut evaluations on various IPC planning benchmark domains,
@@ -154,7 +154,7 @@ A natural question is:  What makes these two domains
 (\pddl{Openstacks} and \pddl{Cybersec})  different from all other domains
 which have much smaller final plateaus?
 
-\begin{figure}[htbp]
+\begin{figure}[tbp]
    \centering
   \includegraphics[width=\linewidth]{tables/aaai16-frontier/aaai16prelim3/lmcut_frontier-front.pdf}
   \caption{

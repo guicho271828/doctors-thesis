@@ -13,7 +13,7 @@ the number of neighboring nodes sharing the same $h$ also becomes quite large.
 This creates huge plateaus that share the same $h$-value, and the standard $h$-based tie-breaking criterion can not provide informative guidance for search within a plateau.\todo*{why mention $f=f^*$ specifically here, instead of ``final plateau'' (f*,0) or just in general all plateaus?}
 Since the $g$-values of the nodes in these plateaus are all identical, these plateaus are an instance of $g$-value plateaus, which are known to increase the difficulty of search \cite{benton2010g}. %other papers use \shortcite when citing conf papers with long author lists (on the 2nd and subsequent citation of that paper?)
 
-\begin{figure}[htbp]
+\begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth]{img/astar/plateau-1.pdf}
  \caption{Search space of \astar and its contour according to admissible heuristic $h$. (\textbf{Right}) In domains with only positive-cost actions, $h$-based tie-breaking provides meaningful guidance. (\textbf{Left}) In domains with 0-cost actions, applying an action may not increase the cost of the path and the region with $h=0$ could be quite large. With the same mechanism, other heuristic plateaus (e.g. $h=1$) also become larger. Thus, $h$-based tie-breaking fails to provide meaningful guidance in this space.
@@ -171,7 +171,7 @@ in determining search performance.
 
 % summary data ?
 
-\begin{table}[htbp]
+\begin{table}[tbp]
  \centering
  \input{tables/5-std-zero-comparison-lmcut}
  \caption{
@@ -185,7 +185,7 @@ in determining search performance.
  \label{tbl:lmcut-zerocost-std}
 \end{table}
 
-\begin{figure}[htbp]
+\begin{figure}[tbp]
   \centering
   \includegraphics{tables/aaai16-frontier/zerocost/lmcut_frontier-front.pdf}
   \caption{
