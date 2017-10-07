@@ -90,7 +90,7 @@ Moreover, we can even use a multi-heuristic strategy which uses an inadmissible 
  For example, $[g+h^{\lmcut},\ffo]$ is an admissible sorting strategy
 because the first sorting criterion $f=g+h^{\lmcut}$ uses an admissible
 \lmcut heuristic. Its second sorting criterion, the distance-to-go FF
-heuristic \cite{Hoffmann01}, does not affect the admissibility of this entire sorting strategy.
+heuristic \cite{hoffmann01}, does not affect the admissibility of this entire sorting strategy.
 
 A potential problem with sorting strategies which use multiple heuristics is the cost of computing additional
 heuristic estimates. For example, $[g+h^{\lmcut},\ffo]$ requires more time to evaluate each node compared to a standard tie-breaking strategy such as $[g+h^{\lmcut},h^{\lmcut}]$ because computing the $\ffo$ heuristic incurs significant overhead per node while the results of $h^{\lmcut}$ can be reused by a caching mechanism.
