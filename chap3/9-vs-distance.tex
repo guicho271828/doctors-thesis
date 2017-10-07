@@ -120,13 +120,13 @@ In all configurations, the first sorting criterion is the $f=g+h$ value
 where $h$ is an admissible heuristic (either \lmcut or \mands) using the actual action-cost based  cost calculation.
 As the second (and third) criteria,
 we used $\hat{h}$, the distance-to-go version tested  of the original heuristic function $h$, as well as a distance-to-go variation of FF
-heuristic ($\hat{h}^{\ff}$).
+heuristic ($\ffo$).
 % , and a distance-to-go variation of
 % GoalCount heuristic ($\hat{h}^{\text{GoalCount}}$) which is added to
 % represent an uninformative but fast inadmissible heuristic function with
 % least additional overhead.
 We also added configurations with the depth metric within
-$\plateau{f,\hat{h}^{\text{\ff}}}$.
+$\plateau{f,\ffo}$.
 A summary of the results is shown in \reftbl{tbl:dtg-summary}.
 Detailed per-domain results are shown in \reftbls{tbl:dtg-lmcut-zero}{tbl:dtg-mands-ipc}.
 
@@ -137,11 +137,11 @@ Detailed per-domain results are shown in \reftbls{tbl:dtg-lmcut-zero}{tbl:dtg-ma
   (1)\, [h+g, & h,                      &*] & % \\\relax
   (2)\, [h+g, & h,     \quad   \hat{h}, &*] & % \\\relax
   (3)\, [h+g, & \hat{h},                &*]     \\\relax
-  (4)\, [h+g, & \hat{h}^{\ff},          &*] & % \\\relax
+  (4)\, [h+g, & \ffo,                   &*] & % \\\relax
   % not include it unless the reviewer complained. 
-  % (5)\, [h+g, & \hat{h}^{\text{GoalCount}},  &*]     \\\relax
-  (5)\, [h+g,   & h, \depth,                   &*] & % \\\relax
-  (6)\, [h+g,   & \hat{h}^{\text{FF}}, \depth, &*]     \\\relax
+  % (5)\, [h+g, & \hat{h}^{\text{GoalCount}}, &*]     \\\relax
+  (5)\, [h+g,   & h, \depth,                  &*] & % \\\relax
+  (6)\, [h+g,   & \ffo, \depth,               &*]     \\\relax
  \end{array}
  \]
  \vspace{-3em}
