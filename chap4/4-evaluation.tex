@@ -26,6 +26,9 @@ Following previous work \cite{valenzano2014comparison,xie14type}, all configurat
 because we focused on the coverage (number of problems solved within resource limit) for purely satisficing search. 
 Each experiment is run 10 times, and the means are shown in \reftbl{tbl:results}.
 
+% \input{tables/intra-inter.tex}
+\input{tables/gbfs.tex}
+
 First, 
 % 
 intra-plateau exploration \bi{hd} increases coverage for both heuristics
@@ -43,20 +46,21 @@ As a result, for both $\cg$ and $\ff$ heuristics, the \textbf{hdD} configuration
 This shows that combining intra/inter-plateau exploration methods which address orthogonal issues results in better overall performance than either type of exploration by themselves.
 % in the earlier version, we said this in the IP evaluation section, but better to highlight this result in this section so it's obvious the result is independent of IP and increase the value of the novel inter/intra framework.
 
-% \input{tables/intra-inter.tex}
-\input{tables/gbfs.tex}
+Based on these results, we conclude that
+Inter- and intra-plateau exploration address orthogonal issues and have complementary performance, and
+Combining inter- and intra-plateau exploration can result in better performance than either exploration alone.
 
+These observations imply that
+\emph{satisficing search can also be reduced to blind search}, similar
+to what we claimed in the previous chapters (the case optimal search was reduced to satisficing search).
+This is because the diversification strategies work independently from the heuristic functions (i.e. knowledge-free)
+and thus are essentially the blind search variants regardless of how it is applied, i.e. either as a intra-plateau or inter-plateau diversification method.
+As long as we use a single heuristic function $h$, any search strategy can be described
+by its behavior on the aforementioned two-dimentional error space, $(h,h^*)$,
+which is determined by the diversification method = blind search.
 
-Based on these results, we conclude that:
-%% inline list from enumitem
-% \begin{enumerate*}
-\begin{enumerate} % there's space, and these are the strongest results in the paper, so let's enum
-\item Inter- and intra-plateau exploration address orthogonal issues and have complementary performance; 
-%While the depth diversity $[h,\depth]$ and Type-GBFS $\brackets{h}$ configurations are both instances of bucket-based diversification,  
-%the way it is used has affected the performance.
-% XXX since these configs use different keys, it seems safer to avoid emphasizing that they are "the same"
-%% this second element is not so important
-% \item The benefits from each type of diversification (inter/intra-plateau) depend on the problem domain and heuristic used; and
-\item Combining inter- and intra-plateau exploration can result in better performance than either  exploration alone.
-\end{enumerate}
-% \end{enumerate*}
+Therefore, when the heuristic function being used is fixed,
+all we need to improve the satisficing search performance is a better blind
+search algorithm.  In the next chapter, we propose a new, randomized
+blind search algorithm based on Minimum Spanning Tree and Fractals.
+
