@@ -375,7 +375,7 @@ We provide a condition for this assumption to hold within this section.
 % after the depth-based diversification is applied.
 An example of running depth diversification with $w=3$ is depicted in \refig{fig:depth-distribution-analysis}.
 
-\begin{figure}[htbp]
+\begin{figure}[hp]
   \centering
   % \includegraphics{img/depth-distribution-analysis.png}
   \includegraphics{img/depth-distribution-analysis/depth.pdf}
@@ -410,16 +410,7 @@ Since $w\geq 2$, $w(D-d+1)\geq 2(D-d)+2>D-d$.
 % no nodes will be added to depth 0 during the search.
 % Also let $N=w(D-d+1)$ for readability.
 
-If there are no solutions, every depth-selection criterion, including least depth selection (\fifo) or largest depth selection (\lifo), expands the same set of nodes and results in the same distribution as depth diversification.
-For example, if the number of nodes in depth 0 is $D$, each $d$ is expanded $Dw^d$ times.
-However, their online characteristics are different.
-Under our assumptions, the $D-d$ distribution of depth diversification is an invariant which holds at any point in the search until the solution is found.
-In contrast, in \fifo, all nodes with $d<D-1$ are expanded, depth $d=D-1$ can take an arbitrary number of expansions $e \in [0, Dw^{D-1}]$ and $d\geq D$ are not expanded at all.
-In \lifo, for some $k\in [0,D_\mit{max}]$ (assuming the forest has a finite maximum depth $D_\mit{max}$), there can be a situation where all depths $d \in [0,k]$ get only 1 expansion each
-while all nodes in depths $d \in [k+1,D_\mit{max}]$ are expanded. In this case, the number of expansions in $d \in [k,D_\mit{max}]$ is exponential to $D_\mit{max}-k$ ($\sum_{i=k}^{i=D\mit{max}}w^{i-k}=\frac{1-w^{D\mit{max}-k+1}}{1-w}$) while the number of expansions in $d \in [0,k-1]$ is linear to $k$ (i.e. $k-1$). Such an imbalance during the search causes the pathological behavior mentioned above.
-
-
-\begin{figure}[htbp]
+\begin{figure}[hp]
   \centering
   % \includegraphics{img/depth-distribution-analysis-fifolifo.png}
   \includegraphics{img/depth-distribution-analysis/fifolifo.pdf}
@@ -427,6 +418,14 @@ while all nodes in depths $d \in [k+1,D_\mit{max}]$ are expanded. In this case, 
  \caption{FIFO and LIFO applied to a plateau
  with forest assumption and no-exhaustion assumption.}
 \end{figure}
+
+If there are no solutions, every depth-selection criterion, including least depth selection (\fifo) or largest depth selection (\lifo), expands the same set of nodes and results in the same distribution as depth diversification.
+For example, if the number of nodes in depth 0 is $D$, each $d$ is expanded $Dw^d$ times.
+However, their online characteristics are different (\refig{fig:depth-distribution-analysis-fifolifo}).
+Under our assumptions, the $D-d$ distribution of depth diversification is an invariant which holds at any point in the search until the solution is found.
+In contrast, in \fifo, all nodes with $d<D-1$ are expanded, depth $d=D-1$ can take an arbitrary number of expansions $e \in [0, Dw^{D-1}]$ and $d\geq D$ are not expanded at all.
+In \lifo, for some $k\in [0,D_\mit{max}]$ (assuming the forest has a finite maximum depth $D_\mit{max}$), there can be a situation where all depths $d \in [0,k]$ get only 1 expansion each
+while all nodes in depths $d \in [k+1,D_\mit{max}]$ are expanded. In this case, the number of expansions in $d \in [k,D_\mit{max}]$ is exponential to $D_\mit{max}-k$ ($\sum_{i=k}^{i=D\mit{max}}w^{i-k}=\frac{1-w^{D\mit{max}-k+1}}{1-w}$) while the number of expansions in $d \in [0,k-1]$ is linear to $k$ (i.e. $k-1$). Such an imbalance during the search causes the pathological behavior mentioned above.
 
 
 \todo*{maybe \lifo and \fifo should be analyzed wrto this forest model and compared directly to each other as well as
