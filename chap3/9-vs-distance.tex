@@ -71,7 +71,7 @@ heuristic function combined with distance-to-go estimates as an extension of Tem
 %  and showing that (non-admissibly) treating all actions as unit cost sometimes finds an optimal plan quickly.
 % Although it could find an optimal plan by chance, this does not guarantee the optimality of the solution.
 
-\subsection{Embedding Distance-to-Go Estimates in Admissible Search}
+\section{Embedding Distance-to-Go in Admissible Search}
 
 Although previous work on distance-to-go estimates assume a satisficing context,
 we show that distance-to-go estimates can be useful for cost-optimal search.
@@ -96,11 +96,14 @@ A potential problem with sorting strategies which use multiple heuristics is the
 heuristic estimates. For example, $[g+h^{\lmcut},\ffo]$ requires more time to evaluate each node compared to a standard tie-breaking strategy such as $[g+h^{\lmcut},h^{\lmcut}]$ because computing the $\ffo$ heuristic incurs significant overhead per node while the results of $h^{\lmcut}$ can be reused by a caching mechanism.
 When the inadmissible heuristic for tie-breaking is $\hat{h}$, i.e. a distance-to-go (unit cost) variant of the primary, admissible heuristic $h$, it may be possible to reduce this overhead to some extent by implementing $h$ and $\hat{h}$ so that they share some of the computation  -- this is a direction for future work.
 
-\subsubsection{Combining Distance-to-Go Estimates with Default Tie-Breaking and Depth Diversification} % added subsection to highlight the new combination of depth + d2go
+\subsection{Distance-to-Go Estimates with Default Tie-Breaking}
+% added subsection to highlight the new combination of depth + d2go
 
 Tie-breaking using distance-to-go estimates can still leave a set of nodes which are equivalent up to the distance-to-go criterion (multiple nodes can have the same $f$, $h$, and $\hh$ values), so additional level(s) of tie-breaking are necessary in order to select a single node. By adding a standard default criterion such as \fifo, \lifo, \ro, we obtain a sorting strategy that imposes a total order. For example, 
 $[f^{\lmcut},\ffo,\fifo]$
  applies \fifo after the distance-to-go estimate $\ffo$.
+
+\subsection{Distance-to-Go Estimates with Depth Diversification}
 
 Furthermore, it is possible to combine depth diversity based tie-breaking with distance-to-go estimates by applying the depth-diversity criterion after the distance-to-go estimate. For example, 
 $[f^{\lmcut},\ffo,\depth,\fifo]$ applies depth diversification criterion after the $\ffo$ distance-to-go estimate.
@@ -108,7 +111,7 @@ As we shall see below, a sorting strategy which performs tie-breaking using both
 
 
 
-\section{Evaluation of Distance-to-Go Estimates as Tie-Breaking Criteria for Admissible Search}
+\section[Evaluation]{Evaluation of Distance-to-Go Estimates as Tie-Breaking Criteria for Admissible Search}
 
 We tested various admissible sorting strategies on IPC domains and Zerocost domains.
 % on Zerocost domains  where tie-breaking strategies have the large impact.
