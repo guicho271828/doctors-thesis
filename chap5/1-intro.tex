@@ -8,11 +8,21 @@ is that it does not diversify with respect to breadth --
 nodes with equal estimated distance from goals ($h$), initial states ($g$) or plateau entrance ($d$) are put in a single set.
 This makes it susceptible to pathological behavior on graphs where some nodes have many more children than others.
 
-\begin{figure}[hbt]
+\begin{figure}[hbtp]
  \centering
- \includegraphics[width=\linewidth]{img/model3.pdf}
- \caption{Example case exhibiting large bias in the branching factor depending on the subgraph.}
+ \includegraphics[width=0.8\linewidth]{img/model/original.pdf}
+ \caption{Example case exhibiting the large bias in the branching factor depending on the subgraph.}
  \label{fig:model}
+\end{figure}
+
+\begin{figure}[hbtp]
+ \centering
+ \includegraphics[width=0.49\linewidth]{img/model/fifo3.pdf}
+ \includegraphics[width=0.49\linewidth]{img/model/lifo3.pdf}\\
+ \includegraphics[width=0.49\linewidth]{img/model/ro2.pdf}
+ \includegraphics[width=0.49\linewidth]{img/model/rd2.pdf}
+ \caption{$\fifo,\lifo,\ro,\depth$ all exhibit a pathological behavior due to the large number of successors and the large depth.}
+ \label{fig:model-pathological}
 \end{figure}
 
 Consider a blind search on the directed acyclic graph

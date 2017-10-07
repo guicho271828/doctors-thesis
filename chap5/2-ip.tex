@@ -5,7 +5,7 @@
 %We first review Invasion Percolation, which  simulates the distribution of fluid
 Invasion Percolation \cite{wilkinson1983invasion} simulates the distribution of fluid slowly %replacing/
 invading porous media, e.g., water replacing the air in a porous rock.
-We focus on a variant called bond IP (BIP), where ``bonds'' indicate edges in a lattice, and present the graph-based description by \citeauthor{barabasi1996invasion} (\citeyear{barabasi1996invasion}).
+We focus on a variant called bond IP (BIP), where ``bonds'' indicate edges in a lattice, and present the graph-based description by \citeauthor{barabasi1996invasion} \citeyear{barabasi1996invasion}.
 Given initial node(s) and a graph whose edges are assigned independent random values,
 % Each node has a flag indicating whether Initial nodes are 
 BIP iteratively marks the nodes.
@@ -13,7 +13,7 @@ Once assigned, the random value on each edge never changes.  The initial nodes a
 In each iteration marks an unmarked node to which the least-value outgoing edge leads.
 Marked nodes represent the porous sites whose air is replaced by the water (invader).
 % The algorithm proceeds as follows:
-\citeauthor{barabasi1996invasion} (\citeyear{barabasi1996invasion}) showed that
+\citeauthor{barabasi1996invasion} \citeyear{barabasi1996invasion} showed that
 this algorithm is equivalent to applying Prim's method for MST \cite{prim1957shortest} on a randomly weighted graph:
 Prim's method constructs an MST by iteratively adding a neighboring edge with the least edge costs
 to the existing tree.
@@ -37,6 +37,12 @@ at the leftmost edge of the rectangular region, i.e. the fluid percolates from t
 resulting structure has holes of various sizes that the fluid has not invaded, due to
 the high-valued edges surrounding the neighbors of the holes, which serve as an embankment preventing the water from invading. Since the random value
 on each edge is fixed, the algorithm does not mark the nodes inside the hole until it marks all nodes with smaller
-random values in the entire space outside the embankments.
+random values in the entire space outside the embankments (\refig{fig:embankment}).
 This behavior is critical to forming a fractal structure.
 
+\begin{figure}[tb]
+ \centering
+ \includegraphics[width=0.4\linewidth]{img/model/embankment.pdf}
+ \caption{Embankment effect}
+ \label{fig:embankment}
+\end{figure}

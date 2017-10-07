@@ -1,5 +1,5 @@
 \section{Invasion Percolation for Search Diversification}
-We adapt the BIP model as a exploration mechanism for best-first search.
+We adapt the BIP model as an exploration mechanism for best-first search.
 %% doesnt look so important --- pretty obvious
 % The basic idea is: Given a search graph that we would like to search in an unbiased manner,
 % we treat it as a graph with randomly assigned edge costs and apply BIP.
@@ -30,7 +30,7 @@ For inter-plateau exploration, we alternate the expansion between standard GBFS 
 
 %moving this after the ``IP for diversification'' heading because this text mentions search and expansions
 Consider applying BIP to the DAG in \refig{fig:model}.
-There is a non-negligible probability that the search finds the solution without expanding high-b branch:
+There is a non-negligible probability that the search finds the solution without expanding high-b branch (\refig{fig:ip-success}):
 This occurs when the value $v(H_1)$ of $H_1$ is higher than the value of any of $L_1\ldots L_4$,
 whose probability is 1/5
  (follows from $\int_0^1 dv(H_1) Pr(\forall i; v(L_i)\leq v(H_1)) = \int_0^1 x^4dx$). 
@@ -38,6 +38,15 @@ In this case, node $H_1$ is acting as an embankment, causing nodes in the  low-b
 In contrast, the opposite case is very unlikely:
 $L_1$ \emph{could} be expanded after expanding all of $H_{d,b}$ for $1\leq d\leq 4$ and $1\leq b \leq B$,
  but the probability of this,  $1/(2B+3)$,  is very small (assuming large $B$).
+
+\begin{figure}[htb]
+ \centering
+ % \includegraphics[width=0.8\linewidth]{img/model/bip1-1.pdf}
+ \includegraphics[width=0.49\linewidth]{img/model/bip1-1.pdf}
+ \includegraphics[width=0.49\linewidth]{img/model/bip2-1.pdf}
+ \caption{Examples where BIP successfully prevents the expansion of high-B branch.}
+ \label{fig:ip-success}
+\end{figure}
 
 Also consider the case when $H_1$ is expanded with probability $4/5$.
 Even if this embankment is broken, $H_3$ could act as another embankment again with probability $1/5$.

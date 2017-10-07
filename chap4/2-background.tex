@@ -27,7 +27,7 @@ The search then selects a random node in a random
 bucket, avoiding the cardinality bias among buckets.
 Since Type-GBFS does not sort the buckets according to the key vector, we use a different notation $\brackets{\ldots}$,
 such as $\brackets{g,h}$ denoting type buckets whose key values are $g$ and $h$.
-In the implementation evaluated by \citeauthor{xie14type} (\citeyear{xie14type}),
+In the implementation evaluated by \citeauthor{xie14type} \citeyear{xie14type},
 Type-GBFS alternates the exploitative (standard best-first order) expansion and the exploratory (randomized) expansion. We denote this 
  as $\mit{alt}([h,*], [\brackets{g,h},\ro])$.
 
